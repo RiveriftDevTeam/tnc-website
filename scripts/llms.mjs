@@ -4,8 +4,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
-const { default: en } = await import('../src/content/en.js');
-const { default: ar } = await import('../src/content/ar.js');
+const { dict } = await import('../src/content/index.js');
+const { en, ar } = dict;
 const { PLANS } = await import('../src/content/plans.js');
 const { PAGES, SITE_URL, APP_URL, PORTAL_URL } = await import('../src/content/site.js');
 

@@ -4,14 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: 'var(--tnc-accent)',
+        // colours that take an opacity modifier (bg-surface/70) resolve through their rgb triplet
+        ...Object.fromEntries(['accent', 'accent-soft', 'ground', 'surface', 'sunken', 'ink', 'splash', 'splash-ink'].map((n) => [n, ({ opacityValue }) => (opacityValue === undefined ? `var(--tnc-${n})` : `rgb(var(--tnc-${n}-rgb) / ${opacityValue})`)])),
         'accent-hover': 'var(--tnc-accent-hover)',
-        'accent-soft': 'var(--tnc-accent-soft)',
         'accent-ink': 'var(--tnc-accent-ink)',
-        ground: 'var(--tnc-ground)',
-        surface: 'var(--tnc-surface)',
-        sunken: 'var(--tnc-sunken)',
-        ink: 'var(--tnc-ink)',
         muted: 'var(--tnc-ink-muted)',
         subtle: 'var(--tnc-ink-subtle)',
         line: 'var(--tnc-line)',
@@ -19,8 +15,6 @@ module.exports = {
         warn: 'var(--tnc-warn)',
         critical: 'var(--tnc-critical)',
         delight: 'var(--tnc-delight)',
-        splash: 'var(--tnc-splash)',
-        'splash-ink': 'var(--tnc-splash-ink)',
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'var(--font-arabic)', 'system-ui', 'sans-serif'],

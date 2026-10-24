@@ -19,6 +19,7 @@ Next.js 14.1.3 (App Router, JS) · React 18 · Tailwind 3.4 · `three` 0.186 (th
 | Lint | `npm run lint` |
 | Every page, both languages, phone + desktop, light + dark: console errors, horizontal scroll, one h1, structured data | `npm run check -- http://localhost:4410 .shots` |
 | The Order page end to end in a browser | `npm run flow -- http://localhost:4410 .shots` |
+| The landing story frame by frame, desktop and phone | `npm run acts -- http://localhost:4410 .shots` |
 | Social image `public/og.png` | `npm run og` |
 
 The check and flow scripts use the Playwright that is installed globally on the VM and in the cloud image (`scripts/pw.mjs`); it is not a dependency of the site.
@@ -29,7 +30,7 @@ English at the root, Arabic under `/ar/…` (RTL, IBM Plex Sans Arabic, Latin di
 
 | Page | Path | Job |
 |---|---|---|
-| Home | `/` | the promise (the welcome story's headline), the problem, the story told by scroll (five beats of `docs/design/welcome-story-v2-2026-10-05.md`), the loop (tap → keep → remember → next step → outcome), the card in 3D, who it is for, privacy, pricing teaser, the final ask |
+| Home | `/` | **the landing story in one WebGL scene scrubbed by scroll** (`ScrollStory` + `StoryCanvas`): the hall full of people → two points of light cross it and touch (one ring) → the hall empties and names grey out → TapNConnect lights the thread and the people you met gather round you; the four buyers as chips on the first screen; then **who it is for** with one product vignette per buyer (`Vignettes`), the loop on one line, the one-year story as a dated timeline (`YearTimeline`), the card in 3D, the numbers, privacy, pricing teaser, the final ask |
 | How it works | `/how-it-works/` | before / during / after an event for visitor, exhibitor, organiser; the daily rhythm; six ways to capture; what the assistant may do alone |
 | For organisers · exhibitors · sponsors · companies · individuals | `/for/<persona>/` | one page per buyer: the ask, what you get, the journey, packages, questions people ask (FAQ structured data), the order button pre-selecting the kind |
 | Pricing | `/pricing/` | three tabs (people · companies and exhibitors · organisers and sponsors) from the one price list |
@@ -78,6 +79,8 @@ One door: `track(event, props)` pushes to `window.dataLayer`. Google Tag Manager
 Static HTML; first-load JS 95–99 kB (gzip ~35 kB) on every page; the 3D scene (110 kB gzip) arrives on idle, only when WebGL exists, the device is not low-end and `saveData` is off, renders only while on screen, and shows one still frame under reduced motion. Fonts are self-hosted and preloaded per language. Hashed assets are cached a year (`public/_headers`), with a CSP that allows only Stripe, Turnstile and GTM. `npm run check` fails on a console error or a horizontal scrollbar on any page at 390 px or 1280 px.
 
 ## Design
+
+The founder's direction (2026-10-24): the first screen must say what the product is and who it is for; the 3D tells the story of the touch (two fingertips a breath apart, the moment kept) and of what normally happens after (the hall empties, names fade) against what TapNConnect does (the thread stays lit); structure between beats, product pictures instead of paragraphs. The scene runs on vanilla three (a point shader for the crowd, billboard halos, scroll-scrubbed camera), reads scroll progress from a ref, renders only on screen, and shows one still frame under reduced motion.
 
 Gulf Water tokens (`src/styles/tokens.css`, the same names as the app's `tokens.css`): one petrol accent, warm sand neutrals, the teal→sand backdrop fixed to the viewport, domed frosted-glass cards, Geist + IBM Plex Sans Arabic, pill buttons, lucide icons only, both themes designed. One filled control per view; motion only on arrival and state change. The copy follows `docs/knowledge/plain-words.md` (no word from the ban list on a page).
 

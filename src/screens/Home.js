@@ -4,8 +4,9 @@ import { t } from '@/content';
 import { pathFor, JOIN_URL } from '@/content/site';
 import { PLANS, fmtAED } from '@/content/plans';
 import Cta from '@/components/Cta';
-import Hero3D from '@/components/Hero3D';
-import StoryBeats from '@/components/StoryBeats';
+import ScrollStory from '@/components/ScrollStory';
+import Vignette from '@/components/Vignettes';
+import YearTimeline from '@/components/YearTimeline';
 import TapCard3D from '@/components/TapCard3D';
 import Reveal from '@/components/Reveal';
 import JsonLd from '@/components/JsonLd';
@@ -14,91 +15,93 @@ import { graph, ldWebPage, ldSoftwareApp, ldProductCard, ldHowTo } from '@/lib/s
 
 const LOOP_ICONS = [Hand, Save, Brain, ListChecks, Trophy];
 const TRUST_ICONS = [Users, Lock, EyeOff, ShieldCheck];
+const WHO = ['organisers', 'exhibitors', 'sponsors', 'individuals'];
 
 export default function Home({ lang }) {
   const d = t(lang); const h = d.home;
-  const Arrow = () => <ArrowRight size={18} aria-hidden="true" className="rtl:rotate-180" />;
+  const Arrow = () => <ArrowRight size={16} aria-hidden="true" className="rtl:rotate-180" />;
   return (
     <>
-      {/* HERO */}
-      <section className="section pt-10 lg:pt-16">
-        <div className="wrap grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
-          <div>
-            <div className="eyebrow">{h.hero.eyebrow}</div>
-            <h1 className="t-display mt-4">{h.hero.h1}</h1>
-            <p className="lead mt-6 max-w-xl">{h.hero.sub}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Cta href={JOIN_URL} placement="hero">{h.hero.primary}</Cta>
-              <Cta href={pathFor('order', lang)} variant="tonal" placement="hero">{h.hero.secondary}</Cta>
-            </div>
-            <p className="mt-4 text-sm text-subtle">{h.hero.note}</p>
-          </div>
-          <Hero3D label={h.hero.sceneLabel} />
-        </div>
-      </section>
+      {/* ACT I–V: the hall, the touch, the fade, the thread, the circle */}
+      <ScrollStory
+        acts={h.acts} label={h.hero.sceneLabel} dir={d.dir}
+        chips={Object.entries(h.chips).map(([k, label]) => ({ href: pathFor(k, lang), label }))}
+        primary={h.hero.primary} primaryHref={JOIN_URL} secondary={h.hero.secondary} secondaryHref={pathFor('order', lang)}
+      />
 
-      {/* PROBLEM */}
-      <Section eyebrow={h.problem.eyebrow} h2={h.problem.h2} lead={h.problem.p}>
-        <div className="mt-10 grid gap-4 sm:grid-cols-3">
-          {h.problem.stats.map((s, i) => (
-            <Reveal key={s.l} delay={i * 0.06}><Card className="text-center"><div className="num text-5xl font-medium text-accent">{s.n}</div><div className="mt-2 text-muted">{s.l}</div></Card></Reveal>
+      {/* WHO IT IS FOR — the product itself, one picture per buyer */}
+      <Section id="who" eyebrow={h.who.eyebrow} h2={h.who.h2}>
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {WHO.map((k, i) => (
+            <Reveal key={k} delay={i * 0.05}>
+              <Link prefetch={false} href={pathFor(k, lang)} className="group block h-full rounded-sheet border border-line bg-surface/40 p-4 transition hover:-translate-y-0.5 hover:border-accent/40 sm:p-5">
+                <div className="mb-4 flex items-start justify-between gap-4">
+                  <div><h3 className="text-xl font-medium">{h.who.pitch[k].title}</h3><p className="mt-1 text-[.95rem] text-muted">{h.who.pitch[k].line}</p></div>
+                  <span className="mt-1 inline-flex shrink-0 items-center gap-1 text-sm text-accent">{d.cta.readMore} <Arrow /></span>
+                </div>
+                <Vignette kind={k} v={h.vignettes[k]} />
+              </Link>
+            </Reveal>
           ))}
         </div>
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-subtle">
+          <span>{h.who.sample}</span>
+          <Link prefetch={false} href={pathFor('companies', lang)} className="inline-flex items-center gap-1 text-accent">{h.who.pitch.companies.title}: {h.who.pitch.companies.line} <Arrow /></Link>
+        </div>
       </Section>
 
-      {/* STORY */}
-      <Section id="story" eyebrow={h.story.eyebrow} h2={h.story.h2} lead={h.story.intro}>
-        <div className="mt-10"><StoryBeats story={h.story} /></div>
-      </Section>
-
-      {/* LOOP */}
-      <Section id="how" eyebrow={h.loop.eyebrow} h2={h.loop.h2}>
-        <ol className="mt-10 grid gap-4 md:grid-cols-5">
+      {/* HOW IT WORKS — five verbs on one line */}
+      <Section id="how" eyebrow={h.how.eyebrow} h2={h.how.h2} className="pt-0">
+        <ol className="relative mt-10 grid gap-5 md:grid-cols-5 md:gap-4">
+          <span className="absolute start-5 top-6 bottom-6 w-px bg-line md:start-[10%] md:end-[10%] md:top-6 md:bottom-auto md:h-px md:w-auto" aria-hidden="true" />
           {h.loop.steps.map((s, i) => { const I = LOOP_ICONS[i]; return (
-            <Reveal key={s.title} delay={i * 0.05} as="li"><Card className="h-full">
-              <div className="flex items-center justify-between"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-soft text-accent"><I size={20} aria-hidden="true" /></span><span className="num text-sm text-subtle">{i + 1}</span></div>
-              <h3 className="mt-4 text-xl font-medium">{s.title}</h3><p className="mt-2 text-[.95rem] text-muted">{s.p}</p>
-            </Card></Reveal>
+            <Reveal key={s.title} delay={i * 0.05} as="li" className="relative ps-14 md:ps-0 md:text-center">
+              <span className="absolute start-0 top-0 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-ink shadow-glass md:relative md:mx-auto"><I size={22} aria-hidden="true" /></span>
+              <h3 className="mt-0 text-lg font-medium md:mt-4">{s.title}</h3><p className="mt-1.5 text-[.95rem] text-muted">{s.p}</p>
+            </Reveal>
           ); })}
         </ol>
-        <div className="mt-8"><Link href={pathFor('how', lang)} className="btn btn-quiet">{h.loop.link} <Arrow /></Link></div>
+        <div className="mt-8 md:text-center"><Link prefetch={false} href={pathFor('how', lang)} className="btn btn-quiet">{h.loop.link} <Arrow /></Link></div>
       </Section>
 
-      {/* CARD */}
-      <section className="section">
-        <div className="wrap grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      {/* ONE PERSON, ONE YEAR */}
+      <Section id="story" eyebrow={h.year.eyebrow} h2={h.year.h2} lead={h.year.p}>
+        <div className="mt-10"><YearTimeline story={h.story} /></div>
+      </Section>
+
+      {/* THE CARD */}
+      <section className="section pt-0">
+        <div className="wrap grid items-center gap-10 overflow-hidden rounded-sheet bg-splash px-6 py-12 text-splash-ink lg:grid-cols-2 lg:gap-16 lg:px-14">
           <Reveal><TapCard3D lang={lang} /></Reveal>
           <Reveal delay={0.08}>
             <div className="eyebrow">{h.card.eyebrow}</div>
             <h2 className="t-h1 mt-3">{h.card.h2}</h2>
-            <p className="lead mt-4">{h.card.p}</p>
-            <ul className="mt-6 space-y-2 text-muted">{h.card.bullets.map((b) => <li key={b} className="flex gap-3"><FileCheck size={20} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />{b}</li>)}</ul>
-            <div className="mt-8"><Cta href={pathFor('pricing', lang) + '#card'} variant="tonal" placement="card">{h.card.cta}</Cta></div>
+            <p className="lead mt-4 text-splash-ink/80">{h.card.p}</p>
+            <ul className="mt-6 space-y-2 text-splash-ink/85">{h.card.bullets.map((b) => <li key={b} className="flex gap-3"><FileCheck size={20} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />{b}</li>)}</ul>
+            <div className="mt-8"><Cta href={pathFor('pricing', lang) + '#card'} placement="card">{h.card.cta}</Cta></div>
           </Reveal>
         </div>
       </section>
 
-      {/* PERSONAS */}
-      <Section id="who" eyebrow={h.personas.eyebrow} h2={h.personas.h2}>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {Object.entries(h.personas.items).map(([k, p], i) => (
-            <Reveal key={k} delay={i * 0.05}><Link prefetch={false} href={pathFor(k, lang)} className="glass block h-full p-6 transition hover:-translate-y-0.5 hover:shadow-glass"><h3 className="text-lg font-medium">{p.title}</h3><p className="mt-2 text-[.95rem] text-muted">{p.p}</p><span className="mt-4 inline-flex items-center gap-1 text-sm text-accent">{d.cta.readMore} <Arrow /></span></Link></Reveal>
-          ))}
+      {/* THE NUMBERS */}
+      <Section eyebrow={h.outcomes.eyebrow} h2={h.outcomes.h2} className="pt-0">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {h.outcomes.items.map((s, i) => <Reveal key={s.l} delay={i * 0.05}><Card className="h-full"><div className="num text-5xl font-medium text-accent">{s.n}</div><div className="mt-2 text-muted">{s.l}</div></Card></Reveal>)}
         </div>
       </Section>
 
       {/* TRUST */}
-      <Section id="trust" eyebrow={h.trust.eyebrow} h2={h.trust.h2}>
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
+      <Section id="trust" eyebrow={h.trust.eyebrow} h2={h.trust.h2} className="pt-0">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {h.trust.items.map((s, i) => { const I = TRUST_ICONS[i]; return (
-            <Reveal key={s.title} delay={i * 0.05}><Card className="flex h-full gap-4"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent"><I size={20} aria-hidden="true" /></span><div><h3 className="text-lg font-medium">{s.title}</h3><p className="mt-1.5 text-[.95rem] text-muted">{s.p}</p></div></Card></Reveal>
+            <Reveal key={s.title} delay={i * 0.05}><Card className="h-full"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-soft text-accent"><I size={20} aria-hidden="true" /></span><h3 className="mt-4 text-lg font-medium">{s.title}</h3><p className="mt-1.5 text-[.95rem] text-muted">{s.p}</p></Card></Reveal>
           ); })}
         </div>
-        <div className="mt-8"><Link href={pathFor('trust', lang)} className="btn btn-quiet">{h.trust.link} <Arrow /></Link></div>
+        <div className="mt-8"><Link prefetch={false} href={pathFor('trust', lang)} className="btn btn-quiet">{h.trust.link} <Arrow /></Link></div>
       </Section>
 
-      {/* PRICING TEASER */}
-      <Section eyebrow={h.pricing.eyebrow} h2={h.pricing.h2} lead={h.pricing.p}>
+      {/* PRICING */}
+      <Section eyebrow={h.pricing.eyebrow} h2={h.pricing.h2} lead={h.pricing.p} className="pt-0">
         <div className="mt-10 grid gap-4 md:grid-cols-3">
           {PLANS.member.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.05}><Card className={`h-full ${p.featured ? 'ring-1 ring-accent' : ''}`}>
@@ -112,7 +115,7 @@ export default function Home({ lang }) {
       </Section>
 
       {/* FINAL */}
-      <section className="section">
+      <section className="section pt-0">
         <div className="wrap"><Reveal><div className="glass glass-strong px-6 py-14 text-center sm:px-12">
           <h2 className="t-h1 mx-auto max-w-3xl">{h.final.h2}</h2><p className="lead mx-auto mt-4 max-w-xl">{h.final.p}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3"><Cta href={JOIN_URL} placement="final">{d.cta.startFree}</Cta><Cta href={pathFor('order', lang)} variant="tonal" placement="final">{d.cta.orderCompany}</Cta></div>

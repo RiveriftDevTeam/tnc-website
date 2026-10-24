@@ -38,6 +38,8 @@
                   radial-gradient(900px 700px at 50% 110%, var(--tnc-backdrop-c) 0%, transparent 60%),
                   var(--tnc-ground);
   --tnc-chart-1: #0A9083; --tnc-chart-2: #C8791A; --tnc-chart-3: #3A6FD0; --tnc-chart-4: #D1487A; --tnc-chart-5: #6E56CF;
+  --tnc-accent-rgb: 11 95 107; --tnc-accent-soft-rgb: 215 238 241; --tnc-ground-rgb: 242 237 227; --tnc-surface-rgb: 255 255 255; --tnc-sunken-rgb: 237 230 218;
+  --tnc-ink-rgb: 20 32 31; --tnc-splash-rgb: 11 23 22; --tnc-splash-ink-rgb: 238 243 240;
   color-scheme: light;
 }
 
@@ -58,6 +60,8 @@
     --tnc-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3);
     --tnc-shadow-2: 0 18px 50px -24px rgba(0, 0, 0, 0.6);
     --tnc-shadow-float: 0 30px 80px -30px rgba(0, 0, 0, 0.7);
+    --tnc-accent-rgb: 102 212 224; --tnc-accent-soft-rgb: 15 58 64; --tnc-ground-rgb: 11 21 20; --tnc-surface-rgb: 19 32 32; --tnc-sunken-rgb: 14 25 24;
+    --tnc-ink-rgb: 238 243 240; --tnc-splash-rgb: 11 23 22; --tnc-splash-ink-rgb: 238 243 240;
     color-scheme: dark;
   }
 }
@@ -77,5 +81,7 @@
   --tnc-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3);
   --tnc-shadow-2: 0 18px 50px -24px rgba(0, 0, 0, 0.6);
   --tnc-shadow-float: 0 30px 80px -30px rgba(0, 0, 0, 0.7);
+  --tnc-accent-rgb: 102 212 224; --tnc-accent-soft-rgb: 15 58 64; --tnc-ground-rgb: 11 21 20; --tnc-surface-rgb: 19 32 32; --tnc-sunken-rgb: 14 25 24;
+  --tnc-ink-rgb: 238 243 240; --tnc-splash-rgb: 11 23 22; --tnc-splash-ink-rgb: 238 243 240;
   color-scheme: dark;
 }

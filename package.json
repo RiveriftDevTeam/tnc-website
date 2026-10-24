@@ -13,7 +13,8 @@
     "test": "node --test src/lib/*.test.mjs scripts/*.test.mjs",
     "og": "node --no-warnings scripts/og.mjs",
     "check": "node --no-warnings scripts/check.mjs",
-    "flow": "node --no-warnings scripts/flow.mjs"
+    "flow": "node --no-warnings scripts/flow.mjs",
+    "acts": "node --no-warnings scripts/acts.mjs"
   },
   "engines": {
     "node": "22"

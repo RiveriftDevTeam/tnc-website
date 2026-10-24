@@ -2,7 +2,7 @@
 
 TapNConnect is your AI assistant for the people in your life, at work and at home. Tap a card, keep what matters, get a draft when a word would count. Built in the UAE for events, exhibitors, companies and the people who meet them.
 
-Source: https://riveriftdevteam.github.io/tnc-website. Pages: https://riveriftdevteam.github.io/tnc-website/ · https://riveriftdevteam.github.io/tnc-website/how-it-works/ · https://riveriftdevteam.github.io/tnc-website/for/organisers/ · https://riveriftdevteam.github.io/tnc-website/for/exhibitors/ · https://riveriftdevteam.github.io/tnc-website/for/sponsors/ · https://riveriftdevteam.github.io/tnc-website/for/companies/ · https://riveriftdevteam.github.io/tnc-website/for/individuals/ · https://riveriftdevteam.github.io/tnc-website/pricing/ · https://riveriftdevteam.github.io/tnc-website/order/ · https://riveriftdevteam.github.io/tnc-website/trust/
+Source: https://tapnconnect.ae. Pages: https://tapnconnect.ae/ · https://tapnconnect.ae/how-it-works/ · https://tapnconnect.ae/for/organisers/ · https://tapnconnect.ae/for/exhibitors/ · https://tapnconnect.ae/for/sponsors/ · https://tapnconnect.ae/for/companies/ · https://tapnconnect.ae/for/individuals/ · https://tapnconnect.ae/pricing/ · https://tapnconnect.ae/order/ · https://tapnconnect.ae/trust/
 
 ## Home
 
@@ -118,6 +118,103 @@ Prices in AED, published once, the same list our sales assistant quotes.
 See every plan
 Meet people. Stay close. The rest follows.
 Start free today, or order for your company and be live within a working day.
+The relationship assistant for events · Dubai
+Stay close to the people you meet.
+One tap at the stand, and the person stays with you long after the hall empties. For visitors, exhibitors, sponsors and the organisers who bring them together.
+The moment
+One tap. The moment is kept.
+Who, where, when, and what you promised each other. No form, no typing, no app for the visitor.
+Met in person · Gulf Tech Expo · 14 Oct · Hall 4
+The next week
+Then the hall empties.
+A hundred handshakes become a pile of cards. Names fade. By day 47 the lead is cold and nobody knows why.
+TapNConnect
+TapNConnect keeps the thread alive.
+It remembers each person, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.
+One hall, four winners
+Everyone in the hall leaves with more than a badge scan.
+The visitor keeps a circle. The exhibitor gets accounts. The sponsor sees what it delivered. The organiser can prove it all.
+For organisers
+For exhibitors
+For sponsors
+For visitors
+Who it is for
+Built for the whole hall.
+Sample figures
+Event organisers
+Prove the relationships your event created, and sell the day after.
+Exhibitors
+Accounts with an owner and a drafted follow-up, not scan lists.
+Sponsors
+Banner reach counted honestly, and the people who tapped kept.
+Visitors and professionals
+A circle that lasts, with an assistant that remembers for you.
+Companies
+Relationship memory that stays when a salesperson leaves.
+Relationship report
+Gulf Tech Expo 2026
+4,812
+relationships created
+71%
+met in person
+1,206
+accounts progressed in 30 days
+Exhibitors who became hubs
+82 of 100
+Cross-industry clusters
+Next edition: CIOs engaged
+48%
+Accounts
+Stand B-14 · day 2
+Al Noor Trading
+5 conversations · 3 decision-makers · owner Mohammed
+Send proposal
+Qamar Bank
+2 conversations · CIO met in person
+Book a demo
+Oasis Energy
+1 conversation · pricing promised
+Send pricing
+Strongest relationship owns each account
+One click to CRM
+What your sponsorship delivered
+Gold · Gulf Tech Expo
+38,420
+banner views on screen
+1,912
+clicks
+Share of views · promised 25%
+delivered 27%
+Counted only when the banner was on screen. No cookie, no identity.
+Today
+Thursday
+mail
+Omar’s marathon is on Sunday. Wish him luck?
+Met at Gulf Tech Expo · he mentioned the race
+Send a note
+Not now
+check
+You promised Sara the pilot scope by Thursday.
+Said in your voice note · 14 Oct
+Draft it
+Later
+mail
+Yusuf changed company. Congratulate him?
+Introduced by Omar · now at Al Noor
+Send a note
+Not now
+How it works
+Five verbs, one loop.
+One person, one year
+Trust first. Business follows.
+Layla meets Omar in October. Eleven months later he asks her for a proposal. Everything in between is the assistant doing its job, and Layla saying yes.
+Why it matters
+The numbers behind the hall.
+100+
+people a visitor meets at a three-day show
+days before a warm lead goes quiet
+notes anyone keeps about what was said
+tap to keep all of it
 
 ## How it works
 
@@ -598,6 +695,103 @@ close
 كل الخطط
 تلتقي بالناس. تبقى قريبًا. والباقي يأتي.
 ابدأ مجانًا اليوم، أو اطلب لشركتك وكن جاهزًا خلال يوم عمل.
+مساعد العلاقات للفعاليات · دبي
+ابقَ قريبًا ممن تلتقي بهم.
+لمسة واحدة عند المنصة، ويبقى الشخص معك طويلًا بعد أن تفرغ القاعة. للزوار والعارضين والرعاة والمنظمين الذين يجمعونهم.
+اللحظة
+لمسة واحدة. واللحظة محفوظة.
+من، وأين، ومتى، وما وعد به كلٌّ منكما. لا نموذج ولا كتابة ولا تطبيق للزائر.
+لقاء شخصي · معرض الخليج التقني · 14 أكتوبر · القاعة 4
+الأسبوع التالي
+ثم تفرغ القاعة.
+مئة مصافحة تصبح كومة بطاقات. الأسماء تتلاشى. وفي اليوم 47 يبرد العميل المحتمل ولا أحد يعرف السبب.
+TapNConnect
+TapNConnect يبقي الخيط حيًّا.
+يتذكر كل شخص، ويخبرك متى تكون للكلمة قيمة، ويكتب المسودة الأولى. ولا يُرسل شيئًا دون موافقتك.
+قاعة واحدة، أربعة رابحين
+الكل يغادر القاعة بأكثر من مسح شارة.
+الزائر يحتفظ بدائرة. والعارض يحصل على حسابات. والراعي يرى ما حققه. والمنظم يثبت ذلك كله.
+للمنظمين
+للعارضين
+للرعاة
+للزوار
+لمن هو
+صُنع للقاعة كلها.
+أرقام عيّنة
+منظمو الفعاليات
+أثبت العلاقات التي صنعتها فعاليتك، وبِع اليوم التالي.
+العارضون
+حسابات لها مالك ومتابعة مكتوبة، لا قوائم مسح.
+الرعاة
+وصول الإعلان محسوب بصدق، ومن لمسوا محفوظون.
+الزوار والمهنيون
+دائرة تبقى، ومساعد يتذكر عنك.
+الشركات
+ذاكرة علاقات تبقى حين يغادر البائع.
+تقرير العلاقات
+معرض الخليج التقني 2026
+4,812
+علاقة صُنعت
+71%
+لقاء شخصي
+1,206
+حسابًا تقدم خلال 30 يومًا
+عارضون صاروا محاور
+82 من 100
+تجمعات بين القطاعات
+النسخة القادمة: مديرو تقنية تفاعلوا
+48%
+الحسابات
+المنصة B-14 · اليوم 2
+النور للتجارة
+5 محادثات · 3 صنّاع قرار · المالك محمد
+أرسل العرض
+بنك قمر
+محادثتان · لقاء شخصي مع مدير التقنية
+احجز عرضًا
+واحة للطاقة
+محادثة واحدة · وُعد بالأسعار
+أرسل الأسعار
+أقوى علاقة تملك كل حساب
+نقرة واحدة إلى CRM
+ما حققته رعايتك
+ذهبي · معرض الخليج التقني
+38,420
+مشاهدة إعلان على الشاشة
+1,912
+نقرة
+نصيب المشاهدات · الموعود 25%
+المحقق 27%
+يُحسب فقط حين كان الإعلان على الشاشة. لا ملف ارتباط ولا هوية.
+اليوم
+الخميس
+mail
+ماراثون عمر يوم الأحد. تتمنى له التوفيق؟
+لقاء في معرض الخليج التقني · ذكر السباق
+أرسل رسالة
+ليس الآن
+check
+وعدت سارة بنطاق التجربة بحلول الخميس.
+قلته في ملاحظتك الصوتية · 14 أكتوبر
+اكتبه
+لاحقًا
+mail
+يوسف انتقل إلى شركة جديدة. تهنئه؟
+عرّفك به عمر · الآن في النور
+أرسل رسالة
+ليس الآن
+كيف يعمل
+خمسة أفعال، حلقة واحدة.
+شخص واحد، سنة واحدة
+الثقة أولًا. والعمل يتبع.
+تلتقي ليلى بعمر في أكتوبر. وبعد أحد عشر شهرًا يطلب منها عرضًا. وكل ما بينهما هو المساعد يؤدي عمله، وليلى توافق.
+لماذا يهم
+الأرقام خلف القاعة.
++100
+شخصًا يقابلهم الزائر في معرض من ثلاثة أيام
+يومًا قبل أن يهدأ عميل محتمل
+ملاحظة يحتفظ بها أحد عما قيل
+لمسة لحفظ كل ذلك
 
 ## كيف يعمل
 
