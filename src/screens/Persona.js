@@ -7,6 +7,8 @@ import Faq from '@/components/Faq';
 import JsonLd from '@/components/JsonLd';
 import PersonaView from '@/components/PersonaView';
 import Vignette from '@/components/Vignettes';
+import { Photo } from '@/components/Media';
+import { MEDIA } from '@/content/media';
 import { Section } from '@/components/Section';
 import { graph, ldWebPage, ldBreadcrumb } from '@/lib/seo';
 
@@ -22,15 +24,17 @@ export default function Persona({ lang, persona }) {
     <>
       <PersonaView persona={persona} />
       {/* HERO on the dark splash: the ask on one side, the product on the other */}
-      <section className="bg-splash text-splash-ink">
-        <div className="wrap grid items-center gap-10 py-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:py-20">
+      <section className="on-dark relative bg-splash text-splash-ink">
+        <Photo item={MEDIA[persona]?.unsplash ? persona : null} alt={d.home.alts[persona]} scrim="start" priority className="absolute inset-0" />
+        <div className="absolute inset-x-0 bottom-0 h-32" aria-hidden="true" style={{ background: 'linear-gradient(180deg, rgba(11,23,22,0), rgba(11,23,22,.85))' }} />
+        <div className="wrap relative grid items-center gap-10 py-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:py-24">
           <div>
             <div className="eyebrow">{p.hero.eyebrow}</div>
             <h1 className="t-display mt-4">{p.hero.h1}</h1>
-            <p className="lead mt-5 max-w-xl text-splash-ink/80">{p.hero.sub}</p>
+            <p className="lead mt-5 max-w-xl">{p.hero.sub}</p>
             <div className="mt-8 flex flex-wrap gap-3"><Cta href={primaryHref} placement={`persona-${persona}`}>{primaryLabel}</Cta><Cta href={pathFor('pricing', lang)} variant="tonal" placement={`persona-${persona}`} className="!bg-white/10 !text-splash-ink hover:!bg-white/20">{c.seePricing}</Cta></div>
           </div>
-          <Reveal delay={0.1}><div className="text-ink"><div className="mb-2 text-xs text-splash-ink/60">{d.personas.hero.seeInside} · {d.home.who.sample}</div><Vignette kind={vKind} v={d.home.vignettes[vKind]} /></div></Reveal>
+          <Reveal delay={0.1}><div><div className="mb-2 text-xs text-subtle">{d.personas.hero.seeInside} · {d.home.who.sample}</div><Vignette kind={vKind} v={d.home.vignettes[vKind]} /></div></Reveal>
         </div>
       </section>
 
@@ -64,7 +68,7 @@ export default function Persona({ lang, persona }) {
 
       <Section className="pt-0"><Faq h2={c.faqH2} items={p.faq} /></Section>
 
-      <section className="section pt-0"><div className="wrap"><Reveal><div className="rounded-sheet bg-splash px-6 py-12 text-center text-splash-ink sm:px-12"><h2 className="t-h1">{c.ctaH2}</h2><p className="lead mx-auto mt-3 max-w-xl text-splash-ink/80">{c.ctaP}</p><div className="mt-8 flex flex-wrap justify-center gap-3"><Cta href={primaryHref} placement={`persona-${persona}-final`}>{primaryLabel}</Cta><Cta href={`${pathFor('order', lang)}#person`} variant="quiet" placement={`persona-${persona}-final`} className="!text-splash-ink/80 hover:!bg-white/10">{d.cta.talkToPerson}</Cta></div></div></Reveal></div></section>
+      <section className="section pt-0"><div className="wrap"><Reveal><div className="on-dark rounded-sheet bg-splash px-6 py-12 text-center text-splash-ink sm:px-12"><h2 className="t-h1">{c.ctaH2}</h2><p className="lead mx-auto mt-3 max-w-xl">{c.ctaP}</p><div className="mt-8 flex flex-wrap justify-center gap-3"><Cta href={primaryHref} placement={`persona-${persona}-final`}>{primaryLabel}</Cta><Cta href={`${pathFor('order', lang)}#person`} variant="quiet" placement={`persona-${persona}-final`} className="!text-splash-ink/80 hover:!bg-white/10">{d.cta.talkToPerson}</Cta></div></div></Reveal></div></section>
       <JsonLd data={graph(ldWebPage(persona, lang), ldBreadcrumb([{ key: 'home', name: d.brand }, { key: persona, name: d.nav.personas[persona] }], lang))} />
     </>
   );

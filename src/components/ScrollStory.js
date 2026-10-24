@@ -11,9 +11,9 @@ import useReducedMotion from '@/lib/useReducedMotion';
 import { track, EVENTS } from '@/lib/analytics';
 
 const StoryCanvas = dynamic(() => import('./StoryCanvas'), { ssr: false, loading: () => null });
-const ACTS = [[0, 0.17], [0.2, 0.42], [0.46, 0.6], [0.63, 0.8], [0.84, 1]]; // [in, out] by progress
+const ALL_ACTS = [[0, 0.17], [0.2, 0.42], [0.46, 0.6], [0.63, 0.8], [0.84, 1]]; // [in, out] by the scene's progress
 
-export default function ScrollStory({ acts, chips, primary, secondary, primaryHref, secondaryHref, label, dir = 'ltr' }) {
+export default function ScrollStory({ acts, chips, primary, secondary, primaryHref, secondaryHref, label, dir = 'ltr', from = 0 }) {
   const reduced = useReducedMotion();
   const [ready, setReady] = useState(false);
   const progress = useRef(0);
@@ -30,6 +30,8 @@ export default function ScrollStory({ acts, chips, primary, secondary, primaryHr
     return () => ('cancelIdleCallback' in window ? cancelIdleCallback(id) : clearTimeout(id));
   }, []);
 
+  const first = acts.length === 5 ? 0 : 5 - acts.length; // which scene act the first text block belongs to
+  const ACTS = ALL_ACTS.slice(first);
   useEffect(() => {
     if (reduced) return;
     const el = wrap.current; if (!el) return;
@@ -37,7 +39,7 @@ export default function ScrollStory({ acts, chips, primary, secondary, primaryHr
     const update = () => {
       raf = 0;
       const r = el.getBoundingClientRect(); const vh = window.innerHeight;
-      const p = Math.min(1, Math.max(0, -r.top / (r.height - vh)));
+      const p = from + (1 - from) * Math.min(1, Math.max(0, -r.top / (r.height - vh)));
       progress.current = p;
       ACTS.forEach(([a, b], i) => {
         const n = actRefs.current[i]; if (!n) return;
@@ -54,15 +56,15 @@ export default function ScrollStory({ acts, chips, primary, secondary, primaryHr
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
     update(); addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll);
     return () => { removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll); if (raf) cancelAnimationFrame(raf); };
-  }, [reduced]);
+  }, [reduced, from, ACTS]);
 
   const Act = ({ a, i, children }) => (
     <div ref={(n) => (actRefs.current[i] = n)} className={reduced ? 'py-10' : 'absolute inset-x-0 bottom-[12vh] top-auto transition-none sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2'} style={reduced ? undefined : { opacity: i === 0 ? 1 : 0 }}>
       <div className="wrap">
         <div className={`max-w-2xl ${i === 0 ? '' : 'ms-0'}`}>
           {a.eyebrow && <div className="eyebrow text-accent">{a.eyebrow}</div>}
-          {i === 0 ? <h1 className="t-display mt-3 text-splash-ink">{a.h}</h1> : <h2 className="t-h1 mt-3 text-splash-ink">{a.h}</h2>}
-          {a.p && <p className="lead mt-4 max-w-xl text-splash-ink/80">{a.p}</p>}
+          {i === 0 && first === 0 ? <h1 className="t-display mt-3 text-splash-ink">{a.h}</h1> : <h2 className={`${i === 0 ? 't-display' : 't-h1'} mt-3 text-splash-ink`}>{a.h}</h2>}
+          {a.p && <p className="lead mt-4 max-w-xl !text-splash-ink/85">{a.p}</p>}
           {a.chip && <div className="chip mt-4 num" style={{ background: 'rgba(102,212,224,.16)', color: '#9AE6EE' }}>{a.chip}</div>}
           {children}
         </div>
@@ -71,7 +73,7 @@ export default function ScrollStory({ acts, chips, primary, secondary, primaryHr
   );
 
   return (
-    <section ref={wrap} className={`relative bg-splash text-splash-ink ${reduced ? '' : 'h-[520vh] sm:h-[560vh]'}`} aria-label={label}>
+    <section ref={wrap} className={`on-dark relative bg-splash text-splash-ink ${reduced ? '' : (first === 0 ? 'h-[520vh] sm:h-[560vh]' : 'h-[380vh] sm:h-[420vh]')}`} aria-label={label}>
       <div className={reduced ? 'relative' : 'sticky top-0 h-[100svh] overflow-hidden'}>
         {/* first paint: a dark hall in CSS, before WebGL arrives */}
         <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? 'opacity-0' : 'opacity-100'}`} aria-hidden="true" style={{ background: 'radial-gradient(900px 500px at 50% 80%, rgba(102,212,224,.18), transparent 70%), radial-gradient(700px 400px at 20% 30%, rgba(240,217,181,.12), transparent 60%), #0B1716' }}>
@@ -83,14 +85,13 @@ export default function ScrollStory({ acts, chips, primary, secondary, primaryHr
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-splash to-transparent" aria-hidden="true" />
         {/* the acts */}
         <div className={reduced ? 'relative' : 'absolute inset-0'}>
-          <Act a={acts[0]} i={0}>
-            <div className="mt-6 flex flex-wrap gap-2">{chips.map((c) => <Link key={c.href} href={c.href} className="chip border border-white/15 bg-white/10 text-splash-ink hover:bg-white/20" style={{ minHeight: 34, fontSize: '.9rem' }}>{c.label}</Link>)}</div>
-            <div className="mt-7 flex flex-wrap gap-3"><Cta href={primaryHref} placement="hero">{primary}</Cta><Cta href={secondaryHref} variant="tonal" placement="hero" className="!bg-white/10 !text-splash-ink hover:!bg-white/20">{secondary}</Cta></div>
-          </Act>
-          <Act a={acts[1]} i={1} />
-          <Act a={acts[2]} i={2} />
-          <Act a={acts[3]} i={3} />
-          <Act a={acts[4]} i={4} />
+          {acts.map((a, i) => (
+            <Act key={a.h} a={a} i={i}>
+              {i === 0 && first === 0 && chips && <div className="mt-6 flex flex-wrap gap-2">{chips.map((c) => <Link key={c.href} href={c.href} className="chip border border-white/15 bg-white/10 text-splash-ink hover:bg-white/20" style={{ minHeight: 34, fontSize: '.9rem' }}>{c.label}</Link>)}</div>}
+              {i === 0 && first === 0 && primary && <div className="mt-7 flex flex-wrap gap-3"><Cta href={primaryHref} placement="hero">{primary}</Cta><Cta href={secondaryHref} variant="tonal" placement="hero" className="!bg-white/10 !text-splash-ink hover:!bg-white/20">{secondary}</Cta></div>}
+              {i === acts.length - 1 && primary && first > 0 && <div className="mt-7 flex flex-wrap gap-3"><Cta href={primaryHref} placement="story">{primary}</Cta><Cta href={secondaryHref} variant="tonal" placement="story" className="!bg-white/10 !text-splash-ink hover:!bg-white/20">{secondary}</Cta></div>}
+            </Act>
+          ))}
         </div>
         {!reduced && <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-xs text-splash-ink/50" aria-hidden="true">↓</div>}
       </div>

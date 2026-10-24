@@ -84,6 +84,12 @@
   .t-h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.2; font-weight: 500; }
   .lead { font-size: clamp(1.0625rem, 1.5vw, 1.25rem); line-height: 1.55; color: var(--tnc-ink-muted); }
   .hairline { border-top: 1px solid var(--tnc-line); }
+  /* a dark band inside a light page: the dark palette for everything inside it */
+  .on-dark { --tnc-accent: #66D4E0; --tnc-accent-hover: #9AE6EE; --tnc-accent-soft: #0F3A40; --tnc-accent-ink: #04262B; --tnc-accent-rgb: 102 212 224; --tnc-accent-soft-rgb: 15 58 64;
+    --tnc-ink: #EEF3F0; --tnc-ink-muted: #C9D3D0; --tnc-ink-subtle: #9FABA8; --tnc-ink-rgb: 238 243 240; --tnc-line: rgba(238,243,240,.14);
+    --tnc-surface: #132020; --tnc-surface-rgb: 19 32 32; --tnc-sunken: #0E1918; --tnc-sunken-rgb: 14 25 24; --tnc-glass: rgba(19,32,32,.72); --tnc-glass-strong: rgba(19,32,32,.88); --tnc-glass-border: rgba(238,243,240,.09);
+    --tnc-glass-sheen: linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 38%, rgba(255,255,255,0) 60%, rgba(0,0,0,0.12) 100%);
+    color: var(--tnc-ink); }
   .ring-tap { position: absolute; border-radius: 999px; border: 1px solid var(--tnc-accent); opacity: 0; animation: ring 2.4s cubic-bezier(.2,0,0,1) infinite; }
   @keyframes ring { 0% { transform: scale(.2); opacity: .9; } 70% { opacity: 0; } 100% { transform: scale(1.6); opacity: 0; } }
   .shimmer { position: relative; overflow: hidden; }

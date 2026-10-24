@@ -5,6 +5,9 @@ import { pathFor, JOIN_URL } from '@/content/site';
 import { PLANS, fmtAED } from '@/content/plans';
 import Cta from '@/components/Cta';
 import ScrollStory from '@/components/ScrollStory';
+import PhotoHero from '@/components/PhotoHero';
+import TakeItHome from '@/components/TakeItHome';
+import { MEDIA } from '@/content/media';
 import Vignette from '@/components/Vignettes';
 import YearTimeline from '@/components/YearTimeline';
 import TapCard3D from '@/components/TapCard3D';
@@ -22,12 +25,17 @@ export default function Home({ lang }) {
   const Arrow = () => <ArrowRight size={16} aria-hidden="true" className="rtl:rotate-180" />;
   return (
     <>
-      {/* ACT I–V: the hall, the touch, the fade, the thread, the circle */}
-      <ScrollStory
-        acts={h.acts} label={h.hero.sceneLabel} dir={d.dir}
-        chips={Object.entries(h.chips).map(([k, label]) => ({ href: pathFor(k, lang), label }))}
+      {/* THE HALL: a real exhibition, the promise, who it is for */}
+      <PhotoHero act={h.acts[0]} chips={Object.entries(h.chips).map(([k, label]) => ({ href: pathFor(k, lang), label }))}
         primary={h.hero.primary} primaryHref={JOIN_URL} secondary={h.hero.secondary} secondaryHref={pathFor('order', lang)}
-      />
+        video={MEDIA.heroVideo.pexels ? 'heroVideo' : null} poster={MEDIA.hall.unsplash ? 'hall' : null} alt={h.alts.hero} />
+
+      {/* DON'T LEAVE IT AT THE EVENT: three photographs */}
+      <TakeItHome take={h.take} alts={h.alts} />
+
+      {/* THE THREAD: the touch, the fade, the thread, the circle — one scene scrubbed by scroll */}
+      <ScrollStory acts={h.acts.slice(1)} from={0.2} label={h.hero.sceneLabel} dir={d.dir}
+        primary={h.hero.primary} primaryHref={JOIN_URL} secondary={h.hero.secondary} secondaryHref={pathFor('order', lang)} />
 
       {/* WHO IT IS FOR — the product itself, one picture per buyer */}
       <Section id="who" eyebrow={h.who.eyebrow} h2={h.who.h2}>
@@ -71,13 +79,13 @@ export default function Home({ lang }) {
 
       {/* THE CARD */}
       <section className="section pt-0">
-        <div className="wrap grid items-center gap-10 overflow-hidden rounded-sheet bg-splash px-6 py-12 text-splash-ink lg:grid-cols-2 lg:gap-16 lg:px-14">
+        <div className="on-dark wrap grid items-center gap-10 overflow-hidden rounded-sheet bg-splash px-6 py-12 text-splash-ink lg:grid-cols-2 lg:gap-16 lg:px-14">
           <Reveal><TapCard3D lang={lang} /></Reveal>
           <Reveal delay={0.08}>
             <div className="eyebrow">{h.card.eyebrow}</div>
             <h2 className="t-h1 mt-3">{h.card.h2}</h2>
-            <p className="lead mt-4 text-splash-ink/80">{h.card.p}</p>
-            <ul className="mt-6 space-y-2 text-splash-ink/85">{h.card.bullets.map((b) => <li key={b} className="flex gap-3"><FileCheck size={20} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />{b}</li>)}</ul>
+            <p className="lead mt-4">{h.card.p}</p>
+            <ul className="mt-6 space-y-2">{h.card.bullets.map((b) => <li key={b} className="flex gap-3"><FileCheck size={20} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />{b}</li>)}</ul>
             <div className="mt-8"><Cta href={pathFor('pricing', lang) + '#card'} placement="card">{h.card.cta}</Cta></div>
           </Reveal>
         </div>

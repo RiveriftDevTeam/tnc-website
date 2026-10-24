@@ -8,6 +8,16 @@ const story = {
       { eyebrow: 'TapNConnect', h: 'TapNConnect keeps the thread alive.', p: 'It remembers each person, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.' },
       { eyebrow: 'One hall, four winners', h: 'Everyone in the hall leaves with more than a badge scan.', p: 'The visitor keeps a circle. The exhibitor gets accounts. The sponsor sees what it delivered. The organiser can prove it all.' },
     ],
+    take: {
+      eyebrow: 'Don’t leave it at the event', h2: 'Take it home. Keep it alive.',
+      p: 'The hall is the most human place in business: aisles full of people walking, talking, sharing. The energy ends when the doors close. The relationships don’t have to.',
+      panels: [
+        { k: 'hall', title: 'At the event', line: 'Three days, a hundred conversations, the best energy in business.' },
+        { k: 'meet', title: 'Take it home', line: 'One tap keeps who, where, when, and what you promised each other.' },
+        { k: 'after', title: 'Keep it alive', line: 'The assistant enriches each person, tells you when a word would count, and writes it.' },
+      ],
+    },
+    alts: { hero: 'A busy exhibition hall: people walking the aisles between stands, talking and sharing.', hall: 'A crowded exhibition hall with visitors walking between booths.', meet: 'Two people talking at an exhibition stand.', after: 'Back at work after the event, the conversations kept.', organisers: 'A wide view of an exhibition hall full of visitors.', exhibitors: 'Visitors at a busy trade-show stand.', sponsors: 'Banners and crowds at an exhibition.', companies: 'Colleagues meeting at an event.', individuals: 'Two professionals in conversation at a networking event.' },
     chips: { organisers: 'For organisers', exhibitors: 'For exhibitors', sponsors: 'For sponsors', individuals: 'For visitors' },
     who: {
       eyebrow: 'Who it is for', h2: 'Built for the whole hall.', sample: 'Sample figures',
