@@ -18,7 +18,7 @@ export function Photo({ item, alt, className = '', scrim = 'none', priority = fa
     full: 'linear-gradient(180deg, rgba(11,23,22,.55), rgba(11,23,22,.7))',
   };
   return (
-    <div className={`relative overflow-hidden bg-splash ${className}`}>
+    <div className={`overflow-hidden bg-splash ${className}`}>
       {item && ok ? (
         <picture>
           <source media="(min-width: 768px)" srcSet={mediaUrl(`${item}-1920.jpg`)} />
@@ -48,7 +48,7 @@ export function HeroVideo({ item, poster, alt, className = '' }) {
     io.observe(v); return () => io.disconnect();
   }, [play]);
   return (
-    <div className={`relative overflow-hidden bg-splash ${className}`}>
+    <div className={`overflow-hidden bg-splash ${className}`}>
       <Photo item={poster} alt={alt} priority className="absolute inset-0" />
       {play && !failed && (
         <video ref={ref} className="absolute inset-0 h-full w-full object-cover" muted loop playsInline autoPlay preload="metadata" poster={poster ? mediaUrl(`${poster}-1920.jpg`) : undefined} onError={() => setFailed(true)} aria-hidden="true">
