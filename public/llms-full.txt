@@ -1,0 +1,709 @@
+# TapNConnect — full text
+
+TapNConnect is your AI assistant for the people in your life, at work and at home. Tap a card, keep what matters, get a draft when a word would count. Built in the UAE for events, exhibitors, companies and the people who meet them.
+
+Source: https://riveriftdevteam.github.io/tnc-website. Pages: https://riveriftdevteam.github.io/tnc-website/ · https://riveriftdevteam.github.io/tnc-website/how-it-works/ · https://riveriftdevteam.github.io/tnc-website/for/organisers/ · https://riveriftdevteam.github.io/tnc-website/for/exhibitors/ · https://riveriftdevteam.github.io/tnc-website/for/sponsors/ · https://riveriftdevteam.github.io/tnc-website/for/companies/ · https://riveriftdevteam.github.io/tnc-website/for/individuals/ · https://riveriftdevteam.github.io/tnc-website/pricing/ · https://riveriftdevteam.github.io/tnc-website/order/ · https://riveriftdevteam.github.io/tnc-website/trust/
+
+## Home
+
+TapNConnect — Stay close to the people you meet
+Your AI assistant for the people in your life, at work and at home. It keeps what matters to each of them, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.
+Your relationship assistant
+Stay close to the people you meet.
+Your AI assistant for the people in your life, at work and at home. It keeps what matters to each of them, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.
+Start free
+Order for your company
+Free for the people you meet. Plans in AED for companies and events.
+A circle of people around you, growing over a year.
+Why
+You meet hundreds of people a year. Your phone keeps a number.
+The conversation, the promise, the thing they care about: lost between a lanyard, a WhatsApp thread and a business card in a drawer. Nobody writes it down, because until now writing it down cost more than it was worth.
+20+
+contacts after one event day
+days before a warm lead goes quiet
+notes about what you actually discussed
+One person, one year
+Trust first. Business follows.
+Follow Layla through a year with the people she meets. The assistant saves, reminds, suggests and drafts. Every yes is hers.
+meet
+Two people meet.
+Met in person · Gulf Tech Expo · 14 Oct
+Omar runs the Dubai Marathon in January.
+Saved. I’ll remind you before the race.
+word
+It knows when a word matters.
+9 Jan
+Omar’s marathon is on Sunday. Wish him luck?
+Send a note
+Not now
+Thank you, Layla! 3:58 — coffee next week?
+Omar · the same day
+circle
+One person, many relationships.
+2 Jun
+Omar can introduce you to Yusuf at Al Noor. Ask him?
+Ask Omar
+Not now
+Omar introduced you · 2 Jun
+draft
+It drafts. You say yes.
+22 Sep
+Omar asked for a proposal.
+Omar, thank you for Tuesday’s call. Here is the proposal…
+Approve
+Not this one
+Sent · 11 months after you met
+close
+Trust first. Business follows.
+Sent · 11 months after you met
+A friend, a mentor, a client and the man he introduced. One circle, one year.
+Layla
+Omar
+Hana
+Noor
+Yusuf
+friend
+mentor
+client
+via Omar
+Al Noor
+you
+Your assistant
+How it works
+Capture is one gesture. The rest is the assistant’s job.
+Tap
+Tap a card, scan a badge or a QR, or hold to record a 20-second voice note. No form, no typing during the conversation.
+Keep
+“Save this memory?” is already filled: who, where, when, what they care about, what you promised. Edit is optional.
+Remember
+Ask in plain words: “Who did I meet at GITEX in cybersecurity that I haven’t spoken to in 90 days?” Every answer cites its evidence.
+Next step
+One morning brief with the three things that need you today, and the first draft of each message.
+Outcome
+A meeting, an introduction, a deal, a friend kept. The assistant asks “anything come of it?” and remembers the answer.
+See the full journey
+The card
+One tap. The card is the door, not the product.
+A tap card in our design, with your photo, logo and words. Tap it on any phone: your page opens, your details are exchanged with one yes, and both of you leave with the moment saved. Never required: a QR, a badge or a photo of a paper card does the same.
+Works on iPhone and Android without an app
+Your palette, light or dark; Arabic and English
+Met in person: the only proof is two phones, one moment, two yeses
+Get the card — AED 149 with a year of Plus
+Who it is for
+Built for the whole hall, and for the day after.
+Event organisers
+Prove what relationships your event created. Sell what nobody else can: the day after.
+Exhibitors
+Accounts, not scan lists. The Monday-morning hand-over, done by Friday evening.
+Sponsors
+See what your banner delivered, honestly, and keep the people who tapped.
+Companies
+Every relationship stays with the company when a salesperson leaves.
+Individuals
+Founders, consultants, brokers: never lose a person again.
+Privacy you can see
+The AI doesn’t need to know who you are to understand your relationships.
+Humans only
+Every person in your circle is someone you met, claimed or imported yourself. No bots, no bought lists, no scraping.
+Your graph is yours
+One isolated memory per member. An organiser sees counts, never names. An employer sees what you captured for them, nothing else.
+Names stay in a vault
+The model reasons over pseudonyms. A name is put back only on a purpose check, and every time it is, it is logged.
+Nothing goes out without a yes
+Every message, introduction and CRM push is shown first. You approve, edit or dismiss. Delete means delete, everywhere it was copied.
+How we handle your data
+Pricing
+Free for the people you meet. Plans for the ones who sell.
+Prices in AED, published once, the same list our sales assistant quotes.
+See every plan
+Meet people. Stay close. The rest follows.
+Start free today, or order for your company and be live within a working day.
+
+## How it works
+
+How TapNConnect works — before, during and after an event, and every day
+Tap, keep, remember, next step, outcome. How TapNConnect captures a relationship where it happens and keeps it alive, at an event and every day after.
+How it works
+A relationship, from the handshake to the outcome.
+One loop, five verbs. Here is what happens at an event and on an ordinary Tuesday.
+At an event
+Before
+Visitor
+Your profile and what you are looking for are known. The assistant tells you who is worth meeting and why.
+Exhibitor
+Target accounts and booth goals set. Warm paths to them surfaced from your team’s own relationships.
+During
+Visitor
+Tap or scan. Details are exchanged with one yes. A 20-second voice note becomes a memory with the promise in it.
+Exhibitor
+A visitor becomes an account with an owner, an intent and a suggested follow-up, before the hall closes.
+After
+Visitor
+You leave with a circle that persists, reminders set, and the follow-ups drafted for your yes.
+Exhibitor
+Prioritised accounts, who on the team knows each company, CRM-ready. The Monday hand-over done.
+And for the organiser
+A report that answers “what did those tap moments create?”: new and repeat relationships, cross-industry clusters, which exhibitors became hubs, what to target for the next edition. Counts and aggregates, never a visitor’s name.
+Every day after
+Morning
+Open Today
+Three cards: a relationship that needs attention, a promise due, a chance to connect. “Draft the three” is one tap.
+Meeting
+Hold to record
+The memory is already filled; nothing else appears.
+Between things
+Reply to one WhatsApp question
+“How was the meeting with Sarah? Anything to remember?” One reply, done.
+Weekly
+Decide on five
+Keep, let go, or ask about five relationships, one swipe each.
+Anytime
+Ask
+In the app, in WhatsApp, or in your own assistant (ChatGPT, Claude, Siri). Every answer with its evidence.
+Six ways to capture, one result
+Tap a card
+Scan a badge
+Scan a QR
+Photo of a paper card
+Voice note
+Forward a WhatsApp message
+Every one creates the same memory: who, where, when, what you discussed, what each of you promised. High-confidence captures save silently, with undo. A question is asked only when the answer changes what happens next.
+What the assistant may do on its own
+Save, remind, suggest and draft. It never sends, writes to your CRM or shares a name without your yes. After three identical yeses it offers, once, to make that one thing automatic. You can turn it back off in one sentence.
+Your assistant may send email after you approve.
+
+## For organisers
+
+TapNConnect for event organisers — prove the relationships your event created
+Sell the day after. A relationship report for every edition, exhibitor value you can show at renewal, sponsor reach with honest numbers, and a next-event engine. Counts and aggregates, never visitor data.
+For event organisers
+Prove what your event created. Then sell the day after.
+Registrations, footfall and scans say who came. TapNConnect says what happened between them, and what to do for the next edition.
+Reach → Relationships → Quality → Progress → Structure → Exhibitors → Next edition. Print-ready, sponsor-brandable, one story.
+Which exhibitors became hubs, how many accounts progressed in the 30 days after. Shown at renewal, not argued.
+Banner views counted only when the banner was on screen; clicks through a short redirect. No cookies, no identities.
+“We want 20 % more CIOs.” See who they engaged with, which sessions and channels worked, and target the campaign.
+Your edition with TapNConnect
+Set up
+One event, your exhibitor list, your package. We seat every exhibitor; attendee cards are issued for the show.
+Show days
+Live: which companies and industries are interacting, which stands are busy. Aggregates only.
+The report
+The relationship report lands after the last day, with the next-edition targets.
+The 365 days
+Your community keeps its circle; your sponsors keep their reach; you keep the proof for the next sale.
+Packages
+Pilot, Standard and Portfolio. Each is priced per event by a person, usually within a working day.
+Do organisers receive visitor data?
+No. You see counts and aggregates with a privacy floor on every attendee-attribute cell. A visitor’s circle belongs to the visitor.
+Do my exhibitors need an app?
+No. Booth staff work from a phone browser; visitors tap or scan without installing anything.
+Does it replace Cvent or Swapcard?
+No. They run the event; we run what happens between people and after. Write-back to Cvent and Swapcard is on the roadmap.
+How is it priced?
+Per event, by package. Tell us the show and the number of exhibitors on the Order page and a person confirms within a working day.
+
+## For exhibitors
+
+TapNConnect for exhibitors — accounts, not scan lists
+Every visitor your booth meets becomes an account with an owner, an intent and a drafted follow-up. Who on your team knows the company best, one click to your CRM. Priced per seat.
+For exhibitors
+Accounts, not scan lists.
+ABC Technologies: five conversations, three decision-makers, two existing relationships, one owner, one next step. Not “Lead 1 to 5”.
+Tap, badge, QR or a paper card. Two-tap notes for a loud hall: “send pricing”, “book a demo”, “decision maker”. Voice when it is quieter.
+Five staff meet one company; you see one page. The strongest internal relationship owns it.
+Follow-ups drafted for each account, in your voice, with the promise in them. One yes per message.
+Customers, meetings held, deals opened, repeat business. By salesperson, across events. Real meetings, not scans.
+Your show with TapNConnect
+Seats
+A Basic or Pro seat per person on the stand. Stand cards for the counter, where taps go to the company.
+The stand
+Today at the booth: who is here, who is worth a second conversation, what was promised.
+The evening
+The recap: accounts, owners, drafts waiting for a yes.
+The quarter
+Results: what came of it, and the people worth keeping warm until the next show.
+Seats
+Basic and Pro seats, with or without an event, plus stand cards. Priced per seat by a person within a working day.
+Do visitors need the app?
+No. They tap or scan and give one yes on their phone. They can claim their circle later, free.
+Does it work offline in a hall with weak signal?
+Captures are saved on the phone and sent when the signal returns.
+Which CRMs?
+Salesforce, HubSpot and Dynamics hand-over, with Marketo on the roadmap. The account page is CRM-ready even without an integration.
+Who owns the data?
+The company owns what its seats captured for it. A staff member’s personal circle is separate and stays theirs.
+
+## For sponsors
+
+TapNConnect for sponsors — what your sponsorship delivered
+Your banner on the event’s attendee cards and event page, rotated by tier. Views counted only on screen, no cookies, no identities. Keep the people who tapped with starter cards.
+For sponsors
+What your sponsorship delivered. Honestly.
+Your banner where people actually look: on the attendee cards they tap and the event page they open. Counted when it was on screen, never guessed.
+Platinum, Gold, Silver, Bronze decide where the logo shows, how large, and your share of banner views.
+A view counts only when the banner was on screen. A click goes through a short redirect. No cookie, no stored address.
+Two tap cards for your team for 90 days after the show: Ask, reminders, the advisor and follow-up, so the people who tapped stay in your circle.
+Reach, the tier’s promise against what was delivered, and your relationships, in the same portal as the exhibitors.
+Your sponsorship with TapNConnect
+Tier
+Chosen with the organiser, or ordered here.
+Banner
+Your artwork, the dates, the event. Live on the attendee cards and the event page.
+Reach
+Views and clicks as they happen, with the tier’s promise beside them.
+After
+Your starter cards keep working for 90 days. Upgrade to seats when you want more.
+Tiers
+Platinum, Gold, Silver and Bronze, with a published list price each. A person confirms within a working day.
+Is my banner on every member’s card?
+No. Only on attendee cards issued for the event you sponsor and on that event’s page in the app. A member’s own professional card is never ad space.
+Can I see who viewed it?
+No, and neither can we. We count views, not people.
+Is it ROI?
+We call it “what your sponsorship delivered” and compare it with the tier’s promise. Return needs the price you paid, which the organiser holds.
+
+## For companies
+
+TapNConnect for companies — relationship memory that survives staff churn
+Who in our company knows this person, and how well? Seats and cards for your team with or without events, a shared pool of AI credits, and every relationship kept by the company.
+For companies
+Who in our company knows this person? And how well?
+Every relationship your team captures stays with the company when the salesperson leaves. Work accounts, separate from personal ones, by design.
+One page per company you deal with: who met whom, what was discussed, what was promised, who owns it.
+A seat is a work account with the work e-mail. A person’s own circle is theirs; what they capture for you is yours.
+Price lists, case studies, playbooks: the sales specialist drafts with them, with the source on every line.
+The hand-over to Salesforce, HubSpot or Dynamics is one click, with the context the CRM never had.
+Your year with TapNConnect
+Seats and cards
+Pick seats and cards for the team. Invite them by work e-mail.
+Capture everywhere
+Meetings, calls, trade shows, the Deira shop counter. Tap, voice, WhatsApp.
+Monday
+Each seat’s brief; each account’s owner; the drafts waiting for a yes.
+Results
+Customers, repeat business, introductions. By person, by quarter.
+The everyday plan
+Seats, cards and a monthly AI pool on a 12-month term. Priced by seats and cards by a person within a working day.
+Does it read our inboxes?
+No. We never mine mail. Relationships enter through what your team captures, imports from their own contacts, or hands over.
+Can we start without an event?
+Yes. The everyday plan has no event in it; add events when you exhibit.
+Where is the data kept?
+In the UAE (Azure UAE North). Names are kept in a vault and the AI works on pseudonyms.
+
+## For individuals
+
+TapNConnect for individuals — never lose a person again
+Founders, consultants, investors, recruiters, brokers. Free to start: your card, everyone you meet, 30 voice notes a month. Plus adds your assistant for AED 39 a month.
+For individuals
+Never lose a person again.
+For the people whose work is relationships: founders, consultants, investors, recruiters, brokers. The one right person instead of a broadcast.
+Where did I meet Sarah, what did we discuss, what did I promise? Answered, with the evidence.
+A brief before tomorrow’s meeting: last time, open promises, what changed at their company.
+Three messages drafted every morning for the relationships that need a word today. You say yes.
+Quiet relationships surfaced before they go cold. Who can introduce you, from your own circle.
+Your first week
+Day 1
+Create your card in two minutes. Import your contacts if you like; they stay yours.
+Day 2
+Meet someone. Tap, or hold to record. “Save this memory?” Yes.
+Day 3
+Today shows its first card. You send the first note.
+Week 2
+You ask the assistant something you had forgotten. It knew.
+Plans
+Free keeps your card and your people. Plus is AED 39 a month, or AED 390 a year. The card is AED 149 with a year of Plus.
+Is Free really free?
+Yes. Your card, everyone you meet, 30 voice notes a month and 30 AI credits a day, with no card required.
+Can I use my own AI assistant?
+Yes, on Plus and above. Your circle answers inside ChatGPT, Claude or Siri through a connection you approve and can revoke.
+What happens to my data if I leave?
+Delete means delete: your circle, your memories and every copy derived from them, within the legal retention periods we publish.
+
+## Pricing (words)
+
+TapNConnect pricing — plans in AED for people, companies, exhibitors, organisers and sponsors
+Free, Plus (AED 39 a month) and Pro (AED 99 a month) for people. The card for AED 149 with a year of Plus. Seats, company plans, event packages and sponsor tiers priced per order within a working day.
+Pricing
+One price list. The same one our sales assistant quotes.
+Prices in AED, VAT shown at checkout. Starting values; the founder publishes every change here first.
+For people
+For companies and exhibitors
+For organisers and sponsors
+a month
+a year
+one time
+Free
+Most chosen
+or {price} a year
+Priced per order
+A person confirms the price within a working day. Card or bank transfer.
+The card
+When you need more
+AI credits and voice minutes, one-time, no subscription.
+Seats for your team
+The everyday company plan
+Event packages
+Sponsor tiers
+Platinum, Gold, Silver and Bronze decide placement, logo size and the share of banner views. List prices are confirmed on order.
+Questions about paying
+Which currency and taxes?
+AED. VAT is added at checkout for UAE customers. Stripe issues the receipt.
+Card or bank transfer?
+Card for individuals and small company orders. Bank transfer for orders of AED 20,000 and above, and for organisers and sponsors.
+When is my plan live?
+Card-paid orders are usually live within minutes after a person checks them; every other order within a working day.
+Can prices change?
+Yes, and when they do, existing subscribers keep their price until they are moved, with notice.
+Prices and what each plan includes are read from the published price list. If a number here and a number in the app ever differ, the app is right and we fix this page.
+
+## Price list
+
+- Free: free — Your card and the people you meet.
+- Plus: AED 39 a month or AED 390 a year — Your assistant, unlimited voice notes and reminders for every relationship.
+- Pro: AED 99 a month — Every specialist and unlimited questions about your network.
+- The card: AED 149 one time — A tap card with a year of Plus included.
+- 1,000 AI credits: AED 19 one time
+- 5,000 AI credits: AED 79 one time
+- 100 voice minutes: AED 9 one time
+- Basic seat (per person): priced per order by a person
+- Pro seat (per person): priced per order by a person
+- Everyday company plan (12-month term): priced per order by a person
+- Event package Pilot: priced per order by a person — One hall, one edition: the relationship report and 300 AI credits a day per seat.
+- Event package Standard: priced per order by a person — The whole show: every exhibitor seated, the report, sponsor reach, 1,000 credits a day per seat.
+- Event package Portfolio: priced per order by a person — Several editions and shows, compared, 3,000 credits a day per seat.
+- Sponsor tiers: Platinum, Gold, Silver, Bronze — list price confirmed on order
+
+## Order
+
+Order TapNConnect for your company
+Pick a package, tell us about your company, pay by card or bank transfer. Your plan is usually live within a working day; small card-paid orders in minutes.
+Order
+Order TapNConnect for your company.
+Pick a package, tell us about your company, pay. Your plan is usually live within a working day; small card-paid orders in minutes.
+Sales assistant
+Answers only from the price list. For anything else, a person.
+Who are you ordering for?
+An exhibitor
+An everyday company
+An organiser
+A sponsor
+Myself
+Which event, if any?
+No event
+Type the event name
+How many people need seats?
+Which tier are you thinking of?
+Roughly how many exhibitors?
+Which plan?
+Skip to the order form
+Or type anything about your order
+For {n} people on the stand I’d suggest {n} Pro seats so each account gets a drafted follow-up and your CRM hand-over, plus stand cards for the counter. Basic seats fit colleagues who only capture. The seat price is confirmed by a person within a working day.
+For {n} people without an event, the everyday company plan fits: seats and cards for the team and a shared monthly AI pool on a 12-month term. The price is confirmed by a person within a working day.
+For about {n} exhibitors the Standard package fits: every exhibitor seated, the relationship report, sponsor reach, 1,000 AI credits a day per seat. Pilot is one hall; Portfolio compares editions. Organiser orders are always confirmed by a person.
+A {tier} tier decides placement, logo size and your share of banner views at the event, with two starter cards for 90 days after. The list price is confirmed by a person within a working day.
+Plus is AED 39 a month or AED 390 a year; Pro is AED 99 a month; the card is AED 149 with a year of Plus. You can also buy these inside the app.
+I can’t promise that; a person can. Shall I pass this on?
+Yes, pass it on
+No, continue
+Your order
+Every field is editable.
+Ordering as
+Event (optional)
+Pro seats
+Basic seats
+Stand cards
+Package
+Tier
+Plan
+Company
+Legal name as on the trade licence
+Trade licence number
+Emirate
+Licence document (PDF or photo)
+Website
+The admin
+Your name
+Work e-mail
+Public mailboxes are refused: use your company e-mail. We send a code before payment.
+I accept the terms, the privacy notice and the data processing terms.
+Read them
+Review the order
+Back
+Total
+Computed from the price list. Items marked “per order” are confirmed by a person before you pay.
+per order
+Abu Dhabi
+Dubai
+Sharjah
+Ajman
+Umm Al Quwain
+Ras Al Khaimah
+Fujairah
+Check before you pay
+Pay by card
+Pay by bank transfer
+Send the order for a quote
+Offered for orders of AED 20,000 and above, and for organisers and sponsors. Your order is reserved for 7 working days.
+A person prices this order and writes to you within one working day. Nothing is charged now.
+Order received — {ref}
+We are checking it now. You will hear from us by e-mail at {email} within one working day; card-paid orders are usually live within minutes.
+Bank details are in the e-mail. Reference {ref}. Your order is reserved for 7 working days.
+Three things to do first once your plan is live: invite your team, make your cards, pick your events.
+Back to the start
+Talk to a person
+A custom deal, a multi-event contract, an invoice first, or a question the assistant can’t answer: write to us and a person replies within one working day.
+Write to us
+E-mail
+Needed
+Use your company e-mail address
+Public mailboxes are refused: use your company e-mail
+Couldn’t send the order. Write to {email} with your details and we take it from there.
+
+## Privacy and trust
+
+Privacy and trust at TapNConnect — how we handle your data
+Humans only, one isolated graph per member, names in a vault with the AI on pseudonyms, no scraping, consent on every message, delete means delete. Data in the UAE.
+Privacy and trust
+Privacy is a feature you can see, not a page you can find.
+What we built so that the AI does not need to know who you are to understand your relationships.
+Every node in your circle is a human you met, claimed or imported from your own contacts. No agent, bot or synthetic contact is ever added, whatever assistant asks. Proof of meeting is two phones, one moment, two yeses, shown as “met in person”. Never a selfie gate or a biometric check.
+One isolated memory per member. A company sees what its seats captured for it. An organiser sees counts and aggregates with a privacy floor. Nothing crosses between members except an introduction both sides said yes to.
+Names and contact details live in an identity vault. The AI reasons over identifiers like PERSON-8472. A controlled resolver puts the name back only on a permission and purpose check, and every resolution is logged. Personal data is found by a named-entity model, never a name list.
+Every memory carries its source: who captured it, where, when, how. A deletion request becomes a traversal and a cascade, including to CRM rows derived from it. Delete means delete.
+We never scrape LinkedIn or Instagram and never read your inbox. Enrichment comes from company websites, official APIs, your own exports and what a person hands you.
+Every message, introduction, calendar invite and CRM push is shown first. You approve, edit or dismiss. After three identical yeses the assistant offers, once, to make that one thing automatic; you can turn it off in a sentence.
+Azure UAE North for the system of record and the vault. Audio of a voice note is deleted after it is transcribed. Public cards hold no phone or e-mail in their page source when the popup is on.
+An honest limit: this is engineering, not a certificate. We publish the legal documents, the sub-processors and the pentest findings as they are closed. Ask us for the trust pack.
+The documents
+Privacy notice, terms, cookies and the data processing terms, in English and Arabic.
+Read the legal pages
+
+# TapNConnect — النص الكامل (العربية)
+
+TapNConnect مساعدك الذكي للناس في حياتك، في العمل والبيت. المس بطاقة، واحفظ ما يهم، واحصل على مسودة حين تكون للكلمة قيمة. صُنع في الإمارات للفعاليات والعارضين والشركات ومن يلتقون بهم.
+
+## الرئيسية
+
+TapNConnect — ابقَ قريبًا ممن تلتقي بهم
+مساعدك الذكي للناس في حياتك، في العمل والبيت. يحفظ ما يهمّ كلًّا منهم، ويخبرك متى تكون للكلمة قيمة، ويكتب المسودة الأولى. ولا يُرسل شيئًا دون موافقتك.
+مساعدك للعلاقات
+ابقَ قريبًا ممن تلتقي بهم.
+مساعدك الذكي للناس في حياتك، في العمل والبيت. يحفظ ما يهمّ كلًّا منهم، ويخبرك متى تكون للكلمة قيمة، ويكتب المسودة الأولى. ولا يُرسل شيئًا دون موافقتك.
+ابدأ مجانًا
+اطلب لشركتك
+مجاني لمن تقابلهم. خطط بالدرهم للشركات والفعاليات.
+دائرة من الناس حولك، تكبر على مدار سنة.
+لماذا
+تقابل مئات الأشخاص في السنة. هاتفك يحتفظ برقم.
+الحديث، والوعد، وما يهمهم: يضيع بين شارة معلّقة ومحادثة واتساب وبطاقة ورقية في درج. لا أحد يدوّنه، لأن التدوين كان حتى الآن يكلّف أكثر مما يستحق.
++20
+جهة اتصال بعد يوم فعالية واحد
+يومًا قبل أن يهدأ عميل محتمل
+ملاحظة عما تحدثتم فيه فعلًا
+شخص واحد، سنة واحدة
+الثقة أولًا. والعمل يتبع.
+تابع ليلى عبر سنة مع من تلتقي بهم. المساعد يحفظ ويذكّر ويقترح ويكتب المسودة. وكل موافقة موافقتها.
+meet
+يلتقي شخصان.
+لقاء شخصي · معرض الخليج التقني · 14 أكتوبر
+عمر يشارك في ماراثون دبي في يناير.
+حُفظ. سأذكّرك قبل السباق.
+word
+يعرف متى تهمّ الكلمة.
+9 يناير
+ماراثون عمر يوم الأحد. تتمنى له التوفيق؟
+أرسل رسالة
+ليس الآن
+شكرًا ليلى! 3:58 — قهوة الأسبوع القادم؟
+عمر · اليوم نفسه
+circle
+شخص واحد، علاقات كثيرة.
+2 يونيو
+عمر يستطيع تعريفك بيوسف في النور. تطلب منه؟
+اطلب من عمر
+ليس الآن
+عمر عرّفك · 2 يونيو
+draft
+يكتب المسودة. وأنت توافق.
+22 سبتمبر
+عمر طلب عرضًا.
+عمر، شكرًا على مكالمة الثلاثاء. هذا العرض…
+وافق
+ليس هذا
+أُرسل · بعد 11 شهرًا من لقائكما
+close
+الثقة أولًا. والعمل يتبع.
+أُرسل · بعد 11 شهرًا من لقائكما
+صديقة ومرشدة وعميل ومن عرّفها به. دائرة واحدة، سنة واحدة.
+ليلى
+عمر
+هناء
+نور
+يوسف
+صديقة
+مرشدة
+عميل
+عبر عمر
+النور
+أنت
+مساعدك
+كيف يعمل
+الحفظ بإيماءة واحدة. والباقي عمل المساعد.
+المس
+المس بطاقة، أو امسح شارة أو رمز QR، أو اضغط مطوّلًا لتسجيل ملاحظة صوتية من 20 ثانية. لا نموذج ولا كتابة أثناء الحديث.
+احفظ
+«تحفظ هذه الذكرى؟» معبّأة مسبقًا: من، وأين، ومتى، وما يهمهم، وما وعدت به. التعديل اختياري.
+تذكّر
+اسأل بكلمات بسيطة: «من قابلت في جيتكس في الأمن السيبراني ولم أكلمه منذ 90 يومًا؟» كل إجابة تذكر دليلها.
+الخطوة التالية
+ملخص صباحي واحد بالأمور الثلاثة التي تحتاجك اليوم، والمسودة الأولى لكل رسالة.
+النتيجة
+اجتماع، أو تعريف، أو صفقة، أو صديق بقي. يسألك المساعد «هل نتج عنه شيء؟» ويتذكر الجواب.
+الرحلة كاملة
+البطاقة
+لمسة واحدة. البطاقة هي الباب، لا المنتج.
+بطاقة لمس بتصميمنا، بصورتك وشعارك وكلماتك. المسها على أي هاتف: تُفتح صفحتك، وتُتبادل بياناتك بموافقة واحدة، ويغادر كلاكما واللحظة محفوظة. ليست إلزامية أبدًا: رمز QR أو شارة أو صورة بطاقة ورقية تؤدي الغرض نفسه.
+تعمل على iPhone وAndroid دون تطبيق
+لوحة ألوانك، فاتحة أو داكنة؛ عربي وإنجليزي
+لقاء شخصي: الدليل الوحيد هاتفان ولحظة واحدة وموافقتان
+اطلب البطاقة — 149 درهمًا مع سنة من Plus
+لمن هو
+صُنع للقاعة كلها، ولليوم الذي يليها.
+منظمو الفعاليات
+أثبت العلاقات التي صنعتها فعاليتك. وبِع ما لا يبيعه غيرك: اليوم التالي.
+العارضون
+حسابات لا قوائم مسح. تسليم صباح الاثنين، جاهز مساء الجمعة.
+الرعاة
+اعرف ما حققه إعلانك بصدق، واحتفظ بمن لمسوا.
+الشركات
+كل علاقة تبقى مع الشركة حين يغادر البائع.
+الأفراد
+مؤسسون ومستشارون ووسطاء: لا تفقد شخصًا بعد اليوم.
+خصوصية تراها
+الذكاء الاصطناعي لا يحتاج أن يعرف من أنت ليفهم علاقاتك.
+بشر فقط
+كل شخص في دائرتك قابلته أو أضفته أو استوردته بنفسك. لا روبوتات، ولا قوائم مشتراة، ولا جمع من مواقع.
+شبكتك لك
+ذاكرة معزولة لكل عضو. المنظم يرى أعدادًا لا أسماء. وجهة العمل ترى ما حفظته لها فقط.
+الأسماء في خزنة
+النموذج يعمل على أسماء مستعارة. يُعاد الاسم فقط بعد التحقق من الغرض، ويُسجَّل كل مرة.
+لا يخرج شيء دون موافقة
+كل رسالة وتعريف وإرسال إلى CRM يُعرض أولًا. توافق أو تعدّل أو تتجاهل. والحذف حذفٌ أينما نُسخ.
+كيف نتعامل مع بياناتك
+الأسعار
+مجاني لمن تقابلهم. خطط لمن يبيعون.
+الأسعار بالدرهم، تُنشر مرة واحدة، وهي القائمة نفسها التي يقتبس منها مساعد المبيعات.
+كل الخطط
+تلتقي بالناس. تبقى قريبًا. والباقي يأتي.
+ابدأ مجانًا اليوم، أو اطلب لشركتك وكن جاهزًا خلال يوم عمل.
+
+## كيف يعمل
+
+كيف يعمل TapNConnect — قبل الفعالية وأثناءها وبعدها، وكل يوم
+المس، احفظ، تذكّر، الخطوة التالية، النتيجة. كيف يحفظ TapNConnect العلاقة حيث تحدث ويبقيها حية في الفعالية وكل يوم بعدها.
+كيف يعمل
+علاقة، من المصافحة إلى النتيجة.
+حلقة واحدة وخمسة أفعال. هذا ما يحدث في فعالية وفي يوم ثلاثاء عادي.
+في الفعالية
+قبل
+الزائر
+ملفك وما تبحث عنه معروفان. يخبرك المساعد بمن يستحق اللقاء ولماذا.
+العارض
+الحسابات المستهدفة وأهداف المنصة محددة. والطرق الدافئة إليها تظهر من علاقات فريقك.
+أثناء
+الزائر
+المس أو امسح. تُتبادل البيانات بموافقة واحدة. وملاحظة صوتية من 20 ثانية تصبح ذكرى فيها الوعد.
+العارض
+يصبح الزائر حسابًا له مالك ونية ومتابعة مقترحة، قبل أن تُغلق القاعة.
+بعد
+الزائر
+تغادر بدائرة تبقى، وتذكيرات مضبوطة، ومتابعات مكتوبة تنتظر موافقتك.
+العارض
+حسابات مرتبة بالأولوية، ومن في الفريق يعرف كل شركة، جاهزة لـ CRM. تسليم الاثنين منجز.
+وللمنظم
+تقرير يجيب عن «ماذا صنعت تلك اللمسات؟»: علاقات جديدة ومتكررة، وتجمعات بين القطاعات، وأي العارضين صاروا محاور، وما يُستهدف في النسخة القادمة. أعداد ومجاميع، ولا اسم زائر أبدًا.
+كل يوم بعدها
+الصباح
+افتح «اليوم»
+ثلاث بطاقات: علاقة تحتاج اهتمامًا، ووعد مستحق، وفرصة تواصل. «اكتب الثلاث» بلمسة.
+اجتماع
+اضغط مطوّلًا للتسجيل
+الذكرى معبّأة مسبقًا، ولا يظهر شيء آخر.
+بين الأمور
+أجب عن سؤال واحد في واتساب
+«كيف كان الاجتماع مع سارة؟ شيء تتذكره؟» رد واحد وانتهى.
+أسبوعيًا
+قرر في خمسة
+أبقِ، أو اترك، أو اسأل عن خمس علاقات، بسحبة لكل واحدة.
+في أي وقت
+اسأل
+في التطبيق أو واتساب أو مساعدك الخاص (ChatGPT وClaude وSiri). كل إجابة بدليلها.
+ست طرق للحفظ، نتيجة واحدة
+المس بطاقة
+امسح شارة
+امسح رمز QR
+صورة بطاقة ورقية
+ملاحظة صوتية
+أعد توجيه رسالة واتساب
+كل طريقة تصنع الذكرى نفسها: من، وأين، ومتى، وما تحدثتم فيه، وما وعد به كل منكما. ما حُفظ بثقة عالية يُحفظ بصمت مع إمكانية التراجع. ولا يُسأل سؤال إلا إذا غيّر جوابه ما سيحدث.
+ما يفعله المساعد وحده
+يحفظ ويذكّر ويقترح ويكتب المسودة. لا يُرسل ولا يكتب في CRM ولا يشارك اسمًا دون موافقتك. بعد ثلاث موافقات متطابقة يعرض عليك مرة واحدة أن يجعل ذلك الأمر تلقائيًا. وتوقفه بجملة.
+يمكن لمساعدك إرسال بريد بعد موافقتك.
+
+## الأسعار
+
+أسعار TapNConnect — خطط بالدرهم للأفراد والشركات والعارضين والمنظمين والرعاة
+مجاني وPlus (39 درهمًا في الشهر) وPro (99 درهمًا في الشهر) للأفراد. البطاقة بـ 149 درهمًا مع سنة من Plus. المقاعد وخطط الشركات وباقات الفعاليات وفئات الرعاة تُسعَّر لكل طلب خلال يوم عمل.
+الأسعار
+قائمة أسعار واحدة. القائمة نفسها التي يقتبس منها مساعد المبيعات.
+الأسعار بالدرهم، وضريبة القيمة المضافة تظهر عند الدفع. قيم أولية؛ وينشر المؤسس كل تغيير هنا أولًا.
+للأفراد
+للشركات والعارضين
+للمنظمين والرعاة
+في الشهر
+في السنة
+مرة واحدة
+مجاني
+الأكثر اختيارًا
+أو {price} في السنة
+يُسعَّر لكل طلب
+يؤكد شخص السعر خلال يوم عمل. بطاقة أو تحويل بنكي.
+البطاقة
+حين تحتاج المزيد
+رصيد ودقائق صوتية، مرة واحدة، دون اشتراك.
+مقاعد لفريقك
+خطة الشركة اليومية
+باقات الفعاليات
+فئات الرعاة
+بلاتيني وذهبي وفضي وبرونزي تحدد الموضع وحجم الشعار ونصيب مشاهدات الإعلان. تُؤكَّد أسعار القائمة عند الطلب.
+أسئلة عن الدفع
+أي عملة وضرائب؟
+الدرهم الإماراتي. تُضاف ضريبة القيمة المضافة عند الدفع لعملاء الإمارات. وتصدر Stripe الإيصال.
+بطاقة أم تحويل بنكي؟
+بطاقة للأفراد وطلبات الشركات الصغيرة. تحويل بنكي للطلبات من 20,000 درهم فأكثر، وللمنظمين والرعاة.
+متى تصبح خطتي جاهزة؟
+الطلبات المدفوعة بالبطاقة عادة خلال دقائق بعد أن يراجعها شخص؛ وبقية الطلبات خلال يوم عمل.
+هل تتغير الأسعار؟
+نعم، وحين تتغير يحتفظ المشتركون الحاليون بسعرهم حتى يُنقلوا، مع إشعار.
+الأسعار وما تشمله كل خطة تُقرأ من قائمة الأسعار المنشورة. إن اختلف رقم هنا عن رقم في التطبيق، فالتطبيق هو الصحيح ونصلح هذه الصفحة.
+
+## الخصوصية والثقة
+
+الخصوصية والثقة في TapNConnect — كيف نتعامل مع بياناتك
+بشر فقط، وشبكة معزولة لكل عضو، وأسماء في خزنة والذكاء الاصطناعي على أسماء مستعارة، ولا جمع من المواقع، وموافقة على كل رسالة، والحذف حذف. البيانات في الإمارات.
+الخصوصية والثقة
+الخصوصية ميزة تراها، لا صفحة تبحث عنها.
+ما بنيناه حتى لا يحتاج الذكاء الاصطناعي أن يعرف من أنت ليفهم علاقاتك.
+كل عقدة في دائرتك إنسان قابلته أو أضفته أو استوردته من جهات اتصالك. لا يُضاف وكيل أو روبوت أو جهة اتصال مصطنعة أبدًا، أيًّا كان المساعد الذي يطلب. دليل اللقاء هاتفان ولحظة واحدة وموافقتان، ويظهر كـ «لقاء شخصي». لا بوابة صور شخصية ولا تحقق بيومتري.
+ذاكرة معزولة لكل عضو. الشركة ترى ما حفظته مقاعدها لها. والمنظم يرى أعدادًا ومجاميع بحد أدنى للخصوصية. لا يعبر شيء بين الأعضاء إلا تعريف وافق عليه الطرفان.
+الأسماء وبيانات الاتصال في خزنة هوية. يفكر الذكاء الاصطناعي بمعرّفات مثل PERSON-8472. ويعيد محلّل خاضع للرقابة الاسم فقط بعد التحقق من الصلاحية والغرض، ويُسجَّل كل استرجاع. وتُكتشف البيانات الشخصية بنموذج كيانات مسماة، لا بقائمة أسماء.
+كل ذكرى تحمل مصدرها: من حفظها وأين ومتى وكيف. ويصبح طلب الحذف تتبعًا وحذفًا متسلسلًا، حتى صفوف CRM المشتقة منها. الحذف حذف.
+لا نجمع من LinkedIn أو Instagram أبدًا ولا نقرأ بريدك. يأتي الإثراء من مواقع الشركات والواجهات الرسمية وتصديراتك وما يسلمك إياه شخص.
+كل رسالة وتعريف ودعوة تقويم وإرسال إلى CRM يُعرض أولًا. توافق أو تعدّل أو تتجاهل. بعد ثلاث موافقات متطابقة يعرض المساعد مرة واحدة أن يجعل ذلك الأمر تلقائيًا؛ وتوقفه بجملة.
+Azure شمال الإمارات لنظام السجل والخزنة. يُحذف صوت الملاحظة بعد تفريغه نصًا. والبطاقات العامة لا تحمل هاتفًا أو بريدًا في مصدر صفحتها حين تكون النافذة المنبثقة مفعّلة.
+حدّ صادق: هذه هندسة لا شهادة. ننشر المستندات القانونية والمعالجين الفرعيين ونتائج اختبار الاختراق كلما أُغلقت. اطلب منا حزمة الثقة.
+المستندات
+إشعار الخصوصية والشروط وملفات الارتباط وشروط معالجة البيانات، بالعربية والإنجليزية.
+الصفحات القانونية

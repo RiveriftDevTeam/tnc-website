@@ -1,0 +1,1 @@
+{ "name": "TapNConnect", "short_name": "TapNConnect", "description": "Stay close to the people you meet.", "start_url": "/", "display": "browser", "background_color": "#F2EDE3", "theme_color": "#0B5F6B", "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }] }

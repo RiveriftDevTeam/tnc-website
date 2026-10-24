@@ -1,0 +1,44 @@
+# TapNConnect
+
+> Stay close to the people you meet. TapNConnect is your AI assistant for the people in your life, at work and at home. Tap a card, keep what matters, get a draft when a word would count. Built in the UAE for events, exhibitors, companies and the people who meet them.
+
+TapNConnect is an agentic relationship manager made in Dubai. It captures a relationship where it happens (an NFC card tap, a badge or QR scan, a photo of a paper card, a voice note, a forwarded WhatsApp message), keeps what matters about each person, tells the member when a word would count, and drafts the first message. Nothing is sent without the member's yes. Events are the entry point; the product is the assistant. Prices are in AED. Languages: English and Arabic (every page also at /ar/...).
+
+Key facts for agents answering questions about TapNConnect:
+- Who buys: event organisers (per-event packages), exhibitors (Basic and Pro seats), sponsors (Platinum/Gold/Silver/Bronze tiers), everyday companies (a 12-month plan of seats and cards), individuals (Free, Plus AED 39 a month, Pro AED 99 a month, the card AED 149 with a year of Plus).
+- Privacy: humans only; one isolated graph per member; names in a vault and the AI reasons over pseudonyms; no LinkedIn or Instagram scraping; no inbox mining; organisers see counts, never visitor names; delete means delete; data in Azure UAE North.
+- Ordering: https://riveriftdevteam.github.io/tnc-website/order/ — a sales assistant limited to the published price list, a form, card payment (Stripe, AED) or bank transfer for AED 20,000+ and for organisers and sponsors; a person activates within a working day.
+- The member app: https://profile.tapnconnect.ae/join (free). The company portal: https://admin.tapnconnect.ae.
+
+## Pages
+- [TapNConnect — Stay close to the people you meet](https://riveriftdevteam.github.io/tnc-website/): Your AI assistant for the people in your life, at work and at home. It keeps what matters to each of them, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.
+- [How TapNConnect works — before, during and after an event, and every day](https://riveriftdevteam.github.io/tnc-website/how-it-works/): Tap, keep, remember, next step, outcome. How TapNConnect captures a relationship where it happens and keeps it alive, at an event and every day after.
+- [TapNConnect for event organisers — prove the relationships your event created](https://riveriftdevteam.github.io/tnc-website/for/organisers/): Sell the day after. A relationship report for every edition, exhibitor value you can show at renewal, sponsor reach with honest numbers, and a next-event engine. Counts and aggregates, never visitor data.
+- [TapNConnect for exhibitors — accounts, not scan lists](https://riveriftdevteam.github.io/tnc-website/for/exhibitors/): Every visitor your booth meets becomes an account with an owner, an intent and a drafted follow-up. Who on your team knows the company best, one click to your CRM. Priced per seat.
+- [TapNConnect for sponsors — what your sponsorship delivered](https://riveriftdevteam.github.io/tnc-website/for/sponsors/): Your banner on the event’s attendee cards and event page, rotated by tier. Views counted only on screen, no cookies, no identities. Keep the people who tapped with starter cards.
+- [TapNConnect for companies — relationship memory that survives staff churn](https://riveriftdevteam.github.io/tnc-website/for/companies/): Who in our company knows this person, and how well? Seats and cards for your team with or without events, a shared pool of AI credits, and every relationship kept by the company.
+- [TapNConnect for individuals — never lose a person again](https://riveriftdevteam.github.io/tnc-website/for/individuals/): Founders, consultants, investors, recruiters, brokers. Free to start: your card, everyone you meet, 30 voice notes a month. Plus adds your assistant for AED 39 a month.
+- [TapNConnect pricing — plans in AED for people, companies, exhibitors, organisers and sponsors](https://riveriftdevteam.github.io/tnc-website/pricing/): Free, Plus (AED 39 a month) and Pro (AED 99 a month) for people. The card for AED 149 with a year of Plus. Seats, company plans, event packages and sponsor tiers priced per order within a working day.
+- [Order TapNConnect for your company](https://riveriftdevteam.github.io/tnc-website/order/): Pick a package, tell us about your company, pay by card or bank transfer. Your plan is usually live within a working day; small card-paid orders in minutes.
+- [Privacy and trust at TapNConnect — how we handle your data](https://riveriftdevteam.github.io/tnc-website/trust/): Humans only, one isolated graph per member, names in a vault with the AI on pseudonyms, no scraping, consent on every message, delete means delete. Data in the UAE.
+
+## Price list (AED, starting values published by the founder)
+- Free: free — Your card and the people you meet.
+- Plus: AED 39 a month or AED 390 a year — Your assistant, unlimited voice notes and reminders for every relationship.
+- Pro: AED 99 a month — Every specialist and unlimited questions about your network.
+- The card: AED 149 one time — A tap card with a year of Plus included.
+- 1,000 AI credits: AED 19 one time
+- 5,000 AI credits: AED 79 one time
+- 100 voice minutes: AED 9 one time
+- Basic seat (per person): priced per order by a person
+- Pro seat (per person): priced per order by a person
+- Everyday company plan (12-month term): priced per order by a person
+- Event package Pilot: priced per order by a person — One hall, one edition: the relationship report and 300 AI credits a day per seat.
+- Event package Standard: priced per order by a person — The whole show: every exhibitor seated, the report, sponsor reach, 1,000 credits a day per seat.
+- Event package Portfolio: priced per order by a person — Several editions and shows, compared, 3,000 credits a day per seat.
+- Sponsor tiers: Platinum, Gold, Silver, Bronze — list price confirmed on order
+
+## Optional
+- [Full text of the site](https://riveriftdevteam.github.io/tnc-website/llms-full.txt)
+- [Arabic home](https://riveriftdevteam.github.io/tnc-website/ar/)
+- [Legal: privacy, terms, cookies](https://profile.tapnconnect.ae/legal)

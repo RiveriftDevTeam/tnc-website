@@ -1,0 +1,105 @@
+@import './tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--tnc-ground);
+    color: var(--tnc-ink);
+    font-family: var(--font-geist-sans), var(--font-arabic), system-ui, sans-serif;
+    font-feature-settings: 'tnum' 1, 'cv11' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  html[lang="ar"] body { font-family: var(--font-arabic), var(--font-geist-sans), system-ui, sans-serif; }
+  ::selection { background: var(--tnc-accent-soft); color: var(--tnc-ink); }
+  :focus-visible { outline: 2px solid var(--tnc-accent); outline-offset: 3px; border-radius: 6px; }
+  h1, h2, h3 { letter-spacing: -0.02em; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  .num { font-variant-numeric: tabular-nums; }
+}
+
+@layer components {
+  /* The page backdrop: teal -> sand, fixed to the viewport (decision 57). */
+  .backdrop {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: var(--tnc-backdrop);
+    background-attachment: fixed;
+  }
+  /* Domed frosted glass (founder option B, 2026-09-29). Solid fallback when backdrop-filter is missing. */
+  .glass {
+    position: relative;
+    background: var(--tnc-glass);
+    border: 1px solid var(--tnc-glass-border);
+    box-shadow: var(--tnc-shadow-1), var(--tnc-shadow-2);
+    -webkit-backdrop-filter: blur(var(--tnc-glass-blur)) saturate(1.2);
+    backdrop-filter: blur(var(--tnc-glass-blur)) saturate(1.2);
+    border-radius: 16px;
+  }
+  .glass::before {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: var(--tnc-glass-sheen);
+  }
+  .glass > * { position: relative; }
+  .glass-strong { background: var(--tnc-glass-strong); }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass { background: var(--tnc-surface); }
+    .glass::before { display: none; }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .glass { background: var(--tnc-surface); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .glass::before { display: none; }
+  }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    min-height: 48px; padding: 0 1.4rem; border-radius: 999px;
+    font-weight: 500; font-size: 1rem; line-height: 1; white-space: nowrap;
+    transition: background-color .15s cubic-bezier(.2,0,0,1), transform .15s cubic-bezier(.2,0,0,1), box-shadow .15s;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--tnc-accent); color: var(--tnc-accent-ink); box-shadow: 0 8px 24px -12px rgba(11,95,107,.6); }
+  .btn-primary:hover { background: var(--tnc-accent-hover); }
+  .btn-tonal { background: var(--tnc-accent-soft); color: var(--tnc-accent); }
+  .btn-tonal:hover { filter: brightness(.97); }
+  .btn-quiet { background: transparent; color: var(--tnc-ink-muted); }
+  .btn-quiet:hover { background: var(--tnc-accent-soft); color: var(--tnc-accent); }
+  .btn-sm { min-height: 40px; padding: 0 1rem; font-size: .9375rem; }
+  .chip {
+    display: inline-flex; align-items: center; gap: .375rem; min-height: 28px; padding: 0 .625rem;
+    border-radius: 999px; background: var(--tnc-accent-soft); color: var(--tnc-accent);
+    font-size: .8125rem; font-weight: 500; line-height: 1;
+  }
+  .chip-quiet { background: var(--tnc-sunken); color: var(--tnc-ink-muted); }
+  .eyebrow { font-size: .8125rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--tnc-accent); }
+  html[lang="ar"] .eyebrow { letter-spacing: 0; text-transform: none; }
+  .wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: 20px; }
+  @media (min-width: 768px) { .wrap { padding-inline: 24px; } }
+  .section { padding-block: 72px; }
+  @media (min-width: 1024px) { .section { padding-block: 112px; } }
+  .t-display { font-size: clamp(2.25rem, 6vw, 4.5rem); line-height: 1.02; font-weight: 500; }
+  .t-h1 { font-size: clamp(1.9rem, 4.2vw, 3rem); line-height: 1.08; font-weight: 500; }
+  .t-h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.2; font-weight: 500; }
+  .lead { font-size: clamp(1.0625rem, 1.5vw, 1.25rem); line-height: 1.55; color: var(--tnc-ink-muted); }
+  .hairline { border-top: 1px solid var(--tnc-line); }
+  .ring-tap { position: absolute; border-radius: 999px; border: 1px solid var(--tnc-accent); opacity: 0; animation: ring 2.4s cubic-bezier(.2,0,0,1) infinite; }
+  @keyframes ring { 0% { transform: scale(.2); opacity: .9; } 70% { opacity: 0; } 100% { transform: scale(1.6); opacity: 0; } }
+  .shimmer { position: relative; overflow: hidden; }
+  .shimmer::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%); transform: translateX(-100%); animation: shimmer 1.6s ease-in-out 1; }
+  @keyframes shimmer { to { transform: translateX(100%); } }
+  /* enter-on-view (Reveal.js): hidden only while JS is live and the element has not arrived yet */
+  html.js [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity .42s cubic-bezier(.2,0,0,1), transform .42s cubic-bezier(.2,0,0,1); }
+  html.js [data-reveal].in { opacity: 1; transform: none; }
+  .arrive { animation: arrive .2s cubic-bezier(.2,0,0,1) both; }
+  @keyframes arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .face-move { transition: transform .28s cubic-bezier(.2,0,0,1), opacity .2s; }
+  /* the 3D card (CSS, no WebGL) */
+  .scene-3d { perspective: 1400px; }
+  .card-3d { transform-style: preserve-3d; transition: transform .3s cubic-bezier(.2,0,0,1); will-change: transform; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
