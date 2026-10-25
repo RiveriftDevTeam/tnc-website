@@ -1,8 +1,8 @@
 # Builds the static site and publishes it to GitHub Pages on every push to main.
 name: Deploy to GitHub Pages
+# Paused on the founder's ask (2026-10-25): no deploy runs on push. Run it by hand from the Actions tab to publish again,
+# or put the `push: branches: [main]` trigger back.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
