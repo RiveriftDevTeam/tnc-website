@@ -1,21 +1,27 @@
-Photos on tapnconnect.ae, from Unsplash (Unsplash License: free to use; credit is a courtesy).
+Photos and video on tapnconnect.ae, from Unsplash (Unsplash License) and Pexels (Pexels License).
+Both licences allow free commercial use without attribution; credit is a courtesy.
 
-story-hall: "Euronewsweek Media" https://unsplash.com/@euronewsweek https://unsplash.com/photos/KVvEpFVq_-U
-story-touch: "Sebastian Dumitru" https://unsplash.com/@sebastiandumitru https://unsplash.com/photos/36g19a7ivrs
-story-circle: "Antenna" https://unsplash.com/@antenna https://unsplash.com/photos/ZDN-G1xBWHY
-door-organisers: "Euronewsweek Media" https://unsplash.com/@euronewsweek https://unsplash.com/photos/g7iSoF8NwYA
-door-exhibitors: "Trans Russia" https://unsplash.com/@transrussia https://unsplash.com/photos/BKpOVik79lA
-door-sponsors: "Stem List" https://unsplash.com/@stemlist https://unsplash.com/photos/EVgsAbL51Rk
-door-individuals: "Jelly Marketing" https://unsplash.com/@jellymarketing https://unsplash.com/photos/w5GxcIxT1gE
-door-companies: "Olena Kholina" https://unsplash.com/@sixtynice https://unsplash.com/photos/OsuDfn4vtLA
-year-coffee: "Vitaly Gariev" https://unsplash.com/@silverkblack https://unsplash.com/photos/k7moOgpIkU8
-final: "Toa Heftiba" https://unsplash.com/@heftiba https://unsplash.com/photos/l_ExpFwwOEg
-how-hero: "Olek Buzunov" https://unsplash.com/@olek_bznv_photo https://unsplash.com/photos/rBDAAw3OoMY
-how-event: "M ACCELERATOR" https://unsplash.com/@m_accelerator https://unsplash.com/photos/yTsy3PYFPtc
-how-organiser: "Riccardi Media" https://unsplash.com/@riccardimedia https://unsplash.com/photos/3BwoM8zNYwo
-persona-sponsor-2: "Stem List" https://unsplash.com/@stemlist https://unsplash.com/photos/EVgsAbL51Rk
-persona-exhibitor-2: "Dwayne joe" https://unsplash.com/@spliff_dj_joe https://unsplash.com/photos/bCMpeLcfWPw
-persona-individual-2: "Jordi Espinosa" https://unsplash.com/@jordiespinosa https://unsplash.com/photos/vFF-cypxQwY
-trust-uae: "Haris khan" https://unsplash.com/@hariskhan488 https://unsplash.com/photos/oF7dZYCgO3k
-pricing-hands: "A. C." https://unsplash.com/@3tnik https://unsplash.com/photos/JNwba6cv4e0
-notfound: "Priscilla Du Preez" https://unsplash.com/@priscilladupreez https://unsplash.com/photos/nF8xhLMmg0c
+Photos
+story-hall: "Yusei Takeuchi" https://www.pexels.com/@yusei-takeuchi-2149827096/ https://www.pexels.com/photo/vibrant-day-at-tokyo-international-forum-30809489/ (Pexels License)
+story-touch: "Sebastian Dumitru" https://unsplash.com/@sebastiandumitru https://unsplash.com/photos/36g19a7ivrs (Unsplash License)
+story-circle: "Caleb Oquendo" https://www.pexels.com/@caleboquendo/ https://www.pexels.com/photo/diverse-group-of-people-socializing-indoors-34623598/ (Pexels License)
+door-organisers: "RDNE Stock project" https://www.pexels.com/@rdne/ https://www.pexels.com/photo/women-standing-by-the-registration-booth-at-a-business-conference-7648057/ (Pexels License)
+door-exhibitors: "Sadettin Dogan" https://www.pexels.com/@huysuzkadraj/ https://www.pexels.com/photo/happy-woman-standing-by-stall-in-museum-20796084/ (Pexels License)
+door-sponsors: "Felicity Tai" https://www.pexels.com/@felicity-tai/ https://www.pexels.com/photo/smiling-people-handshaking-on-street-7964477/ (Pexels License)
+door-individuals: "RDNE Stock project" https://www.pexels.com/@rdne/ https://www.pexels.com/photo/a-man-in-long-sleeve-holding-a-piece-of-paper-7648263/ (Pexels License)
+door-companies: "Pavel Danilyuk" https://www.pexels.com/@pavel-danilyuk/ https://www.pexels.com/photo/a-woman-standing-between-two-men-8761679/ (Pexels License)
+year-coffee: "Vitaly Gariev" https://unsplash.com/@silverkblack https://unsplash.com/photos/k7moOgpIkU8 (Unsplash License)
+final: "Matheus Bertelli" https://www.pexels.com/@bertellifotografia/ https://www.pexels.com/photo/smiling-man-with-glasses-at-indoor-event-29284300/ (Pexels License)
+how-hero: "Pavel Danilyuk" https://www.pexels.com/@pavel-danilyuk/ https://www.pexels.com/photo/people-having-a-conversation-8761648/ (Pexels License)
+how-event: "Liliana Drew" https://www.pexels.com/@liliana-drew/ https://www.pexels.com/photo/man-and-woman-wearing-id-badges-talking-and-smiling-8554436/ (Pexels License)
+how-organiser: "RDNE Stock project" https://www.pexels.com/@rdne/ https://www.pexels.com/photo/hands-people-party-connection-7648043/ (Pexels License)
+persona-sponsor-2: "Ketut Subiyanto" https://www.pexels.com/@ketut-subiyanto/ https://www.pexels.com/photo/business-people-meeting-outdoors-shaking-hands-4963440/ (Pexels License)
+persona-exhibitor-2: "Wolf Art" https://www.pexels.com/@wolfart/ https://www.pexels.com/photo/smiling-woman-at-indoor-event-with-blurred-background-38136648/ (Pexels License)
+persona-individual-2: "Elias Jara" https://www.pexels.com/@eliasjaara/ https://www.pexels.com/photo/a-group-of-women-talking-and-smiling-15761519/ (Pexels License)
+trust-uae: "Haris khan" https://unsplash.com/@hariskhan488 https://unsplash.com/photos/oF7dZYCgO3k (Unsplash License)
+pricing-hands: "A. C." https://unsplash.com/@3tnik https://unsplash.com/photos/JNwba6cv4e0 (Unsplash License)
+notfound: "Liliana Drew" https://www.pexels.com/@liliana-drew/ https://www.pexels.com/photo/a-couple-walking-on-the-hallway-8555242/ (Pexels License)
+
+Video
+hero: "Pavel Danilyuk" https://www.pexels.com/video/colleagues-talking-at-a-business-conference-8716795/ (Pexels License; Pexels)
+how: "fauxels" https://www.pexels.com/video/a-group-of-people-introduces-oneself-to-each-other-by-shaking-hands-3252919/ (Pexels License; Pexels)
