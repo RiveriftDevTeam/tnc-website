@@ -10,13 +10,17 @@ import PersonaView from '@/components/PersonaView';
 import Vignette from '@/components/Vignettes';
 import Photo from '@/components/Photo';
 import Sticker from '@/components/Sticker';
-import Thread, { Knot } from '@/components/Thread';
+import { Knot } from '@/components/Thread';
+import ScrollScenes from '@/components/ScrollScenes';
+import { FadeScene, CrowdScene, StatsScene, AccountScene, PhotoScene, DraftsScene, RouteScene, CircleScene, CardScene, AskScene } from '@/components/scenes/JourneyScenes';
+import { MeetScene } from '@/components/scenes/HowScenes';
 import { Section } from '@/components/Section';
 import { graph, ldWebPage, ldBreadcrumb } from '@/lib/seo';
 
 const KIND = { organisers: 'organiser', exhibitors: 'exhibitor', sponsors: 'sponsor', companies: 'company', individuals: 'individual' };
 const HERO_PHOTO = { organisers: ['door-organisers', 'aspect-[3/2]'], exhibitors: ['door-exhibitors', 'aspect-[4/5]'], sponsors: ['door-sponsors', 'aspect-[3/2]'], companies: ['door-companies', 'aspect-[3/2]'], individuals: ['door-individuals', 'aspect-[4/5]'] };
-const SECOND_PHOTO = { organisers: ['how-organiser', 'aspect-[3/2]'], exhibitors: ['persona-exhibitor-2', 'aspect-[4/5]'], sponsors: ['persona-sponsor-2', 'aspect-[16/9]'], individuals: ['persona-individual-2', 'aspect-[4/5]'] };
+// the second photo sits beside "What you get" unless the journey already uses it
+const SECOND_PHOTO = { exhibitors: ['persona-exhibitor-2', 'aspect-[4/5]'], individuals: ['persona-individual-2', 'aspect-[4/5]'] };
 
 /** The rows of the packages list, read from the one price list (plans.js). A null price is shown as "priced per order". */
 function packageRows(persona, lang) {
@@ -45,6 +49,43 @@ function PriceCell({ row, lang, d, c, talk }) {
       {row.yearly && <span className="num block text-sm text-subtle">{pr.yearlyNote.replace('{price}', fmtAED(row.yearly, lang))}</span>}
     </span>
   );
+}
+
+/** The pictures of a buyer's journey, one per step: how it usually ends first, then what happens (copy: personas.<buyer>.journey). */
+function journeyScenes(persona, d, p) {
+  const j = p.journey, sc = j.scene, c = d.personas.common, cs = c.scene, v = d.home.vignettes, sample = c.sample;
+  const fade = <FadeScene key="fade" lines={j.fade} />;
+  const send = v.individuals.cards[0];
+  const drafts = (items) => <DraftsScene key="drafts" items={items.map((it) => ({ ...it, yes: send.yes, no: send.no }))} />;
+  if (persona === 'organisers') {
+    return [fade, <CrowdScene key="crowd" note={sc.crowd} />, <StatsScene key="stats" v={v.organisers} sample={sample} />,
+      <PhotoScene key="next" photo={<Photo slot="how-organiser" alt="" sizes="(min-width:1024px) 40vw, 90vw" />} meta={sc.next.meta} note={sc.next.note} />];
+  }
+  if (persona === 'exhibitors') {
+    const row = v.exhibitors.rows[0];
+    return [fade, <MeetScene key="meet" a={cs.visitor} b={cs.stand} met={cs.met} />,
+      <AccountScene key="account" title={row.company} lines={row.line.split(' · ')} chip={row.next} foot={v.exhibitors.owner} />,
+      drafts(sc.drafts),
+      <RouteScene key="route" meta={row.company} note={sc.route.note} to={cs.crm} click={v.exhibitors.crm} />];
+  }
+  if (persona === 'sponsors') {
+    const cast = d.home.story.cast;
+    return [fade, <PhotoScene key="banner" photo={<Photo slot="persona-sponsor-2" alt="" sizes="(min-width:1024px) 40vw, 90vw" />} meta={v.sponsors.sub} note={sc.banner.note} />,
+      <StatsScene key="stats" v={v.sponsors} sample={sample} bars={1} note={v.sponsors.note} />,
+      <CircleScene key="circle" centre={cs.team} labels={[cast.omar, cast.hana, cast.noor, cast.yusuf]} />];
+  }
+  if (persona === 'companies') {
+    const s = p.hero.sticker;
+    return [fade, <CrowdScene key="crowd" chips={sc.channels} />,
+      <AccountScene key="account" title={s.note} lines={s.lines} foot={s.meta} />,
+      drafts(sc.drafts),
+      <CircleScene key="circle" centre={cs.company} labels={sc.results} />];
+  }
+  const m = d.how.capture.memory;
+  return [fade, <CardScene key="card" name={sc.card.name} line={sc.card.line} note={sc.card.note} />,
+    <MeetScene key="meet" a={cs.you} b={cs.someone} met={cs.met} />,
+    drafts(v.individuals.cards.slice(0, 2).map((k) => ({ note: k.line, why: k.why }))),
+    <AskScene key="ask" q={sc.ask.q} sample={m.meta} name={m.name} where={m.where} promised={m.promised} />];
 }
 
 export default function Persona({ lang, persona }) {
@@ -98,50 +139,24 @@ export default function Persona({ lang, persona }) {
         </div>
       </section>
 
-      {/* BEFORE / WITH: each faded line paired with the thread that replaces it */}
-      <Section h2={c.compareH2} className="!pt-0">
-        <div className="mt-12 md:mt-14">
-          <div className="hidden grid-cols-[1fr_3rem_1fr] gap-x-4 pb-4 text-sm text-subtle md:grid"><span>{c.compareBefore}</span><span /><span className="text-ink">{c.compareWith}</span></div>
-          <ol>
-            {p.compare.rows.map((r, i) => (
-              <Reveal key={r.with} as="li" delay={i * 0.06} className="grid gap-x-4 md:grid-cols-[1fr_3rem_1fr]">
-                <p className="border-t border-dashed border-faded pb-2 pt-5 text-muted md:py-7 md:border-t-0">
-                  <span className="mb-1 block text-xs text-subtle md:hidden">{c.compareBefore}</span>{r.before}
-                </p>
-                <div className="relative hidden md:block"><Thread shape="vline" knots={[50]} animate={false} className="h-full w-full" /></div>
-                <p className="t-h3 !font-medium pb-6 pt-2 md:py-7">
-                  <span className="mb-1 block font-sans text-xs font-normal text-thread-text md:hidden">{c.compareWith}</span>{r.with}
-                </p>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
-      </Section>
-
-      {/* THE JOURNEY: four steps strung on the thread (across on desktop, down on a phone) */}
+      {/* THE JOURNEY: one scroll story. The first scene is how it usually ends; each step is a picture and one line */}
       <Section h2={p.journey.h2} className="!pt-0">
-        <div className="relative mt-12 md:mt-16">
-          <div className="absolute inset-x-0 top-[6px] hidden h-[2px] rounded-full bg-thread md:block" aria-hidden="true" />
-          <ol className="grid gap-9 md:grid-cols-4 md:gap-8">
-            {p.journey.steps.map((s, i) => (
-              <Reveal key={s.title} as="li" delay={i * 0.06} className="relative ps-10 md:ps-0 md:pt-10">
-                <Knot size={14} className="absolute start-0 top-1.5 text-thread-text md:top-0" />
-                {i < p.journey.steps.length - 1 && <div className="absolute start-[6px] top-6 -bottom-9 w-[2px] rounded-full bg-thread md:hidden" aria-hidden="true" />}
-                <h3 className="t-h3">{s.title}</h3>
-                <p className="mt-2 text-muted">{s.p}</p>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+        <ScrollScenes
+          className="mt-12 lg:mt-16"
+          label={p.journey.h2}
+          dir={lang === 'ar' ? 'rtl' : 'ltr'}
+          steps={p.journey.steps.map((st, i) => ({ key: `${persona}-${i}`, title: st.title, line: st.line }))}
+          scenes={journeyScenes(persona, d, p)}
+        />
       </Section>
 
       {/* WHAT YOU GET: editorial rows, with a second photo where one fits */}
       <Section h2={c.outcomesH2} className="!pt-0">
         <div className={`mt-12 gap-12 ${second ? 'grid lg:grid-cols-[5fr_7fr] lg:items-start lg:gap-16' : ''}`}>
           {second && (
-            <Reveal className={`${second[1] === 'aspect-[4/5]' ? 'mx-auto max-w-sm lg:max-w-none' : ''} lg:sticky lg:top-24`}>
+            <Reveal className={`${second[1] === 'aspect-[4/5]' ? 'mx-auto w-full max-w-sm lg:max-w-none' : ''} lg:sticky lg:top-24`}>
               <div className={`photo-card ${second[1]}`}>
-                <Photo slot={second[0]} alt={p.outcomesPhotoAlt} sizes="(min-width:1024px) 480px, 90vw" className="block h-full w-full" imgClassName="h-full w-full object-cover" />
+                <Photo slot={second[0]} alt={p.outcomesPhotoAlt} sizes="(min-width:1024px) 480px, 90vw" className="block h-full w-full" imgClassName={`${second[1]} h-full w-full object-cover`} />
               </div>
             </Reveal>
           )}
