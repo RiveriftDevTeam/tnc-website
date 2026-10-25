@@ -24,6 +24,7 @@ export const PAGES = [
   { key: 'pricing', path: '/pricing/' },
   { key: 'order', path: '/order/' },
   { key: 'trust', path: '/trust/' },
+  { key: 'credits', path: '/credits/' },
 ];
 
 export function pathFor(key, lang = 'en') {

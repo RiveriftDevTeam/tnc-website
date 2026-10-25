@@ -1,0 +1,36 @@
+// credits page copy (Arabic). Merged into the dictionary by src/content/index.js.
+const page_credits_ar = {
+  credits: {
+    title: 'حقوق الصور — TapNConnect',
+    description: 'المصورون الذين التقطوا الصور في هذا الموقع، مع رابط كل صورة ومكان استخدامها.',
+    h1: 'حقوق الصور.',
+    intro: 'الأشخاص في هذه الصور ليسوا أعضاء في TapNConnect. الصور متاحة للاستخدام الحر بموجب ترخيص Unsplash. نذكر المصورين لأن صورهم هي ما يقوم عليه هذا الموقع.',
+    by: 'تصوير',
+    license: 'ترخيص Unsplash',
+    profile: 'صفحة المصور',
+    photo: 'الصورة على Unsplash',
+    used: 'تُستخدم في',
+    slots: {
+      'story-hall': 'الرئيسية، القاعة',
+      'story-touch': 'الرئيسية، اللمسة',
+      'story-circle': 'الرئيسية، دوائرك',
+      'door-organisers': 'الرئيسية وصفحة المنظمين',
+      'door-exhibitors': 'الرئيسية وصفحة العارضين',
+      'door-sponsors': 'الرئيسية وصفحة الرعاة',
+      'door-individuals': 'الرئيسية وصفحة الأفراد',
+      'door-companies': 'الرئيسية وصفحة الشركات',
+      'year-coffee': 'الرئيسية، بعد سنة',
+      final: 'الرئيسية، الدعوة الأخيرة',
+      'how-hero': 'كيف يعمل، أعلى الصفحة',
+      'how-event': 'كيف يعمل، أثناء الفعالية',
+      'how-organiser': 'كيف يعمل، للمنظم',
+      'persona-sponsor-2': 'صفحة الرعاة',
+      'persona-exhibitor-2': 'صفحة العارضين',
+      'persona-individual-2': 'صفحة الأفراد',
+      'trust-uae': 'الخصوصية، بياناتك تبقى في الإمارات',
+      'pricing-hands': 'الأسعار',
+      notfound: 'صفحة الخطأ',
+    },
+  },
+};
+export default page_credits_ar;

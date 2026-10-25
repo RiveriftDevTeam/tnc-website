@@ -1,0 +1,36 @@
+// credits page copy (English). Merged into the dictionary by src/content/index.js.
+const page_credits_en = {
+  credits: {
+    title: 'Photo credits — TapNConnect',
+    description: 'The photographers behind the pictures on this site, with a link to each photo and where it is used.',
+    h1: 'Photo credits.',
+    intro: 'The people in these pictures are not TapNConnect members. The photographs are free to use under the Unsplash License. We credit the photographers because they made the pictures this site leans on.',
+    by: 'Photo by',
+    license: 'Unsplash License',
+    profile: 'Photographer’s profile',
+    photo: 'Photo on Unsplash',
+    used: 'Used on',
+    slots: {
+      'story-hall': 'Home, the hall',
+      'story-touch': 'Home, the touch',
+      'story-circle': 'Home, your circles',
+      'door-organisers': 'Home and the organisers page',
+      'door-exhibitors': 'Home and the exhibitors page',
+      'door-sponsors': 'Home and the sponsors page',
+      'door-individuals': 'Home and the individuals page',
+      'door-companies': 'Home and the companies page',
+      'year-coffee': 'Home, a year later',
+      final: 'Home, the last ask',
+      'how-hero': 'How it works, top of the page',
+      'how-event': 'How it works, during an event',
+      'how-organiser': 'How it works, for the organiser',
+      'persona-sponsor-2': 'The sponsors page',
+      'persona-exhibitor-2': 'The exhibitors page',
+      'persona-individual-2': 'The individuals page',
+      'trust-uae': 'Privacy, your data stays in the UAE',
+      'pricing-hands': 'Pricing',
+      notfound: 'The page-not-found page',
+    },
+  },
+};
+export default page_credits_en;

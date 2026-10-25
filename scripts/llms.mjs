@@ -10,9 +10,9 @@ const { PLANS } = await import('../src/content/plans.js');
 const { PAGES, SITE_URL, APP_URL, PORTAL_URL } = await import('../src/content/site.js');
 
 const url = (p, lang = 'en') => `${SITE_URL}${lang === 'ar' ? '/ar' : ''}${p}`;
-const titles = { home: en.home.title, how: en.how.title, pricing: en.pricing.title, order: en.order.title, trust: en.trust.title };
+const titles = { home: en.home.title, how: en.how.title, pricing: en.pricing.title, order: en.order.title, trust: en.trust.title, credits: en.credits.title };
 for (const k of ['organisers', 'exhibitors', 'sponsors', 'companies', 'individuals']) titles[k] = en.personas[k].title;
-const desc = { home: en.home.description, how: en.how.description, pricing: en.pricing.description, order: en.order.description, trust: en.trust.description };
+const desc = { home: en.home.description, how: en.how.description, pricing: en.pricing.description, order: en.order.description, trust: en.trust.description, credits: en.credits.description };
 for (const k of ['organisers', 'exhibitors', 'sponsors', 'companies', 'individuals']) desc[k] = en.personas[k].description;
 
 const aed = (n) => (n == null ? 'priced per order by a person' : `AED ${n}`);
