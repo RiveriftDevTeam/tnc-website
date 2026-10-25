@@ -82,7 +82,7 @@ Remember where you met, what was said and what you promised.
 A short brief before your next meeting, with the promises still open.
 The few messages that matter today, drafted. You say yes.
 Start free
-A man smiling and holding up his event badge.
+Two women hugging and laughing in a crowd.
 Exhibitors
 Accounts, not scan lists. The Monday hand-over, done by Friday.
 Capture in seconds with one hand: a tap, a badge, a QR or a paper card.
@@ -103,7 +103,7 @@ A relationship report after the last day: one story, ready to print.
 Which exhibitors became hubs, shown at renewal time.
 Who your audience engaged with, to aim the next edition.
 Ask about your event
-A crowd at an indoor event stage.
+Two men deep in conversation at an event.
 Companies
 Relationship memory that stays when people move on.
 One page for each company you deal with: who met whom, and what was promised.
@@ -238,6 +238,7 @@ The model reasons over pseudonyms. A name is put back only on a purpose check, a
 Nothing goes out without a yes
 Every message, introduction and CRM push is shown first. You approve, edit or dismiss. Delete means delete, everywhere it was copied.
 How we handle your data
+Companies and events: priced per order, by a person.
 Free for the people you meet. Plans for the ones who sell.
 Prices in AED, published once, the same list our sales assistant quotes.
 See every plan
@@ -531,7 +532,7 @@ a month
 a year
 one time
 Free
-Most chosen
+Start here
 or {price} a year
 Priced per order
 A person confirms the price within a working day. Card or bank transfer.
@@ -760,7 +761,7 @@ TapNConnect هو نظام تشغيل العلاقات للفعاليات وال�
 ملخص قصير قبل اجتماعك القادم، مع الوعود التي لم تُنجز بعد.
 الرسائل القليلة المهمة اليوم، مكتوبة. وأنت توافق.
 ابدأ مجانًا
-رجل يبتسم ويرفع شارة الفعالية.
+امرأتان تتعانقان وتضحكان وسط الحشد.
 العارضون
 حسابات لا قوائم مسح. تسليم الاثنين، جاهز يوم الجمعة.
 احفظ في ثوانٍ بيد واحدة: لمسة، أو شارة، أو رمز QR، أو بطاقة ورقية.
@@ -781,7 +782,7 @@ TapNConnect هو نظام تشغيل العلاقات للفعاليات وال�
 أي العارضين صاروا محاور، يُعرض وقت التجديد.
 مع من تفاعل جمهورك، لتوجيه النسخة القادمة.
 اسأل عن فعاليتك
-حشد أمام مسرح في فعالية داخلية.
+رجلان في حديث عميق خلال فعالية.
 الشركات
 ذاكرة علاقات تبقى حين ينتقل الناس.
 صفحة لكل شركة تتعامل معها: من قابل من، وما الذي وُعد به.
@@ -916,6 +917,7 @@ close
 لا يخرج شيء دون موافقة
 كل رسالة وتعريف وإرسال إلى CRM يُعرض أولًا. توافق أو تعدّل أو تتجاهل. والحذف حذفٌ أينما نُسخ.
 كيف نتعامل مع بياناتك
+الشركات والفعاليات: يُسعَّر كل طلب على حدة، بواسطة شخص.
 مجاني لمن تقابلهم. خطط لمن يبيعون.
 الأسعار بالدرهم، تُنشر مرة واحدة، وهي القائمة نفسها التي يقتبس منها مساعد المبيعات.
 كل الخطط
@@ -1022,7 +1024,7 @@ TapNConnect هو نظام العلاقات للفعاليات وللناس في�
 في السنة
 مرة واحدة
 مجاني
-الأكثر اختيارًا
+ابدأ من هنا
 أو {price} في السنة
 يُسعَّر لكل طلب
 يؤكد شخص السعر خلال يوم عمل. بطاقة أو تحويل بنكي.

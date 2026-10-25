@@ -13,3 +13,4 @@ playwright-report/
 .claude/settings.local.json
 graphify-out/
 .claude/worktrees/
+.impeccable/review/

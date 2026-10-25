@@ -13,11 +13,17 @@ README.md is the detailed product/design reference; this file is the rulebook.
 - Tailwind CSS 3.4.19 + PostCSS 8.5.31 + autoprefixer 10.6.1; design tokens in
   `src/styles/tokens.css` (Gulf Water — same names as the app's tokens)
 - three 0.186.1 (vanilla, the scroll-scrubbed landing scene; loaded on idle)
-- lucide-react 1.61.0 (only icon set) · geist 1.8.2 + IBM Plex Sans Arabic (next/font)
+- lucide-react 1.61.0 (only icon set) · fonts via next/font in `src/fonts/{en,ar}.js` (one module per
+  language so each preloads only its faces): Bricolage Grotesque + Alexandria (display), geist 1.8.2 +
+  IBM Plex Sans Arabic 400 (reading), Caveat 600 + Aref Ruqaa 400 (handwritten notes only)
+- Design world "Kept Thread" (docs/plans/site-revamp.md §3): tokens in `src/styles/tokens.css`
+  (`--tnc-*` shared with the app, `--tnc-site-*` site-only), `Thread`/`Knot`, `Sticker`, `Photo`
+  components; story scene in `src/components/StoryCanvas.js` + `src/components/story/*`
 - ESLint 8.57.1 + eslint-config-next 14.1.3 (`next/core-web-vitals`)
 - Tests: Node built-in `node:test` (`src/lib/*.test.mjs`, `scripts/*.test.mjs`)
 - E2E: @playwright/test 1.64.1 (devDependency, chromium), `playwright.config.mjs`,
-  specs in `tests/e2e/*.spec.mjs` against the served static build (port 4420)
+  specs in `tests/e2e/*.spec.mjs` (smoke, story, media, order) against the served static build
+  (port 4420, or `E2E_PORT`)
 - Browser checks: `scripts/check|flow|acts.mjs` via `scripts/pw.mjs` (resolves
   the project's `playwright` first, then global installs)
 - **No framer-motion on this site** (CSS transitions only), no analytics SDK in
@@ -42,7 +48,9 @@ README.md is the detailed product/design reference; this file is the rulebook.
   `npm run check -- http://localhost:4410 .shots` (every page × EN/AR × phone/desktop × light/dark),
   `npm run flow -- http://localhost:4410 .shots` (Order page end to end),
   `npm run acts -- http://localhost:4410 .shots` (landing story frames)
-- Social image: `npm run og`
+- Photos: `npm run media` (Unsplash → `public/media/`, credits); story stills: `npm run stills -- <served url>`;
+  social images: `npm run og -- <served url>` (both write into public/, so rebuild after)
+- Budgets: `npm run vitals -- <served url>` (LCP, CLS, fonts, story frame time; exit 1 over budget)
 - Fast gate (~2s): `.claude/verify.sh` (unit + lint)
 - Full gate (~30s): `.claude/verify-full.sh` (unit + lint + build + e2e + `gitleaks detect`)
 - Design review: Impeccable skills in `.claude/skills/impeccable` (`/impeccable critique|audit|polish …`);
@@ -57,6 +65,8 @@ README.md is the detailed product/design reference; this file is the rulebook.
   RTL with Latin digits.
 - Copy follows the plain-words ban list (`docs/knowledge/plain-words.md` in the
   TapNConnect docs repo).
+- Photos are served from the site only (`Photo` component, basePath-aware); CSP `img-src 'self'`.
+  No legible third-party brands and no alcohol in frame (plan §3.6).
 - Every page: one `h1`, full text in the HTML (nothing injected by script), no
   console errors, no horizontal scroll at 390 px and 1280 px, both themes.
 - Respect `prefers-reduced-motion` / `prefers-reduced-transparency`; the 3D

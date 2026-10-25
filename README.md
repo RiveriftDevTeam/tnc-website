@@ -2,11 +2,11 @@
 
 The public website of REQ-002 (`docs/requirements/REQ-002-product-website.md`): the story, how it works, who it is for, the one price list, and the Order page with its sales assistant. Anyone who finds us on the internet lands here; members use the app, companies the portal.
 
-**Status (2026-10-24):** built and tested locally on sample price data; **not deployed** (a Netlify site is a `/ship` row and a founder yes). Lives in the docs repo until the founder picks the home (REQ-002 open question 1: a fifth repo `tnc-website` is the recommendation; this folder moves there unchanged).
+**Status (2026-10-25):** the Kept Thread revamp is built and tested locally on sample price data (branch `feat/site-revamp`); **not deployed** (a Netlify site is a `/ship` row and a founder yes). Home: `github.com/RiveriftDevTeam/tnc-website`.
 
 ## Stack (pinned)
 
-Next.js 14.1.3 (App Router, JS) · React 18 · Tailwind 3.4 · `three` 0.186 (the hero, loaded after first paint) · `lucide-react` · `geist` (Geist Sans) + IBM Plex Sans Arabic (next/font). Node 22. **Static export** (`output: 'export'`): the build is plain HTML, CSS and JS in `out/`; nothing runs on a server, so it is as fast as the CDN. No framer-motion on this site (CSS transitions only); no analytics SDK in the bundle (GTM loads only after a yes).
+Next.js 14.1.3 (App Router, JS) · React 18 · Tailwind 3.4 · `three` 0.186 (the Home story scene, loaded on idle) · `lucide-react` · fonts via next/font, one module per language (`src/fonts/{en,ar}.js`): Bricolage Grotesque / Alexandria (display), Geist / IBM Plex Sans Arabic (reading), Caveat / Aref Ruqaa (handwritten notes only). Node 22. **Static export** (`output: 'export'`): the build is plain HTML, CSS and JS in `out/`; nothing runs on a server, so it is as fast as the CDN. No framer-motion on this site (CSS transitions only); no analytics SDK in the bundle (GTM loads only after a yes).
 
 ## Commands
 
@@ -20,9 +20,14 @@ Next.js 14.1.3 (App Router, JS) · React 18 · Tailwind 3.4 · `three` 0.186 (th
 | Every page, both languages, phone + desktop, light + dark: console errors, horizontal scroll, one h1, structured data | `npm run check -- http://localhost:4410 .shots` |
 | The Order page end to end in a browser | `npm run flow -- http://localhost:4410 .shots` |
 | The landing story frame by frame, desktop and phone | `npm run acts -- http://localhost:4410 .shots` |
-| Social image `public/og.png` | `npm run og` |
+| E2E (smoke on every page, the story, photos, the Order journey) | `npx playwright test` (serves `out/` itself) |
+| Fast gate · full gate (unit, lint, build, e2e, gitleaks) | `.claude/verify.sh` · `.claude/verify-full.sh` |
+| Performance budgets (LCP, CLS, fonts, story frame time) | `npm run vitals -- http://localhost:4410` |
+| Photos from Unsplash into `public/media/` (AVIF/WebP/JPG + credits) | `npm run media` |
+| Story stills (reduced motion, no WebGL, first paint), from a served build | `npm run stills -- http://localhost:4410` then rebuild |
+| Social images `public/og.png` + `public/og/<page>-<lang>.png`, from a served build | `npm run og -- http://localhost:4410` then rebuild |
 
-The check and flow scripts use the Playwright that is installed globally on the VM and in the cloud image (`scripts/pw.mjs`); it is not a dependency of the site.
+The browser scripts use the project's `@playwright/test` (devDependency) and fall back to a global Playwright (`scripts/pw.mjs`).
 
 ## Pages and the journey
 
@@ -76,13 +81,13 @@ One door: `track(event, props)` pushes to `window.dataLayer`. Google Tag Manager
 
 ## Performance
 
-Static HTML; first-load JS 95–99 kB (gzip ~35 kB) on every page; the 3D scene (110 kB gzip) arrives on idle, only when WebGL exists, the device is not low-end and `saveData` is off, renders only while on screen, and shows one still frame under reduced motion. Fonts are self-hosted and preloaded per language. Hashed assets are cached a year (`public/_headers`), with a CSP that allows only Stripe, Turnstile and GTM. `npm run check` fails on a console error or a horizontal scrollbar on any page at 390 px or 1280 px.
+Static HTML; first-load JS ≤ 100 kB on every page (Home 99.8 kB). The 3D scene (three 0.186 ships as two chunks, ~151 kB gzip together) arrives on idle, only when WebGL exists, the device is not low-end and `saveData` is off; it renders only while on screen and hands over to stills if its first frames run slow. Fonts per page ≤ 158 kB (EN and AR, measured). `npm run vitals` checks Home LCP (≤ 1.5 s, ≤ 2.5 s on Fast 4G + 4x CPU), CLS (≤ 0.05), fonts, and story frame time; `npm run check` fails on a console error or a horizontal scrollbar on any page at 390 px or 1280 px. Hashed assets are cached a year (`public/_headers`), with a CSP that allows only Stripe, Turnstile and GTM; every image is served from the site itself.
 
-## Design
+## Design: "Kept Thread" (2026-10-25, docs/plans/site-revamp.md)
 
-The founder's direction (2026-10-24): the first screen must say what the product is and who it is for; the 3D tells the story of the touch (two fingertips a breath apart, the moment kept) and of what normally happens after (the hall empties, names fade) against what TapNConnect does (the thread stays lit); structure between beats, product pictures instead of paragraphs. The scene runs on vanilla three (a point shader for the crowd, billboard halos, scroll-scrubbed camera), reads scroll progress from a ref, renders only on screen, and shows one still frame under reduced motion.
+One coral thread runs through the site: the story's progress line, dividers, timelines, link underlines, the knots where people connect, and the 3D tubes between people. Warm paper ground (warm charcoal in dark), a deep petrol stage for the story, saffron for the assistant's pulse and highlights, six clay colours for faceless 3D people, paper stickers in a handwritten face for the assistant's notes, and real event photography (Unsplash, credited on `/credits/`). The petrol accent and every `--tnc-*` token name stay shared with the app; site-only tokens use `--tnc-site-*`. No eyebrows, no glass decoration (the scrolled header only), one filled (coral) control per view.
 
-Gulf Water tokens (`src/styles/tokens.css`, the same names as the app's `tokens.css`): one petrol accent, warm sand neutrals, the teal→sand backdrop fixed to the viewport, domed frosted-glass cards, Geist + IBM Plex Sans Arabic, pill buttons, lucide icons only, both themes designed. One filled control per view; motion only on arrival and state change. The copy follows `docs/knowledge/plain-words.md` (no word from the ban list on a page).
+**The Home story** (`ScrollStory` + `StoryCanvas`, vanilla three, one canvas): eight scroll-scrubbed acts — who it's for (the card turning over the hall) → the hall (clay people rise) → the touch (one thread) → the fade → every tap a thread (a web with introductions) → your circles (four rings: team, friends, mentors, clients) → the right word at the right time (sun pulses run to one person at a time while the assistant's note pins) → everyone's graph (your web among many). The web is one instanced draw call. Every act's words are in the HTML; reduced motion stacks the acts with pre-rendered stills; no WebGL, low-end devices and slow frames cross-fade the stills on the same stage. After the story: **What everyone gains** (visitors, exhibitors, sponsors, organisers, companies: the gain, three outcomes from the buyer pages, the product note, the CTA), the year on the thread, the card, privacy promises, the pricing teaser, the final ask.
 
 ## Deploy (when the founder says so)
 

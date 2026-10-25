@@ -37,10 +37,10 @@ const page_home_en = {
       lead: 'One tap at an event becomes a relationship that lasts. Here is what that is worth to each person in the hall.',
       more: 'More for {who}',
       items: {
-        individuals: { title: 'Visitors and professionals', gain: 'A circle that lasts, and an assistant that remembers for you.', points: ['Remember where you met, what was said and what you promised.', 'A short brief before your next meeting, with the promises still open.', 'The few messages that matter today, drafted. You say yes.'], cta: 'Start free', alt: 'A man smiling and holding up his event badge.' },
+        individuals: { title: 'Visitors and professionals', gain: 'A circle that lasts, and an assistant that remembers for you.', points: ['Remember where you met, what was said and what you promised.', 'A short brief before your next meeting, with the promises still open.', 'The few messages that matter today, drafted. You say yes.'], cta: 'Start free', alt: 'Two women hugging and laughing in a crowd.' },
         exhibitors: { title: 'Exhibitors', gain: 'Accounts, not scan lists. The Monday hand-over, done by Friday.', points: ['Capture in seconds with one hand: a tap, a badge, a QR or a paper card.', 'Five people from your team meet one company; you see one account with one owner.', 'A follow-up drafted for each account, in your voice, with the promise in it.'], cta: 'Order for your stand', alt: 'Visitors in conversation at an exhibition stand.' },
         sponsors: { title: 'Sponsors', gain: 'What your sponsorship delivered, counted honestly, and the people who tapped kept close.', points: ['A view counts only when your banner was on screen.', 'Your tier’s promise, side by side with what was delivered.', 'Starter cards keep the people who tapped in your team’s circle after the show.'], cta: 'Ask about sponsorship', alt: 'An audience under a large lit stage screen.' },
-        organisers: { title: 'Organisers', gain: 'Prove the relationships your event created, and sell the next edition with it.', points: ['A relationship report after the last day: one story, ready to print.', 'Which exhibitors became hubs, shown at renewal time.', 'Who your audience engaged with, to aim the next edition.'], cta: 'Ask about your event', alt: 'A crowd at an indoor event stage.' },
+        organisers: { title: 'Organisers', gain: 'Prove the relationships your event created, and sell the next edition with it.', points: ['A relationship report after the last day: one story, ready to print.', 'Which exhibitors became hubs, shown at renewal time.', 'Who your audience engaged with, to aim the next edition.'], cta: 'Ask about your event', alt: 'Two men deep in conversation at an event.' },
         companies: { title: 'Companies', gain: 'Relationship memory that stays when people move on.', points: ['One page for each company you deal with: who met whom, and what was promised.', 'Work and personal kept apart; what is captured for you stays yours.', 'One click to your CRM, with the context it never had.'], cta: 'Order for your company', alt: 'People mingling at an evening event in warm light.' },
       },
     },
@@ -92,6 +92,7 @@ const page_home_en = {
       link: 'How we handle your data',
     },
         pricing: {
+      perOrder: 'Companies and events: priced per order, by a person.',
       h2: 'Free for the people you meet. Plans for the ones who sell.',
       p: 'Prices in AED, published once, the same list our sales assistant quotes.',
       cta: 'See every plan',

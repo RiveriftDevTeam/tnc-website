@@ -9,7 +9,7 @@ import { chromium } from './pw.mjs';
 const base = process.argv[2] || 'http://localhost:4410';
 const out = path.join(process.cwd(), 'public', 'media', 'story');
 fs.mkdirSync(out, { recursive: true });
-const ACT_P = [0.04, 0.15, 0.31, 0.37, 0.505, 0.635, 0.718, 0.975]; // a settled moment inside each act (src/components/ScrollStory.js ACTS)
+const ACT_P = [0.04, 0.15, 0.29, 0.37, 0.495, 0.615, 0.718, 0.95]; // a settled moment inside each act (src/components/ScrollStory.js ACTS)
 const SHAPES = [['', 1600, 1000], ['-p', 800, 1400]];
 
 const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });

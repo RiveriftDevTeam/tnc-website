@@ -17,10 +17,10 @@ import { graph, ldWebPage, ldSoftwareApp, ldProductCard, ldHowTo } from '@/lib/s
 
 // "What everyone gains" (docs/plans/site-revamp.md Amendment A1.2): the order buyers are told in, their page, order kind and photo
 const GAINS = [
-  { k: 'individuals', kind: null, photo: 'door-individuals' },
+  { k: 'individuals', kind: null, photo: 'persona-individual-2' },
   { k: 'exhibitors', kind: 'exhibitor', photo: 'door-exhibitors' },
   { k: 'sponsors', kind: 'sponsor', photo: 'door-sponsors' },
-  { k: 'organisers', kind: 'organiser', photo: 'door-organisers' },
+  { k: 'organisers', kind: 'organiser', photo: 'how-event' },
   { k: 'companies', kind: 'company', photo: 'door-companies' },
 ];
 
@@ -35,7 +35,7 @@ export default function Home({ lang }) {
         lang={lang} acts={h.acts} label={h.hero.sceneLabel} dir={d.dir}
         chips={Object.entries(h.chips).map(([k, label]) => ({ href: pathFor(k, lang), label }))}
         primary={h.hero.primary} primaryHref={JOIN_URL} secondary={h.hero.secondary} secondaryHref={pathFor('order', lang)}
-        photos={Object.fromEntries(['story-hall', 'story-touch'].map((slot, k) => [slot, <Photo key={slot} slot={slot} alt="" sizes="100vw" priority={k === 0} className="absolute inset-0" imgClassName="h-full w-full object-cover" />]))}
+        photos={Object.fromEntries(['story-hall'].map((slot, k) => [slot, <Photo key={slot} slot={slot} alt="" sizes="100vw" priority={k === 0} className="absolute inset-0" imgClassName="h-full w-full object-cover" />]))}
         skip={h.skip} storyNav={h.storyNav} chapter={h.chapter} sample={h.sample} cardName={h.cardName}
       />
 
@@ -75,13 +75,12 @@ export default function Home({ lang }) {
                     <div className={`relative ${i % 2 ? 'md:order-2' : ''}`}>
                       <div className="photo-card aspect-[4/5] w-[86%] md:w-[88%]"><Photo slot={photo} alt={g.alt} sizes="(min-width: 1024px) 34vw, (min-width: 768px) 44vw, 86vw" className="absolute inset-0" imgClassName="h-full w-full object-cover" /></div>
                       <div className="relative -mt-28 ms-auto w-[78%] max-w-[360px] sm:-mt-36">
-                        {h.vignettes[k] ? <Vignette kind={k} v={h.vignettes[k]} /> : <Sticker tilt={2} tape meta={g.title} note={g.points[0]} />}
+                        {h.vignettes[k] ? <div className={`sticker-tape relative ${i % 2 ? '-rotate-[1.2deg]' : 'rotate-[1.2deg]'}`}><Vignette kind={k} v={h.vignettes[k]} /></div> : <Sticker tilt={2} tape meta={g.title} note={g.points[0]} />}
                         {h.vignettes[k] && <div className="mt-2 text-end text-xs text-subtle">{h.who.sample}</div>}
                       </div>
                     </div>
                     <div>
-                      <div className="hand text-thread-text">{g.title}</div>
-                      <h3 className="t-h2 mt-2">{g.gain}</h3>
+                      <h3 className="t-h2">{g.gain}</h3>
                       <ul className="relative mt-7 space-y-4">
                         <Thread shape="vline" className="absolute bottom-3 start-[3px] top-3 w-2" />
                         {g.points.map((pt) => <li key={pt} className="relative flex gap-4"><span className="mt-1 shrink-0 text-thread" aria-hidden="true"><Knot size={12} /></span><span className="text-[1.02rem] text-muted">{pt}</span></li>)}
@@ -98,6 +97,8 @@ export default function Home({ lang }) {
           </div>
         </div>
       </section>
+
+      <Thread shape="h" knots={[50]} className="mx-auto h-8 w-full max-w-wrap" />
 
       {/* ONE PERSON, ONE YEAR */}
       <section id="story" className="section bg-sunken/60" aria-labelledby="year-h">
@@ -139,6 +140,8 @@ export default function Home({ lang }) {
         </div>
       </section>
 
+      <div className="wrap"><Thread shape="h" knots={[30, 70]} className="h-8 w-full" /></div>
+
       {/* PRICING: the member plans, straight from the one price list */}
       <section className="section pt-0" aria-labelledby="price-h">
         <div className="wrap">
@@ -152,7 +155,8 @@ export default function Home({ lang }) {
               </div>
             ))}
           </div>
-          <div className="mt-10"><Cta href={pathFor('pricing', lang)} variant="tonal" placement="pricing-teaser">{h.pricing.cta}</Cta></div>
+          <p className="mt-6 text-muted"><span className="hand text-thread-text">{h.pricing.perOrder}</span> <Link prefetch={false} href={`${pathFor('order', lang)}#person`} className="link ms-1">{d.cta.talkToPerson}</Link></p>
+          <div className="mt-8"><Cta href={pathFor('pricing', lang)} variant="tonal" placement="pricing-teaser">{h.pricing.cta}</Cta></div>
         </div>
       </section>
 
@@ -160,9 +164,9 @@ export default function Home({ lang }) {
       <section className="pb-10" aria-labelledby="final-h">
         <div className="wrap">
           <div className="relative isolate overflow-hidden rounded-sheet bg-field text-field-ink">
-            <Photo slot="final" alt="" sizes="(min-width: 1180px) 1140px, 100vw" className="absolute inset-0 -z-10" imgClassName="h-full w-full object-cover opacity-45" />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-field via-field/70 to-field/20" aria-hidden="true" />
-            <div className="px-6 pb-14 pt-40 text-center sm:px-12 md:pt-56">
+            <Photo slot="final" alt="" sizes="(min-width: 1180px) 1140px, 100vw" className="absolute inset-0 -z-10" imgClassName="h-full w-full object-cover" />
+            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-field from-25% via-field/60 via-55% to-transparent" aria-hidden="true" />
+            <div className="px-6 pb-14 pt-64 text-center sm:px-12 md:pt-96">
               <h2 id="final-h" className="t-h1 mx-auto max-w-3xl">{h.final.h2}</h2>
               <p className="lead mx-auto mt-5 max-w-xl text-field-ink/85">{h.final.p}</p>
               <div className="mt-9 flex flex-wrap justify-center gap-3"><Cta href={JOIN_URL} placement="final">{d.cta.startFree}</Cta><Cta href={pathFor('order', lang)} variant="field" placement="final">{d.cta.orderCompany}</Cta></div>

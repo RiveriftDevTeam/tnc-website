@@ -12,7 +12,11 @@ export default function Header({ lang, d }) {
   const pathname = usePathname() || '/';
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  useEffect(() => { const f = () => setScrolled(window.scrollY > 8); f(); addEventListener('scroll', f, { passive: true }); return () => removeEventListener('scroll', f); }, []);
+  const [onStage, setOnStage] = useState(true); // the Home story stage is under the header
+  useEffect(() => {
+    const f = () => { setScrolled(window.scrollY > 8); const st = document.querySelector('#main > section'); setOnStage(!!st && st.getBoundingClientRect().bottom > 64); };
+    f(); addEventListener('scroll', f, { passive: true }); return () => removeEventListener('scroll', f);
+  }, [pathname]);
   useEffect(() => { setOpen(false); }, [pathname]);
   useEffect(() => { document.documentElement.style.overflow = open ? 'hidden' : ''; return () => { document.documentElement.style.overflow = ''; }; }, [open]);
 
@@ -27,11 +31,11 @@ export default function Header({ lang, d }) {
   const isActive = (href) => pathname === href || (href !== '/' && href !== '/ar/' && pathname.startsWith(href));
   // Over the Home story the header is transparent with paper ink; once the page moves it becomes paper glass.
   const isHome = pathname === '/' || pathname === '/ar/' || pathname === '/ar';
-  const overStory = isHome && !scrolled && !open;
+  const overStory = isHome && onStage && !open; // paper ink over the petrol stage: transparent at the top, the field's glass once scrolled
   const quiet = `btn btn-quiet btn-sm ${overStory ? 'text-field-ink/85 hover:bg-white/10 hover:text-field-ink' : ''}`;
 
   return (
-    <header className={`sticky top-0 z-40 transition-[background,box-shadow,color] duration-quick ease-out ${overStory ? 'text-field-ink' : scrolled || open ? 'header-glass' : ''} ${isHome ? '-mb-16' : ''}`}>
+    <header className={`sticky top-0 z-40 transition-[background,box-shadow,color] duration-quick ease-out ${overStory ? (scrolled ? 'header-field' : 'text-field-ink') : scrolled || open ? 'header-glass' : ''} ${isHome ? '-mb-16' : ''}`}>
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:start-2 focus:z-50 btn btn-tonal btn-sm">{d.nav.skip}</a>
       <div className="wrap flex h-16 items-center gap-4">
         <Link prefetch={false} href={pathFor('home', lang)} className="flex items-center gap-2.5 font-display text-[1.15rem] font-bold tracking-tight" aria-label={d.brand}>

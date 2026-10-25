@@ -46,6 +46,13 @@
     -webkit-backdrop-filter: blur(var(--tnc-glass-blur)) saturate(1.3);
     backdrop-filter: blur(var(--tnc-glass-blur)) saturate(1.3);
   }
+  /* over the Home story the scrolled header keeps the stage's field, so the stage stays full-bleed */
+  .header-field {
+    background: rgb(var(--tnc-site-field-rgb) / .82); color: var(--tnc-site-field-ink);
+    box-shadow: 0 1px 0 rgb(var(--tnc-site-field-ink-rgb) / .08);
+    -webkit-backdrop-filter: blur(var(--tnc-glass-blur)) saturate(1.2); backdrop-filter: blur(var(--tnc-glass-blur)) saturate(1.2);
+  }
+  @media (prefers-reduced-transparency: reduce) { .header-field { background: var(--tnc-site-field); backdrop-filter: none; -webkit-backdrop-filter: none; } }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .header-glass { background: var(--tnc-ground); } }
   @media (prefers-reduced-transparency: reduce) { .header-glass { background: var(--tnc-ground); backdrop-filter: none; -webkit-backdrop-filter: none; } }
 
@@ -65,8 +72,8 @@
   .btn-quiet { background: transparent; color: var(--tnc-ink-muted); }
   .btn-quiet:hover { background: rgb(var(--tnc-ink-rgb) / .06); color: var(--tnc-ink); }
   /* on the story field (always dark): an outline in paper ink */
-  .btn-field { background: transparent; color: var(--tnc-site-field-ink); box-shadow: inset 0 0 0 1.5px rgb(246 241 234 / .5); }
-  .btn-field:hover { background: rgb(246 241 234 / .1); box-shadow: inset 0 0 0 1.5px rgb(246 241 234 / .85); }
+  .btn-field { background: rgb(var(--tnc-site-field-ink-rgb) / .13); color: var(--tnc-site-field-ink); }
+  .btn-field:hover { background: rgb(var(--tnc-site-field-ink-rgb) / .22); }
   .btn-sm { min-height: 40px; padding: 0 1rem; font-size: .9375rem; }
   .chip {
     display: inline-flex; align-items: center; gap: .375rem; min-height: 28px; padding: 0 .7rem;

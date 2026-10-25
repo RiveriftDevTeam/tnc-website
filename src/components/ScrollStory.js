@@ -23,7 +23,7 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 // [in, out] by progress, and the photo each act stands on
 // (docs/plans/site-revamp.md Amendment A1: 8 acts, keep in step with StoryCanvas and scripts/stills.mjs)
 export const ACTS = [[0, 0.08], [0.08, 0.19], [0.19, 0.31], [0.31, 0.39], [0.39, 0.52], [0.52, 0.65], [0.65, 0.82], [0.82, 1]];
-const ACT_PHOTO = ['story-hall', 'story-hall', 'story-touch', 'story-touch', 'story-hall', null, null, null];
+const ACT_PHOTO = ['story-hall', 'story-hall', null, null, 'story-hall', null, null, null];
 const CIRCLE_CLAY = [2, 3, 5, 1]; // your team, friends, mentors, clients (StoryCanvas rings use the same order)
 const NOTES = [0.65, 0.82]; // act 7: the assistant's notes take turns across this range
 const FADE = 0.025;
@@ -94,15 +94,14 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
         n.setAttribute('aria-hidden', on ? 'false' : 'true');
         if (on && lastAct.current !== i) { lastAct.current = i; track(EVENTS.story_beat, { beat: `act-${i + 1}` }); }
       });
-      // the photos: the hall pushes in and blurs, the hands cross-fade in and dim, the hall glows back faintly as the web forms
-      const hall = photoRefs.current['story-hall'], touch = photoRefs.current['story-touch'];
+      // the photo: the hall pushes in and blurs, steps back for the touch, and glows back faintly as the web forms
+      const hall = photoRefs.current['story-hall'];
       if (hall) {
         const push = span(p, 0, 0.08) * 0.08 + span(p, 0.08, 0.19) * 0.17;
         hall.style.opacity = String(Math.max(1 - span(p, 0.19, 0.23), span(p, 0.39, 0.43) * 0.28 * (1 - span(p, 0.50, 0.55))));
         hall.style.transform = `scale(${1 + push})`;
         hall.style.filter = `blur(${2.5 + span(p, 0.08, 0.19) * 5}px)`;
       }
-      if (touch) touch.style.opacity = String(span(p, 0.19, 0.23) * (0.42 - span(p, 0.31, 0.37) * 0.24) * (1 - span(p, 0.39, 0.43)));
       // act 7: one note at a time
       const k = Math.min(3, Math.floor(span(p, NOTES[0], NOTES[1]) * 4));
       noteRefs.current.forEach((n, i) => { if (n) { n.style.opacity = i === k ? '1' : '0'; n.style.transform = i === k ? '' : `translateY(${i < k ? -12 : 12}px)`; n.setAttribute('aria-hidden', i === k ? 'false' : 'true'); } });
@@ -147,7 +146,7 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
         <ol className="mt-6 grid max-w-md">
           {a.notes.map((n, k) => (
             <li key={n.note} ref={(el) => { if (!reduced) noteRefs.current[k] = el; }} className={`${reduced ? 'mb-4' : '[grid-area:1/1] transition-[opacity,transform] duration-base ease-out'}`} style={reduced || !k ? undefined : { opacity: 0 }}>
-              <Sticker tilt={k % 2 ? 2 : 1} meta={`${n.when} · ${sample}`} note={n.note}>
+              <Sticker tilt={k % 2 ? 2 : 1} tape meta={`${n.when} · ${sample}`} note={n.note}>
                 <p className="mt-1.5 text-[.85rem] leading-snug text-subtle">{n.why}</p>
                 <div className="mt-3 flex gap-2" aria-hidden="true"><span className="btn btn-primary btn-sm !min-h-[34px] !px-3 !text-sm">{n.yes}</span><span className="btn btn-quiet btn-sm !min-h-[34px] !px-3 !text-sm">{n.no}</span></div>
               </Sticker>
@@ -193,7 +192,7 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         {/* 1 · photos */}
         <div className="absolute inset-0" aria-hidden="true">
-          {['story-hall', 'story-touch'].map((slot, k) => (
+          {['story-hall'].map((slot, k) => (
             <div key={slot} ref={(n) => (photoRefs.current[slot] = n)} className="absolute inset-0 will-change-[opacity,transform]" style={{ opacity: k ? 0 : 1, filter: k ? undefined : 'blur(2.5px)' }}>
               {photos[slot]}
             </div>

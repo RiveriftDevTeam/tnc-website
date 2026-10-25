@@ -19,17 +19,19 @@ Task list for docs/plans/site-revamp.md §13. No task-list tool in the 2026-10-2
 | 13 | StoryCanvas + story/* acts 1–3 | C1 | lead | done (acts 4–7 hold the act 3 pose until C2) |
 | 14 | stills.mjs + first paint | C1 | lead | done: 56 stills (2 langs × 2 themes × landscape/portrait), 2.4 MB |
 | 15 | Phone tuning | C1 | lead | done: 24 people, DPR 1.25, no rim, card higher/smaller in portrait |
-| 16 | acts + vitals → **founder gate** | C1 | lead | vitals green; WAITING for founder |
-| 17–19 | Home complete (acts 4–7, sections, AR draft) | C2 | | blocked on gate |
-| 20 | Buyer pages | C3 | | blocked on gate |
-| 21 | How it works | C4 | | blocked on gate |
-| 22–23 | order.spec + Pricing/Order restyle | C5 | | blocked on gate |
-| 24 | Trust, 404, Credits | C6 | | blocked on gate |
-| 25–27 | OG, llms, vitals, specs | C7 | | blocked |
-| 28 | Arabic review | C8 | human | blocked |
-| 29–32 | Polish, DESIGN.md, docs, graph | C9 | | blocked |
+| 16 | acts + vitals → **founder gate** | C1 | lead | done: founder reviewed 2026-10-25, asked for Amendment A1 (graph, circles, assistant, value) → approved |
+| 17–19 | Home complete (acts 4–8 per A1, What everyone gains, sections, AR draft) | C2 | lead | done (84fe360, ca5fb12) |
+| 20 | Buyer pages | C3 | builder-c3-personas | done (576cbd8, merged d6162a1) |
+| 21 | How it works | C4 | builder-c4c6 | done (197400a, merged d9bdcb5) |
+| 22–23 | order.spec + Pricing/Order restyle | C5 | builder-c5 | done (9f03272, merged 481c7aa); order.js and plans.js diff empty |
+| 24 | Trust, 404, Credits | C6 | builder-c4c6 | done (197400a) |
+| 25–27 | OG, llms, vitals, specs | C7 | lead | done (840b299): og.png + 12 per-page images, story/media specs, credits in checks |
+| 28 | Arabic review | C8 | human | **open: needs a native Gulf Arabic copywriter + founder** |
+| 29–32 | Polish, DESIGN.md, docs, graph | C9 | lead | in progress: finish review running; docs updated |
 
-## Open after C1 (carry into C2)
-- First-load JS on Home is **102 kB** (budget 100). The extra is chunk 733 (Home's old sections: Reveal, lucide, TapCard3D). C2 rewrites those sections; re-measure there.
+## Open items (updated after C2–C7)
+- ~~First-load JS on Home 102 kB~~: fixed in C2 (TapCard3D CSS-only): Home 99.8 kB.
 - `story-hall` (KVvEpFVq_-U) shows book-fair publisher signs (Macmillan, Ingram, Estonia). Shown blurred under a 55% field wash; swap the photo (founder's own, or a reserve). Source is only 1280 px wide, so it is soft on retina.
-- `story-circle` has people holding glasses (no-alcohol rule); `door-exhibitors` is a weak tight crop. Both are C2/C3 slots, so decide before then.
+- `story-circle` (glasses) removed from the story. `how-organiser` also shows wine glasses (How it works, organiser pages). `door-exhibitors` is a weak tight crop. Founder's own Gulf event photos would fix all of these (Q3).
+- 404 keeps one h1 per language block (two h1s), as scripts/check.mjs expects; a single h1 would need the check relaxed.
+- `personas.hero.seeInside` key is unused (harmless, EN/AR parity holds).

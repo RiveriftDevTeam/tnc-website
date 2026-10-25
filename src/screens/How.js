@@ -38,7 +38,7 @@ export default function How({ lang }) {
       </section>
 
       <Section h2={h.event.h2}>
-        <div className="relative mt-14 lg:mt-20">
+        <div className="relative mt-10 lg:mt-12">
           {/* wide screens: two strands run left to right and cross at each chapter */}
           <div className="absolute inset-x-0 top-0 hidden h-12 lg:block" aria-hidden="true">
             <Thread shape="h" knots={[16.67, 50, 83.33]} className="!absolute inset-0" />
@@ -49,11 +49,11 @@ export default function How({ lang }) {
             <Thread shape="v" animate={false} className="!absolute inset-0" />
             <Thread shape="v" animate={false} d={CROSS_V} className="!absolute inset-0 !text-accent" />
           </div>
-          <ol className="grid gap-14 ps-12 lg:grid-cols-3 lg:gap-10 lg:ps-0 lg:pt-20">
+          <ol className="grid gap-12 ps-12 lg:grid-cols-3 lg:gap-10 lg:ps-0 lg:pt-16">
             {h.event.phases.map((p, i) => (
               <Reveal as="li" key={p.title} delay={i * 0.05} className="relative">
                 <span className="absolute -start-12 top-2 grid h-8 w-8 place-items-center text-thread lg:hidden" aria-hidden="true"><Knot size={18} /></span>
-                <h3 className="t-h1">{p.title}</h3>
+                <h3 className="t-h2">{p.title}</h3>
                 {i === 1 && <div className="photo-card mt-5 aspect-[3/2]"><Photo slot="how-event" alt={h.event.photoAlt} sizes="(min-width:1024px) 30vw, 85vw" /></div>}
                 <div className="mt-6 space-y-6">
                   <div><span className="chip"><span className="h-2 w-2 rounded-full bg-thread" aria-hidden="true" />{p.who}</span><p className="mt-2 max-w-prose text-muted">{p.p}</p></div>

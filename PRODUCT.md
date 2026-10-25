@@ -39,7 +39,8 @@ At an event, a touch of the card or phone keeps the contact. Normally the hall e
 - Name: TapNConnect. Domain `tapnconnect.ae`.
 - Copy follows the plain-words ban list (`docs/knowledge/plain-words.md` in the TapNConnect docs repo).
 - Founder's direction (2026-10-24): the first screen says what the product is and who it is for. Use product pictures instead of paragraphs.
-- The visual system is recorded in code (`src/styles/tokens.css`, "Gulf Water", shared with the app). Run `/impeccable document` to capture it in DESIGN.md.
+- Category wording (founder, 2026-10-25): TapNConnect is **the relationship OS for events and the people in them**: every tap becomes a thread, and an assistant keeps each one alive.
+- Visual world "Kept Thread" (approved 2026-10-25): the coral thread, warm paper, petrol story field, clay people, paper notes; the petrol accent and token names stay shared with the app. Recorded in DESIGN.md.
 
 ## Evidence on Hand
 - Starting prices from the founder (2026-10-14): Plus AED 39 / 390, Pro AED 99, the card AED 149 with a year of Plus, packs AED 19 / 79, voice top-up AED 9.

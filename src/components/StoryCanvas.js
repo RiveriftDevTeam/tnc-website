@@ -4,6 +4,7 @@
 //   1 0.00–0.08  the card turns in the light, a soft ripple
 //   2 0.08–0.19  the hall: clay people rise, the card goes to "you" (coral)
 //   3 0.19–0.31  you and Omar drift together, pause a finger's width apart, touch; the thread draws between you
+//   (each act's scene settles by ~3/4 of its range so the words hold at full strength while the picture rests)
 //   4 0.31–0.39  the hall greys and drifts away; only your thread keeps its colour
 //   5 0.39–0.52  the hall comes back; every tap adds a thread, introductions link people to each other: a web
 //   6 0.52–0.65  the web settles into four circles round you (team, friends, mentors, clients)
@@ -131,17 +132,17 @@ export default function StoryCanvas({ progressRef, dir = 'ltr', cardName = 'Layl
     const camPos = new Vector3(), camAt = new Vector3(), A = new Vector3(), B = new Vector3();
     const heads = new Map(); // bead index → head position this frame
     const headOf = (i) => heads.get(i) || heads.set(i, new Vector3()).get(i);
-    const o3 = new Object3D(), faded = new Color(), ringC = colors.rings.map((x) => new Color(x));
+    const o3 = new Object3D(), faded = new Color(), fieldC = new Color(), ringC = colors.rings.map((x) => new Color(x));
     const t0 = performance.now();
     let lastP = 0;
     function frame(now, forcedP) {
       const t = capture ? 0 : (now - t0) / 1000;
       const p = forcedP ?? Math.min(1, Math.max(0, progressRef.current || 0)); lastP = p;
       const portrait = camera.aspect < 1;
-      const q = Math.min(p, 0.31) * (0.40 / 0.31); // acts 1–3 run on their original timeline (0..0.40)
+      const q = Math.min(p, 0.28) * (0.40 / 0.28); // acts 1–3 run on their original timeline (0..0.40), settled by 0.28
       const s2 = span(q, 0.10, 0.24), s3 = span(q, 0.24, 0.40);
       const a4 = easeInOut(span(p, 0.31, 0.37)), back = easeInOut(span(p, 0.39, 0.45));
-      const tapIn = span(p, 0.41, 0.50), intro = span(p, 0.46, 0.52), ring = easeInOut(span(p, 0.52, 0.62)), a8 = easeInOut(span(p, 0.82, 0.97));
+      const tapIn = span(p, 0.40, 0.47), intro = span(p, 0.44, 0.49), ring = easeInOut(span(p, 0.52, 0.60)), a8 = easeInOut(span(p, 0.82, 0.97));
       const gone = a4 * (1 - back); // act 4: the hall greys and drifts away, then comes back
 
       // ---- camera: the act 1–3 path, then keyframes
@@ -195,11 +196,11 @@ export default function StoryCanvas({ progressRef, dir = 'ltr', cardName = 'Layl
       headOf(0).set(youX, HEAD_Y * 1.06 + 0.04, youZ); headOf(1).set(omX, HEAD_Y * 1.06 + 0.04, omZ);
       beads.commit();
       // colours: the hall greys in act 4; the people you met take their circle's colour in act 6
-      faded.set(colors.faded);
+      faded.set(colors.faded).lerp(fieldC.set(colors.field), 0.3);
       beads.paintWith((i, base, out) => {
         if (i === 0) return;
         const slot = ringOf.get(i);
-        if (i > 1) out.lerp(faded, gone * 0.9 + (slot ? 0 : ring * 0.5));
+        if (i > 1 || gone) out.lerp(faded, Math.min(1, gone * 0.95 + (i > 1 && !slot ? ring * 0.5 : 0))); // act 4 greys Omar too: only the thread keeps colour
         if (slot) out.lerp(ringC[slot[0]], ring * 0.85);
       });
 

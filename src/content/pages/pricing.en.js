@@ -6,7 +6,7 @@ const page_pricing_en = {
     description: 'Free, Plus (AED 39 a month) and Pro (AED 99 a month) for people. The card for AED 149 with a year of Plus. Seats, company plans, event packages and sponsor tiers priced per order within a working day.',
     hero: { h1: 'One price list. The same one our assistant quotes.', sub: 'Prices in AED, VAT shown at checkout. Starting values; the founder publishes every change here first.' },
     tabs: { people: 'For people', companies: 'For companies and exhibitors', events: 'For organisers and sponsors' },
-    perMonth: 'a month', perYear: 'a year', once: 'one time', free: 'Free', mostPopular: 'Most chosen', yearlyNote: 'or {price} a year',
+    perMonth: 'a month', perYear: 'a year', once: 'one time', free: 'Free', mostPopular: 'Start here', yearlyNote: 'or {price} a year',
     quote: 'Priced per order', quoteNote: 'A person confirms the price within a working day. Card or bank transfer.',
     cardH2: 'The card', packsH2: 'When you need more', packsP: 'AI credits and voice minutes, one-time, no subscription.',
     seatsH2: 'Seats for your team', companyPlanH2: 'The everyday company plan',
