@@ -118,22 +118,39 @@ Prices in AED, published once, the same list our sales assistant quotes.
 See every plan
 Meet people. Stay close. The rest follows.
 Start free today, or order for your company and be live within a working day.
-The relationship assistant for events · Dubai
 Stay close to the people you meet.
-One tap at the stand, and the person stays with you long after the hall empties. For visitors, exhibitors, sponsors and the organisers who bring them together.
-The moment
+Tap a card at the stand. TapNConnect keeps who they are and what you promised, and tells you when to say hello again. For visitors, exhibitors, sponsors and the organisers who bring them together.
+A busy exhibition hall. A TapNConnect card turns slowly in the light.
+A three-day show. A hundred hellos.
+Every conversation feels like it matters while you are in it.
+The hall blurs and small clay figures rise out of it: the crowd, and you in coral.
 One tap. The moment is kept.
-Who, where, when, and what you promised each other. No form, no typing, no app for the visitor.
-Met in person · Gulf Tech Expo · 14 Oct · Hall 4
-The next week
-Then the hall empties.
-A hundred handshakes become a pile of cards. Names fade. By day 47 the lead is cold and nobody knows why.
-TapNConnect
-TapNConnect keeps the thread alive.
-It remembers each person, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.
-One hall, four winners
+Who, where, when, and what you promised each other. No form, no app for the visitor.
+Met in person
+Gulf Tech Expo · 14 Oct · Hall 4
+Two figures drift together, pause a finger’s width apart, then touch. A coral thread draws between them.
+Usually, this is where it ends.
+The hall empties. The cards go in a drawer. By next week the names have faded.
+The crowd turns grey and drifts away. Only the coral thread keeps its colour.
+This time, the thread holds.
+Your assistant remembers each person, tells you when a word would count, and writes the first draft. Nothing goes out without your yes.
+Omar’s marathon is Sunday. Wish him luck?
+Send a note
+Not now
+3:58! Coffee next week?
+Omar replied
+A warm glow travels along the thread while the assistant’s notes pin to it.
+A year later, they’re still around you.
+A friend, a mentor, a client, and the person they introduced.
+The thread branches to new people, and a circle gathers round you in full colour.
 Everyone in the hall leaves with more than a badge scan.
-The visitor keeps a circle. The exhibitor gets accounts. The sponsor sees what it delivered. The organiser can prove it all.
+The visitor keeps a circle. The exhibitor gets accounts. The sponsor sees what it delivered. The organiser can prove it.
+The view pulls back: your circle is one of many lit circles across the hall.
+Layla Nasser
+Sample
+Skip the story
+Story chapters
+Chapter {n}
 For organisers
 For exhibitors
 For sponsors
@@ -695,22 +712,39 @@ close
 كل الخطط
 تلتقي بالناس. تبقى قريبًا. والباقي يأتي.
 ابدأ مجانًا اليوم، أو اطلب لشركتك وكن جاهزًا خلال يوم عمل.
-مساعد العلاقات للفعاليات · دبي
 ابقَ قريبًا ممن تلتقي بهم.
-لمسة واحدة عند المنصة، ويبقى الشخص معك طويلًا بعد أن تفرغ القاعة. للزوار والعارضين والرعاة والمنظمين الذين يجمعونهم.
-اللحظة
+المس البطاقة عند المنصة. يحفظ TapNConnect من هو الشخص وما وعدتما به، ويذكّرك متى تقول مرحبًا من جديد. للزوار والعارضين والرعاة والمنظمين الذين يجمعونهم.
+قاعة معرض مزدحمة. وبطاقة TapNConnect تدور ببطء في الضوء.
+معرض من ثلاثة أيام. ومئة سلام وسلام.
+كل حديث يبدو مهمًا وأنت في وسطه.
+تغيم صورة القاعة وتنهض منها شخصيات صغيرة من الصلصال: الحشد، وأنت باللون المرجاني.
 لمسة واحدة. واللحظة محفوظة.
-من، وأين، ومتى، وما وعد به كلٌّ منكما. لا نموذج ولا كتابة ولا تطبيق للزائر.
-لقاء شخصي · معرض الخليج التقني · 14 أكتوبر · القاعة 4
-الأسبوع التالي
-ثم تفرغ القاعة.
-مئة مصافحة تصبح كومة بطاقات. الأسماء تتلاشى. وفي اليوم 47 يبرد العميل المحتمل ولا أحد يعرف السبب.
-TapNConnect
-TapNConnect يبقي الخيط حيًّا.
-يتذكر كل شخص، ويخبرك متى تكون للكلمة قيمة، ويكتب المسودة الأولى. ولا يُرسل شيئًا دون موافقتك.
-قاعة واحدة، أربعة رابحين
+من، وأين، ومتى، وما وعد به كلٌّ منكما. لا نموذج، ولا تطبيق للزائر.
+لقاء شخصي
+معرض الخليج التقني · 14 أكتوبر · القاعة 4
+يقترب شخصان، ويتوقفان على مسافة إصبع، ثم يتلامسان. ويُرسم بينهما خيط مرجاني.
+وعادةً، هنا تنتهي الحكاية.
+تفرغ القاعة. وتذهب البطاقات إلى الدرج. وبعد أسبوع تكون الأسماء قد تلاشت.
+يتحول الحشد إلى الرمادي ويبتعد. ولا يبقى ملوّنًا إلا الخيط المرجاني.
+هذه المرة، يصمد الخيط.
+يتذكر مساعدك كل شخص، ويخبرك متى تكون للكلمة قيمة، ويكتب المسودة الأولى. ولا يُرسل شيء دون موافقتك.
+ماراثون عمر يوم الأحد. تتمنى له التوفيق؟
+أرسل رسالة
+ليس الآن
+3:58! قهوة الأسبوع القادم؟
+ردّ عمر
+يسري توهج دافئ على الخيط، وتُثبَّت عليه ملاحظات المساعد.
+وبعد عام، ما زالوا حولك.
+صديق، ومرشد، وعميل، والشخص الذي عرّفوك به.
+يتفرع الخيط إلى أشخاص جدد، وتجتمع حولك دائرة بألوانها كاملة.
 الكل يغادر القاعة بأكثر من مسح شارة.
-الزائر يحتفظ بدائرة. والعارض يحصل على حسابات. والراعي يرى ما حققه. والمنظم يثبت ذلك كله.
+الزائر يحتفظ بدائرة. والعارض يحصل على حسابات. والراعي يرى ما حققه. والمنظم يستطيع أن يثبت ذلك.
+تبتعد الصورة: دائرتك واحدة من دوائر كثيرة مضيئة في القاعة.
+ليلى ناصر
+عيّنة
+تخطَّ القصة
+فصول القصة
+الفصل {n}
 للمنظمين
 للعارضين
 للرعاة

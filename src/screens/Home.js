@@ -5,6 +5,7 @@ import { pathFor, JOIN_URL } from '@/content/site';
 import { PLANS, fmtAED } from '@/content/plans';
 import Cta from '@/components/Cta';
 import ScrollStory from '@/components/ScrollStory';
+import Photo from '@/components/Photo';
 import Vignette from '@/components/Vignettes';
 import YearTimeline from '@/components/YearTimeline';
 import TapCard3D from '@/components/TapCard3D';
@@ -24,9 +25,11 @@ export default function Home({ lang }) {
     <>
       {/* ACT I–V: the hall, the touch, the fade, the thread, the circle */}
       <ScrollStory
-        acts={h.acts} label={h.hero.sceneLabel} dir={d.dir}
+        lang={lang} acts={h.acts} label={h.hero.sceneLabel} dir={d.dir}
         chips={Object.entries(h.chips).map(([k, label]) => ({ href: pathFor(k, lang), label }))}
         primary={h.hero.primary} primaryHref={JOIN_URL} secondary={h.hero.secondary} secondaryHref={pathFor('order', lang)}
+        photos={Object.fromEntries(['story-hall', 'story-touch', 'story-circle'].map((slot, k) => [slot, <Photo key={slot} slot={slot} alt="" sizes="100vw" priority={k === 0} className="absolute inset-0" imgClassName="h-full w-full object-cover" />]))}
+        skip={h.skip} storyNav={h.storyNav} chapter={h.chapter} sample={h.sample} cardName={h.cardName}
       />
 
       {/* WHO IT IS FOR — the product itself, one picture per buyer */}

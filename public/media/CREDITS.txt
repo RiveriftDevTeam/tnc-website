@@ -1,0 +1,21 @@
+Photos on tapnconnect.ae, from Unsplash (Unsplash License: free to use; credit is a courtesy).
+
+story-hall: "Euronewsweek Media" https://unsplash.com/@euronewsweek https://unsplash.com/photos/KVvEpFVq_-U
+story-touch: "Sebastian Dumitru" https://unsplash.com/@sebastiandumitru https://unsplash.com/photos/36g19a7ivrs
+story-circle: "Antenna" https://unsplash.com/@antenna https://unsplash.com/photos/ZDN-G1xBWHY
+door-organisers: "Euronewsweek Media" https://unsplash.com/@euronewsweek https://unsplash.com/photos/g7iSoF8NwYA
+door-exhibitors: "Trans Russia" https://unsplash.com/@transrussia https://unsplash.com/photos/BKpOVik79lA
+door-sponsors: "Stem List" https://unsplash.com/@stemlist https://unsplash.com/photos/EVgsAbL51Rk
+door-individuals: "Jelly Marketing" https://unsplash.com/@jellymarketing https://unsplash.com/photos/w5GxcIxT1gE
+door-companies: "Olena Kholina" https://unsplash.com/@sixtynice https://unsplash.com/photos/OsuDfn4vtLA
+year-coffee: "Vitaly Gariev" https://unsplash.com/@silverkblack https://unsplash.com/photos/k7moOgpIkU8
+final: "Toa Heftiba" https://unsplash.com/@heftiba https://unsplash.com/photos/l_ExpFwwOEg
+how-hero: "Olek Buzunov" https://unsplash.com/@olek_bznv_photo https://unsplash.com/photos/rBDAAw3OoMY
+how-event: "M ACCELERATOR" https://unsplash.com/@m_accelerator https://unsplash.com/photos/yTsy3PYFPtc
+how-organiser: "Riccardi Media" https://unsplash.com/@riccardimedia https://unsplash.com/photos/3BwoM8zNYwo
+persona-sponsor-2: "Stem List" https://unsplash.com/@stemlist https://unsplash.com/photos/EVgsAbL51Rk
+persona-exhibitor-2: "Dwayne joe" https://unsplash.com/@spliff_dj_joe https://unsplash.com/photos/bCMpeLcfWPw
+persona-individual-2: "Jordi Espinosa" https://unsplash.com/@jordiespinosa https://unsplash.com/photos/vFF-cypxQwY
+trust-uae: "Haris khan" https://unsplash.com/@hariskhan488 https://unsplash.com/photos/oF7dZYCgO3k
+pricing-hands: "A. C." https://unsplash.com/@3tnik https://unsplash.com/photos/JNwba6cv4e0
+notfound: "Priscilla Du Preez" https://unsplash.com/@priscilladupreez https://unsplash.com/photos/nF8xhLMmg0c

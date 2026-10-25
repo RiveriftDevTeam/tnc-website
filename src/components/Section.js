@@ -1,14 +1,14 @@
 import Reveal from './Reveal';
-export function Section({ id, eyebrow, h2, lead, children, className = '', center = false, as = 'h2' }) {
+// `eyebrow` is accepted and ignored: kickers above headings are retired (docs/plans/site-revamp.md § 3.1).
+export function Section({ id, h2, lead, children, className = '', center = false, as = 'h2' }) {
   const H = as;
   return (
     <section id={id} className={`section ${className}`}>
       <div className="wrap">
-        {(eyebrow || h2) && (
+        {h2 && (
           <Reveal className={`${center ? 'mx-auto text-center' : ''} max-w-3xl`}>
-            {eyebrow && <div className="eyebrow">{eyebrow}</div>}
-            {h2 && <H className="t-h1 mt-3">{h2}</H>}
-            {lead && <p className="lead mt-4">{lead}</p>}
+            <H className="t-h1">{h2}</H>
+            {lead && <p className="lead mt-5">{lead}</p>}
           </Reveal>
         )}
         {children}

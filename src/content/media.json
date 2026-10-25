@@ -1,0 +1,723 @@
+{
+  "story-hall": {
+    "id": "KVvEpFVq_-U",
+    "cdn": "photo-1775314054195-85f31de0c944",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      2400
+    ],
+    "dims": {
+      "480": [
+        480,
+        270
+      ],
+      "800": [
+        800,
+        450
+      ],
+      "1200": [
+        1200,
+        675
+      ],
+      "1600": [
+        1600,
+        900
+      ],
+      "2400": [
+        2400,
+        1350
+      ]
+    },
+    "ratio": 1.7778,
+    "focal": [
+      0.3,
+      0.3
+    ],
+    "zoom": 1.25,
+    "fallback": 1200,
+    "color": "#fcfcfd",
+    "photographer": "Euronewsweek Media",
+    "profile": "https://unsplash.com/@euronewsweek",
+    "page": "https://unsplash.com/photos/KVvEpFVq_-U"
+  },
+  "story-touch": {
+    "id": "36g19a7ivrs",
+    "cdn": "photo-1586726370832-3440a511e479",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      2400
+    ],
+    "dims": {
+      "480": [
+        480,
+        270
+      ],
+      "800": [
+        800,
+        450
+      ],
+      "1200": [
+        1200,
+        675
+      ],
+      "1600": [
+        1600,
+        900
+      ],
+      "2400": [
+        2400,
+        1350
+      ]
+    },
+    "ratio": 1.7778,
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#351707",
+    "photographer": "Sebastian Dumitru",
+    "profile": "https://unsplash.com/@sebastiandumitru",
+    "page": "https://unsplash.com/photos/36g19a7ivrs"
+  },
+  "story-circle": {
+    "id": "ZDN-G1xBWHY",
+    "cdn": "photo-1515169067868-5387ec356754",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        270
+      ],
+      "800": [
+        800,
+        450
+      ],
+      "1200": [
+        1200,
+        675
+      ],
+      "1600": [
+        1600,
+        900
+      ]
+    },
+    "ratio": 1.7778,
+    "focal": [
+      0.55,
+      0.28
+    ],
+    "zoom": 1.5,
+    "fallback": 1200,
+    "color": "#fdc84f",
+    "photographer": "Antenna",
+    "profile": "https://unsplash.com/@antenna",
+    "page": "https://unsplash.com/photos/ZDN-G1xBWHY"
+  },
+  "door-organisers": {
+    "id": "g7iSoF8NwYA",
+    "cdn": "photo-1775902087078-ecee948a7c6a",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        320
+      ],
+      "800": [
+        800,
+        533
+      ],
+      "1200": [
+        1200,
+        800
+      ],
+      "1600": [
+        1600,
+        1067
+      ]
+    },
+    "ratio": 1.5,
+    "focal": [
+      0.5,
+      0.55
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#c7f4ff",
+    "photographer": "Euronewsweek Media",
+    "profile": "https://unsplash.com/@euronewsweek",
+    "page": "https://unsplash.com/photos/g7iSoF8NwYA"
+  },
+  "door-exhibitors": {
+    "id": "BKpOVik79lA",
+    "cdn": "photo-1761195689615-9469b65dac01",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "dims": {
+      "480": [
+        480,
+        600
+      ],
+      "800": [
+        800,
+        1000
+      ],
+      "1200": [
+        1200,
+        1500
+      ]
+    },
+    "ratio": 0.8,
+    "focal": [
+      1,
+      0.35
+    ],
+    "zoom": 1.85,
+    "fallback": 1200,
+    "color": "#eef0f3",
+    "photographer": "Trans Russia",
+    "profile": "https://unsplash.com/@transrussia",
+    "page": "https://unsplash.com/photos/BKpOVik79lA"
+  },
+  "door-sponsors": {
+    "id": "EVgsAbL51Rk",
+    "cdn": "photo-1558008258-3256797b43f3",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        320
+      ],
+      "800": [
+        800,
+        533
+      ],
+      "1200": [
+        1200,
+        800
+      ],
+      "1600": [
+        1600,
+        1067
+      ]
+    },
+    "ratio": 1.5,
+    "focal": [
+      0.6,
+      0.5
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#e9fcf9",
+    "photographer": "Stem List",
+    "profile": "https://unsplash.com/@stemlist",
+    "page": "https://unsplash.com/photos/EVgsAbL51Rk"
+  },
+  "door-individuals": {
+    "id": "w5GxcIxT1gE",
+    "cdn": "photo-1783120947302-0ac75b8a9e35",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "dims": {
+      "480": [
+        480,
+        600
+      ],
+      "800": [
+        800,
+        1000
+      ],
+      "1200": [
+        1200,
+        1500
+      ]
+    },
+    "ratio": 0.8,
+    "focal": [
+      0.5,
+      0.42
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#06070b",
+    "photographer": "Jelly Marketing",
+    "profile": "https://unsplash.com/@jellymarketing",
+    "page": "https://unsplash.com/photos/w5GxcIxT1gE"
+  },
+  "door-companies": {
+    "id": "OsuDfn4vtLA",
+    "cdn": "photo-1775163560631-6ff15eb2fa1f",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        320
+      ],
+      "800": [
+        800,
+        533
+      ],
+      "1200": [
+        1200,
+        800
+      ],
+      "1600": [
+        1600,
+        1067
+      ]
+    },
+    "ratio": 1.5,
+    "focal": [
+      0.55,
+      0.5
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#fefbf6",
+    "photographer": "Olena Kholina",
+    "profile": "https://unsplash.com/@sixtynice",
+    "page": "https://unsplash.com/photos/OsuDfn4vtLA"
+  },
+  "year-coffee": {
+    "id": "k7moOgpIkU8",
+    "cdn": "photo-1790749870695-4dfd18a0834d",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        320
+      ],
+      "800": [
+        800,
+        533
+      ],
+      "1200": [
+        1200,
+        800
+      ],
+      "1600": [
+        1600,
+        1067
+      ]
+    },
+    "ratio": 1.5,
+    "focal": [
+      0.45,
+      0.4
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#c9d0d0",
+    "photographer": "Vitaly Gariev",
+    "profile": "https://unsplash.com/@silverkblack",
+    "page": "https://unsplash.com/photos/k7moOgpIkU8"
+  },
+  "final": {
+    "id": "l_ExpFwwOEg",
+    "cdn": "photo-1582298538104-fe2e74c27f59",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "dims": {
+      "480": [
+        480,
+        600
+      ],
+      "800": [
+        800,
+        1000
+      ],
+      "1200": [
+        1200,
+        1500
+      ]
+    },
+    "ratio": 0.8,
+    "focal": [
+      0.55,
+      0.5
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#e6e8ea",
+    "photographer": "Toa Heftiba",
+    "profile": "https://unsplash.com/@heftiba",
+    "page": "https://unsplash.com/photos/l_ExpFwwOEg"
+  },
+  "how-hero": {
+    "id": "rBDAAw3OoMY",
+    "cdn": "photo-1771340591609-eb20e41daaf6",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "dims": {
+      "480": [
+        480,
+        600
+      ],
+      "800": [
+        800,
+        1000
+      ],
+      "1200": [
+        1200,
+        1500
+      ]
+    },
+    "ratio": 0.8,
+    "focal": [
+      0.45,
+      0.3
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#f6f0ea",
+    "photographer": "Olek Buzunov",
+    "profile": "https://unsplash.com/@olek_bznv_photo",
+    "page": "https://unsplash.com/photos/rBDAAw3OoMY"
+  },
+  "how-event": {
+    "id": "yTsy3PYFPtc",
+    "cdn": "photo-1675716921224-e087a0cca69a",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        320
+      ],
+      "800": [
+        800,
+        533
+      ],
+      "1200": [
+        1200,
+        800
+      ],
+      "1600": [
+        1600,
+        1067
+      ]
+    },
+    "ratio": 1.5,
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#fdfefc",
+    "photographer": "M ACCELERATOR",
+    "profile": "https://unsplash.com/@m_accelerator",
+    "page": "https://unsplash.com/photos/yTsy3PYFPtc"
+  },
+  "how-organiser": {
+    "id": "3BwoM8zNYwo",
+    "cdn": "photo-1772690445981-78b22eacda4b",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        320
+      ],
+      "800": [
+        800,
+        533
+      ],
+      "1200": [
+        1200,
+        800
+      ],
+      "1600": [
+        1600,
+        1067
+      ]
+    },
+    "ratio": 1.5,
+    "focal": [
+      0.5,
+      0.3
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#ebe0db",
+    "photographer": "Riccardi Media",
+    "profile": "https://unsplash.com/@riccardimedia",
+    "page": "https://unsplash.com/photos/3BwoM8zNYwo"
+  },
+  "persona-sponsor-2": {
+    "id": "EVgsAbL51Rk",
+    "cdn": "photo-1558008258-3256797b43f3",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        270
+      ],
+      "800": [
+        800,
+        450
+      ],
+      "1200": [
+        1200,
+        675
+      ],
+      "1600": [
+        1600,
+        900
+      ]
+    },
+    "ratio": 1.7778,
+    "focal": [
+      0.25,
+      0.55
+    ],
+    "zoom": 1.4,
+    "fallback": 1200,
+    "color": "#e9fcf9",
+    "photographer": "Stem List",
+    "profile": "https://unsplash.com/@stemlist",
+    "page": "https://unsplash.com/photos/EVgsAbL51Rk"
+  },
+  "persona-exhibitor-2": {
+    "id": "bCMpeLcfWPw",
+    "cdn": "photo-1751139846116-8c4bc6b64eea",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "dims": {
+      "480": [
+        480,
+        600
+      ],
+      "800": [
+        800,
+        1000
+      ],
+      "1200": [
+        1200,
+        1500
+      ]
+    },
+    "ratio": 0.8,
+    "focal": [
+      0.5,
+      0.35
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#f9f9f8",
+    "photographer": "Dwayne joe",
+    "profile": "https://unsplash.com/@spliff_dj_joe",
+    "page": "https://unsplash.com/photos/bCMpeLcfWPw"
+  },
+  "persona-individual-2": {
+    "id": "vFF-cypxQwY",
+    "cdn": "photo-1704279040395-a87c0e2d1478",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "dims": {
+      "480": [
+        480,
+        600
+      ],
+      "800": [
+        800,
+        1000
+      ],
+      "1200": [
+        1200,
+        1500
+      ]
+    },
+    "ratio": 0.8,
+    "focal": [
+      0.45,
+      0.55
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#e5f3e3",
+    "photographer": "Jordi Espinosa",
+    "profile": "https://unsplash.com/@jordiespinosa",
+    "page": "https://unsplash.com/photos/vFF-cypxQwY"
+  },
+  "trust-uae": {
+    "id": "oF7dZYCgO3k",
+    "cdn": "photo-1686918269961-507270a5a238",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        320
+      ],
+      "800": [
+        800,
+        533
+      ],
+      "1200": [
+        1200,
+        800
+      ],
+      "1600": [
+        1600,
+        1067
+      ]
+    },
+    "ratio": 1.5,
+    "focal": [
+      0.55,
+      0.5
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#0d1813",
+    "photographer": "Haris khan",
+    "profile": "https://unsplash.com/@hariskhan488",
+    "page": "https://unsplash.com/photos/oF7dZYCgO3k"
+  },
+  "pricing-hands": {
+    "id": "JNwba6cv4e0",
+    "cdn": "photo-1596633607590-7156877ef734",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        320
+      ],
+      "800": [
+        800,
+        533
+      ],
+      "1200": [
+        1200,
+        800
+      ],
+      "1600": [
+        1600,
+        1067
+      ]
+    },
+    "ratio": 1.5,
+    "focal": [
+      0.5,
+      0.55
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#170c04",
+    "photographer": "A. C.",
+    "profile": "https://unsplash.com/@3tnik",
+    "page": "https://unsplash.com/photos/JNwba6cv4e0"
+  },
+  "notfound": {
+    "id": "nF8xhLMmg0c",
+    "cdn": "photo-1491438590914-bc09fcaaf77a",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "dims": {
+      "480": [
+        480,
+        320
+      ],
+      "800": [
+        800,
+        533
+      ],
+      "1200": [
+        1200,
+        800
+      ],
+      "1600": [
+        1600,
+        1067
+      ]
+    },
+    "ratio": 1.5,
+    "focal": [
+      0.6,
+      0.4
+    ],
+    "zoom": null,
+    "fallback": 1200,
+    "color": "#0a1f25",
+    "photographer": "Priscilla Du Preez",
+    "profile": "https://unsplash.com/@priscilladupreez",
+    "page": "https://unsplash.com/photos/nF8xhLMmg0c"
+  }
+}
