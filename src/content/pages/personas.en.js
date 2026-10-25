@@ -5,7 +5,13 @@ const page_personas_en = {
     organisers: {
       title: 'TapNConnect for event organisers — prove the relationships your event created',
       description: 'Sell the day after. A relationship report for every edition, exhibitor value you can show at renewal, sponsor reach with honest numbers, and a next-event engine. Counts and aggregates, never visitor data.',
-      hero: { eyebrow: 'For event organisers', h1: 'Prove what your event created. Then sell the day after.', sub: 'Registrations, footfall and scans say who came. TapNConnect says what happened between them, and what to do for the next edition.' },
+      hero: { h1: 'Prove the relationships your event created, and sell the next edition with it.', sub: 'Registrations, footfall and scans say who came. TapNConnect says what happened between them, and what to do for the next edition.', photoAlt: 'An exhibition hall seen from above, crowded around a small stage under a steel arch' },
+      outcomesPhotoAlt: 'A panel of four speakers with microphones talking to guests seated at a dinner table',
+      compare: { rows: [
+        { before: 'A footfall number and a list of scans.', with: 'A report of the relationships your event created, edition by edition.' },
+        { before: 'Renewal talks that start with “trust us”.', with: 'Renewal with proof: which exhibitors became hubs, and how many accounts moved on in 30 days.' },
+        { before: 'Sponsors ask for reach and get a guess.', with: 'Sponsor views counted only when the banner was on screen. No cookies, no identities.' },
+      ] },
       outcomes: [
         { title: 'The relationship report', p: 'Reach → Relationships → Quality → Progress → Structure → Exhibitors → Next edition. Print-ready, sponsor-brandable, one story.' },
         { title: 'Exhibitor renewal proof', p: 'Which exhibitors became hubs, how many accounts progressed in the 30 days after. Shown at renewal, not argued.' },
@@ -32,7 +38,13 @@ const page_personas_en = {
     exhibitors: {
       title: 'TapNConnect for exhibitors — accounts, not scan lists',
       description: 'Every visitor your booth meets becomes an account with an owner, an intent and a drafted follow-up. Who on your team knows the company best, one click to your CRM. Priced per seat.',
-      hero: { eyebrow: 'For exhibitors', h1: 'Accounts, not scan lists.', sub: 'ABC Technologies: five conversations, three decision-makers, two existing relationships, one owner, one next step. Not “Lead 1 to 5”.' },
+      hero: { h1: 'Accounts, not scan lists. The Monday hand-over, done by Friday.', sub: 'ABC Technologies: five conversations, three decision-makers, two existing relationships, one owner, one next step. Not “Lead 1 to 5”.', photoAlt: 'An exhibitor in a lanyard glancing across at a visitor during a conversation at a stand' },
+      outcomesPhotoAlt: 'A smiling man in a lanyard talking with two visitors, one of them holding a business card',
+      compare: { rows: [
+        { before: 'A scan list: Lead 1, Lead 2, Lead 3.', with: 'One page per company: five conversations, three decision-makers, one owner.' },
+        { before: 'Follow-ups written on Monday, from memory.', with: 'Follow-ups drafted for each account by Friday, with the promise in them.' },
+        { before: 'Nobody knows who on the team knows the buyer.', with: 'The strongest relationship owns the account, and one click sends it to your CRM.' },
+      ] },
       outcomes: [
         { title: 'Capture in seconds, one hand', p: 'Tap, badge, QR or a paper card. Two-tap notes for a loud hall: “send pricing”, “book a demo”, “decision maker”. Voice when it is quieter.' },
         { title: 'Lead → Account → Intent → Owner → Next action → CRM', p: 'Five staff meet one company; you see one page. The strongest internal relationship owns it.' },
@@ -59,7 +71,13 @@ const page_personas_en = {
     sponsors: {
       title: 'TapNConnect for sponsors — what your sponsorship delivered',
       description: 'Your banner on the event’s attendee cards and event page, rotated by tier. Views counted only on screen, no cookies, no identities. Keep the people who tapped with starter cards.',
-      hero: { eyebrow: 'For sponsors', h1: 'What your sponsorship delivered. Honestly.', sub: 'Your banner where people actually look: on the attendee cards they tap and the event page they open. Counted when it was on screen, never guessed.' },
+      hero: { h1: 'What your sponsorship delivered, counted honestly. And the people who tapped, kept.', sub: 'Your banner where people actually look: on the attendee cards they tap and the event page they open. Counted when it was on screen, never guessed.', photoAlt: 'A darkened hall with a lit screen and rows of seated attendees' },
+      outcomesPhotoAlt: 'The lit screen at the front of a hall, with the audience in silhouette',
+      compare: { rows: [
+        { before: 'A logo on a wall and no way to say who saw it.', with: 'Your banner on the attendee cards and the event page, placed by tier.' },
+        { before: 'Reach is an estimate.', with: 'A view counts only when the banner was on screen. A click goes through a short redirect.' },
+        { before: 'The people who tapped drift away after the show.', with: 'Two starter cards for your team for 90 days, so those people stay in your circle.' },
+      ] },
       outcomes: [
         { title: 'Placement by tier', p: 'Platinum, Gold, Silver, Bronze decide where the logo shows, how large, and your share of banner views.' },
         { title: 'Figures you can trust', p: 'A view counts only when the banner was on screen. A click goes through a short redirect. No cookie, no stored address.' },
@@ -75,7 +93,7 @@ const page_personas_en = {
           { title: 'After', p: 'Your starter cards keep working for 90 days. Upgrade to seats when you want more.' },
         ],
       },
-      packages: { h2: 'Tiers', p: 'Platinum, Gold, Silver and Bronze, with a published list price each. A person confirms within a working day.' },
+      packages: { h2: 'Tiers', p: 'Platinum, Gold, Silver and Bronze. A person confirms the price within a working day.' },
       faq: [
         { q: 'Is my banner on every member’s card?', a: 'No. Only on attendee cards issued for the event you sponsor and on that event’s page in the app. A member’s own professional card is never ad space.' },
         { q: 'Can I see who viewed it?', a: 'No, and neither can we. We count views, not people.' },
@@ -85,7 +103,13 @@ const page_personas_en = {
     companies: {
       title: 'TapNConnect for companies — relationship memory that survives staff churn',
       description: 'Who in our company knows this person, and how well? Seats and cards for your team with or without events, a shared pool of AI credits, and every relationship kept by the company.',
-      hero: { eyebrow: 'For companies', h1: 'Who in our company knows this person? And how well?', sub: 'Every relationship your team captures stays with the company when the salesperson leaves. Work accounts, separate from personal ones, by design.' },
+      hero: { h1: 'Relationship memory that stays when people move on.', sub: 'Every relationship your team captures stays with the company when the salesperson leaves. Work accounts, separate from personal ones, by design.', photoAlt: 'People mingling and talking at an evening networking event, glasses in hand', sticker: { meta: 'Sample figures', note: 'Who here knows Qamar Bank?', lines: ['Mohammed · met in person', 'Layla · two calls'] } },
+      outcomesPhotoAlt: '',
+      compare: { rows: [
+        { before: 'The relationship leaves with the salesperson.', with: 'Every relationship your team captures stays with the company.' },
+        { before: 'Nobody is sure who knows whom.', with: 'One page per company you deal with: who met whom, what was promised, who owns it.' },
+        { before: 'Work contacts mixed in with personal ones.', with: 'Work accounts, apart from personal ones, by design.' },
+      ] },
       outcomes: [
         { title: 'Relationship memory', p: 'One page per company you deal with: who met whom, what was discussed, what was promised, who owns it.' },
         { title: 'Work and personal, apart', p: 'A seat is a work account with the work e-mail. A person’s own circle is theirs; what they capture for you is yours.' },
@@ -110,8 +134,14 @@ const page_personas_en = {
     },
     individuals: {
       title: 'TapNConnect for individuals — never lose a person again',
-      description: 'Founders, consultants, investors, recruiters, brokers. Free to start: your card, everyone you meet, 30 voice notes a month. Plus adds your assistant for AED 39 a month.',
-      hero: { eyebrow: 'For individuals', h1: 'Never lose a person again.', sub: 'For the people whose work is relationships: founders, consultants, investors, recruiters, brokers. The one right person instead of a broadcast.' },
+      description: 'Founders, consultants, investors, recruiters, brokers. Free to start: your card, everyone you meet, 30 voice notes a month. Plus adds your assistant.',
+      hero: { h1: 'A circle that lasts, and an assistant that remembers for you.', sub: 'For the people whose work is relationships: founders, consultants, investors, recruiters, brokers. The one right person instead of a broadcast.', photoAlt: 'A smiling man holding up a blank badge on a lanyard' },
+      outcomesPhotoAlt: 'Two friends walking arm in arm through a festival crowd, seen from behind',
+      compare: { rows: [
+        { before: '“Where did I meet Sarah?” Lost in a camera roll.', with: 'Answered with the evidence: where, when, and what you said.' },
+        { before: 'Walking into tomorrow’s meeting cold.', with: 'A brief first: last time, open promises, what changed at their company.' },
+        { before: 'Good people go quiet, unnoticed.', with: 'Three messages drafted every morning for the people who need a word. You say yes.' },
+      ] },
       outcomes: [
         { title: 'Remember', p: 'Where did I meet Sarah, what did we discuss, what did I promise? Answered, with the evidence.' },
         { title: 'Prepare', p: 'A brief before tomorrow’s meeting: last time, open promises, what changed at their company.' },
@@ -127,7 +157,7 @@ const page_personas_en = {
           { title: 'Week 2', p: 'You ask the assistant something you had forgotten. It knew.' },
         ],
       },
-      packages: { h2: 'Plans', p: 'Free keeps your card and your people. Plus is AED 39 a month, or AED 390 a year. The card is AED 149 with a year of Plus.' },
+      packages: { h2: 'Plans', p: 'Free keeps your card and your people. Plus adds your assistant. The card comes with a year of Plus.' },
       faq: [
         { q: 'Is Free really free?', a: 'Yes. Your card, everyone you meet, 30 voice notes a month and 30 AI credits a day, with no card required.' },
         { q: 'Can I use my own AI assistant?', a: 'Yes, on Plus and above. Your circle answers inside ChatGPT, Claude or Siri through a connection you approve and can revoke.' },
@@ -135,6 +165,7 @@ const page_personas_en = {
       ],
     },
     common: {
+      compareH2: 'Before, and with TapNConnect', compareBefore: 'Before', compareWith: 'With TapNConnect', sample: 'Sample figures', pricedPerOrder: 'Priced per order',
       outcomesH2: 'What you get', faqH2: 'Questions people ask', ctaH2: 'Ready when you are.', ctaP: 'Order on this page, or talk to a person first.',
       seePricing: 'See the price list',
     },
