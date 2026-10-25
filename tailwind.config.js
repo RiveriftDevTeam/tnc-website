@@ -29,8 +29,8 @@ module.exports = {
         clay: Object.fromEntries([1, 2, 3, 4, 5, 6].map((i) => [i, `var(--tnc-site-clay-${i})`])),
       },
       fontFamily: {
-        // --display / --hand switch their order per language in globals.css (Arabic face first on /ar)
-        sans: ['var(--font-geist-sans)', 'var(--font-arabic)', 'system-ui', 'sans-serif'],
+        // --sans / --display / --hand switch their order per language in globals.css (Arabic face first on /ar)
+        sans: 'var(--sans)',
         display: 'var(--display)',
         hand: 'var(--hand)',
       },

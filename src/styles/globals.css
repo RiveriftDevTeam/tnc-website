@@ -5,20 +5,20 @@
 
 @layer base {
   /* Voice stacks: the display and hand faces put the page language first */
-  :root { --display: var(--font-display), var(--font-display-ar), var(--font-geist-sans), system-ui, sans-serif; --hand: var(--font-hand), var(--font-hand-ar), cursive; }
-  html[lang="ar"] { --display: var(--font-display-ar), var(--font-display), var(--font-arabic), system-ui, sans-serif; --hand: var(--font-hand-ar), var(--font-hand), cursive; }
+  :root { --sans: var(--font-geist-sans), var(--font-arabic), system-ui, sans-serif; --display: var(--font-display), var(--font-display-ar), var(--font-geist-sans), system-ui, sans-serif; --hand: var(--font-hand), var(--font-hand-ar), cursive; }
+  html[lang="ar"] { --sans: var(--font-arabic), var(--font-geist-sans), system-ui, sans-serif; --display: var(--font-display-ar), var(--font-display), var(--font-arabic), system-ui, sans-serif; --hand: var(--font-hand-ar), var(--font-hand), cursive; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scrollbar-color: rgb(var(--tnc-ink-rgb) / .28) transparent; }
   body {
     background: var(--tnc-ground);
     color: var(--tnc-ink);
-    font-family: var(--font-geist-sans), var(--font-arabic), system-ui, sans-serif;
+    font-family: var(--sans);
     font-feature-settings: 'tnum' 1, 'cv11' 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     caret-color: var(--tnc-site-thread);
   }
-  html[lang="ar"] body { font-family: var(--font-arabic), var(--font-geist-sans), system-ui, sans-serif; line-height: 1.7; }
+  html[lang="ar"] body { line-height: 1.7; }
   /* Arabic reading face ships at 400 only (font budget); anything weightier speaks in Alexandria (variable, already loaded) */
   html[lang="ar"] :is(.btn, .chip, .font-medium, .font-semibold, .font-bold, strong, b, th, label, summary) { font-family: var(--display); }
   ::selection { background: rgb(var(--tnc-site-sun-rgb) / .55); color: var(--tnc-ink); }
@@ -75,8 +75,6 @@
   }
   .chip-quiet { background: var(--tnc-sunken); color: var(--tnc-ink-muted); }
   .chip-sun { background: var(--tnc-site-sun); color: var(--tnc-site-sun-ink); }
-  /* Eyebrows are retired (craft-floor ban). Old screens still pass them until C2–C6 rewrite them with their keys. */
-  .eyebrow { display: none; }
 
   .wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: 20px; }
   @media (min-width: 768px) { .wrap { padding-inline: 28px; } }
