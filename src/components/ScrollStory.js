@@ -21,8 +21,11 @@ import { track, EVENTS } from '@/lib/analytics';
 const StoryCanvas = dynamic(() => import('./StoryCanvas'), { ssr: false, loading: () => null });
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 // [in, out] by progress, and the photo each act stands on
-const ACTS = [[0, 0.10], [0.10, 0.24], [0.24, 0.40], [0.40, 0.54], [0.54, 0.70], [0.70, 0.86], [0.86, 1]];
-const ACT_PHOTO = ['story-hall', 'story-hall', 'story-touch', 'story-touch', null, 'story-circle', null];
+// (docs/plans/site-revamp.md Amendment A1: 8 acts, keep in step with StoryCanvas and scripts/stills.mjs)
+export const ACTS = [[0, 0.08], [0.08, 0.19], [0.19, 0.31], [0.31, 0.39], [0.39, 0.52], [0.52, 0.65], [0.65, 0.82], [0.82, 1]];
+const ACT_PHOTO = ['story-hall', 'story-hall', 'story-touch', 'story-touch', 'story-hall', null, null, null];
+const CIRCLE_CLAY = [2, 3, 5, 1]; // your team, friends, mentors, clients (StoryCanvas rings use the same order)
+const NOTES = [0.65, 0.82]; // act 7: the assistant's notes take turns across this range
 const FADE = 0.025;
 
 /** A pre-rendered frame of the scene for act n (scripts/stills.mjs): per language, theme and orientation. */
@@ -57,6 +60,7 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
   const stillRefs = useRef([]);
   const fillRef = useRef(null);
   const knotRefs = useRef([]);
+  const noteRefs = useRef([]);
   const lastAct = useRef(-1);
 
   useEffect(() => {
@@ -90,16 +94,18 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
         n.setAttribute('aria-hidden', on ? 'false' : 'true');
         if (on && lastAct.current !== i) { lastAct.current = i; track(EVENTS.story_beat, { beat: `act-${i + 1}` }); }
       });
-      // the photos: the hall pushes in and blurs, the hands cross-fade in, then dim; the circle warms act 6
-      const hall = photoRefs.current['story-hall'], touch = photoRefs.current['story-touch'], circle = photoRefs.current['story-circle'];
+      // the photos: the hall pushes in and blurs, the hands cross-fade in and dim, the hall glows back faintly as the web forms
+      const hall = photoRefs.current['story-hall'], touch = photoRefs.current['story-touch'];
       if (hall) {
-        const push = span(p, 0, 0.10) * 0.08 + span(p, 0.10, 0.24) * 0.17;
-        hall.style.opacity = String(1 - span(p, 0.24, 0.29));
+        const push = span(p, 0, 0.08) * 0.08 + span(p, 0.08, 0.19) * 0.17;
+        hall.style.opacity = String(Math.max(1 - span(p, 0.19, 0.23), span(p, 0.39, 0.43) * 0.28 * (1 - span(p, 0.50, 0.55))));
         hall.style.transform = `scale(${1 + push})`;
-        hall.style.filter = `blur(${2.5 + span(p, 0.10, 0.24) * 5}px)`;
+        hall.style.filter = `blur(${2.5 + span(p, 0.08, 0.19) * 5}px)`;
       }
-      if (touch) touch.style.opacity = String(span(p, 0.24, 0.29) * (0.42 - span(p, 0.40, 0.50) * 0.24) * (1 - span(p, 0.54, 0.58)));
-      if (circle) circle.style.opacity = String(span(p, 0.70, 0.75) * 0.5 * (1 - span(p, 0.86, 0.92)));
+      if (touch) touch.style.opacity = String(span(p, 0.19, 0.23) * (0.42 - span(p, 0.31, 0.37) * 0.24) * (1 - span(p, 0.39, 0.43)));
+      // act 7: one note at a time
+      const k = Math.min(3, Math.floor(span(p, NOTES[0], NOTES[1]) * 4));
+      noteRefs.current.forEach((n, i) => { if (n) { n.style.opacity = i === k ? '1' : '0'; n.style.transform = i === k ? '' : `translateY(${i < k ? -12 : 12}px)`; n.setAttribute('aria-hidden', i === k ? 'false' : 'true'); } });
       // stills mode: cross-fade the act frames
       stillRefs.current.forEach((s, i) => { if (s) { const [a, b] = ACTS[i]; s.style.opacity = String(i === 0 ? 1 - span(p, b - FADE, b) : Math.min(span(p, a - FADE, a + FADE), i === ACTS.length - 1 ? 1 : 1 - span(p, b - FADE, b + FADE))); } });
       // the progress thread
@@ -132,14 +138,22 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
       {i === 0 ? <h1 className="t-display text-field-ink">{a.h}</h1> : <h2 className="t-h1 text-field-ink">{a.h}</h2>}
       {a.p && <p className={`lead mt-5 max-w-xl text-field-ink/80 ${i === 0 ? 'text-[clamp(1.06rem,1.3vw,1.2rem)]' : ''}`}>{a.p}</p>}
       {a.sticker && <Sticker tilt={2} tape meta={a.sticker.meta} note={a.sticker.note} className="mt-6 inline-block max-w-xs !pe-6" />}
+      {a.circles && (
+        <ul className="mt-6 flex flex-wrap gap-2">
+          {a.circles.map((c, k) => <li key={c} className="chip !min-h-[34px] bg-field-ink/10 !px-3.5 text-[.95rem] text-field-ink"><span className="h-2.5 w-2.5 rounded-full" style={{ background: `var(--tnc-site-clay-${CIRCLE_CLAY[k]})` }} aria-hidden="true" />{c}</li>)}
+        </ul>
+      )}
       {a.notes && (
-        <div className="mt-6 flex max-w-md flex-col gap-4">
+        <ol className="mt-6 grid max-w-md">
           {a.notes.map((n, k) => (
-            <Sticker key={n.note} tilt={k ? 3 : 1} meta={n.meta ? `${n.meta} · ${sample}` : sample} note={n.note} className={k ? 'ms-10 max-w-[18rem]' : 'max-w-sm'}>
-              {n.yes && <div className="mt-3 flex gap-2" aria-hidden="true"><span className="btn btn-primary btn-sm !min-h-[34px] !px-3 !text-sm">{n.yes}</span><span className="btn btn-quiet btn-sm !min-h-[34px] !px-3 !text-sm">{n.no}</span></div>}
-            </Sticker>
+            <li key={n.note} ref={(el) => { if (!reduced) noteRefs.current[k] = el; }} className={`${reduced ? 'mb-4' : '[grid-area:1/1] transition-[opacity,transform] duration-base ease-out'}`} style={reduced || !k ? undefined : { opacity: 0 }}>
+              <Sticker tilt={k % 2 ? 2 : 1} meta={`${n.when} · ${sample}`} note={n.note}>
+                <p className="mt-1.5 text-[.85rem] leading-snug text-subtle">{n.why}</p>
+                <div className="mt-3 flex gap-2" aria-hidden="true"><span className="btn btn-primary btn-sm !min-h-[34px] !px-3 !text-sm">{n.yes}</span><span className="btn btn-quiet btn-sm !min-h-[34px] !px-3 !text-sm">{n.no}</span></div>
+              </Sticker>
+            </li>
           ))}
-        </div>
+        </ol>
       )}
       {i === 0 && (
         <>
@@ -175,11 +189,11 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
   }
 
   return (
-    <section ref={wrap} className="relative h-[480vh] bg-field text-field-ink md:h-[640vh]" aria-label={label}>
+    <section ref={wrap} className="relative h-[560vh] bg-field text-field-ink md:h-[760vh]" aria-label={label}>
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         {/* 1 · photos */}
         <div className="absolute inset-0" aria-hidden="true">
-          {['story-hall', 'story-touch', 'story-circle'].map((slot, k) => (
+          {['story-hall', 'story-touch'].map((slot, k) => (
             <div key={slot} ref={(n) => (photoRefs.current[slot] = n)} className="absolute inset-0 will-change-[opacity,transform]" style={{ opacity: k ? 0 : 1, filter: k ? undefined : 'blur(2.5px)' }}>
               {photos[slot]}
             </div>

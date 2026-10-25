@@ -19,7 +19,8 @@ export function Knot({ size = 14, className = '' }) {
   );
 }
 
-/** The coral thread (docs/plans/site-revamp.md § 3.4). Draws itself on scroll: native scroll timeline where supported,
+/** The coral thread (docs/plans/site-revamp.md § 3.4). Draws itself on scroll by revealing from its start (a clip, not a
+ *  dash pattern, which breaks under non-scaling strokes): native scroll timeline where supported,
  *  IntersectionObserver otherwise (globals.css .thread). Fully drawn without JS and under reduced motion.
  *  knots: positions along the run in % (0..100), rendered as HTML so they stay round on any aspect ratio. */
 export default function Thread({ shape = 'h', d, knots = [], animate = true, width = 2, className = '', style }) {
@@ -32,9 +33,9 @@ export default function Thread({ shape = 'h', d, knots = [], animate = true, wid
     return () => io.disconnect();
   }, [animate]);
   return (
-    <div ref={ref} className={`thread pointer-events-none relative rtl:-scale-x-100 ${className}`} data-animate={animate ? '' : undefined} style={style} aria-hidden="true">
-      <svg className="absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d={d || PATHS[shape]} pathLength="1" data-draw="" fill="none" stroke="currentColor" strokeWidth={width} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+    <div ref={ref} className={`thread pointer-events-none relative rtl:-scale-x-100 ${className}`} data-animate={animate ? '' : undefined} data-v={vertical ? '' : undefined} style={style} aria-hidden="true">
+      <svg data-draw="" className="absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d={d || PATHS[shape]} fill="none" stroke="currentColor" strokeWidth={width} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
       </svg>
       {knots.map((k) => (
         <span key={k} className="absolute -translate-x-1/2 -translate-y-1/2" style={vertical ? { top: `${k}%`, left: '50%' } : { left: `${k}%`, top: '50%' }}><Knot /></span>

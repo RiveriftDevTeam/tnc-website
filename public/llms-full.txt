@@ -6,120 +6,15 @@ Source: https://tapnconnect.ae. Pages: https://tapnconnect.ae/ · https://tapnco
 
 ## Home
 
-TapNConnect — Stay close to the people you meet
-Your AI assistant for the people in your life, at work and at home. It keeps what matters to each of them, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.
-Your relationship assistant
+TapNConnect — the relationship OS for events and the people in them
+TapNConnect is the relationship OS for events and the people in them: every tap becomes a thread, and an assistant keeps each one alive. It remembers who people are and what you promised, tells you when a word would count, and writes the first draft. Nothing goes out without your yes.
 Stay close to the people you meet.
-Your AI assistant for the people in your life, at work and at home. It keeps what matters to each of them, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.
 Start free
 Order for your company
 Free for the people you meet. Plans in AED for companies and events.
-A circle of people around you, growing over a year.
-Why
-You meet hundreds of people a year. Your phone keeps a number.
-The conversation, the promise, the thing they care about: lost between a lanyard, a WhatsApp thread and a business card in a drawer. Nobody writes it down, because until now writing it down cost more than it was worth.
-20+
-contacts after one event day
-days before a warm lead goes quiet
-notes about what you actually discussed
-One person, one year
-Trust first. Business follows.
-Follow Layla through a year with the people she meets. The assistant saves, reminds, suggests and drafts. Every yes is hers.
-meet
-Two people meet.
-Met in person · Gulf Tech Expo · 14 Oct
-Omar runs the Dubai Marathon in January.
-Saved. I’ll remind you before the race.
-word
-It knows when a word matters.
-9 Jan
-Omar’s marathon is on Sunday. Wish him luck?
-Send a note
-Not now
-Thank you, Layla! 3:58 — coffee next week?
-Omar · the same day
-circle
-One person, many relationships.
-2 Jun
-Omar can introduce you to Yusuf at Al Noor. Ask him?
-Ask Omar
-Not now
-Omar introduced you · 2 Jun
-draft
-It drafts. You say yes.
-22 Sep
-Omar asked for a proposal.
-Omar, thank you for Tuesday’s call. Here is the proposal…
-Approve
-Not this one
-Sent · 11 months after you met
-close
-Trust first. Business follows.
-Sent · 11 months after you met
-A friend, a mentor, a client and the man he introduced. One circle, one year.
-Layla
-Omar
-Hana
-Noor
-Yusuf
-friend
-mentor
-client
-via Omar
-Al Noor
-you
-Your assistant
-How it works
-Capture is one gesture. The rest is the assistant’s job.
-Tap
-Tap a card, scan a badge or a QR, or hold to record a 20-second voice note. No form, no typing during the conversation.
-Keep
-“Save this memory?” is already filled: who, where, when, what they care about, what you promised. Edit is optional.
-Remember
-Ask in plain words: “Who did I meet at GITEX in cybersecurity that I haven’t spoken to in 90 days?” Every answer cites its evidence.
-Next step
-One morning brief with the three things that need you today, and the first draft of each message.
-Outcome
-A meeting, an introduction, a deal, a friend kept. The assistant asks “anything come of it?” and remembers the answer.
-See the full journey
-The card
-One tap. The card is the door, not the product.
-A tap card in our design, with your photo, logo and words. Tap it on any phone: your page opens, your details are exchanged with one yes, and both of you leave with the moment saved. Never required: a QR, a badge or a photo of a paper card does the same.
-Works on iPhone and Android without an app
-Your palette, light or dark; Arabic and English
-Met in person: the only proof is two phones, one moment, two yeses
-Get the card — AED 149 with a year of Plus
-Who it is for
-Built for the whole hall, and for the day after.
-Event organisers
-Prove what relationships your event created. Sell what nobody else can: the day after.
-Exhibitors
-Accounts, not scan lists. The Monday-morning hand-over, done by Friday evening.
-Sponsors
-See what your banner delivered, honestly, and keep the people who tapped.
-Companies
-Every relationship stays with the company when a salesperson leaves.
-Individuals
-Founders, consultants, brokers: never lose a person again.
-Privacy you can see
-The AI doesn’t need to know who you are to understand your relationships.
-Humans only
-Every person in your circle is someone you met, claimed or imported yourself. No bots, no bought lists, no scraping.
-Your graph is yours
-One isolated memory per member. An organiser sees counts, never names. An employer sees what you captured for them, nothing else.
-Names stay in a vault
-The model reasons over pseudonyms. A name is put back only on a purpose check, and every time it is, it is logged.
-Nothing goes out without a yes
-Every message, introduction and CRM push is shown first. You approve, edit or dismiss. Delete means delete, everywhere it was copied.
-How we handle your data
-Pricing
-Free for the people you meet. Plans for the ones who sell.
-Prices in AED, published once, the same list our sales assistant quotes.
-See every plan
-Meet people. Stay close. The rest follows.
-Start free today, or order for your company and be live within a working day.
+The story of one tap: the hall, the touch, the thread, your circles, and the assistant keeping them alive.
 Stay close to the people you meet.
-Tap a card at the stand. TapNConnect keeps who they are and what you promised, and tells you when to say hello again. For visitors, exhibitors, sponsors and the organisers who bring them together.
+TapNConnect is the relationship OS for events and the people in them: every tap becomes a thread, and an assistant keeps each one alive. For visitors, exhibitors, sponsors and the organisers who bring them together.
 A busy exhibition hall. A TapNConnect card turns slowly in the light.
 A three-day show. A hundred hellos.
 Every conversation feels like it matters while you are in it.
@@ -132,20 +27,42 @@ Two figures drift together, pause a finger’s width apart, then touch. A coral 
 Usually, this is where it ends.
 The hall empties. The cards go in a drawer. By next week the names have faded.
 The crowd turns grey and drifts away. Only the coral thread keeps its colour.
-This time, the thread holds.
-Your assistant remembers each person, tells you when a word would count, and writes the first draft. Nothing goes out without your yes.
-Omar’s marathon is Sunday. Wish him luck?
+Every tap adds a thread. Soon it’s a web.
+Sara at the coffee stand, Yusuf after the panel, a mentor from the last show. TapNConnect keeps each one, and sees who already knows whom.
+The hall comes back in colour. Threads draw from you to each person you met, and between people who know each other: a web forms.
+From where you stand, it’s your circles.
+The people you meet settle into the circles you actually have, and each circle gets the attention it needs.
+Your team
+Friends
+Mentors
+Clients
+The web settles into four rings around you, one colour for each circle.
+The right word, at the right time.
+Your assistant knows who needs a word today and why, and writes the first draft. Nothing goes out without your yes.
+Sunday
+Omar’s marathon is today. Wish him luck?
+He mentioned the race when you met at Gulf Tech Expo.
 Send a note
 Not now
-3:58! Coffee next week?
-Omar replied
-A warm glow travels along the thread while the assistant’s notes pin to it.
-A year later, they’re still around you.
-A friend, a mentor, a client, and the person they introduced.
-The thread branches to new people, and a circle gathers round you in full colour.
-Everyone in the hall leaves with more than a badge scan.
-The visitor keeps a circle. The exhibitor gets accounts. The sponsor sees what it delivered. The organiser can prove it.
-The view pulls back: your circle is one of many lit circles across the hall.
+Thursday
+You promised Sara the pilot scope by today.
+You said it in your voice note after her stand.
+Draft it
+Later
+Next week
+Yusuf started at Al Noor. Congratulate him?
+Omar introduced you; his work changed.
+Send a note
+Not now
+When it helps
+Omar can introduce you to Huda at Qamar Bank.
+You asked about their pilot; Omar has worked with her.
+Ask Omar
+Not now
+Warm pulses travel along the threads to one person at a time, and a note from the assistant pins to each.
+One hall. Every thread kept.
+Everyone leaves with more than a badge scan. The visitor keeps a circle. The exhibitor gets accounts. The sponsor sees what it delivered. The organiser can prove it.
+The view pulls back: your web is one of many across the hall, joined by the people you share.
 Layla Nasser
 Sample
 Skip the story
@@ -155,19 +72,45 @@ For organisers
 For exhibitors
 For sponsors
 For visitors
-Who it is for
-Built for the whole hall.
 Sample figures
-Event organisers
-Prove the relationships your event created, and sell the day after.
-Exhibitors
-Accounts with an owner and a drafted follow-up, not scan lists.
-Sponsors
-Banner reach counted honestly, and the people who tapped kept.
+What everyone gains.
+One tap at an event becomes a relationship that lasts. Here is what that is worth to each person in the hall.
+More for {who}
 Visitors and professionals
-A circle that lasts, with an assistant that remembers for you.
+A circle that lasts, and an assistant that remembers for you.
+Remember where you met, what was said and what you promised.
+A short brief before your next meeting, with the promises still open.
+The few messages that matter today, drafted. You say yes.
+Start free
+A man smiling and holding up his event badge.
+Exhibitors
+Accounts, not scan lists. The Monday hand-over, done by Friday.
+Capture in seconds with one hand: a tap, a badge, a QR or a paper card.
+Five people from your team meet one company; you see one account with one owner.
+A follow-up drafted for each account, in your voice, with the promise in it.
+Order for your stand
+Visitors in conversation at an exhibition stand.
+Sponsors
+What your sponsorship delivered, counted honestly, and the people who tapped kept close.
+A view counts only when your banner was on screen.
+Your tier’s promise, side by side with what was delivered.
+Starter cards keep the people who tapped in your team’s circle after the show.
+Ask about sponsorship
+An audience under a large lit stage screen.
+Organisers
+Prove the relationships your event created, and sell the next edition with it.
+A relationship report after the last day: one story, ready to print.
+Which exhibitors became hubs, shown at renewal time.
+Who your audience engaged with, to aim the next edition.
+Ask about your event
+A crowd at an indoor event stage.
 Companies
-Relationship memory that stays when a salesperson leaves.
+Relationship memory that stays when people move on.
+One page for each company you deal with: who met whom, and what was promised.
+Work and personal kept apart; what is captured for you stays yours.
+One click to your CRM, with the context it never had.
+Order for your company
+People mingling at an evening event in warm light.
 Relationship report
 Gulf Tech Expo 2026
 4,812
@@ -220,18 +163,86 @@ Yusuf changed company. Congratulate him?
 Introduced by Omar · now at Al Noor
 Send a note
 Not now
-How it works
-Five verbs, one loop.
-One person, one year
+Three colleagues laughing over coffee at a table.
 Trust first. Business follows.
-Layla meets Omar in October. Eleven months later he asks her for a proposal. Everything in between is the assistant doing its job, and Layla saying yes.
-Why it matters
-The numbers behind the hall.
-100+
-people a visitor meets at a three-day show
-days before a warm lead goes quiet
-notes anyone keeps about what was said
-tap to keep all of it
+Follow Layla through a year with the people she meets. The assistant saves, reminds, suggests and drafts. Every yes is hers.
+meet
+Two people meet.
+Met in person · Gulf Tech Expo · 14 Oct
+Omar runs the Dubai Marathon in January.
+Saved. I’ll remind you before the race.
+word
+It knows when a word matters.
+9 Jan
+Omar’s marathon is on Sunday. Wish him luck?
+Send a note
+Not now
+Thank you, Layla! 3:58 — coffee next week?
+Omar · the same day
+circle
+One person, many relationships.
+2 Jun
+Omar can introduce you to Yusuf at Al Noor. Ask him?
+Ask Omar
+Not now
+Omar introduced you · 2 Jun
+draft
+It drafts. You say yes.
+22 Sep
+Omar asked for a proposal.
+Omar, thank you for Tuesday’s call. Here is the proposal…
+Approve
+Not this one
+Sent · 11 months after you met
+close
+Trust first. Business follows.
+Sent · 11 months after you met
+A friend, a mentor, a client and the man he introduced. One circle, one year.
+Layla
+Omar
+Hana
+Noor
+Yusuf
+friend
+mentor
+client
+via Omar
+Al Noor
+you
+Your assistant
+Capture is one gesture. The rest is the assistant’s job.
+Tap
+Tap a card, scan a badge or a QR, or hold to record a 20-second voice note. No form, no typing during the conversation.
+Keep
+“Save this memory?” is already filled: who, where, when, what they care about, what you promised. Edit is optional.
+Remember
+Ask in plain words: “Who did I meet at GITEX in cybersecurity that I haven’t spoken to in 90 days?” Every answer cites its evidence.
+Next step
+One morning brief with the three things that need you today, and the first draft of each message.
+Outcome
+A meeting, an introduction, a deal, a friend kept. The assistant asks “anything come of it?” and remembers the answer.
+See the full journey
+One tap. The card is the door, not the product.
+A tap card in our design, with your photo, logo and words. Tap it on any phone: your page opens, your details are exchanged with one yes, and both of you leave with the moment saved. Never required: a QR, a badge or a photo of a paper card does the same.
+Works on iPhone and Android without an app
+Your palette, light or dark; Arabic and English
+Met in person: the only proof is two phones, one moment, two yeses
+Get the card: {price} with a year of Plus
+The AI doesn’t need to know who you are to understand your relationships.
+Humans only
+Every person in your circle is someone you met, claimed or imported yourself. No bots, no bought lists, no scraping.
+Your graph is yours
+One isolated memory per member. An organiser sees counts, never names. An employer sees what you captured for them, nothing else.
+Names stay in a vault
+The model reasons over pseudonyms. A name is put back only on a purpose check, and every time it is, it is logged.
+Nothing goes out without a yes
+Every message, introduction and CRM push is shown first. You approve, edit or dismiss. Delete means delete, everywhere it was copied.
+How we handle your data
+Free for the people you meet. Plans for the ones who sell.
+Prices in AED, published once, the same list our sales assistant quotes.
+See every plan
+Meet people. Stay close. The rest follows.
+Start free today, or order for your company and be live within a working day.
 
 ## How it works
 
@@ -600,120 +611,15 @@ TapNConnect مساعدك الذكي للناس في حياتك، في العمل
 
 ## الرئيسية
 
-TapNConnect — ابقَ قريبًا ممن تلتقي بهم
-مساعدك الذكي للناس في حياتك، في العمل والبيت. يحفظ ما يهمّ كلًّا منهم، ويخبرك متى تكون للكلمة قيمة، ويكتب المسودة الأولى. ولا يُرسل شيئًا دون موافقتك.
-مساعدك للعلاقات
+TapNConnect — نظام العلاقات للفعاليات والناس فيها
+TapNConnect هو نظام تشغيل العلاقات للفعاليات والناس فيها: كل لمسة تصبح خيطًا، ومساعد يبقي كل خيط حيًّا. يتذكر من هم الناس وما وعدتهم به، ويخبرك متى تكون للكلمة قيمة، ويكتب المسودة الأولى. ولا يُرسل شيء دون موافقتك.
 ابقَ قريبًا ممن تلتقي بهم.
-مساعدك الذكي للناس في حياتك، في العمل والبيت. يحفظ ما يهمّ كلًّا منهم، ويخبرك متى تكون للكلمة قيمة، ويكتب المسودة الأولى. ولا يُرسل شيئًا دون موافقتك.
 ابدأ مجانًا
 اطلب لشركتك
 مجاني لمن تقابلهم. خطط بالدرهم للشركات والفعاليات.
-دائرة من الناس حولك، تكبر على مدار سنة.
-لماذا
-تقابل مئات الأشخاص في السنة. هاتفك يحتفظ برقم.
-الحديث، والوعد، وما يهمهم: يضيع بين شارة معلّقة ومحادثة واتساب وبطاقة ورقية في درج. لا أحد يدوّنه، لأن التدوين كان حتى الآن يكلّف أكثر مما يستحق.
-+20
-جهة اتصال بعد يوم فعالية واحد
-يومًا قبل أن يهدأ عميل محتمل
-ملاحظة عما تحدثتم فيه فعلًا
-شخص واحد، سنة واحدة
-الثقة أولًا. والعمل يتبع.
-تابع ليلى عبر سنة مع من تلتقي بهم. المساعد يحفظ ويذكّر ويقترح ويكتب المسودة. وكل موافقة موافقتها.
-meet
-يلتقي شخصان.
-لقاء شخصي · معرض الخليج التقني · 14 أكتوبر
-عمر يشارك في ماراثون دبي في يناير.
-حُفظ. سأذكّرك قبل السباق.
-word
-يعرف متى تهمّ الكلمة.
-9 يناير
-ماراثون عمر يوم الأحد. تتمنى له التوفيق؟
-أرسل رسالة
-ليس الآن
-شكرًا ليلى! 3:58 — قهوة الأسبوع القادم؟
-عمر · اليوم نفسه
-circle
-شخص واحد، علاقات كثيرة.
-2 يونيو
-عمر يستطيع تعريفك بيوسف في النور. تطلب منه؟
-اطلب من عمر
-ليس الآن
-عمر عرّفك · 2 يونيو
-draft
-يكتب المسودة. وأنت توافق.
-22 سبتمبر
-عمر طلب عرضًا.
-عمر، شكرًا على مكالمة الثلاثاء. هذا العرض…
-وافق
-ليس هذا
-أُرسل · بعد 11 شهرًا من لقائكما
-close
-الثقة أولًا. والعمل يتبع.
-أُرسل · بعد 11 شهرًا من لقائكما
-صديقة ومرشدة وعميل ومن عرّفها به. دائرة واحدة، سنة واحدة.
-ليلى
-عمر
-هناء
-نور
-يوسف
-صديقة
-مرشدة
-عميل
-عبر عمر
-النور
-أنت
-مساعدك
-كيف يعمل
-الحفظ بإيماءة واحدة. والباقي عمل المساعد.
-المس
-المس بطاقة، أو امسح شارة أو رمز QR، أو اضغط مطوّلًا لتسجيل ملاحظة صوتية من 20 ثانية. لا نموذج ولا كتابة أثناء الحديث.
-احفظ
-«تحفظ هذه الذكرى؟» معبّأة مسبقًا: من، وأين، ومتى، وما يهمهم، وما وعدت به. التعديل اختياري.
-تذكّر
-اسأل بكلمات بسيطة: «من قابلت في جيتكس في الأمن السيبراني ولم أكلمه منذ 90 يومًا؟» كل إجابة تذكر دليلها.
-الخطوة التالية
-ملخص صباحي واحد بالأمور الثلاثة التي تحتاجك اليوم، والمسودة الأولى لكل رسالة.
-النتيجة
-اجتماع، أو تعريف، أو صفقة، أو صديق بقي. يسألك المساعد «هل نتج عنه شيء؟» ويتذكر الجواب.
-الرحلة كاملة
-البطاقة
-لمسة واحدة. البطاقة هي الباب، لا المنتج.
-بطاقة لمس بتصميمنا، بصورتك وشعارك وكلماتك. المسها على أي هاتف: تُفتح صفحتك، وتُتبادل بياناتك بموافقة واحدة، ويغادر كلاكما واللحظة محفوظة. ليست إلزامية أبدًا: رمز QR أو شارة أو صورة بطاقة ورقية تؤدي الغرض نفسه.
-تعمل على iPhone وAndroid دون تطبيق
-لوحة ألوانك، فاتحة أو داكنة؛ عربي وإنجليزي
-لقاء شخصي: الدليل الوحيد هاتفان ولحظة واحدة وموافقتان
-اطلب البطاقة — 149 درهمًا مع سنة من Plus
-لمن هو
-صُنع للقاعة كلها، ولليوم الذي يليها.
-منظمو الفعاليات
-أثبت العلاقات التي صنعتها فعاليتك. وبِع ما لا يبيعه غيرك: اليوم التالي.
-العارضون
-حسابات لا قوائم مسح. تسليم صباح الاثنين، جاهز مساء الجمعة.
-الرعاة
-اعرف ما حققه إعلانك بصدق، واحتفظ بمن لمسوا.
-الشركات
-كل علاقة تبقى مع الشركة حين يغادر البائع.
-الأفراد
-مؤسسون ومستشارون ووسطاء: لا تفقد شخصًا بعد اليوم.
-خصوصية تراها
-الذكاء الاصطناعي لا يحتاج أن يعرف من أنت ليفهم علاقاتك.
-بشر فقط
-كل شخص في دائرتك قابلته أو أضفته أو استوردته بنفسك. لا روبوتات، ولا قوائم مشتراة، ولا جمع من مواقع.
-شبكتك لك
-ذاكرة معزولة لكل عضو. المنظم يرى أعدادًا لا أسماء. وجهة العمل ترى ما حفظته لها فقط.
-الأسماء في خزنة
-النموذج يعمل على أسماء مستعارة. يُعاد الاسم فقط بعد التحقق من الغرض، ويُسجَّل كل مرة.
-لا يخرج شيء دون موافقة
-كل رسالة وتعريف وإرسال إلى CRM يُعرض أولًا. توافق أو تعدّل أو تتجاهل. والحذف حذفٌ أينما نُسخ.
-كيف نتعامل مع بياناتك
-الأسعار
-مجاني لمن تقابلهم. خطط لمن يبيعون.
-الأسعار بالدرهم، تُنشر مرة واحدة، وهي القائمة نفسها التي يقتبس منها مساعد المبيعات.
-كل الخطط
-تلتقي بالناس. تبقى قريبًا. والباقي يأتي.
-ابدأ مجانًا اليوم، أو اطلب لشركتك وكن جاهزًا خلال يوم عمل.
+قصة لمسة واحدة: القاعة، واللقاء، والخيط، ودوائرك، والمساعد الذي يبقيها حيّة.
 ابقَ قريبًا ممن تلتقي بهم.
-المس البطاقة عند المنصة. يحفظ TapNConnect من هو الشخص وما وعدتما به، ويذكّرك متى تقول مرحبًا من جديد. للزوار والعارضين والرعاة والمنظمين الذين يجمعونهم.
+TapNConnect هو نظام تشغيل العلاقات للفعاليات والناس فيها: كل لمسة تصبح خيطًا، ومساعد يبقي كل خيط حيًّا. للزوار والعارضين والرعاة والمنظمين الذين يجمعونهم.
 قاعة معرض مزدحمة. وبطاقة TapNConnect تدور ببطء في الضوء.
 معرض من ثلاثة أيام. ومئة سلام وسلام.
 كل حديث يبدو مهمًا وأنت في وسطه.
@@ -726,20 +632,42 @@ close
 وعادةً، هنا تنتهي الحكاية.
 تفرغ القاعة. وتذهب البطاقات إلى الدرج. وبعد أسبوع تكون الأسماء قد تلاشت.
 يتحول الحشد إلى الرمادي ويبتعد. ولا يبقى ملوّنًا إلا الخيط المرجاني.
-هذه المرة، يصمد الخيط.
-يتذكر مساعدك كل شخص، ويخبرك متى تكون للكلمة قيمة، ويكتب المسودة الأولى. ولا يُرسل شيء دون موافقتك.
-ماراثون عمر يوم الأحد. تتمنى له التوفيق؟
+كل لمسة تضيف خيطًا. وسرعان ما تصير شبكة.
+سارة عند ركن القهوة، ويوسف بعد الجلسة، ومرشد من المعرض الماضي. يحفظ TapNConnect كل واحد منهم، ويرى من يعرف من.
+تعود الألوان إلى القاعة. تُرسم خيوط منك إلى كل من التقيت بهم، وبين من يعرف بعضهم بعضًا: تتكوّن شبكة.
+ومن حيث تقف، هي دوائرك.
+يستقر من تلتقي بهم في الدوائر التي لديك فعلًا، وتنال كل دائرة الاهتمام الذي تحتاجه.
+فريقك
+الأصدقاء
+المرشدون
+العملاء
+تستقر الشبكة في أربع حلقات حولك، لكل دائرة لونها.
+الكلمة المناسبة، في الوقت المناسب.
+يعرف مساعدك من يحتاج كلمة اليوم ولماذا، ويكتب المسودة الأولى. ولا يُرسل شيء دون موافقتك.
+الأحد
+ماراثون عمر اليوم. تتمنى له التوفيق؟
+ذكر السباق حين التقيتما في معرض الخليج التقني.
 أرسل رسالة
 ليس الآن
-3:58! قهوة الأسبوع القادم؟
-ردّ عمر
-يسري توهج دافئ على الخيط، وتُثبَّت عليه ملاحظات المساعد.
-وبعد عام، ما زالوا حولك.
-صديق، ومرشد، وعميل، والشخص الذي عرّفوك به.
-يتفرع الخيط إلى أشخاص جدد، وتجتمع حولك دائرة بألوانها كاملة.
-الكل يغادر القاعة بأكثر من مسح شارة.
-الزائر يحتفظ بدائرة. والعارض يحصل على حسابات. والراعي يرى ما حققه. والمنظم يستطيع أن يثبت ذلك.
-تبتعد الصورة: دائرتك واحدة من دوائر كثيرة مضيئة في القاعة.
+الخميس
+وعدت سارة بنطاق التجربة اليوم.
+قلته في ملاحظتك الصوتية بعد زيارة ركنها.
+اكتبه
+لاحقًا
+الأسبوع القادم
+يوسف بدأ العمل في النور. تهنئه؟
+عرّفك به عمر، وتغيّر عمله.
+أرسل رسالة
+ليس الآن
+حين يفيد
+عمر يستطيع تعريفك بهدى في بنك قمر.
+سألت عن تجربتهم، وقد عمل عمر معها.
+اطلب من عمر
+ليس الآن
+تسري نبضات دافئة على الخيوط إلى شخص واحد في كل مرة، وتُثبَّت عند كل منهم ملاحظة من المساعد.
+قاعة واحدة. وكل خيط محفوظ.
+الكل يغادر بأكثر من مسح شارة. الزائر يحتفظ بدائرة. والعارض يحصل على حسابات. والراعي يرى ما حققه. والمنظم يستطيع أن يثبت ذلك.
+تبتعد الصورة: شبكتك واحدة من شبكات كثيرة في القاعة، يربط بينها من تعرفونهم معًا.
 ليلى ناصر
 عيّنة
 تخطَّ القصة
@@ -749,19 +677,45 @@ close
 للعارضين
 للرعاة
 للزوار
-لمن هو
-صُنع للقاعة كلها.
 أرقام عيّنة
-منظمو الفعاليات
-أثبت العلاقات التي صنعتها فعاليتك، وبِع اليوم التالي.
-العارضون
-حسابات لها مالك ومتابعة مكتوبة، لا قوائم مسح.
-الرعاة
-وصول الإعلان محسوب بصدق، ومن لمسوا محفوظون.
+ما يكسبه كل واحد.
+لمسة واحدة في فعالية تصبح علاقة تدوم. وهذا ما تساويه لكل شخص في القاعة.
+المزيد عن {who}
 الزوار والمهنيون
-دائرة تبقى، ومساعد يتذكر عنك.
+دائرة تدوم، ومساعد يتذكر عنك.
+تذكّر أين التقيتم، وما قيل، وما وعدت به.
+ملخص قصير قبل اجتماعك القادم، مع الوعود التي لم تُنجز بعد.
+الرسائل القليلة المهمة اليوم، مكتوبة. وأنت توافق.
+ابدأ مجانًا
+رجل يبتسم ويرفع شارة الفعالية.
+العارضون
+حسابات لا قوائم مسح. تسليم الاثنين، جاهز يوم الجمعة.
+احفظ في ثوانٍ بيد واحدة: لمسة، أو شارة، أو رمز QR، أو بطاقة ورقية.
+خمسة من فريقك يقابلون شركة واحدة؛ وترى حسابًا واحدًا بمالك واحد.
+متابعة مكتوبة لكل حساب، بأسلوبك، وفيها ما وعدت به.
+اطلب لمنصتك
+زوار يتحدثون عند منصة في معرض.
+الرعاة
+ما حققته رعايتك، محسوبًا بصدق، ومن لمسوا يبقون قريبين.
+المشاهدة تُحسب فقط حين يكون إعلانك على الشاشة.
+وعد فئتك، جنبًا إلى جنب مع ما تحقق.
+بطاقات البداية تبقي من لمسوا في دائرة فريقك بعد المعرض.
+اسأل عن الرعاية
+جمهور تحت شاشة مسرح كبيرة مضيئة.
+المنظمون
+أثبت العلاقات التي صنعتها فعاليتك، وبِع بها النسخة القادمة.
+تقرير علاقات بعد اليوم الأخير: قصة واحدة، جاهزة للطباعة.
+أي العارضين صاروا محاور، يُعرض وقت التجديد.
+مع من تفاعل جمهورك، لتوجيه النسخة القادمة.
+اسأل عن فعاليتك
+حشد أمام مسرح في فعالية داخلية.
 الشركات
-ذاكرة علاقات تبقى حين يغادر البائع.
+ذاكرة علاقات تبقى حين ينتقل الناس.
+صفحة لكل شركة تتعامل معها: من قابل من، وما الذي وُعد به.
+العمل والشخصي منفصلان؛ وما يُحفظ لك يبقى لك.
+نقرة واحدة إلى نظام CRM، مع سياق لم يكن لديه.
+اطلب لشركتك
+أناس يتحادثون في أمسية بضوء دافئ.
 تقرير العلاقات
 معرض الخليج التقني 2026
 4,812
@@ -814,18 +768,86 @@ mail
 عرّفك به عمر · الآن في النور
 أرسل رسالة
 ليس الآن
-كيف يعمل
-خمسة أفعال، حلقة واحدة.
-شخص واحد، سنة واحدة
+ثلاثة زملاء يضحكون حول طاولة قهوة.
 الثقة أولًا. والعمل يتبع.
-تلتقي ليلى بعمر في أكتوبر. وبعد أحد عشر شهرًا يطلب منها عرضًا. وكل ما بينهما هو المساعد يؤدي عمله، وليلى توافق.
-لماذا يهم
-الأرقام خلف القاعة.
-+100
-شخصًا يقابلهم الزائر في معرض من ثلاثة أيام
-يومًا قبل أن يهدأ عميل محتمل
-ملاحظة يحتفظ بها أحد عما قيل
-لمسة لحفظ كل ذلك
+تابع ليلى عبر سنة مع من تلتقي بهم. المساعد يحفظ ويذكّر ويقترح ويكتب المسودة. وكل موافقة موافقتها.
+meet
+يلتقي شخصان.
+لقاء شخصي · معرض الخليج التقني · 14 أكتوبر
+عمر يشارك في ماراثون دبي في يناير.
+حُفظ. سأذكّرك قبل السباق.
+word
+يعرف متى تهمّ الكلمة.
+9 يناير
+ماراثون عمر يوم الأحد. تتمنى له التوفيق؟
+أرسل رسالة
+ليس الآن
+شكرًا ليلى! 3:58 — قهوة الأسبوع القادم؟
+عمر · اليوم نفسه
+circle
+شخص واحد، علاقات كثيرة.
+2 يونيو
+عمر يستطيع تعريفك بيوسف في النور. تطلب منه؟
+اطلب من عمر
+ليس الآن
+عمر عرّفك · 2 يونيو
+draft
+يكتب المسودة. وأنت توافق.
+22 سبتمبر
+عمر طلب عرضًا.
+عمر، شكرًا على مكالمة الثلاثاء. هذا العرض…
+وافق
+ليس هذا
+أُرسل · بعد 11 شهرًا من لقائكما
+close
+الثقة أولًا. والعمل يتبع.
+أُرسل · بعد 11 شهرًا من لقائكما
+صديقة ومرشدة وعميل ومن عرّفها به. دائرة واحدة، سنة واحدة.
+ليلى
+عمر
+هناء
+نور
+يوسف
+صديقة
+مرشدة
+عميل
+عبر عمر
+النور
+أنت
+مساعدك
+الحفظ بإيماءة واحدة. والباقي عمل المساعد.
+المس
+المس بطاقة، أو امسح شارة أو رمز QR، أو اضغط مطوّلًا لتسجيل ملاحظة صوتية من 20 ثانية. لا نموذج ولا كتابة أثناء الحديث.
+احفظ
+«تحفظ هذه الذكرى؟» معبّأة مسبقًا: من، وأين، ومتى، وما يهمهم، وما وعدت به. التعديل اختياري.
+تذكّر
+اسأل بكلمات بسيطة: «من قابلت في جيتكس في الأمن السيبراني ولم أكلمه منذ 90 يومًا؟» كل إجابة تذكر دليلها.
+الخطوة التالية
+ملخص صباحي واحد بالأمور الثلاثة التي تحتاجك اليوم، والمسودة الأولى لكل رسالة.
+النتيجة
+اجتماع، أو تعريف، أو صفقة، أو صديق بقي. يسألك المساعد «هل نتج عنه شيء؟» ويتذكر الجواب.
+الرحلة كاملة
+لمسة واحدة. البطاقة هي الباب، لا المنتج.
+بطاقة لمس بتصميمنا، بصورتك وشعارك وكلماتك. المسها على أي هاتف: تُفتح صفحتك، وتُتبادل بياناتك بموافقة واحدة، ويغادر كلاكما واللحظة محفوظة. ليست إلزامية أبدًا: رمز QR أو شارة أو صورة بطاقة ورقية تؤدي الغرض نفسه.
+تعمل على iPhone وAndroid دون تطبيق
+لوحة ألوانك، فاتحة أو داكنة؛ عربي وإنجليزي
+لقاء شخصي: الدليل الوحيد هاتفان ولحظة واحدة وموافقتان
+اطلب البطاقة: {price} مع سنة من Plus
+الذكاء الاصطناعي لا يحتاج أن يعرف من أنت ليفهم علاقاتك.
+بشر فقط
+كل شخص في دائرتك قابلته أو أضفته أو استوردته بنفسك. لا روبوتات، ولا قوائم مشتراة، ولا جمع من مواقع.
+شبكتك لك
+ذاكرة معزولة لكل عضو. المنظم يرى أعدادًا لا أسماء. وجهة العمل ترى ما حفظته لها فقط.
+الأسماء في خزنة
+النموذج يعمل على أسماء مستعارة. يُعاد الاسم فقط بعد التحقق من الغرض، ويُسجَّل كل مرة.
+لا يخرج شيء دون موافقة
+كل رسالة وتعريف وإرسال إلى CRM يُعرض أولًا. توافق أو تعدّل أو تتجاهل. والحذف حذفٌ أينما نُسخ.
+كيف نتعامل مع بياناتك
+مجاني لمن تقابلهم. خطط لمن يبيعون.
+الأسعار بالدرهم، تُنشر مرة واحدة، وهي القائمة نفسها التي يقتبس منها مساعد المبيعات.
+كل الخطط
+تلتقي بالناس. تبقى قريبًا. والباقي يأتي.
+ابدأ مجانًا اليوم، أو اطلب لشركتك وكن جاهزًا خلال يوم عمل.
 
 ## كيف يعمل
 

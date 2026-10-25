@@ -1,128 +1,174 @@
 import Link from 'next/link';
-import { ArrowRight, Hand, Save, Brain, ListChecks, Trophy, Users, Lock, EyeOff, ShieldCheck, FileCheck } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { t } from '@/content';
+import { fill } from '@/content/fill';
 import { pathFor, JOIN_URL } from '@/content/site';
 import { PLANS, fmtAED } from '@/content/plans';
 import Cta from '@/components/Cta';
 import ScrollStory from '@/components/ScrollStory';
 import Photo from '@/components/Photo';
+import Sticker from '@/components/Sticker';
+import Thread, { Knot } from '@/components/Thread';
 import Vignette from '@/components/Vignettes';
 import YearTimeline from '@/components/YearTimeline';
 import TapCard3D from '@/components/TapCard3D';
-import Reveal from '@/components/Reveal';
 import JsonLd from '@/components/JsonLd';
-import { Section, Card } from '@/components/Section';
 import { graph, ldWebPage, ldSoftwareApp, ldProductCard, ldHowTo } from '@/lib/seo';
 
-const LOOP_ICONS = [Hand, Save, Brain, ListChecks, Trophy];
-const TRUST_ICONS = [Users, Lock, EyeOff, ShieldCheck];
-const WHO = ['organisers', 'exhibitors', 'sponsors', 'individuals'];
+// "What everyone gains" (docs/plans/site-revamp.md Amendment A1.2): the order buyers are told in, their page, order kind and photo
+const GAINS = [
+  { k: 'individuals', kind: null, photo: 'door-individuals' },
+  { k: 'exhibitors', kind: 'exhibitor', photo: 'door-exhibitors' },
+  { k: 'sponsors', kind: 'sponsor', photo: 'door-sponsors' },
+  { k: 'organisers', kind: 'organiser', photo: 'door-organisers' },
+  { k: 'companies', kind: 'company', photo: 'door-companies' },
+];
 
 export default function Home({ lang }) {
   const d = t(lang); const h = d.home;
   const Arrow = () => <ArrowRight size={16} aria-hidden="true" className="rtl:rotate-180" />;
+  const orderHref = (kind) => `${pathFor('order', lang)}?kind=${kind}`;
   return (
     <>
-      {/* ACT I–V: the hall, the touch, the fade, the thread, the circle */}
+      {/* THE STORY: eight acts, from one tap to everyone's web */}
       <ScrollStory
         lang={lang} acts={h.acts} label={h.hero.sceneLabel} dir={d.dir}
         chips={Object.entries(h.chips).map(([k, label]) => ({ href: pathFor(k, lang), label }))}
         primary={h.hero.primary} primaryHref={JOIN_URL} secondary={h.hero.secondary} secondaryHref={pathFor('order', lang)}
-        photos={Object.fromEntries(['story-hall', 'story-touch', 'story-circle'].map((slot, k) => [slot, <Photo key={slot} slot={slot} alt="" sizes="100vw" priority={k === 0} className="absolute inset-0" imgClassName="h-full w-full object-cover" />]))}
+        photos={Object.fromEntries(['story-hall', 'story-touch'].map((slot, k) => [slot, <Photo key={slot} slot={slot} alt="" sizes="100vw" priority={k === 0} className="absolute inset-0" imgClassName="h-full w-full object-cover" />]))}
         skip={h.skip} storyNav={h.storyNav} chapter={h.chapter} sample={h.sample} cardName={h.cardName}
       />
 
-      {/* WHO IT IS FOR — the product itself, one picture per buyer */}
-      <Section id="who" eyebrow={h.who.eyebrow} h2={h.who.h2}>
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
-          {WHO.map((k, i) => (
-            <Reveal key={k} delay={i * 0.05}>
-              <Link prefetch={false} href={pathFor(k, lang)} className="group block h-full rounded-sheet border border-line bg-surface/40 p-4 transition hover:-translate-y-0.5 hover:border-accent/40 sm:p-5">
-                <div className="mb-4 flex items-start justify-between gap-4">
-                  <div><h3 className="text-xl font-medium">{h.who.pitch[k].title}</h3><p className="mt-1 text-[.95rem] text-muted">{h.who.pitch[k].line}</p></div>
-                  <span className="mt-1 inline-flex shrink-0 items-center gap-1 text-sm text-accent">{d.cta.readMore} <Arrow /></span>
-                </div>
-                <Vignette kind={k} v={h.vignettes[k]} />
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-subtle">
-          <span>{h.who.sample}</span>
-          <Link prefetch={false} href={pathFor('companies', lang)} className="inline-flex items-center gap-1 text-accent">{h.who.pitch.companies.title}: {h.who.pitch.companies.line} <Arrow /></Link>
-        </div>
-      </Section>
+      {/* WHAT EVERYONE GAINS: one block per buyer, the rail keeps them in view on wide screens */}
+      <section id="who" className="section scroll-mt-16" aria-labelledby="gains-h">
+        <div className="wrap">
+          <div className="max-w-3xl">
+            <h2 id="gains-h" className="t-h1">{h.gains.h2}</h2>
+            <p className="lead mt-5">{h.gains.lead}</p>
+          </div>
+          {/* the loop on one line, strung on the thread */}
+          <div className="relative mt-12">
+            <Thread shape="line" className="absolute inset-x-[10%] top-[7px] hidden h-0.5 md:block" />
+            <ol className="relative grid gap-5 md:grid-cols-5">
+              {h.loop.steps.map((s) => (
+                <li key={s.title} className="flex gap-3 md:block md:text-center">
+                  <span className="mt-0.5 shrink-0 text-thread md:mx-auto md:block md:w-fit" aria-hidden="true"><Knot size={16} /></span>
+                  <div><h3 className="t-h3 md:mt-3">{s.title}</h3><p className="mt-1 text-[.95rem] text-muted md:line-clamp-3">{s.p}</p></div>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-6 md:text-center"><Link prefetch={false} href={pathFor('how', lang)} className="link text-[.95rem]">{h.loop.link}</Link></div>
+          </div>
 
-      {/* HOW IT WORKS — five verbs on one line */}
-      <Section id="how" eyebrow={h.how.eyebrow} h2={h.how.h2} className="pt-0">
-        <ol className="relative mt-10 grid gap-5 md:grid-cols-5 md:gap-4">
-          <span className="absolute start-5 top-6 bottom-6 w-px bg-line md:start-[10%] md:end-[10%] md:top-6 md:bottom-auto md:h-px md:w-auto" aria-hidden="true" />
-          {h.loop.steps.map((s, i) => { const I = LOOP_ICONS[i]; return (
-            <Reveal key={s.title} delay={i * 0.05} as="li" className="relative ps-14 md:ps-0 md:text-center">
-              <span className="absolute start-0 top-0 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-ink shadow-glass md:relative md:mx-auto"><I size={22} aria-hidden="true" /></span>
-              <h3 className="mt-0 text-lg font-medium md:mt-4">{s.title}</h3><p className="mt-1.5 text-[.95rem] text-muted">{s.p}</p>
-            </Reveal>
-          ); })}
-        </ol>
-        <div className="mt-8 md:text-center"><Link prefetch={false} href={pathFor('how', lang)} className="btn btn-quiet">{h.loop.link} <Arrow /></Link></div>
-      </Section>
-
-      {/* ONE PERSON, ONE YEAR */}
-      <Section id="story" eyebrow={h.year.eyebrow} h2={h.year.h2} lead={h.year.p}>
-        <div className="mt-10"><YearTimeline story={h.story} /></div>
-      </Section>
-
-      {/* THE CARD */}
-      <section className="section pt-0">
-        <div className="wrap grid items-center gap-10 overflow-hidden rounded-sheet bg-splash px-6 py-12 text-splash-ink lg:grid-cols-2 lg:gap-16 lg:px-14">
-          <Reveal><TapCard3D lang={lang} /></Reveal>
-          <Reveal delay={0.08}>
-            <div className="eyebrow">{h.card.eyebrow}</div>
-            <h2 className="t-h1 mt-3">{h.card.h2}</h2>
-            <p className="lead mt-4 text-splash-ink/80">{h.card.p}</p>
-            <ul className="mt-6 space-y-2 text-splash-ink/85">{h.card.bullets.map((b) => <li key={b} className="flex gap-3"><FileCheck size={20} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />{b}</li>)}</ul>
-            <div className="mt-8"><Cta href={pathFor('pricing', lang) + '#card'} placement="card">{h.card.cta}</Cta></div>
-          </Reveal>
+          <div className="mt-20 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
+            <nav aria-label={h.gains.h2} className="hidden lg:block">
+              <ol className="sticky top-24 space-y-1 border-s-2 border-line">
+                {GAINS.map(({ k }) => <li key={k}><a href={`#gain-${k}`} className="-ms-0.5 block border-s-2 border-transparent px-4 py-2 font-display text-[1.05rem] font-semibold text-muted transition-colors duration-quick hover:border-thread hover:text-ink">{h.gains.items[k].title}</a></li>)}
+              </ol>
+            </nav>
+            <div className="space-y-24 lg:space-y-32">
+              {GAINS.map(({ k, kind, photo }, i) => {
+                const g = h.gains.items[k];
+                const href = kind ? orderHref(kind) : JOIN_URL;
+                return (
+                  <article key={k} id={`gain-${k}`} className="grid scroll-mt-24 items-center gap-10 md:grid-cols-2 md:gap-12">
+                    <div className={`relative ${i % 2 ? 'md:order-2' : ''}`}>
+                      <div className="photo-card aspect-[4/5] w-[86%] md:w-[88%]"><Photo slot={photo} alt={g.alt} sizes="(min-width: 1024px) 34vw, (min-width: 768px) 44vw, 86vw" className="absolute inset-0" imgClassName="h-full w-full object-cover" /></div>
+                      <div className="relative -mt-28 ms-auto w-[78%] max-w-[360px] sm:-mt-36">
+                        {h.vignettes[k] ? <Vignette kind={k} v={h.vignettes[k]} /> : <Sticker tilt={2} tape meta={g.title} note={g.points[0]} />}
+                        {h.vignettes[k] && <div className="mt-2 text-end text-xs text-subtle">{h.who.sample}</div>}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="hand text-thread-text">{g.title}</div>
+                      <h3 className="t-h2 mt-2">{g.gain}</h3>
+                      <ul className="relative mt-7 space-y-4">
+                        <Thread shape="vline" className="absolute bottom-3 start-[3px] top-3 w-2" />
+                        {g.points.map((pt) => <li key={pt} className="relative flex gap-4"><span className="mt-1 shrink-0 text-thread" aria-hidden="true"><Knot size={12} /></span><span className="text-[1.02rem] text-muted">{pt}</span></li>)}
+                      </ul>
+                      <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+                        <Cta href={href} variant={i === 0 ? 'primary' : 'tonal'} placement={`gain-${k}`}>{g.cta}</Cta>
+                        <Link prefetch={false} href={pathFor(k, lang)} className="link inline-flex items-center gap-1 text-[.95rem]">{fill(h.gains.more, { who: g.title })} <Arrow /></Link>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* THE NUMBERS */}
-      <Section eyebrow={h.outcomes.eyebrow} h2={h.outcomes.h2} className="pt-0">
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {h.outcomes.items.map((s, i) => <Reveal key={s.l} delay={i * 0.05}><Card className="h-full"><div className="num text-5xl font-medium text-accent">{s.n}</div><div className="mt-2 text-muted">{s.l}</div></Card></Reveal>)}
+      {/* ONE PERSON, ONE YEAR */}
+      <section id="story" className="section bg-sunken/60" aria-labelledby="year-h">
+        <div className="wrap">
+          <div className="grid items-end gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
+            <div className="max-w-2xl"><h2 id="year-h" className="t-h1">{h.story.h2}</h2><p className="lead mt-5">{h.story.intro}</p></div>
+            <div className="photo-card hidden aspect-[4/3] rotate-[1.4deg] md:block"><Photo slot="year-coffee" alt={h.story.alt} sizes="22rem" className="absolute inset-0" imgClassName="h-full w-full object-cover" /></div>
+          </div>
+          <div className="mt-14"><YearTimeline story={h.story} /></div>
         </div>
-      </Section>
+      </section>
 
-      {/* TRUST */}
-      <Section id="trust" eyebrow={h.trust.eyebrow} h2={h.trust.h2} className="pt-0">
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {h.trust.items.map((s, i) => { const I = TRUST_ICONS[i]; return (
-            <Reveal key={s.title} delay={i * 0.05}><Card className="h-full"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-soft text-accent"><I size={20} aria-hidden="true" /></span><h3 className="mt-4 text-lg font-medium">{s.title}</h3><p className="mt-1.5 text-[.95rem] text-muted">{s.p}</p></Card></Reveal>
-          ); })}
+      {/* THE CARD */}
+      <section className="section" aria-labelledby="card-h">
+        <div className="wrap grid items-center gap-12 overflow-hidden rounded-sheet bg-field px-6 py-14 text-field-ink lg:grid-cols-2 lg:gap-16 lg:px-14 lg:py-20">
+          <TapCard3D lang={lang} />
+          <div>
+            <h2 id="card-h" className="t-h1">{h.card.h2}</h2>
+            <p className="lead mt-5 text-field-ink/80">{h.card.p}</p>
+            <ul className="mt-6 space-y-2.5">{h.card.bullets.map((b) => <li key={b} className="flex gap-3 text-field-ink/85"><span className="mt-1 shrink-0 text-thread" aria-hidden="true"><Knot size={12} /></span>{b}</li>)}</ul>
+            <div className="mt-9"><Cta href={pathFor('pricing', lang) + '#card'} placement="card">{fill(h.card.cta, { price: fmtAED(PLANS.card.prices.once, lang) })}</Cta></div>
+          </div>
         </div>
-        <div className="mt-8"><Link prefetch={false} href={pathFor('trust', lang)} className="btn btn-quiet">{h.trust.link} <Arrow /></Link></div>
-      </Section>
+      </section>
 
-      {/* PRICING */}
-      <Section eyebrow={h.pricing.eyebrow} h2={h.pricing.h2} lead={h.pricing.p} className="pt-0">
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {PLANS.member.map((p, i) => (
-            <Reveal key={p.id} delay={i * 0.05}><Card className={`h-full ${p.featured ? 'ring-1 ring-accent' : ''}`}>
-              <div className="text-lg font-medium">{p.name[lang]}</div>
-              <div className="num mt-2 text-3xl font-medium">{p.prices.monthly ? fmtAED(p.prices.monthly, lang) : d.pricing.free}{p.prices.monthly ? <span className="text-base font-normal text-subtle"> / {d.pricing.perMonth}</span> : null}</div>
-              <p className="mt-3 text-[.95rem] text-muted">{p.tagline[lang]}</p>
-            </Card></Reveal>
-          ))}
+      {/* PRIVACY: four promises on the thread */}
+      <section id="trust" className="section pt-0" aria-labelledby="trust-h">
+        <div className="wrap">
+          <h2 id="trust-h" className="t-h1 max-w-3xl">{h.trust.h2}</h2>
+          <ol className="relative mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2">
+            {h.trust.items.map((s) => (
+              <li key={s.title} className="relative flex gap-4">
+                <span className="mt-1.5 shrink-0 text-thread" aria-hidden="true"><Knot size={16} /></span>
+                <div><h3 className="t-h3">{s.title}</h3><p className="mt-2 text-muted">{s.p}</p></div>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-10"><Link prefetch={false} href={pathFor('trust', lang)} className="link inline-flex items-center gap-1">{h.trust.link} <Arrow /></Link></div>
         </div>
-        <div className="mt-8"><Cta href={pathFor('pricing', lang)} variant="tonal" placement="pricing-teaser">{h.pricing.cta}</Cta></div>
-      </Section>
+      </section>
 
-      {/* FINAL */}
-      <section className="section pt-0">
-        <div className="wrap"><Reveal><div className="glass glass-strong px-6 py-14 text-center sm:px-12">
-          <h2 className="t-h1 mx-auto max-w-3xl">{h.final.h2}</h2><p className="lead mx-auto mt-4 max-w-xl">{h.final.p}</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3"><Cta href={JOIN_URL} placement="final">{d.cta.startFree}</Cta><Cta href={pathFor('order', lang)} variant="tonal" placement="final">{d.cta.orderCompany}</Cta></div>
-        </div></Reveal></div>
+      {/* PRICING: the member plans, straight from the one price list */}
+      <section className="section pt-0" aria-labelledby="price-h">
+        <div className="wrap">
+          <div className="max-w-3xl"><h2 id="price-h" className="t-h1">{h.pricing.h2}</h2><p className="lead mt-5">{h.pricing.p}</p></div>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {PLANS.member.map((p) => (
+              <div key={p.id} className={`relative rounded-card bg-surface p-6 shadow-2 ${p.featured ? 'sticker-tape ring-2 ring-sun' : ''}`}>
+                <div className="font-display text-lg font-semibold">{p.name[lang]}</div>
+                <div className="num mt-3 font-display text-3xl font-bold">{p.prices.monthly ? fmtAED(p.prices.monthly, lang) : d.pricing.free}{p.prices.monthly ? <span className="font-sans text-base font-normal text-subtle"> / {d.pricing.perMonth}</span> : null}</div>
+                <p className="mt-3 text-[.95rem] text-muted">{p.tagline[lang]}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-10"><Cta href={pathFor('pricing', lang)} variant="tonal" placement="pricing-teaser">{h.pricing.cta}</Cta></div>
+        </div>
+      </section>
+
+      {/* FINAL ASK */}
+      <section className="pb-10" aria-labelledby="final-h">
+        <div className="wrap">
+          <div className="relative isolate overflow-hidden rounded-sheet bg-field text-field-ink">
+            <Photo slot="final" alt="" sizes="(min-width: 1180px) 1140px, 100vw" className="absolute inset-0 -z-10" imgClassName="h-full w-full object-cover opacity-45" />
+            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-field via-field/70 to-field/20" aria-hidden="true" />
+            <div className="px-6 pb-14 pt-40 text-center sm:px-12 md:pt-56">
+              <h2 id="final-h" className="t-h1 mx-auto max-w-3xl">{h.final.h2}</h2>
+              <p className="lead mx-auto mt-5 max-w-xl text-field-ink/85">{h.final.p}</p>
+              <div className="mt-9 flex flex-wrap justify-center gap-3"><Cta href={JOIN_URL} placement="final">{d.cta.startFree}</Cta><Cta href={pathFor('order', lang)} variant="field" placement="final">{d.cta.orderCompany}</Cta></div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <JsonLd data={graph(ldWebPage('home', lang), ldSoftwareApp(lang), ldProductCard(lang), ldHowTo(lang))} />

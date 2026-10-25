@@ -5,7 +5,7 @@ import path from 'node:path';
 import { chromium } from './pw.mjs';
 const base = process.argv[2] || 'http://localhost:4410';
 const S = process.argv[3] || '.shots'; fs.mkdirSync(S, { recursive: true });
-const STOPS = [0.0, 0.18, 0.3, 0.42, 0.47, 0.62, 0.78, 0.93]; // act 1, 2, 3 (approach), 3 (thread), 4–7 (ScrollStory ACTS)
+const STOPS = [0.0, 0.15, 0.26, 0.31, 0.37, 0.505, 0.635, 0.718, 0.975]; // acts 1, 2, 3 (approach), 3 (thread), 4–8 (ScrollStory ACTS)
 const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
 for (const [vw, vh, name] of [[1280, 800, 'desktop'], [390, 844, 'phone']]) {
   const page = await browser.newPage({ viewport: { width: vw, height: vh }, deviceScaleFactor: 1 });

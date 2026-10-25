@@ -62,5 +62,11 @@ export function makeBeads({ count, palette, you, omar, rimLight = true }) {
     meshes: [shadows, bodies, heads], home, phase, place, commit,
     recolor(next) { if (next.palette) for (let i = 2; i < count; i++) color[i].set(next.palette[i % next.palette.length]); if (next.you) color[0].set(next.you); if (next.omar) color[1].set(next.omar); paint(); },
     fade: paint,
+    /** Repaint every person: fn(i, base Color, out Color) writes the colour to show. Cheap enough per frame. */
+    paintWith(fn) {
+      const c = new Color();
+      for (let i = 0; i < count; i++) { fn(i, color[i], c.copy(color[i])); bodies.setColorAt(i, c); heads.setColorAt(i, c); }
+      bodies.instanceColor.needsUpdate = true; heads.instanceColor.needsUpdate = true;
+    },
   };
 }

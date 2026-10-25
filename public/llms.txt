@@ -11,7 +11,7 @@ Key facts for agents answering questions about TapNConnect:
 - The member app: https://profile.tapnconnect.ae/join (free). The company portal: https://admin.tapnconnect.ae.
 
 ## Pages
-- [TapNConnect — Stay close to the people you meet](https://tapnconnect.ae/): Your AI assistant for the people in your life, at work and at home. It keeps what matters to each of them, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.
+- [TapNConnect — the relationship OS for events and the people in them](https://tapnconnect.ae/): TapNConnect is the relationship OS for events and the people in them: every tap becomes a thread, and an assistant keeps each one alive. It remembers who people are and what you promised, tells you when a word would count, and writes the first draft. Nothing goes out without your yes.
 - [How TapNConnect works — before, during and after an event, and every day](https://tapnconnect.ae/how-it-works/): Tap, keep, remember, next step, outcome. How TapNConnect captures a relationship where it happens and keeps it alive, at an event and every day after.
 - [TapNConnect for event organisers — prove the relationships your event created](https://tapnconnect.ae/for/organisers/): Sell the day after. A relationship report for every edition, exhibitor value you can show at renewal, sponsor reach with honest numbers, and a next-event engine. Counts and aggregates, never visitor data.
 - [TapNConnect for exhibitors — accounts, not scan lists](https://tapnconnect.ae/for/exhibitors/): Every visitor your booth meets becomes an account with an owner, an intent and a drafted follow-up. Who on your team knows the company best, one click to your CRM. Priced per seat.
