@@ -1,6 +1,6 @@
 # BUILD_STATUS — tnc-website
 
-_Last updated: 2026-10-25 (kit-init). Source: README, git log (4 commits, latest `7b689ec`), local runs._
+_Last updated: 2026-10-25 (site revamp, Lagoon). Branch `feat/site-revamp`; local runs._
 
 ## Runs locally (verified 2026-10-25, branch `feat/site-revamp`)
 The site is the **Lagoon / Kept Thread** revamp (docs/plans/site-revamp.md + Amendments A1, A2): the 8-act Home story (clay people, the thread, the web, your circles, the assistant, everyone's graph) on a hero video; What everyone gains; scroll journeys on How it works and the five buyer pages; the sand-meets-sea shore with particles; EN + AR; light + dark.
