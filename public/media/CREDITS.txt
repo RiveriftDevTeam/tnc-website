@@ -23,5 +23,5 @@ pricing-hands: "A. C." https://unsplash.com/@3tnik https://unsplash.com/photos/J
 notfound: "Liliana Drew" https://www.pexels.com/@liliana-drew/ https://www.pexels.com/photo/a-couple-walking-on-the-hallway-8555242/ (Pexels License)
 
 Video
-hero: "Pavel Danilyuk" https://www.pexels.com/video/colleagues-talking-at-a-business-conference-8716795/ (Pexels License; Pexels)
-how: "fauxels" https://www.pexels.com/video/a-group-of-people-introduces-oneself-to-each-other-by-shaking-hands-3252919/ (Pexels License; Pexels)
+hero: "Pexels" https://www.pexels.com/video/34583143/ (Pexels License; Pexels)
+how: "Pexels" https://www.pexels.com/video/32203298/ (Pexels License; Pexels)

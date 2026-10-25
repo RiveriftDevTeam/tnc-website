@@ -76,14 +76,16 @@ export default sources;
 // seconds that makes the loop seamless; `speed` < 1 slows the clip. Pexels, Mixkit and Coverr clips are free for
 // commercial use; the page, creator and licence are recorded here and in media.json.
 export const videos = {
-  // colleagues meeting and talking at a conference, daylight from a tall window: smiling, unhurried, no logo in frame
+  // chosen by the founder (2026-10-25): a man explaining with a folder to people gathered round him, bright and calm
   hero: {
-    source: 'Pexels', page: 'https://www.pexels.com/video/colleagues-talking-at-a-business-conference-8716795/', creator: 'Pavel Danilyuk', creatorUrl: 'https://www.pexels.com/@pavel-danilyuk/',
-    licence: 'Pexels License', download: 'https://videos.pexels.com/video-files/8716795/8716795-hd_1920_1080_25fps.mp4', start: 0.3, duration: 11.5, fade: 1, fps: 25,
+    source: 'Pexels', page: 'https://www.pexels.com/video/34583143/', creator: 'Pexels', creatorUrl: null,
+    licence: 'Pexels License', download: 'https://videos.pexels.com/video-files/34583143/14654559_1920_1080_60fps.mp4', start: 1, duration: 12, fade: 1, fps: 25,
   },
-  // a smiling introduction at a meeting table: hands reach across, a handshake, a second greeting (cut before a laptop logo comes into frame)
+  // chosen by the founder (2026-10-25): a speaker talking to a seated audience. The vertical clip is cropped to 4:5 round
+  // the speaker, which leaves out the sponsor sign at the top and most of the slide screen (plan §3.6: no legible brands)
   how: {
-    source: 'Pexels', page: 'https://www.pexels.com/video/a-group-of-people-introduces-oneself-to-each-other-by-shaking-hands-3252919/', creator: 'fauxels', creatorUrl: 'https://www.pexels.com/@fauxels/',
-    licence: 'Pexels License', download: 'https://videos.pexels.com/video-files/3252919/3252919-hd_1920_1080_25fps.mp4', start: 0.3, duration: 9.3, fade: 0.8, fps: 25,
+    source: 'Pexels', page: 'https://www.pexels.com/video/32203298/', creator: 'Pexels', creatorUrl: null,
+    licence: 'Pexels License', download: 'https://videos.pexels.com/video-files/32203298/13734735_2160_3840_30fps.mp4', start: 0.5, duration: 10.5, fade: 0.8, fps: 25,
+    crop: '1620:2025:0:950', width: 720,
   },
 };

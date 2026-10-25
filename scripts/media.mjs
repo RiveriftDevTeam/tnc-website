@@ -187,13 +187,13 @@ const videoOut = {};
 for (const [name, v] of Object.entries(videos)) {
   const mp4 = path.join(VIDEO_OUT, `${name}.mp4`); const webm = path.join(VIDEO_OUT, `${name}.webm`); const poster = path.join(VIDEO_OUT, `${name}.jpg`);
   const prev = old.video?.[name];
-  const same = prev && prev.download === v.download && prev.start === v.start && prev.duration === v.duration && (prev.fade || 0) === (v.fade || 0) && (prev.speed || 1) === (v.speed || 1) && [mp4, webm, poster].every((f) => fs.existsSync(f) && fs.statSync(f).size > 0);
+  const same = prev && prev.download === v.download && prev.start === v.start && prev.duration === v.duration && (prev.fade || 0) === (v.fade || 0) && (prev.speed || 1) === (v.speed || 1) && (prev.crop || null) === (v.crop || null) && (prev.width || 1280) === (v.width || 1280) && [mp4, webm, poster].every((f) => fs.existsSync(f) && fs.statSync(f).size > 0);
   if (!same) {
     const srcFile = await download(v.download, path.join(CACHE, `video-${name}-${new URL(v.download).pathname.replace(/\W+/g, '_')}`));
     const speed = v.speed || 1; // < 1 slows the clip down (a short, calm crowd shot reads better a little slower)
     const f = v.fade || 0; const D = v.duration / speed; const L = D - f; // the loop is D - fade seconds long
     const fps = v.fps || 25;
-    const scale = `setpts=PTS/${speed},scale=1280:-2:flags=lanczos,fps=${fps},format=yuv420p`;
+    const scale = `${v.crop ? `crop=${v.crop},` : ''}setpts=PTS/${speed},scale=${v.width || 1280}:-2:flags=lanczos,fps=${fps},format=yuv420p`; // crop (w:h:x:y) frames the clip for its slot
     const cut = ['-ss', String(v.start), '-t', String(v.duration), '-i', srcFile];
     const graph = f > 0
       ? `[0:v]${scale},split[a][b];[a]trim=start=${f}:end=${D},setpts=PTS-STARTPTS[m];[b]trim=start=0:end=${f + 0.2},setpts=PTS-STARTPTS[h];[m][h]xfade=transition=fade:duration=${f}:offset=${(L - f).toFixed(3)},trim=duration=${L},setpts=PTS-STARTPTS[v]`
@@ -207,7 +207,7 @@ for (const [name, v] of Object.entries(videos)) {
   }
   const secs = Number(run('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', mp4]).toString().trim());
   videoOut[name] = {
-    source: v.source, page: v.page, creator: v.creator, creatorUrl: v.creatorUrl || null, licence: v.licence, download: v.download, start: v.start, duration: v.duration, fade: v.fade || 0, speed: v.speed || 1,
+    source: v.source, page: v.page, creator: v.creator, creatorUrl: v.creatorUrl || null, licence: v.licence, download: v.download, start: v.start, duration: v.duration, fade: v.fade || 0, speed: v.speed || 1, crop: v.crop || null, width: v.width || 1280,
     seconds: +secs.toFixed(2), bytes: { mp4: fs.statSync(mp4).size, webm: fs.statSync(webm).size, poster: fs.statSync(poster).size },
   };
   console.log(`video ${name.padEnd(8)} ${same ? 'skipped' : 'made'}  ${secs.toFixed(1)} s  mp4 ${(videoOut[name].bytes.mp4 / KB).toFixed(0)} kB  webm ${(videoOut[name].bytes.webm / KB).toFixed(0)} kB  poster ${(videoOut[name].bytes.poster / KB).toFixed(0)} kB`);
