@@ -26,6 +26,7 @@ export function Knot({ size = 14, className = '' }) {
 export default function Thread({ shape = 'h', d, knots = [], animate = true, width = 2, className = '', style }) {
   const ref = useRef(null);
   const vertical = shape === 'v' || shape === 'vline';
+  const position = /\b(absolute|fixed|sticky)\b/.test(className) ? '' : 'relative'; // `relative` would beat a caller's `absolute`
   useEffect(() => {
     const el = ref.current; if (!el || !animate) return;
     const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add('in'); io.disconnect(); } }, { rootMargin: '0px 0px -12% 0px', threshold: 0.01 });
@@ -33,7 +34,7 @@ export default function Thread({ shape = 'h', d, knots = [], animate = true, wid
     return () => io.disconnect();
   }, [animate]);
   return (
-    <div ref={ref} className={`thread pointer-events-none relative rtl:-scale-x-100 ${className}`} data-animate={animate ? '' : undefined} data-v={vertical ? '' : undefined} style={style} aria-hidden="true">
+    <div ref={ref} className={`thread pointer-events-none ${position} rtl:-scale-x-100 ${className}`} data-animate={animate ? '' : undefined} data-v={vertical ? '' : undefined} style={style} aria-hidden="true">
       <svg data-draw="" className="absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
         <path d={d || PATHS[shape]} fill="none" stroke="currentColor" strokeWidth={width} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
       </svg>

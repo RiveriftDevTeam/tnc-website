@@ -53,7 +53,7 @@ export default function Home({ lang }) {
               {h.loop.steps.map((s) => (
                 <li key={s.title} className="flex gap-3 md:block md:text-center">
                   <span className="mt-0.5 shrink-0 text-thread md:mx-auto md:block md:w-fit" aria-hidden="true"><Knot size={16} /></span>
-                  <div><h3 className="t-h3 md:mt-3">{s.title}</h3><p className="mt-1 text-[.95rem] text-muted md:line-clamp-3">{s.p}</p></div>
+                  <div><h3 className="t-h3 md:mt-3">{s.title}</h3><p className="mt-1 text-[.95rem] text-muted md:text-sm">{s.p}</p></div>
                 </li>
               ))}
             </ol>
