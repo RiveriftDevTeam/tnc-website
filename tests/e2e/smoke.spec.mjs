@@ -1,6 +1,6 @@
 // Every page in both languages renders, has exactly one h1 and no horizontal scroll.
 import { test, expect } from './fixtures.mjs';
-const paths = ['/', '/how-it-works/', '/for/organisers/', '/for/exhibitors/', '/for/sponsors/', '/for/companies/', '/for/individuals/', '/pricing/', '/order/', '/trust/'];
+const paths = ['/', '/how-it-works/', '/for/organisers/', '/for/exhibitors/', '/for/sponsors/', '/for/companies/', '/for/individuals/', '/pricing/', '/order/', '/trust/', '/credits/'];
 for (const p of paths.flatMap((x) => [x, '/ar' + x])) {
   test(`renders ${p}`, async ({ page }) => {
     const res = await page.goto(p);

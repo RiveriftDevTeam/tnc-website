@@ -2,7 +2,7 @@
 
 TapNConnect is your AI assistant for the people in your life, at work and at home. Tap a card, keep what matters, get a draft when a word would count. Built in the UAE for events, exhibitors, companies and the people who meet them.
 
-Source: https://tapnconnect.ae. Pages: https://tapnconnect.ae/ · https://tapnconnect.ae/how-it-works/ · https://tapnconnect.ae/for/organisers/ · https://tapnconnect.ae/for/exhibitors/ · https://tapnconnect.ae/for/sponsors/ · https://tapnconnect.ae/for/companies/ · https://tapnconnect.ae/for/individuals/ · https://tapnconnect.ae/pricing/ · https://tapnconnect.ae/order/ · https://tapnconnect.ae/trust/
+Source: https://tapnconnect.ae. Pages: https://tapnconnect.ae/ · https://tapnconnect.ae/how-it-works/ · https://tapnconnect.ae/for/organisers/ · https://tapnconnect.ae/for/exhibitors/ · https://tapnconnect.ae/for/sponsors/ · https://tapnconnect.ae/for/companies/ · https://tapnconnect.ae/for/individuals/ · https://tapnconnect.ae/pricing/ · https://tapnconnect.ae/order/ · https://tapnconnect.ae/trust/ · https://tapnconnect.ae/credits/
 
 ## Home
 
@@ -248,10 +248,13 @@ Start free today, or order for your company and be live within a working day.
 
 How TapNConnect works — before, during and after an event, and every day
 Tap, keep, remember, next step, outcome. How TapNConnect captures a relationship where it happens and keeps it alive, at an event and every day after.
-How it works
 A relationship, from the handshake to the outcome.
-One loop, five verbs. Here is what happens at an event and on an ordinary Tuesday.
+TapNConnect is the relationship OS for events and the people in them. One loop, five verbs. Here is what happens at an event and on an ordinary Tuesday.
+A woman explaining something with her hands to two listeners at an event.
+Voice note, 20 seconds
+Intro to Huda by Sunday.
 At an event
+Two men talking in a bright hall, with a small group chatting behind them.
 Before
 Visitor
 Your profile and what you are looking for are known. The assistant tells you who is worth meeting and why.
@@ -269,6 +272,7 @@ Exhibitor
 Prioritised accounts, who on the team knows each company, CRM-ready. The Monday hand-over done.
 And for the organiser
 A report that answers “what did those tap moments create?”: new and repeat relationships, cross-industry clusters, which exhibitors became hubs, what to target for the next edition. Counts and aggregates, never a visitor’s name.
+Four speakers on a panel with microphones, and an audience seated at tables in front of them.
 Every day after
 Morning
 Open Today
@@ -292,10 +296,40 @@ Scan a QR
 Photo of a paper card
 Voice note
 Forward a WhatsApp message
+Tap a tile to see what it saves.
+Sample memory
+Captured by
+Sara Khalid
+Hall 3, Tuesday 11:20
+We talked about the Q3 scope.
+You promised: send it Thursday.
 Every one creates the same memory: who, where, when, what you discussed, what each of you promised. High-confidence captures save silently, with undo. A question is asked only when the answer changes what happens next.
 What the assistant may do on its own
 Save, remind, suggest and draft. It never sends, writes to your CRM or shares a name without your yes. After three identical yeses it offers, once, to make that one thing automatic. You can turn it back off in one sentence.
 Your assistant may send email after you approve.
+On its own
+Save
+Remind
+Suggest
+Draft
+Only with your yes
+Send a message
+Write to your CRM
+Share a name
+Draft to Omar
+Good luck on Sunday, Omar. Run it for the hall!
+Sending is off, so this stays a draft. Turn the switch on to try it.
+Nothing leaves until you say yes.
+Yes, send it
+Sent, because you said yes.
+Draft another
+Same yes in a row
+Three yeses to the same thing. Make this one automatic?
+Yes, make it automatic
+Not now
+Automatic, for this one thing only. You can stop it any time.
+Stop sending on its own
+Go meet someone. We’ll remember the rest.
 
 ## For organisers
 
@@ -629,15 +663,15 @@ Couldn’t send the order. Write to {email} with your details and we take it fro
 
 Privacy and trust at TapNConnect — how we handle your data
 Humans only, one isolated graph per member, names in a vault with the AI on pseudonyms, no scraping, consent on every message, delete means delete. Data in the UAE.
-Privacy and trust
-Privacy is a feature you can see, not a page you can find.
-What we built so that the AI does not need to know who you are to understand your relationships.
+Your people are yours.
+We built it so the AI does not need to know who they are to understand your relationships. Eight promises, in the order they matter.
 Every node in your circle is a human you met, claimed or imported from your own contacts. No agent, bot or synthetic contact is ever added, whatever assistant asks. Proof of meeting is two phones, one moment, two yeses, shown as “met in person”. Never a selfie gate or a biometric check.
 One isolated memory per member. A company sees what its seats captured for it. An organiser sees counts and aggregates with a privacy floor. Nothing crosses between members except an introduction both sides said yes to.
 Names and contact details live in an identity vault. The AI reasons over identifiers like PERSON-8472. A controlled resolver puts the name back only on a permission and purpose check, and every resolution is logged. Personal data is found by a named-entity model, never a name list.
 Every memory carries its source: who captured it, where, when, how. A deletion request becomes a traversal and a cascade, including to CRM rows derived from it. Delete means delete.
 We never scrape LinkedIn or Instagram and never read your inbox. Enrichment comes from company websites, official APIs, your own exports and what a person hands you.
 Every message, introduction, calendar invite and CRM push is shown first. You approve, edit or dismiss. After three identical yeses the assistant offers, once, to make that one thing automatic; you can turn it off in a sentence.
+The Museum of the Future in Dubai at sunset, its walls covered in Arabic calligraphy.
 Azure UAE North for the system of record and the vault. Audio of a voice note is deleted after it is transcribed. Public cards hold no phone or e-mail in their page source when the popup is on.
 An honest limit: this is engineering, not a certificate. We publish the legal documents, the sub-processors and the pentest findings as they are closed. Ask us for the trust pack.
 The documents
@@ -892,10 +926,13 @@ close
 
 كيف يعمل TapNConnect — قبل الفعالية وأثناءها وبعدها، وكل يوم
 المس، احفظ، تذكّر، الخطوة التالية، النتيجة. كيف يحفظ TapNConnect العلاقة حيث تحدث ويبقيها حية في الفعالية وكل يوم بعدها.
-كيف يعمل
 علاقة، من المصافحة إلى النتيجة.
-حلقة واحدة وخمسة أفعال. هذا ما يحدث في فعالية وفي يوم ثلاثاء عادي.
+TapNConnect هو نظام العلاقات للفعاليات وللناس فيها. حلقة واحدة وخمسة أفعال. هذا ما يحدث في فعالية وفي يوم ثلاثاء عادي.
+امرأة تشرح شيئًا بيديها لشخصين يستمعان إليها في فعالية.
+ملاحظة صوتية، 20 ثانية
+تعريف بهدى قبل الأحد.
 في الفعالية
+رجلان يتحدثان في قاعة مضيئة، ومن خلفهما مجموعة صغيرة تتبادل الحديث.
 قبل
 الزائر
 ملفك وما تبحث عنه معروفان. يخبرك المساعد بمن يستحق اللقاء ولماذا.
@@ -913,6 +950,7 @@ close
 حسابات مرتبة بالأولوية، ومن في الفريق يعرف كل شركة، جاهزة لـ CRM. تسليم الاثنين منجز.
 وللمنظم
 تقرير يجيب عن «ماذا صنعت تلك اللمسات؟»: علاقات جديدة ومتكررة، وتجمعات بين القطاعات، وأي العارضين صاروا محاور، وما يُستهدف في النسخة القادمة. أعداد ومجاميع، ولا اسم زائر أبدًا.
+أربعة متحدثين في جلسة حوارية يحملون الميكروفونات، وأمامهم جمهور جالس إلى الطاولات.
 كل يوم بعدها
 الصباح
 افتح «اليوم»
@@ -936,10 +974,40 @@ close
 صورة بطاقة ورقية
 ملاحظة صوتية
 أعد توجيه رسالة واتساب
+المس بطاقة لترى ما يُحفظ.
+ذكرى تجريبية
+طريقة الحفظ
+سارة خالد
+القاعة 3، الثلاثاء 11:20
+تحدثنا عن نطاق عمل الربع الثالث.
+وعدتَ بإرساله يوم الخميس.
 كل طريقة تصنع الذكرى نفسها: من، وأين، ومتى، وما تحدثتم فيه، وما وعد به كل منكما. ما حُفظ بثقة عالية يُحفظ بصمت مع إمكانية التراجع. ولا يُسأل سؤال إلا إذا غيّر جوابه ما سيحدث.
 ما يفعله المساعد وحده
 يحفظ ويذكّر ويقترح ويكتب المسودة. لا يُرسل ولا يكتب في CRM ولا يشارك اسمًا دون موافقتك. بعد ثلاث موافقات متطابقة يعرض عليك مرة واحدة أن يجعل ذلك الأمر تلقائيًا. وتوقفه بجملة.
 يمكن لمساعدك إرسال بريد بعد موافقتك.
+من تلقاء نفسه
+يحفظ
+يذكّر
+يقترح
+يكتب المسودة
+بموافقتك فقط
+إرسال رسالة
+الكتابة في CRM
+مشاركة اسم
+مسودة إلى عمر
+بالتوفيق يوم الأحد يا عمر. اركض باسم القاعة كلها!
+الإرسال متوقف، فتبقى هذه مسودة. شغّل المفتاح لتجرّب.
+لا يخرج شيء حتى تقول نعم.
+نعم، أرسلها
+أُرسلت، لأنك وافقت.
+مسودة أخرى
+الموافقة نفسها على التوالي
+ثلاث موافقات على الأمر نفسه. نجعل هذا تلقائيًا؟
+نعم، اجعله تلقائيًا
+ليس الآن
+تلقائي، لهذا الأمر وحده. وتوقفه في أي وقت.
+أوقف الإرسال التلقائي
+اذهب والتقِ بأحدهم. والباقي علينا.
 
 ## الأسعار
 
@@ -984,15 +1052,15 @@ close
 
 الخصوصية والثقة في TapNConnect — كيف نتعامل مع بياناتك
 بشر فقط، وشبكة معزولة لكل عضو، وأسماء في خزنة والذكاء الاصطناعي على أسماء مستعارة، ولا جمع من المواقع، وموافقة على كل رسالة، والحذف حذف. البيانات في الإمارات.
-الخصوصية والثقة
-الخصوصية ميزة تراها، لا صفحة تبحث عنها.
-ما بنيناه حتى لا يحتاج الذكاء الاصطناعي أن يعرف من أنت ليفهم علاقاتك.
+ناسُك لك وحدك.
+بنيناه حتى لا يحتاج الذكاء الاصطناعي أن يعرف من هم ليفهم علاقاتك. ثمانية وعود، بترتيب أهميتها.
 كل عقدة في دائرتك إنسان قابلته أو أضفته أو استوردته من جهات اتصالك. لا يُضاف وكيل أو روبوت أو جهة اتصال مصطنعة أبدًا، أيًّا كان المساعد الذي يطلب. دليل اللقاء هاتفان ولحظة واحدة وموافقتان، ويظهر كـ «لقاء شخصي». لا بوابة صور شخصية ولا تحقق بيومتري.
 ذاكرة معزولة لكل عضو. الشركة ترى ما حفظته مقاعدها لها. والمنظم يرى أعدادًا ومجاميع بحد أدنى للخصوصية. لا يعبر شيء بين الأعضاء إلا تعريف وافق عليه الطرفان.
 الأسماء وبيانات الاتصال في خزنة هوية. يفكر الذكاء الاصطناعي بمعرّفات مثل PERSON-8472. ويعيد محلّل خاضع للرقابة الاسم فقط بعد التحقق من الصلاحية والغرض، ويُسجَّل كل استرجاع. وتُكتشف البيانات الشخصية بنموذج كيانات مسماة، لا بقائمة أسماء.
 كل ذكرى تحمل مصدرها: من حفظها وأين ومتى وكيف. ويصبح طلب الحذف تتبعًا وحذفًا متسلسلًا، حتى صفوف CRM المشتقة منها. الحذف حذف.
 لا نجمع من LinkedIn أو Instagram أبدًا ولا نقرأ بريدك. يأتي الإثراء من مواقع الشركات والواجهات الرسمية وتصديراتك وما يسلمك إياه شخص.
 كل رسالة وتعريف ودعوة تقويم وإرسال إلى CRM يُعرض أولًا. توافق أو تعدّل أو تتجاهل. بعد ثلاث موافقات متطابقة يعرض المساعد مرة واحدة أن يجعل ذلك الأمر تلقائيًا؛ وتوقفه بجملة.
+متحف المستقبل في دبي عند الغروب، وجدرانه مغطاة بالخط العربي.
 Azure شمال الإمارات لنظام السجل والخزنة. يُحذف صوت الملاحظة بعد تفريغه نصًا. والبطاقات العامة لا تحمل هاتفًا أو بريدًا في مصدر صفحتها حين تكون النافذة المنبثقة مفعّلة.
 حدّ صادق: هذه هندسة لا شهادة. ننشر المستندات القانونية والمعالجين الفرعيين ونتائج اختبار الاختراق كلما أُغلقت. اطلب منا حزمة الثقة.
 المستندات

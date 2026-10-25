@@ -3,6 +3,9 @@ import { PLANS } from '@/content/plans';
 import { t } from '@/content';
 
 const OG_IMAGE = `${SITE_URL}/og.png`;
+// Home and the buyer pages carry their own social image (scripts/og.mjs); every other page uses og.png
+const OG_PAGES = ['home', 'organisers', 'exhibitors', 'sponsors', 'companies', 'individuals'];
+const ogFor = (key, lang) => (OG_PAGES.includes(key) ? `${SITE_URL}/og/${key}-${lang}.png` : OG_IMAGE);
 
 /** Next metadata for one page in one language: canonical, hreflang, OpenGraph, Twitter. */
 export function pageMetadata(key, lang) {
@@ -19,9 +22,9 @@ export function pageMetadata(key, lang) {
     openGraph: {
       type: 'website', url, siteName: d.meta.siteName, title: page.title, description: page.description,
       locale: lang === 'ar' ? 'ar_AE' : 'en_AE', alternateLocale: lang === 'ar' ? ['en_AE'] : ['ar_AE'],
-      images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: d.meta.tagline }],
+      images: [{ url: ogFor(key, lang), width: 1200, height: 630, alt: d.meta.tagline }],
     },
-    twitter: { card: 'summary_large_image', title: page.title, description: page.description, images: [OG_IMAGE] },
+    twitter: { card: 'summary_large_image', title: page.title, description: page.description, images: [ogFor(key, lang)] },
     robots: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   };
 }

@@ -6,7 +6,7 @@ import { chromium } from './pw.mjs';
 const base = process.argv[2] || 'http://localhost:4410';
 const outDir = process.argv[3] || '.shots';
 fs.mkdirSync(outDir, { recursive: true });
-const paths = ['/', '/how-it-works/', '/for/organisers/', '/for/exhibitors/', '/for/sponsors/', '/for/companies/', '/for/individuals/', '/pricing/', '/order/', '/trust/', '/nope/'];
+const paths = ['/', '/how-it-works/', '/for/organisers/', '/for/exhibitors/', '/for/sponsors/', '/for/companies/', '/for/individuals/', '/pricing/', '/order/', '/trust/', '/credits/', '/nope/'];
 const all = paths.flatMap((p) => [p, '/ar' + p]);
 const browser = await chromium.launch();
 let failures = 0; const rows = [];

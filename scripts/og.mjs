@@ -1,28 +1,52 @@
-// Renders public/og.png (1200x630) from an HTML template with the pre-installed Chromium. Run: npm run og
-import { chromium } from './pw.mjs';
+// Social images (1200x630) in the Kept Thread world, rendered on the served build so the real fonts and tokens are used:
+// the page's headline beside the "your circles" still from the story. Run after a build: npm run og -- http://localhost:4410
+// Writes public/og.png (Home, English) and public/og/<page>-<lang>.png for Home and the five buyer pages. Rebuild afterwards.
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { chromium } from './pw.mjs';
+import { dict } from '../src/content/index.js';
+
 const here = path.dirname(fileURLToPath(import.meta.url));
-const html = `<!doctype html><html><head><meta charset="utf-8"><style>
-body{margin:0;width:1200px;height:630px;font-family:Geist,Inter,system-ui,sans-serif;color:#14201F;background:
- radial-gradient(900px 500px at 10% -10%, #9ED9CF 0%, transparent 60%), radial-gradient(800px 500px at 100% 30%, #F0D9B5 0%, transparent 55%), #F2EDE3;overflow:hidden}
-.wrap{position:absolute;inset:0;padding:72px 80px;display:flex;flex-direction:column;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:14px;font-size:28px;font-weight:500}
-h1{font-size:76px;line-height:1.02;letter-spacing:-.02em;font-weight:500;margin:0;max-width:760px}
-p{font-size:28px;line-height:1.35;color:#3E4B49;margin:22px 0 0;max-width:720px}
-.circle{position:absolute;right:120px;top:150px;width:360px;height:360px}
-.dot{position:absolute;border-radius:50%;box-shadow:0 18px 40px -20px rgba(11,95,107,.4)}
-.ring{position:absolute;left:50%;top:50%;width:150px;height:150px;border:2px solid #0B5F6B;border-radius:50%;transform:translate(-50%,-50%);opacity:.5}
-</style></head><body><div class="wrap">
-<div class="brand"><svg width="40" height="40" viewBox="0 0 32 32"><rect x="1" y="1" width="30" height="30" rx="9" fill="#0B5F6B"/><circle cx="16" cy="16" r="4" fill="#fff"/><circle cx="16" cy="16" r="8.5" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.6"/></svg> TapNConnect</div>
-<div><h1>Stay close to the people you meet.</h1><p>Your AI assistant for the people in your life. It keeps what matters, tells you when a word would count, and writes the first draft. Nothing is sent without your yes.</p></div>
-<div style="font-size:22px;color:#5F6A68">tapnconnect.ae · Dubai · English and Arabic</div>
-</div>
-<div class="circle">
- <div class="ring"></div>
- <div class="dot" style="left:50%;top:50%;width:64px;height:64px;transform:translate(-50%,-50%);background:#0B5F6B"></div>
- ${[[10,25,52,'#F0D9B5'],[82,20,44,'#9ED9CF'],[90,70,46,'#E8C9A0'],[18,80,40,'#BFE4DC'],[55,95,34,'#F3C9A8'],[2,55,30,'#D7EEF1'],[60,2,30,'#E9D6B4']].map(([x,y,s,c])=>`<div class="dot" style="left:${x}%;top:${y}%;width:${s}px;height:${s}px;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#fff,${c} 55%,rgba(0,0,0,.05))"></div>`).join('')}
-</div></body></html>`;
-const browser = await chromium.launch(); const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
-await page.setContent(html); await page.screenshot({ path: path.join(here, '../public/og.png'), type: 'png' }); await browser.close();
-console.log('public/og.png written');
+const base = process.argv[2] || 'http://localhost:4410';
+const outDir = path.join(here, '../public/og'); fs.mkdirSync(outDir, { recursive: true });
+const PAGES = ['home', 'organisers', 'exhibitors', 'sponsors', 'companies', 'individuals'];
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+const browser = await chromium.launch();
+for (const lang of ['en', 'ar']) {
+  const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
+  await page.goto(`${base}${lang === 'ar' ? '/ar/' : '/'}`, { waitUntil: 'networkidle' }); // the page's fonts and tokens
+  for (const key of PAGES) {
+    const d = dict[lang];
+    const h1 = key === 'home' ? d.home.acts[0].h : d.personas[key].hero.h1;
+    const line = key === 'home' ? d.home.acts[4].h : d.home.gains.items[key].title;
+    const still = `${base}/media/story/act-6-${lang}-dark.webp`;
+    await page.evaluate(({ h1, line, still, ar }) => {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.body.innerHTML = `
+        <div style="position:fixed;inset:0;background:var(--tnc-site-field);color:var(--tnc-site-field-ink);overflow:hidden;font-family:var(--font-geist-sans),var(--font-arabic)">
+          <img src="${still}" style="position:absolute;${ar ? 'left' : 'right'}:-260px;top:-150px;width:1300px;height:auto;${ar ? 'transform:scaleX(-1);' : ''}opacity:.95">
+          <div style="position:absolute;inset:0;background:linear-gradient(${ar ? '270deg' : '90deg'},var(--tnc-site-field) 38%,transparent 78%)"></div>
+          <div dir="${ar ? 'rtl' : 'ltr'}" style="position:absolute;inset:0;padding:64px 72px;display:flex;flex-direction:column;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:14px;font-family:var(--display);font-weight:700;font-size:30px">
+              <svg width="40" height="40" viewBox="0 0 32 32"><rect x="1" y="1" width="30" height="30" rx="9" fill="#66D4E0"/><circle cx="16" cy="16" r="4" fill="var(--tnc-site-thread)"/><circle cx="16" cy="16" r="8.5" fill="none" stroke="#04262B" stroke-opacity=".7" stroke-width="1.6"/></svg> TapNConnect
+            </div>
+            <div style="max-width:640px">
+              <div style="font-family:var(--hand);font-size:30px;color:var(--tnc-site-sun)">${line}</div>
+              <h1 style="font-family:var(--display);font-weight:700;font-size:${h1.length > 48 ? 54 : 70}px;line-height:${ar ? 1.25 : 1.02};letter-spacing:${ar ? 0 : '-0.03em'};margin:14px 0 0">${h1}</h1>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;font-size:22px;opacity:.75"><span style="display:inline-block;width:120px;height:3px;border-radius:3px;background:var(--tnc-site-thread)"></span>tapnconnect.ae</div>
+          </div>
+        </div>`;
+    }, { h1: esc(h1), line: esc(line), still, ar: lang === 'ar' });
+    await page.waitForFunction(() => [...document.images].every((i) => i.complete && i.naturalWidth > 0));
+    await page.evaluate(() => document.fonts.ready); await page.waitForTimeout(150);
+    const file = path.join(outDir, `${key}-${lang}.png`);
+    await page.screenshot({ path: file, type: 'png' });
+    if (key === 'home' && lang === 'en') fs.copyFileSync(file, path.join(here, '../public/og.png'));
+  }
+  await page.close();
+}
+await browser.close();
+console.log(`og.png + ${PAGES.length * 2} images in public/og/`);
