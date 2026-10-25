@@ -1,14 +1,19 @@
 // credits page copy (English). Merged into the dictionary by src/content/index.js.
 const page_credits_en = {
   credits: {
-    title: 'Photo credits — TapNConnect',
-    description: 'The photographers behind the pictures on this site, with a link to each photo and where it is used.',
-    h1: 'Photo credits.',
-    intro: 'The people in these pictures are not TapNConnect members. The photographs are free to use under the Unsplash License. We credit the photographers because they made the pictures this site leans on.',
+    title: 'Photo and video credits — TapNConnect',
+    description: 'The photographers and film-makers behind the pictures and clips on this site, with a link to each one and where it is used.',
+    h1: 'Photo and video credits.',
+    intro: 'The people in these pictures and clips are not TapNConnect members. The photographs and videos are free to use under the Unsplash License and the Pexels License. We credit the people who made them because this site leans on their work.',
     by: 'Photo by',
-    license: 'Unsplash License',
+    license: 'Unsplash License and Pexels License',
     profile: 'Photographer’s profile',
     photo: 'Photo on Unsplash',
+    photoPexels: 'Photo on Pexels',
+    videosH: 'Video',
+    videoBy: 'Video by',
+    videoLink: 'Video on Pexels',
+    videoSlots: { hero: 'Home, the top of the page', how: 'How it works, the top of the page' },
     used: 'Used on',
     slots: {
       'story-hall': 'Home, the hall',

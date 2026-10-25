@@ -1,14 +1,19 @@
 // credits page copy (Arabic). Merged into the dictionary by src/content/index.js.
 const page_credits_ar = {
   credits: {
-    title: 'حقوق الصور — TapNConnect',
-    description: 'المصورون الذين التقطوا الصور في هذا الموقع، مع رابط كل صورة ومكان استخدامها.',
-    h1: 'حقوق الصور.',
-    intro: 'الأشخاص في هذه الصور ليسوا أعضاء في TapNConnect. الصور متاحة للاستخدام الحر بموجب ترخيص Unsplash. نذكر المصورين لأن صورهم هي ما يقوم عليه هذا الموقع.',
+    title: 'حقوق الصور والفيديو — TapNConnect',
+    description: 'المصورون وصانعو المقاطع الذين نعتمد على أعمالهم في هذا الموقع، مع رابط كل عمل ومكان استخدامه.',
+    h1: 'حقوق الصور والفيديو.',
+    intro: 'الأشخاص في هذه الصور والمقاطع ليسوا أعضاء في TapNConnect. الصور والفيديو متاحة للاستخدام الحر بموجب ترخيص Unsplash وترخيص Pexels. نذكر أصحاب هذه الأعمال لأن موقعنا يقوم عليها.',
     by: 'تصوير',
-    license: 'ترخيص Unsplash',
+    license: 'ترخيص Unsplash وترخيص Pexels',
     profile: 'صفحة المصور',
     photo: 'الصورة على Unsplash',
+    photoPexels: 'الصورة على Pexels',
+    videosH: 'الفيديو',
+    videoBy: 'تصوير',
+    videoLink: 'الفيديو على Pexels',
+    videoSlots: { hero: 'الرئيسية، أعلى الصفحة', how: 'كيف يعمل، أعلى الصفحة' },
     used: 'تُستخدم في',
     slots: {
       'story-hall': 'الرئيسية، القاعة',
