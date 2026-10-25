@@ -6,26 +6,22 @@ const page_personas_en = {
       title: 'TapNConnect for event organisers — prove the relationships your event created',
       description: 'Sell the day after. A relationship report for every edition, exhibitor value you can show at renewal, sponsor reach with honest numbers, and a next-event engine. Counts and aggregates, never visitor data.',
       hero: { h1: 'Prove the relationships your event created, and sell the next edition with it.', sub: 'Registrations, footfall and scans say who came. TapNConnect says what happened between them, and what to do for the next edition.', photoAlt: 'An exhibition hall seen from above, crowded around a small stage under a steel arch' },
-      outcomesPhotoAlt: 'A panel of four speakers with microphones talking to guests seated at a dinner table',
-      compare: { rows: [
-        { before: 'A footfall number and a list of scans.', with: 'A report of the relationships your event created, edition by edition.' },
-        { before: 'Renewal talks that start with “trust us”.', with: 'Renewal with proof: which exhibitors became hubs, and how many accounts moved on in 30 days.' },
-        { before: 'Sponsors ask for reach and get a guess.', with: 'Sponsor views counted only when the banner was on screen. No cookies, no identities.' },
-      ] },
       outcomes: [
-        { title: 'The relationship report', p: 'Reach → Relationships → Quality → Progress → Structure → Exhibitors → Next edition. Print-ready, sponsor-brandable, one story.' },
+        { title: 'The relationship report', p: 'One print-ready story, sponsor-brandable: reach, relationships, quality, exhibitors, next edition.' },
         { title: 'Exhibitor renewal proof', p: 'Which exhibitors became hubs, how many accounts progressed in the 30 days after. Shown at renewal, not argued.' },
         { title: 'Sponsor reach, honestly', p: 'Banner views counted only when the banner was on screen; clicks through a short redirect. No cookies, no identities.' },
         { title: 'The next-event engine', p: '“We want 20 % more CIOs.” See who they engaged with, which sessions and channels worked, and target the campaign.' },
       ],
       journey: {
         h2: 'Your edition with TapNConnect',
+        fade: ['A footfall number and a list of scans.', 'Renewal talks that start with “trust us”.', 'Sponsors ask for reach and get a guess.'],
         steps: [
-          { title: 'Set up', p: 'One event, your exhibitor list, your package. We seat every exhibitor; attendee cards are issued for the show.' },
-          { title: 'Show days', p: 'Live: which companies and industries are interacting, which stands are busy. Aggregates only.' },
-          { title: 'The report', p: 'The relationship report lands after the last day, with the next-edition targets.' },
-          { title: 'The 365 days', p: 'Your community keeps its circle; your sponsors keep their reach; you keep the proof for the next sale.' },
+          { title: 'Usually, the show ends here.', line: 'You know who came. You cannot say what happened between them.' },
+          { title: 'Show days', line: 'Watch the hall meet: which industries mix and which stands are busy. Counts only.' },
+          { title: 'The report', line: 'After the last day: the relationships your event created, ready to print and show at renewal.' },
+          { title: 'The next edition', line: 'Aim it at the people you want more of, and sell it with the proof.' },
         ],
+        scene: { crowd: { meta: 'Sample · live', note: 'Industries mixing. Counts only.' }, next: { meta: 'Sample target', note: 'More CIOs next time' } },
       },
       packages: { h2: 'Packages', p: 'Pilot, Standard and Portfolio. Each is priced per event by a person, usually within a working day.' },
       faq: [
@@ -40,25 +36,23 @@ const page_personas_en = {
       description: 'Every visitor your booth meets becomes an account with an owner, an intent and a drafted follow-up. Who on your team knows the company best, one click to your CRM. Priced per seat.',
       hero: { h1: 'Accounts, not scan lists. The Monday hand-over, done by Friday.', sub: 'ABC Technologies: five conversations, three decision-makers, two existing relationships, one owner, one next step. Not “Lead 1 to 5”.', photoAlt: 'An exhibitor in a lanyard glancing across at a visitor during a conversation at a stand' },
       outcomesPhotoAlt: 'A smiling man in a lanyard talking with two visitors, one of them holding a business card',
-      compare: { rows: [
-        { before: 'A scan list: Lead 1, Lead 2, Lead 3.', with: 'One page per company: five conversations, three decision-makers, one owner.' },
-        { before: 'Follow-ups written on Monday, from memory.', with: 'Follow-ups drafted for each account by Friday, with the promise in them.' },
-        { before: 'Nobody knows who on the team knows the buyer.', with: 'The strongest relationship owns the account, and one click sends it to your CRM.' },
-      ] },
       outcomes: [
-        { title: 'Capture in seconds, one hand', p: 'Tap, badge, QR or a paper card. Two-tap notes for a loud hall: “send pricing”, “book a demo”, “decision maker”. Voice when it is quieter.' },
-        { title: 'Lead → Account → Intent → Owner → Next action → CRM', p: 'Five staff meet one company; you see one page. The strongest internal relationship owns it.' },
+        { title: 'Capture in seconds, one hand', p: 'Tap, badge, QR or a paper card. Two-tap notes for a loud hall, voice when it is quieter.' },
+        { title: 'One account, one owner', p: 'Five people on your team meet one company; you see one page. The strongest relationship owns it.' },
         { title: 'The Monday hand-over, by Friday', p: 'Follow-ups drafted for each account, in your voice, with the promise in them. One yes per message.' },
         { title: 'Results you can show the board', p: 'Customers, meetings held, deals opened, repeat business. By salesperson, across events. Real meetings, not scans.' },
       ],
       journey: {
         h2: 'Your show with TapNConnect',
+        fade: ['A scan list: Lead 1, Lead 2, Lead 3.', 'Follow-ups written on Monday, from memory.', 'Nobody knows who on the team knows the buyer.'],
         steps: [
-          { title: 'Seats', p: 'A Basic or Pro seat per person on the stand. Stand cards for the counter, where taps go to the company.' },
-          { title: 'The stand', p: 'Today at the booth: who is here, who is worth a second conversation, what was promised.' },
-          { title: 'The evening', p: 'The recap: accounts, owners, drafts waiting for a yes.' },
-          { title: 'The quarter', p: 'Results: what came of it, and the people worth keeping warm until the next show.' },
+          { title: 'Usually, a scan list.', line: 'Five conversations end up as “Lead 1” to “Lead 5”.' },
+          { title: 'A tap at the stand', line: 'A tap, a scan or a paper card. One yes from the visitor and it is saved.' },
+          { title: 'The account page fills', line: 'Everyone on your team who met them lands on one page, with one owner.' },
+          { title: 'Monday, drafted', line: 'A follow-up for each account, in your voice, with the promise in it.' },
+          { title: 'Then your CRM', line: 'One click sends the account across, with the context your CRM never had.' },
         ],
+        scene: { drafts: [{ note: 'Thank you for Tuesday. The proposal is attached.', why: 'Draft for Al Noor Trading' }, { note: 'Pricing, as promised.', why: 'Draft for Oasis Energy' }], route: { note: 'Account page' } },
       },
       packages: { h2: 'Seats', p: 'Basic and Pro seats, with or without an event, plus stand cards. Priced per seat by a person within a working day.' },
       faq: [
@@ -72,12 +66,6 @@ const page_personas_en = {
       title: 'TapNConnect for sponsors — what your sponsorship delivered',
       description: 'Your banner on the event’s attendee cards and event page, rotated by tier. Views counted only on screen, no cookies, no identities. Keep the people who tapped with starter cards.',
       hero: { h1: 'What your sponsorship delivered, counted honestly. And the people who tapped, kept.', sub: 'Your banner where people actually look: on the attendee cards they tap and the event page they open. Counted when it was on screen, never guessed.', photoAlt: 'A darkened hall with a lit screen and rows of seated attendees' },
-      outcomesPhotoAlt: 'The lit screen at the front of a hall, with the audience in silhouette',
-      compare: { rows: [
-        { before: 'A logo on a wall and no way to say who saw it.', with: 'Your banner on the attendee cards and the event page, placed by tier.' },
-        { before: 'Reach is an estimate.', with: 'A view counts only when the banner was on screen. A click goes through a short redirect.' },
-        { before: 'The people who tapped drift away after the show.', with: 'Two starter cards for your team for 90 days, so those people stay in your circle.' },
-      ] },
       outcomes: [
         { title: 'Placement by tier', p: 'Platinum, Gold, Silver, Bronze decide where the logo shows, how large, and your share of banner views.' },
         { title: 'Figures you can trust', p: 'A view counts only when the banner was on screen. A click goes through a short redirect. No cookie, no stored address.' },
@@ -86,12 +74,14 @@ const page_personas_en = {
       ],
       journey: {
         h2: 'Your sponsorship with TapNConnect',
+        fade: ['A logo on a wall and no way to say who saw it.', 'Reach is an estimate.', 'The people who tapped drift away after the show.'],
         steps: [
-          { title: 'Tier', p: 'Chosen with the organiser, or ordered here.' },
-          { title: 'Banner', p: 'Your artwork, the dates, the event. Live on the attendee cards and the event page.' },
-          { title: 'Reach', p: 'Views and clicks as they happen, with the tier’s promise beside them.' },
-          { title: 'After', p: 'Your starter cards keep working for 90 days. Upgrade to seats when you want more.' },
+          { title: 'Usually, a logo on a wall.', line: 'Nobody can say who saw it.' },
+          { title: 'Your banner goes live', line: 'On the attendee cards people tap and the event page they open, placed by your tier.' },
+          { title: 'Views, counted honestly', line: 'A view counts only while the banner is on screen. No cookies, no identities.' },
+          { title: 'The people who tapped, kept', line: 'Two starter cards for your team for 90 days, so those people stay in your circle.' },
         ],
+        scene: { banner: { note: 'Your banner' } },
       },
       packages: { h2: 'Tiers', p: 'Platinum, Gold, Silver and Bronze. A person confirms the price within a working day.' },
       faq: [
@@ -105,11 +95,6 @@ const page_personas_en = {
       description: 'Who in our company knows this person, and how well? Seats and cards for your team with or without events, a shared pool of AI credits, and every relationship kept by the company.',
       hero: { h1: 'Relationship memory that stays when people move on.', sub: 'Every relationship your team captures stays with the company when the salesperson leaves. Work accounts, separate from personal ones, by design.', photoAlt: 'People mingling and talking at an evening networking event, glasses in hand', sticker: { meta: 'Sample figures', note: 'Who here knows Qamar Bank?', lines: ['Mohammed · met in person', 'Layla · two calls'] } },
       outcomesPhotoAlt: '',
-      compare: { rows: [
-        { before: 'The relationship leaves with the salesperson.', with: 'Every relationship your team captures stays with the company.' },
-        { before: 'Nobody is sure who knows whom.', with: 'One page per company you deal with: who met whom, what was promised, who owns it.' },
-        { before: 'Work contacts mixed in with personal ones.', with: 'Work accounts, apart from personal ones, by design.' },
-      ] },
       outcomes: [
         { title: 'Relationship memory', p: 'One page per company you deal with: who met whom, what was discussed, what was promised, who owns it.' },
         { title: 'Work and personal, apart', p: 'A seat is a work account with the work e-mail. A person’s own circle is theirs; what they capture for you is yours.' },
@@ -118,12 +103,15 @@ const page_personas_en = {
       ],
       journey: {
         h2: 'Your year with TapNConnect',
+        fade: ['The relationship leaves with the salesperson.', 'Nobody is sure who knows whom.', 'Work contacts mixed in with personal ones.'],
         steps: [
-          { title: 'Seats and cards', p: 'Pick seats and cards for the team. Invite them by work e-mail.' },
-          { title: 'Capture everywhere', p: 'Meetings, calls, trade shows, the Deira shop counter. Tap, voice, WhatsApp.' },
-          { title: 'Monday', p: 'Each seat’s brief; each account’s owner; the drafts waiting for a yes.' },
-          { title: 'Results', p: 'Customers, repeat business, introductions. By person, by quarter.' },
+          { title: 'Usually, it walks out the door.', line: 'When a salesperson leaves, the relationships leave with them.' },
+          { title: 'Capture everywhere', line: 'Meetings, calls, trade shows, the shop counter. Tap, voice or WhatsApp, on a work seat.' },
+          { title: 'One page per company', line: 'Who met whom, what was promised, who owns it. It stays when people move on.' },
+          { title: 'Monday, drafted', line: 'Each seat’s brief, each account’s owner, and drafts waiting for a yes.' },
+          { title: 'Results, by quarter', line: 'Customers, repeat business, introductions. By person.' },
         ],
+        scene: { channels: ['Meetings', 'Calls', 'Trade shows', 'Shop counter'], drafts: [{ note: 'Follow up with Qamar Bank', why: 'Owner: Mohammed. Promise due Thursday.' }, { note: 'Introduce Layla to Al Noor', why: 'Drafted for Layla’s yes.' }], results: ['Customers', 'Repeat business', 'Introductions'] },
       },
       packages: { h2: 'The everyday plan', p: 'Seats, cards and a monthly AI pool on a 12-month term. Priced by seats and cards by a person within a working day.' },
       faq: [
@@ -137,11 +125,6 @@ const page_personas_en = {
       description: 'Founders, consultants, investors, recruiters, brokers. Free to start: your card, everyone you meet, 30 voice notes a month. Plus adds your assistant.',
       hero: { h1: 'A circle that lasts, and an assistant that remembers for you.', sub: 'For the people whose work is relationships: founders, consultants, investors, recruiters, brokers. The one right person instead of a broadcast.', photoAlt: 'A smiling man holding up a blank badge on a lanyard' },
       outcomesPhotoAlt: 'Two friends walking arm in arm through a festival crowd, seen from behind',
-      compare: { rows: [
-        { before: '“Where did I meet Sarah?” Lost in a camera roll.', with: 'Answered with the evidence: where, when, and what you said.' },
-        { before: 'Walking into tomorrow’s meeting cold.', with: 'A brief first: last time, open promises, what changed at their company.' },
-        { before: 'Good people go quiet, unnoticed.', with: 'Three messages drafted every morning for the people who need a word. You say yes.' },
-      ] },
       outcomes: [
         { title: 'Remember', p: 'Where did I meet Sarah, what did we discuss, what did I promise? Answered, with the evidence.' },
         { title: 'Prepare', p: 'A brief before tomorrow’s meeting: last time, open promises, what changed at their company.' },
@@ -150,12 +133,15 @@ const page_personas_en = {
       ],
       journey: {
         h2: 'Your first week',
+        fade: ['“Where did I meet Sarah?” Lost in a camera roll.', 'Walking into tomorrow’s meeting cold.', 'Good people go quiet, unnoticed.'],
         steps: [
-          { title: 'Day 1', p: 'Create your card in two minutes. Import your contacts if you like; they stay yours.' },
-          { title: 'Day 2', p: 'Meet someone. Tap, or hold to record. “Save this memory?” Yes.' },
-          { title: 'Day 3', p: 'Today shows its first card. You send the first note.' },
-          { title: 'Week 2', p: 'You ask the assistant something you had forgotten. It knew.' },
+          { title: 'Usually, it is lost.', line: 'The name is in a camera roll. The promise is in your head.' },
+          { title: 'Day 1: your card', line: 'Create it in two minutes. Import your contacts if you like; they stay yours.' },
+          { title: 'Day 2: meet someone', line: 'Tap, or hold to record. “Save this memory?” Yes.' },
+          { title: 'Day 3: Today', line: 'Today shows its first card. You send the first note.' },
+          { title: 'Week 2: just ask', line: 'You ask the assistant something you had forgotten. It knew.' },
         ],
+        scene: { card: { name: 'Layla Nasser', line: 'Sample card', note: 'Two minutes' }, ask: { q: 'Where did I meet Sara?' } },
       },
       packages: { h2: 'Plans', p: 'Free keeps your card and your people. Plus adds your assistant. The card comes with a year of Plus.' },
       faq: [
@@ -165,7 +151,8 @@ const page_personas_en = {
       ],
     },
     common: {
-      compareH2: 'Before, and with TapNConnect', compareBefore: 'Before', compareWith: 'With TapNConnect', sample: 'Sample figures', pricedPerOrder: 'Priced per order',
+      scene: { visitor: 'Visitor', stand: 'Your stand', you: 'You', someone: 'Someone new', team: 'Your team', company: 'Your company', crm: 'Your CRM', met: { meta: 'Sample · Hall 3, 11:20', note: 'Met in person' } },
+      sample: 'Sample figures', pricedPerOrder: 'Priced per order',
       outcomesH2: 'What you get', faqH2: 'Questions people ask', ctaH2: 'Ready when you are.', ctaP: 'Order on this page, or talk to a person first.',
       seePricing: 'See the price list',
     },

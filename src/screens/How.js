@@ -5,15 +5,14 @@ import Reveal from '@/components/Reveal';
 import JsonLd from '@/components/JsonLd';
 import Photo from '@/components/Photo';
 import Sticker from '@/components/Sticker';
-import Thread, { Knot } from '@/components/Thread';
+import Thread from '@/components/Thread';
+import ScrollScenes from '@/components/ScrollScenes';
+import { BeforeScene, MeetScene, AfterScene } from '@/components/scenes/HowScenes';
 import CaptureTiles from '@/components/CaptureTiles';
 import AutonomyToggle from '@/components/AutonomyToggle';
 import { Section } from '@/components/Section';
 import { graph, ldWebPage, ldBreadcrumb, ldHowTo } from '@/lib/seo';
 
-// the second strand crosses the first at every chapter: that is where a visitor and an exhibitor meet
-const CROSS_H = 'M0 50 C 18 70, 32 30, 50 50 S 82 70, 100 50';
-const CROSS_V = 'M50 0 C 70 18, 30 32, 50 50 S 70 82, 50 100';
 const TILTS = [1, 2, 0, 3, 1];
 
 export default function How({ lang }) {
@@ -38,31 +37,17 @@ export default function How({ lang }) {
       </section>
 
       <Section h2={h.event.h2}>
-        <div className="relative mt-10 lg:mt-12">
-          {/* wide screens: two strands run left to right and cross at each chapter */}
-          <div className="absolute inset-x-0 top-0 hidden h-12 lg:block" aria-hidden="true">
-            <Thread shape="h" knots={[16.67, 50, 83.33]} className="!absolute inset-0" />
-            <Thread shape="h" d={CROSS_H} className="!absolute inset-0 !text-accent" width={2} />
-          </div>
-          {/* phone: the same two strands run down the start edge */}
-          <div className="absolute inset-y-0 start-0 w-8 lg:hidden" aria-hidden="true">
-            <Thread shape="v" animate={false} className="!absolute inset-0" />
-            <Thread shape="v" animate={false} d={CROSS_V} className="!absolute inset-0 !text-accent" />
-          </div>
-          <ol className="grid gap-12 ps-12 lg:grid-cols-3 lg:gap-10 lg:ps-0 lg:pt-16">
-            {h.event.phases.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={i * 0.05} className="relative">
-                <span className="absolute -start-12 top-2 grid h-8 w-8 place-items-center text-thread lg:hidden" aria-hidden="true"><Knot size={18} /></span>
-                <h3 className="t-h2">{p.title}</h3>
-                {i === 1 && <div className="photo-card mt-5 aspect-[3/2]"><Photo slot="how-event" alt={h.event.photoAlt} sizes="(min-width:1024px) 30vw, 85vw" /></div>}
-                <div className="mt-6 space-y-6">
-                  <div><span className="chip"><span className="h-2 w-2 rounded-full bg-thread" aria-hidden="true" />{p.who}</span><p className="mt-2 max-w-prose text-muted">{p.p}</p></div>
-                  <div><span className="chip chip-quiet"><span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />{p.who2}</span><p className="mt-2 max-w-prose text-muted">{p.p2}</p></div>
-                </div>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+        <ScrollScenes
+          className="mt-12 lg:mt-16"
+          label={h.event.label}
+          dir={lang === 'ar' ? 'rtl' : 'ltr'}
+          steps={h.event.phases.map((ph) => ({ key: ph.title, title: ph.title, strands: [{ who: ph.who, text: ph.p }, { who: ph.who2, text: ph.p2 }] }))}
+          scenes={[
+            <BeforeScene key="before" s={h.event.scenes.before} />,
+            <MeetScene key="during" a={h.event.phases[1].who} b={h.event.phases[1].who2} met={h.event.scenes.during.met} />,
+            <AfterScene key="after" s={h.event.scenes.after} />,
+          ]}
+        />
       </Section>
 
       <section className="section pt-0">
