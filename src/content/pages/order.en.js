@@ -4,7 +4,7 @@ const page_order_en = {
   order: {
     title: 'Order TapNConnect for your company',
     description: 'Pick a package, tell us about your company, pay by card or bank transfer. Your plan is usually live within a working day; small card-paid orders in minutes.',
-    hero: { eyebrow: 'Order', h1: 'Order TapNConnect for your company.', sub: 'Pick a package, tell us about your company, pay. Your plan is usually live within a working day; small card-paid orders in minutes.' },
+    hero: { h1: 'Order TapNConnect for your company.', sub: 'Pick a package, tell us about your company, pay. Your plan is usually live within a working day; small card-paid orders in minutes.' },
     agent: {
       name: 'Sales assistant', hint: 'Answers only from the price list. For anything else, a person.',
       q1: 'Who are you ordering for?', kinds: { exhibitor: 'An exhibitor', company: 'An everyday company', organiser: 'An organiser', sponsor: 'A sponsor', individual: 'Myself' },
