@@ -21,7 +21,7 @@
   html[lang="ar"] body { line-height: 1.7; }
   /* Arabic reading face ships at 400 only (font budget); anything weightier speaks in Alexandria (variable, already loaded) */
   html[lang="ar"] :is(.btn, .chip, .font-medium, .font-semibold, .font-bold, strong, b, th, label, summary) { font-family: var(--display); }
-  ::selection { background: rgb(var(--tnc-site-sun-rgb) / .55); color: var(--tnc-ink); }
+  ::selection { background: rgb(var(--tnc-site-thread-rgb) / .28); color: var(--tnc-ink); }
   :focus-visible { outline: 2px solid var(--tnc-site-thread); outline-offset: 3px; border-radius: 8px; }
   h1, h2, h3 { font-family: var(--display); font-weight: 650; letter-spacing: -0.02em; text-wrap: balance; }
   html[lang="ar"] :is(h1, h2, h3) { letter-spacing: 0; font-weight: 600; }
@@ -31,6 +31,10 @@
 }
 
 @layer components {
+  /* The shore behind every page (Shore.js): the sand-and-sea backdrop, then the particle canvas */
+  .shore { position: fixed; inset: 0; z-index: -2; pointer-events: none; background: var(--tnc-backdrop); }
+  .shore-particles { position: fixed; inset: 0; z-index: -1; width: 100vw; height: 100vh; pointer-events: none; }
+
   /* A paper panel. Glass is no longer decoration: only the scrolled header blurs what passes under it (.header-glass). */
   .glass {
     position: relative;
@@ -65,8 +69,11 @@
   .btn:active { transform: translateY(1px) scale(.985); }
   .btn[disabled], .btn[aria-disabled="true"] { opacity: .5; pointer-events: none; }
   /* The primary is the thread: the one filled, warm control per view */
-  .btn-primary { background: var(--tnc-site-thread-strong); color: var(--tnc-site-thread-ink); box-shadow: 0 10px 24px -12px rgb(var(--tnc-site-thread-rgb) / .7); }
-  .btn-primary:hover { background: color-mix(in srgb, var(--tnc-site-thread-strong) 86%, #000); box-shadow: 0 14px 30px -12px rgb(var(--tnc-site-thread-rgb) / .75); }
+  /* Lagoon: the primary is deep-sea petrol; on the petrol story field (and the header over it) it turns to sun on sand */
+  .btn-primary { background: var(--tnc-accent); color: var(--tnc-accent-ink); box-shadow: 0 10px 24px -12px rgb(var(--tnc-accent-rgb) / .6); }
+  .btn-primary:hover { background: var(--tnc-accent-hover); box-shadow: 0 14px 30px -12px rgb(var(--tnc-accent-rgb) / .7); }
+  :is(.bg-field, [data-on-field]) .btn-primary { background: var(--tnc-site-sun); color: var(--tnc-site-sun-ink); box-shadow: 0 10px 24px -12px rgb(var(--tnc-site-sun-rgb) / .55); }
+  :is(.bg-field, [data-on-field]) .btn-primary:hover { background: color-mix(in srgb, var(--tnc-site-sun) 88%, #fff); }
   .btn-tonal { background: var(--tnc-accent-soft); color: var(--tnc-accent); }
   .btn-tonal:hover { background: color-mix(in srgb, var(--tnc-accent-soft) 88%, var(--tnc-accent)); }
   .btn-quiet { background: transparent; color: var(--tnc-ink-muted); }

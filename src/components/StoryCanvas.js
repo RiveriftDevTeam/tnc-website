@@ -73,7 +73,7 @@ export default function StoryCanvas({ progressRef, dir = 'ltr', cardName = 'Layl
     const fill = new DirectionalLight(new Color(colors.thread), 0.5); fill.position.set(-4, 2, -3); scene.add(fill);
 
     const fonts = { display: css(dir === 'rtl' ? '--font-display-ar' : '--font-display') || 'system-ui', body: css(dir === 'rtl' ? '--font-arabic' : '--font-geist-sans') || 'system-ui' };
-    const cardColors = () => ({ paper: '#F6F1EA', ink: '#14201F', thread: colors.thread });
+    const cardColors = () => ({ paper: '#FFFDF8', ink: '#14201F', thread: colors.thread });
     const card = makeCard({ colors: cardColors(), name: cardName, dir, fonts });
     scene.add(card.mesh);
     if (document.fonts) document.fonts.load(`700 64px ${fonts.display}`).then(() => { if (!disposed) { card.repaint(); if (capture) frame(0, lastP); } }).catch(() => {});

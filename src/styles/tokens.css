@@ -1,59 +1,66 @@
 /* TapNConnect tokens. Names mirror im-client-profile-frontend/src/ui/tokens.css so the website and the app read as one product.
-   Accent family (petrol) unchanged from Gulf Water (decision 57/59); neutrals retuned warm for the site ("Kept Thread",
-   docs/plans/site-revamp.md § 3.2, approved 2026-10-25). Site-only tokens carry the --tnc-site-* prefix so they never collide with the app. */
+   "Lagoon" (docs/plans/site-revamp.md Amendment A2.1, founder 2026-10-25): Gulf Water where the sand meets the sea — sand
+   ground, sea green, aqua and lagoon blue, a turquoise thread, petrol buttons. The petrol accent family is unchanged from
+   Gulf Water (decision 57/59). Site-only tokens carry the --tnc-site-* prefix so they never collide with the app. */
 :root {
   --tnc-accent: #0B5F6B;
   --tnc-accent-hover: #084A54;
-  --tnc-accent-soft: #D7EEF1;
+  --tnc-accent-soft: #D3ECEA;
   --tnc-accent-ink: #FFFFFF;
   --tnc-partner: #C9A36A;
-  --tnc-backdrop-a: #F3C9A8;
-  --tnc-backdrop-b: #F0D9B5;
-  --tnc-backdrop-c: #F6F1EA;
-  --tnc-backdrop-d: #EDE5DA;
-  --tnc-ground: #F6F1EA;
-  --tnc-surface: #FFFFFF;
-  --tnc-sunken: #EDE5DA;
+  --tnc-backdrop-a: #9ED9CF;  /* shallows: sea green */
+  --tnc-backdrop-b: #E9D3AE;  /* dry sand */
+  --tnc-backdrop-c: #4FC1B8;  /* lagoon: aqua */
+  --tnc-backdrop-d: #7FB8D9;  /* open water: lagoon blue */
+  --tnc-ground: #F3EADB;
+  --tnc-surface: #FFFDF8;
+  --tnc-sunken: #E8DCC6;
   --tnc-ink: #14201F;
   --tnc-ink-muted: #3E4B49;
-  --tnc-ink-subtle: #5F6A68;
+  --tnc-ink-subtle: #56625F;
   --tnc-line: rgba(20, 32, 31, 0.12);
   --tnc-good: #2E7E2D;
   --tnc-warn: #8A5804;
   --tnc-critical: #B4271F;
-  --tnc-delight: #E8573F;
-  --tnc-delight-soft: #FBE1D9;
-  --tnc-splash: #0E3B42;
-  --tnc-splash-ink: #F6F1EA;
-  --tnc-glass: rgba(246, 241, 234, 0.78);
-  --tnc-glass-strong: rgba(246, 241, 234, 0.9);
+  --tnc-delight: #10A396;
+  --tnc-delight-soft: #D3F0EC;
+  --tnc-splash: #0B3A44;
+  --tnc-splash-ink: #F3EADB;
+  --tnc-glass: rgba(243, 234, 219, 0.78);
+  --tnc-glass-strong: rgba(243, 234, 219, 0.9);
   --tnc-glass-border: rgba(20, 32, 31, 0.08);
   --tnc-glass-blur: 18px;
   --tnc-glass-sheen: none;
   --tnc-highlight: none;
   --tnc-shadow-1: 0 1px 2px rgba(20, 32, 31, 0.06);
-  --tnc-shadow-2: 0 24px 60px -28px rgba(20, 32, 31, 0.35);
-  --tnc-shadow-float: 0 34px 80px -34px rgba(20, 32, 31, 0.45);
-  --tnc-backdrop: var(--tnc-ground);
+  --tnc-shadow-2: 0 24px 60px -28px rgba(11, 58, 68, 0.35);
+  --tnc-shadow-float: 0 34px 80px -34px rgba(11, 58, 68, 0.45);
+  /* the shore: sand meets the sea along the top edge, open water in the far corner (Shore.js draws it, plus the particles) */
+  --tnc-backdrop:
+    radial-gradient(1200px 640px at 96% -12%, rgb(79 193 184 / .62) 0%, rgb(158 217 207 / .5) 34%, rgb(232 220 198 / 0) 68%),
+    radial-gradient(900px 420px at 8% -20%, rgb(127 184 217 / .38) 0%, rgb(127 184 217 / 0) 70%),
+    radial-gradient(1000px 500px at 40% 120%, rgb(233 211 174 / .7) 0%, rgb(233 211 174 / 0) 70%),
+    var(--tnc-ground);
   --tnc-chart-1: #0A9083; --tnc-chart-2: #C8791A; --tnc-chart-3: #3A6FD0; --tnc-chart-4: #D1487A; --tnc-chart-5: #6E56CF;
-  --tnc-accent-rgb: 11 95 107; --tnc-accent-soft-rgb: 215 238 241; --tnc-ground-rgb: 246 241 234; --tnc-surface-rgb: 255 255 255; --tnc-sunken-rgb: 237 229 218;
-  --tnc-ink-rgb: 20 32 31; --tnc-splash-rgb: 14 59 66; --tnc-splash-ink-rgb: 246 241 234;
+  --tnc-accent-rgb: 11 95 107; --tnc-accent-soft-rgb: 211 236 234; --tnc-ground-rgb: 243 234 219; --tnc-surface-rgb: 255 253 248; --tnc-sunken-rgb: 232 220 198;
+  --tnc-ink-rgb: 20 32 31; --tnc-splash-rgb: 11 58 68; --tnc-splash-ink-rgb: 243 234 219;
 
-  /* Kept Thread: the coral thread, the sun, the story field, the clay people */
-  --tnc-site-field: #0E3B42;
-  --tnc-site-field-ink: #F6F1EA;
-  --tnc-site-thread: #E8573F;
-  --tnc-site-thread-strong: #C9452F;
+  /* Lagoon site tokens: the turquoise thread, sun on sand, the deep-sea story field, the beach-clay people */
+  --tnc-site-field: #0B3A44;
+  --tnc-site-field-ink: #F3EADB;
+  --tnc-site-thread: #10A396;
+  --tnc-site-thread-strong: #0B7F75;
   --tnc-site-thread-ink: #FFFFFF;
-  --tnc-site-thread-text: #B83A26;
-  --tnc-site-sun: #FFC24B;
+  --tnc-site-thread-text: #0A6E66;
+  --tnc-site-sun: #E9C46A;
   --tnc-site-sun-ink: #14201F;
-  --tnc-site-faded: #A39C93;
-  --tnc-site-clay-1: #F3C9A8; --tnc-site-clay-2: #9ED9CF; --tnc-site-clay-3: #FFC24B;
-  --tnc-site-clay-4: #E8573F; --tnc-site-clay-5: #C4CDF2; --tnc-site-clay-6: #F0D9B5;
+  --tnc-site-faded: #9AA5A3;
+  --tnc-site-clay-1: #E9D3AE; --tnc-site-clay-2: #9ED9CF; --tnc-site-clay-3: #F1C9B8;
+  --tnc-site-clay-4: #14A89A; --tnc-site-clay-5: #7FB8D9; --tnc-site-clay-6: #CDBB9C;
   --tnc-site-sticker: #FFFDF8;
-  --tnc-site-sticker-shadow: 0 10px 24px -12px rgba(20, 32, 31, 0.3), 0 1px 2px rgba(20, 32, 31, 0.08);
-  --tnc-site-field-rgb: 14 59 66; --tnc-site-field-ink-rgb: 246 241 234; --tnc-site-thread-rgb: 232 87 63; --tnc-site-sun-rgb: 255 194 75;
+  --tnc-site-sticker-shadow: 0 10px 24px -12px rgba(11, 58, 68, 0.32), 0 1px 2px rgba(20, 32, 31, 0.08);
+  --tnc-site-field-rgb: 11 58 68; --tnc-site-field-ink-rgb: 243 234 219; --tnc-site-thread-rgb: 16 163 150; --tnc-site-sun-rgb: 233 196 106;
+  --tnc-site-sand-rgb: 196 168 122; --tnc-site-foam-rgb: 255 255 255;
 
   /* Motion (mirrored in tailwind.config.js and src/lib/motion.js) */
   --tnc-dur-instant: 120ms;
@@ -68,59 +75,72 @@
   color-scheme: light;
 }
 
+/* Night at the shore: deep sea ground, moonlit water in the corner, the thread glows aqua */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --tnc-accent: #66D4E0; --tnc-accent-hover: #9AE6EE; --tnc-accent-soft: #0F3A40; --tnc-accent-ink: #04262B;
     --tnc-partner: #8A7146;
-    --tnc-backdrop-a: #2A1F18; --tnc-backdrop-b: #2E2619; --tnc-backdrop-c: #12100E; --tnc-backdrop-d: #1C1915;
-    --tnc-ground: #12100E; --tnc-surface: #1C1915; --tnc-sunken: #0E0C0A;
-    --tnc-ink: #F3EDE4; --tnc-ink-muted: #C9BFB2; --tnc-ink-subtle: #9A9083;
-    --tnc-line: rgba(243, 237, 228, 0.12);
+    --tnc-backdrop-a: #0F4A50; --tnc-backdrop-b: #2A2618; --tnc-backdrop-c: #0E5A5C; --tnc-backdrop-d: #123E58;
+    --tnc-ground: #0B1A1E; --tnc-surface: #122429; --tnc-sunken: #081418;
+    --tnc-ink: #E8F1EF; --tnc-ink-muted: #B5C4C1; --tnc-ink-subtle: #8FA19E;
+    --tnc-line: rgba(232, 241, 239, 0.12);
     --tnc-good: #7CCB7A; --tnc-warn: #E0A84A; --tnc-critical: #F08A82;
-    --tnc-delight: #FF7A5C; --tnc-delight-soft: #3A1E16;
-    --tnc-splash: #0A2A2F; --tnc-splash-ink: #F3EDE4;
-    --tnc-glass: rgba(18, 16, 14, 0.78); --tnc-glass-strong: rgba(18, 16, 14, 0.9);
-    --tnc-glass-border: rgba(243, 237, 228, 0.08); --tnc-glass-blur: 20px;
+    --tnc-delight: #4FD1C5; --tnc-delight-soft: #0E3A3C;
+    --tnc-splash: #08262D; --tnc-splash-ink: #E8F1EF;
+    --tnc-glass: rgba(11, 26, 30, 0.78); --tnc-glass-strong: rgba(11, 26, 30, 0.9);
+    --tnc-glass-border: rgba(232, 241, 239, 0.08); --tnc-glass-blur: 20px;
     --tnc-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --tnc-shadow-2: 0 0 0 1px rgba(243, 237, 228, 0.07), 0 24px 60px -28px rgba(0, 0, 0, 0.7);
-    --tnc-shadow-float: 0 0 0 1px rgba(243, 237, 228, 0.08), 0 34px 80px -34px rgba(0, 0, 0, 0.8);
-    --tnc-accent-rgb: 102 212 224; --tnc-accent-soft-rgb: 15 58 64; --tnc-ground-rgb: 18 16 14; --tnc-surface-rgb: 28 25 21; --tnc-sunken-rgb: 14 12 10;
-    --tnc-ink-rgb: 243 237 228; --tnc-splash-rgb: 10 42 47; --tnc-splash-ink-rgb: 243 237 228;
-    --tnc-site-field: #0A2A2F; --tnc-site-field-ink: #F3EDE4;
-    --tnc-site-thread: #FF7A5C; --tnc-site-thread-strong: #FF7A5C; --tnc-site-thread-ink: #12100E; --tnc-site-thread-text: #FF8A70;
-    --tnc-site-sun: #FFCF6B; --tnc-site-sun-ink: #12100E; --tnc-site-faded: #4A4540;
-    --tnc-site-clay-1: #DDB596; --tnc-site-clay-2: #8EC6BC; --tnc-site-clay-3: #EBB244;
-    --tnc-site-clay-4: #D54F39; --tnc-site-clay-5: #B2BBDE; --tnc-site-clay-6: #DCC6A5;
-    --tnc-site-sticker: #24201B;
-    --tnc-site-sticker-shadow: 0 0 0 1px rgba(243, 237, 228, 0.08), 0 12px 28px -12px rgba(0, 0, 0, 0.6);
-    --tnc-site-field-rgb: 10 42 47; --tnc-site-field-ink-rgb: 243 237 228; --tnc-site-thread-rgb: 255 122 92; --tnc-site-sun-rgb: 255 207 107;
+    --tnc-shadow-2: 0 0 0 1px rgba(232, 241, 239, 0.07), 0 24px 60px -28px rgba(0, 0, 0, 0.7);
+    --tnc-shadow-float: 0 0 0 1px rgba(232, 241, 239, 0.08), 0 34px 80px -34px rgba(0, 0, 0, 0.8);
+    --tnc-backdrop:
+      radial-gradient(1200px 640px at 96% -12%, rgb(20 120 120 / .45) 0%, rgb(14 74 80 / .35) 34%, rgb(11 26 30 / 0) 68%),
+      radial-gradient(900px 420px at 8% -20%, rgb(18 62 88 / .5) 0%, rgb(18 62 88 / 0) 70%),
+      radial-gradient(1000px 500px at 40% 120%, rgb(42 38 24 / .6) 0%, rgb(42 38 24 / 0) 70%),
+      var(--tnc-ground);
+    --tnc-accent-rgb: 102 212 224; --tnc-accent-soft-rgb: 15 58 64; --tnc-ground-rgb: 11 26 30; --tnc-surface-rgb: 18 36 41; --tnc-sunken-rgb: 8 20 24;
+    --tnc-ink-rgb: 232 241 239; --tnc-splash-rgb: 8 38 45; --tnc-splash-ink-rgb: 232 241 239;
+    --tnc-site-field: #08262D; --tnc-site-field-ink: #E8F1EF;
+    --tnc-site-thread: #4FD1C5; --tnc-site-thread-strong: #4FD1C5; --tnc-site-thread-ink: #062A2E; --tnc-site-thread-text: #7FE0D6;
+    --tnc-site-sun: #F0CF7E; --tnc-site-sun-ink: #14201F; --tnc-site-faded: #3E4A4C;
+    --tnc-site-clay-1: #D2BC98; --tnc-site-clay-2: #8CC5BB; --tnc-site-clay-3: #D9B4A4;
+    --tnc-site-clay-4: #3CC4B7; --tnc-site-clay-5: #6FA4C4; --tnc-site-clay-6: #B8A88A;
+    --tnc-site-sticker: #16292E;
+    --tnc-site-sticker-shadow: 0 0 0 1px rgba(232, 241, 239, 0.08), 0 12px 28px -12px rgba(0, 0, 0, 0.6);
+    --tnc-site-field-rgb: 8 38 45; --tnc-site-field-ink-rgb: 232 241 239; --tnc-site-thread-rgb: 79 209 197; --tnc-site-sun-rgb: 240 207 126;
+    --tnc-site-sand-rgb: 150 130 95; --tnc-site-foam-rgb: 160 240 232;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --tnc-accent: #66D4E0; --tnc-accent-hover: #9AE6EE; --tnc-accent-soft: #0F3A40; --tnc-accent-ink: #04262B;
   --tnc-partner: #8A7146;
-  --tnc-backdrop-a: #2A1F18; --tnc-backdrop-b: #2E2619; --tnc-backdrop-c: #12100E; --tnc-backdrop-d: #1C1915;
-  --tnc-ground: #12100E; --tnc-surface: #1C1915; --tnc-sunken: #0E0C0A;
-  --tnc-ink: #F3EDE4; --tnc-ink-muted: #C9BFB2; --tnc-ink-subtle: #9A9083;
-  --tnc-line: rgba(243, 237, 228, 0.12);
+  --tnc-backdrop-a: #0F4A50; --tnc-backdrop-b: #2A2618; --tnc-backdrop-c: #0E5A5C; --tnc-backdrop-d: #123E58;
+  --tnc-ground: #0B1A1E; --tnc-surface: #122429; --tnc-sunken: #081418;
+  --tnc-ink: #E8F1EF; --tnc-ink-muted: #B5C4C1; --tnc-ink-subtle: #8FA19E;
+  --tnc-line: rgba(232, 241, 239, 0.12);
   --tnc-good: #7CCB7A; --tnc-warn: #E0A84A; --tnc-critical: #F08A82;
-  --tnc-delight: #FF7A5C; --tnc-delight-soft: #3A1E16;
-  --tnc-splash: #0A2A2F; --tnc-splash-ink: #F3EDE4;
-  --tnc-glass: rgba(18, 16, 14, 0.78); --tnc-glass-strong: rgba(18, 16, 14, 0.9);
-  --tnc-glass-border: rgba(243, 237, 228, 0.08); --tnc-glass-blur: 20px;
+  --tnc-delight: #4FD1C5; --tnc-delight-soft: #0E3A3C;
+  --tnc-splash: #08262D; --tnc-splash-ink: #E8F1EF;
+  --tnc-glass: rgba(11, 26, 30, 0.78); --tnc-glass-strong: rgba(11, 26, 30, 0.9);
+  --tnc-glass-border: rgba(232, 241, 239, 0.08); --tnc-glass-blur: 20px;
   --tnc-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --tnc-shadow-2: 0 0 0 1px rgba(243, 237, 228, 0.07), 0 24px 60px -28px rgba(0, 0, 0, 0.7);
-  --tnc-shadow-float: 0 0 0 1px rgba(243, 237, 228, 0.08), 0 34px 80px -34px rgba(0, 0, 0, 0.8);
-  --tnc-accent-rgb: 102 212 224; --tnc-accent-soft-rgb: 15 58 64; --tnc-ground-rgb: 18 16 14; --tnc-surface-rgb: 28 25 21; --tnc-sunken-rgb: 14 12 10;
-  --tnc-ink-rgb: 243 237 228; --tnc-splash-rgb: 10 42 47; --tnc-splash-ink-rgb: 243 237 228;
-  --tnc-site-field: #0A2A2F; --tnc-site-field-ink: #F3EDE4;
-  --tnc-site-thread: #FF7A5C; --tnc-site-thread-strong: #FF7A5C; --tnc-site-thread-ink: #12100E; --tnc-site-thread-text: #FF8A70;
-  --tnc-site-sun: #FFCF6B; --tnc-site-sun-ink: #12100E; --tnc-site-faded: #4A4540;
-  --tnc-site-clay-1: #DDB596; --tnc-site-clay-2: #8EC6BC; --tnc-site-clay-3: #EBB244;
-  --tnc-site-clay-4: #D54F39; --tnc-site-clay-5: #B2BBDE; --tnc-site-clay-6: #DCC6A5;
-  --tnc-site-sticker: #24201B;
-  --tnc-site-sticker-shadow: 0 0 0 1px rgba(243, 237, 228, 0.08), 0 12px 28px -12px rgba(0, 0, 0, 0.6);
-  --tnc-site-field-rgb: 10 42 47; --tnc-site-field-ink-rgb: 243 237 228; --tnc-site-thread-rgb: 255 122 92; --tnc-site-sun-rgb: 255 207 107;
+  --tnc-shadow-2: 0 0 0 1px rgba(232, 241, 239, 0.07), 0 24px 60px -28px rgba(0, 0, 0, 0.7);
+  --tnc-shadow-float: 0 0 0 1px rgba(232, 241, 239, 0.08), 0 34px 80px -34px rgba(0, 0, 0, 0.8);
+  --tnc-backdrop:
+    radial-gradient(1200px 640px at 96% -12%, rgb(20 120 120 / .45) 0%, rgb(14 74 80 / .35) 34%, rgb(11 26 30 / 0) 68%),
+    radial-gradient(900px 420px at 8% -20%, rgb(18 62 88 / .5) 0%, rgb(18 62 88 / 0) 70%),
+    radial-gradient(1000px 500px at 40% 120%, rgb(42 38 24 / .6) 0%, rgb(42 38 24 / 0) 70%),
+    var(--tnc-ground);
+  --tnc-accent-rgb: 102 212 224; --tnc-accent-soft-rgb: 15 58 64; --tnc-ground-rgb: 11 26 30; --tnc-surface-rgb: 18 36 41; --tnc-sunken-rgb: 8 20 24;
+  --tnc-ink-rgb: 232 241 239; --tnc-splash-rgb: 8 38 45; --tnc-splash-ink-rgb: 232 241 239;
+  --tnc-site-field: #08262D; --tnc-site-field-ink: #E8F1EF;
+  --tnc-site-thread: #4FD1C5; --tnc-site-thread-strong: #4FD1C5; --tnc-site-thread-ink: #062A2E; --tnc-site-thread-text: #7FE0D6;
+  --tnc-site-sun: #F0CF7E; --tnc-site-sun-ink: #14201F; --tnc-site-faded: #3E4A4C;
+  --tnc-site-clay-1: #D2BC98; --tnc-site-clay-2: #8CC5BB; --tnc-site-clay-3: #D9B4A4;
+  --tnc-site-clay-4: #3CC4B7; --tnc-site-clay-5: #6FA4C4; --tnc-site-clay-6: #B8A88A;
+  --tnc-site-sticker: #16292E;
+  --tnc-site-sticker-shadow: 0 0 0 1px rgba(232, 241, 239, 0.08), 0 12px 28px -12px rgba(0, 0, 0, 0.6);
+  --tnc-site-field-rgb: 8 38 45; --tnc-site-field-ink-rgb: 232 241 239; --tnc-site-thread-rgb: 79 209 197; --tnc-site-sun-rgb: 240 207 126;
+  --tnc-site-sand-rgb: 150 130 95; --tnc-site-foam-rgb: 160 240 232;
   color-scheme: dark;
 }

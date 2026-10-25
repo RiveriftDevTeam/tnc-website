@@ -6,7 +6,7 @@ export default function TapCard3D({ lang = 'en' }) {
   const ar = lang === 'ar';
   return (
     <div className="scene-3d group mx-auto w-full max-w-[400px]">
-      <div className="card-3d relative aspect-[1.586] w-full overflow-hidden rounded-[20px] p-5 text-[#14201F] [transform:rotateY(-12deg)_rotateX(8deg)] group-hover:[transform:rotateY(4deg)_rotateX(-3deg)_scale(1.02)] rtl:[transform:rotateY(12deg)_rotateX(8deg)] rtl:group-hover:[transform:rotateY(-4deg)_rotateX(-3deg)_scale(1.02)] motion-reduce:![transform:none]" style={{ background: '#F6F1EA', boxShadow: '0 0 0 2px var(--tnc-site-thread), var(--tnc-shadow-float)' }}>
+      <div className="card-3d relative aspect-[1.586] w-full overflow-hidden rounded-[20px] p-5 text-[#14201F] [transform:rotateY(-12deg)_rotateX(8deg)] group-hover:[transform:rotateY(4deg)_rotateX(-3deg)_scale(1.02)] rtl:[transform:rotateY(12deg)_rotateX(8deg)] rtl:group-hover:[transform:rotateY(-4deg)_rotateX(-3deg)_scale(1.02)] motion-reduce:![transform:none]" style={{ background: '#FFFDF8', boxShadow: '0 0 0 2px var(--tnc-site-thread), var(--tnc-shadow-float)' }}>
         <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 63" preserveAspectRatio="none" aria-hidden="true">
           <path d="M-2 48 C 30 38, 55 60, 102 45" fill="none" stroke="var(--tnc-site-thread)" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 3 }} />
         </svg>

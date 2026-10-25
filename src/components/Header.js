@@ -35,7 +35,7 @@ export default function Header({ lang, d }) {
   const quiet = `btn btn-quiet btn-sm ${overStory ? 'text-field-ink/85 hover:bg-white/10 hover:text-field-ink' : ''}`;
 
   return (
-    <header className={`sticky top-0 z-40 transition-[background,box-shadow,color] duration-quick ease-out ${overStory ? (scrolled ? 'header-field' : 'text-field-ink') : scrolled || open ? 'header-glass' : ''} ${isHome ? '-mb-16' : ''}`}>
+    <header data-on-field={overStory ? '' : undefined} className={`sticky top-0 z-40 transition-[background,box-shadow,color] duration-quick ease-out ${overStory ? (scrolled ? 'header-field' : 'text-field-ink') : scrolled || open ? 'header-glass' : ''} ${isHome ? '-mb-16' : ''}`}>
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:start-2 focus:z-50 btn btn-tonal btn-sm">{d.nav.skip}</a>
       <div className="wrap flex h-16 items-center gap-4">
         <Link prefetch={false} href={pathFor('home', lang)} className="flex items-center gap-2.5 font-display text-[1.15rem] font-bold tracking-tight" aria-label={d.brand}>
