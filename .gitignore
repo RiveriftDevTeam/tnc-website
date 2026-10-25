@@ -7,3 +7,8 @@ out/
 .netlify/
 *.log
 scout/
+.claude/telemetry/
+test-results/
+playwright-report/
+.claude/settings.local.json
+graphify-out/

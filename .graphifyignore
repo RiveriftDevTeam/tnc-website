@@ -1,0 +1,9 @@
+# Vendored tooling and generated output: not this project's code
+.claude/skills/
+.claude/agents/
+node_modules/
+.next/
+out/
+test-results/
+playwright-report/
+public/llms-full.txt

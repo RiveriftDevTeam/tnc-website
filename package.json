@@ -14,7 +14,10 @@
     "og": "node --no-warnings scripts/og.mjs",
     "check": "node --no-warnings scripts/check.mjs",
     "flow": "node --no-warnings scripts/flow.mjs",
-    "acts": "node --no-warnings scripts/acts.mjs"
+    "acts": "node --no-warnings scripts/acts.mjs",
+    "media": "node --no-warnings scripts/media.mjs",
+    "stills": "node --no-warnings scripts/stills.mjs",
+    "vitals": "node --no-warnings scripts/vitals.mjs"
   },
   "engines": {
     "node": "22"
@@ -28,6 +31,7 @@
     "three": "0.186.1"
   },
   "devDependencies": {
+    "@playwright/test": "1.64.1",
     "autoprefixer": "10.6.1",
     "eslint": "8.57.1",
     "eslint-config-next": "14.1.3",
