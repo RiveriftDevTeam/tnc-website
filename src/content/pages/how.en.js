@@ -7,7 +7,6 @@ const page_how_en = {
     hero: {
       h1: 'A relationship, from the handshake to the outcome.',
       sub: 'TapNConnect is the relationship OS for events and the people in them. One loop, five verbs. Here is what happens at an event and on an ordinary Tuesday.',
-      photoAlt: 'A woman explaining something with her hands to two listeners at an event.',
       sticker: { meta: 'Voice note, 20 seconds', note: 'Intro to Huda by Sunday.' },
     },
     event: {
@@ -23,10 +22,9 @@ const page_how_en = {
         during: { met: { meta: 'Sample · Hall 3, 11:20', note: 'Met in person' } },
         after: { draft: { meta: 'Draft for Omar · sample', note: 'Lovely to meet you. Pricing by Thursday.', yes: 'Send', no: 'Later' }, account: { meta: 'Qamar Bank · account', note: 'CIO met in person', line: 'Owner: Mohammed' }, reminder: { meta: 'Reminder', note: 'Send pricing, Thursday' }, crm: 'Ready for your CRM' },
       },
-      organiser: {
+      organiser: { photoAlt: 'A hand lays out conference programmes beside blank name tags on a registration table.',
         title: 'And for the organiser',
         p: 'A report on what the taps created: new and repeat relationships, which exhibitors became hubs, who to aim for next time. Counts, never a visitor’s name.',
-        photoAlt: 'Four speakers on a panel with microphones, and an audience seated at tables in front of them.',
       },
     },
     daily: {

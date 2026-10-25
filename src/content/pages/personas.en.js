@@ -5,7 +5,7 @@ const page_personas_en = {
     organisers: {
       title: 'TapNConnect for event organisers — prove the relationships your event created',
       description: 'Sell the day after. A relationship report for every edition, exhibitor value you can show at renewal, sponsor reach with honest numbers, and a next-event engine. Counts and aggregates, never visitor data.',
-      hero: { h1: 'Prove the relationships your event created, and sell the next edition with it.', sub: 'Registrations, footfall and scans say who came. TapNConnect says what happened between them, and what to do for the next edition.', photoAlt: 'An exhibition hall seen from above, crowded around a small stage under a steel arch' },
+      hero: { h1: 'Prove the relationships your event created, and sell the next edition with it.', sub: 'Registrations, footfall and scans say who came. TapNConnect says what happened between them, and what to do for the next edition.', photoAlt: 'Organisers greet two smiling guests at a registration table with name badges' },
       outcomes: [
         { title: 'The relationship report', p: 'One print-ready story, sponsor-brandable: reach, relationships, quality, exhibitors, next edition.' },
         { title: 'Exhibitor renewal proof', p: 'Which exhibitors became hubs, how many accounts progressed in the 30 days after. Shown at renewal, not argued.' },
@@ -34,8 +34,8 @@ const page_personas_en = {
     exhibitors: {
       title: 'TapNConnect for exhibitors — accounts, not scan lists',
       description: 'Every visitor your booth meets becomes an account with an owner, an intent and a drafted follow-up. Who on your team knows the company best, one click to your CRM. Priced per seat.',
-      hero: { h1: 'Accounts, not scan lists. The Monday hand-over, done by Friday.', sub: 'ABC Technologies: five conversations, three decision-makers, two existing relationships, one owner, one next step. Not “Lead 1 to 5”.', photoAlt: 'An exhibitor in a lanyard glancing across at a visitor during a conversation at a stand' },
-      outcomesPhotoAlt: 'A smiling man in a lanyard talking with two visitors, one of them holding a business card',
+      hero: { h1: 'Accounts, not scan lists. The Monday hand-over, done by Friday.', sub: 'ABC Technologies: five conversations, three decision-makers, two existing relationships, one owner, one next step. Not “Lead 1 to 5”.', photoAlt: 'A smiling stallholder standing at her art booth' },
+      outcomesPhotoAlt: 'A smiling woman at an expo, bright stands blurred behind her',
       outcomes: [
         { title: 'Capture in seconds, one hand', p: 'Tap, badge, QR or a paper card. Two-tap notes for a loud hall, voice when it is quieter.' },
         { title: 'One account, one owner', p: 'Five people on your team meet one company; you see one page. The strongest relationship owns it.' },
@@ -65,7 +65,7 @@ const page_personas_en = {
     sponsors: {
       title: 'TapNConnect for sponsors — what your sponsorship delivered',
       description: 'Your banner on the event’s attendee cards and event page, rotated by tier. Views counted only on screen, no cookies, no identities. Keep the people who tapped with starter cards.',
-      hero: { h1: 'What your sponsorship delivered, counted honestly. And the people who tapped, kept.', sub: 'Your banner where people actually look: on the attendee cards they tap and the event page they open. Counted when it was on screen, never guessed.', photoAlt: 'A darkened hall with a lit screen and rows of seated attendees' },
+      hero: { h1: 'What your sponsorship delivered, counted honestly. And the people who tapped, kept.', sub: 'Your banner where people actually look: on the attendee cards they tap and the event page they open. Counted when it was on screen, never guessed.', photoAlt: 'Two people smile as they shake hands outside a brick building' },
       outcomes: [
         { title: 'Placement by tier', p: 'Platinum, Gold, Silver, Bronze decide where the logo shows, how large, and your share of banner views.' },
         { title: 'Figures you can trust', p: 'A view counts only when the banner was on screen. A click goes through a short redirect. No cookie, no stored address.' },
@@ -93,7 +93,7 @@ const page_personas_en = {
     companies: {
       title: 'TapNConnect for companies — relationship memory that survives staff churn',
       description: 'Who in our company knows this person, and how well? Seats and cards for your team with or without events, a shared pool of AI credits, and every relationship kept by the company.',
-      hero: { h1: 'Relationship memory that stays when people move on.', sub: 'Every relationship your team captures stays with the company when the salesperson leaves. Work accounts, separate from personal ones, by design.', photoAlt: 'People mingling and talking at an evening networking event, glasses in hand', sticker: { meta: 'Sample figures', note: 'Who here knows Qamar Bank?', lines: ['Mohammed · met in person', 'Layla · two calls'] } },
+      hero: { h1: 'Relationship memory that stays when people move on.', sub: 'Every relationship your team captures stays with the company when the salesperson leaves. Work accounts, separate from personal ones, by design.', photoAlt: 'Three smiling delegates with name badges at an event', sticker: { meta: 'Sample figures', note: 'Who here knows Qamar Bank?', lines: ['Mohammed · met in person', 'Layla · two calls'] } },
       outcomesPhotoAlt: '',
       outcomes: [
         { title: 'Relationship memory', p: 'One page per company you deal with: who met whom, what was discussed, what was promised, who owns it.' },
@@ -123,8 +123,8 @@ const page_personas_en = {
     individuals: {
       title: 'TapNConnect for individuals — never lose a person again',
       description: 'Founders, consultants, investors, recruiters, brokers. Free to start: your card, everyone you meet, 30 voice notes a month. Plus adds your assistant.',
-      hero: { h1: 'A circle that lasts, and an assistant that remembers for you.', sub: 'For the people whose work is relationships: founders, consultants, investors, recruiters, brokers. The one right person instead of a broadcast.', photoAlt: 'A smiling man holding up a blank badge on a lanyard' },
-      outcomesPhotoAlt: 'Two friends walking arm in arm through a festival crowd, seen from behind',
+      hero: { h1: 'A circle that lasts, and an assistant that remembers for you.', sub: 'For the people whose work is relationships: founders, consultants, investors, recruiters, brokers. The one right person instead of a broadcast.', photoAlt: 'A smiling guest holding the event programme by a window' },
+      outcomesPhotoAlt: 'A smiling woman chatting at an event with friends beside her',
       outcomes: [
         { title: 'Remember', p: 'Where did I meet Sarah, what did we discuss, what did I promise? Answered, with the evidence.' },
         { title: 'Prepare', p: 'A brief before tomorrow’s meeting: last time, open promises, what changed at their company.' },

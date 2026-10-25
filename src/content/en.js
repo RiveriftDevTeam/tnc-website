@@ -24,6 +24,6 @@ const en = {
     startFree: 'Start free', orderCompany: 'Order for your company', seePricing: 'See pricing', talkToPerson: 'Talk to a person',
     howItWorks: 'See how it works', getCard: 'Get the card', order: 'Order', askQuote: 'Ask for a quote', readMore: 'Read more',
   },
-  notFound: { title: 'Lost someone? Let’s get you back.', p: 'That page isn’t here, but the start is one tap away.', home: 'Go to the start', photoAlt: 'Three friends laughing together in the late afternoon sun.' },
+  notFound: { title: 'Lost someone? Let’s get you back.', p: 'That page isn’t here, but the start is one tap away.', home: 'Go to the start', photoAlt: 'Two colleagues with badges walk and smile together under a glass roof.' },
 };
 export default en;

@@ -27,7 +27,7 @@ Task list for docs/plans/site-revamp.md §13. No task-list tool in the 2026-10-2
 | 24 | Trust, 404, Credits | C6 | builder-c4c6 | done (197400a) |
 | 25–27 | OG, llms, vitals, specs | C7 | lead | done (840b299): og.png + 12 per-page images, story/media specs, credits in checks |
 | 28 | Arabic review | C8 | human | **open: needs a native Gulf Arabic copywriter + founder** |
-| 29–32 | Polish, DESIGN.md, docs, graph | C9 | lead | in progress: finish review running; docs updated |
+| 29–32 | Polish, DESIGN.md, docs, graph | C9 | lead | done except DESIGN.md (finish review: 8 fixes applied, 0be453d); docs + graph updated |
 
 ## Open items (updated after C2–C7)
 - ~~First-load JS on Home 102 kB~~: fixed in C2 (TapCard3D CSS-only): Home 99.8 kB.
@@ -35,3 +35,12 @@ Task list for docs/plans/site-revamp.md §13. No task-list tool in the 2026-10-2
 - `story-circle` (glasses) removed from the story. `how-organiser` also shows wine glasses (How it works, organiser pages). `door-exhibitors` is a weak tight crop. Founder's own Gulf event photos would fix all of these (Q3).
 - 404 keeps one h1 per language block (two h1s), as scripts/check.mjs expects; a single h1 would need the check relaxed.
 - `personas.hero.seeInside` key is unused (harmless, EN/AR parity holds).
+
+## Amendment A2 (2026-10-25)
+| Item | Owner | Status |
+|---|---|---|
+| D1 Lagoon palette + shore + particles | lead | done (e2e0e7f) |
+| D2 calmer photos (15 replaced) + hero/how video loops | builder-d2-media | done (49afe5d, merged) |
+| D3 How "At an event" scroll story | builder-d3d4 | done (faa115b, merged) |
+| D4 buyer-page scroll journeys ×5 | builder-d3d4 | done (faa115b, merged) |
+| D5 integration: hero + How video, alt texts, stills + OG in Lagoon, full acceptance | lead | done |

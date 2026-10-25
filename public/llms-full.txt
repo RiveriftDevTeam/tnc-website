@@ -251,45 +251,61 @@ How TapNConnect works — before, during and after an event, and every day
 Tap, keep, remember, next step, outcome. How TapNConnect captures a relationship where it happens and keeps it alive, at an event and every day after.
 A relationship, from the handshake to the outcome.
 TapNConnect is the relationship OS for events and the people in them. One loop, five verbs. Here is what happens at an event and on an ordinary Tuesday.
-A woman explaining something with her hands to two listeners at an event.
 Voice note, 20 seconds
 Intro to Huda by Sunday.
 At an event
-Two men talking in a bright hall, with a small group chatting behind them.
+Before, during and after an event
 Before
 Visitor
-Your profile and what you are looking for are known. The assistant tells you who is worth meeting and why.
+The assistant tells you who is worth meeting, and why.
 Exhibitor
-Target accounts and booth goals set. Warm paths to them surfaced from your team’s own relationships.
+Set your target accounts. It finds the warm paths through your team.
 During
 Visitor
-Tap or scan. Details are exchanged with one yes. A 20-second voice note becomes a memory with the promise in it.
+Tap or scan, say one yes, and a 20-second voice note keeps the promise.
 Exhibitor
-A visitor becomes an account with an owner, an intent and a suggested follow-up, before the hall closes.
+The visitor becomes an account with an owner and a next step before the hall closes.
 After
 Visitor
-You leave with a circle that persists, reminders set, and the follow-ups drafted for your yes.
+Reminders are set and follow-ups are drafted, waiting for your yes.
 Exhibitor
-Prioritised accounts, who on the team knows each company, CRM-ready. The Monday hand-over done.
+Accounts ranked and CRM-ready. The Monday hand-over is done.
+Your prep · sample
+Worth a hello: Omar, Hall 3.
+Target accounts · sample
+Qamar Bank
+Warm path: Mohammed.
+Sample · Hall 3, 11:20
+Met in person
+Draft for Omar · sample
+Lovely to meet you. Pricing by Thursday.
+Send
+Later
+Qamar Bank · account
+CIO met in person
+Owner: Mohammed
+Reminder
+Send pricing, Thursday
+Ready for your CRM
+A hand lays out conference programmes beside blank name tags on a registration table.
 And for the organiser
-A report that answers “what did those tap moments create?”: new and repeat relationships, cross-industry clusters, which exhibitors became hubs, what to target for the next edition. Counts and aggregates, never a visitor’s name.
-Four speakers on a panel with microphones, and an audience seated at tables in front of them.
+A report on what the taps created: new and repeat relationships, which exhibitors became hubs, who to aim for next time. Counts, never a visitor’s name.
 Every day after
 Morning
 Open Today
-Three cards: a relationship that needs attention, a promise due, a chance to connect. “Draft the three” is one tap.
+Three cards: who needs you, what is due, who to meet. “Draft the three” is one tap.
 Meeting
 Hold to record
-The memory is already filled; nothing else appears.
+The memory is already filled.
 Between things
-Reply to one WhatsApp question
-“How was the meeting with Sarah? Anything to remember?” One reply, done.
+Answer one WhatsApp question
+“How was the meeting with Sarah?” One reply, done.
 Weekly
 Decide on five
-Keep, let go, or ask about five relationships, one swipe each.
+Keep, let go, or ask. One swipe each.
 Anytime
 Ask
-In the app, in WhatsApp, or in your own assistant (ChatGPT, Claude, Siri). Every answer with its evidence.
+In the app, WhatsApp, or your own assistant. Every answer shows its evidence.
 Six ways to capture, one result
 Tap a card
 Scan a badge
@@ -304,9 +320,9 @@ Sara Khalid
 Hall 3, Tuesday 11:20
 We talked about the Q3 scope.
 You promised: send it Thursday.
-Every one creates the same memory: who, where, when, what you discussed, what each of you promised. High-confidence captures save silently, with undo. A question is asked only when the answer changes what happens next.
+Every one saves the same memory: who, where, when, what you said, what each of you promised. Sure captures save silently, with undo.
 What the assistant may do on its own
-Save, remind, suggest and draft. It never sends, writes to your CRM or shares a name without your yes. After three identical yeses it offers, once, to make that one thing automatic. You can turn it back off in one sentence.
+It saves, reminds, suggests and drafts. It never sends, writes to your CRM or shares a name without your yes. After three identical yeses it offers, once, to make that one thing automatic.
 Your assistant may send email after you approve.
 On its own
 Save
@@ -338,27 +354,27 @@ TapNConnect for event organisers — prove the relationships your event created
 Sell the day after. A relationship report for every edition, exhibitor value you can show at renewal, sponsor reach with honest numbers, and a next-event engine. Counts and aggregates, never visitor data.
 Prove the relationships your event created, and sell the next edition with it.
 Registrations, footfall and scans say who came. TapNConnect says what happened between them, and what to do for the next edition.
-An exhibition hall seen from above, crowded around a small stage under a steel arch
-A panel of four speakers with microphones talking to guests seated at a dinner table
-A footfall number and a list of scans.
-A report of the relationships your event created, edition by edition.
-Renewal talks that start with “trust us”.
-Renewal with proof: which exhibitors became hubs, and how many accounts moved on in 30 days.
-Sponsors ask for reach and get a guess.
-Sponsor views counted only when the banner was on screen. No cookies, no identities.
-Reach → Relationships → Quality → Progress → Structure → Exhibitors → Next edition. Print-ready, sponsor-brandable, one story.
+Organisers greet two smiling guests at a registration table with name badges
+One print-ready story, sponsor-brandable: reach, relationships, quality, exhibitors, next edition.
 Which exhibitors became hubs, how many accounts progressed in the 30 days after. Shown at renewal, not argued.
 Banner views counted only when the banner was on screen; clicks through a short redirect. No cookies, no identities.
 “We want 20 % more CIOs.” See who they engaged with, which sessions and channels worked, and target the campaign.
 Your edition with TapNConnect
-Set up
-One event, your exhibitor list, your package. We seat every exhibitor; attendee cards are issued for the show.
+A footfall number and a list of scans.
+Renewal talks that start with “trust us”.
+Sponsors ask for reach and get a guess.
+Usually, the show ends here.
+You know who came. You cannot say what happened between them.
 Show days
-Live: which companies and industries are interacting, which stands are busy. Aggregates only.
+Watch the hall meet: which industries mix and which stands are busy. Counts only.
 The report
-The relationship report lands after the last day, with the next-edition targets.
-The 365 days
-Your community keeps its circle; your sponsors keep their reach; you keep the proof for the next sale.
+After the last day: the relationships your event created, ready to print and show at renewal.
+The next edition
+Aim it at the people you want more of, and sell it with the proof.
+Sample · live
+Industries mixing. Counts only.
+Sample target
+More CIOs next time
 Packages
 Pilot, Standard and Portfolio. Each is priced per event by a person, usually within a working day.
 Do organisers receive visitor data?
@@ -376,27 +392,31 @@ TapNConnect for exhibitors — accounts, not scan lists
 Every visitor your booth meets becomes an account with an owner, an intent and a drafted follow-up. Who on your team knows the company best, one click to your CRM. Priced per seat.
 Accounts, not scan lists. The Monday hand-over, done by Friday.
 ABC Technologies: five conversations, three decision-makers, two existing relationships, one owner, one next step. Not “Lead 1 to 5”.
-An exhibitor in a lanyard glancing across at a visitor during a conversation at a stand
-A smiling man in a lanyard talking with two visitors, one of them holding a business card
-A scan list: Lead 1, Lead 2, Lead 3.
-One page per company: five conversations, three decision-makers, one owner.
-Follow-ups written on Monday, from memory.
-Follow-ups drafted for each account by Friday, with the promise in them.
-Nobody knows who on the team knows the buyer.
-The strongest relationship owns the account, and one click sends it to your CRM.
-Tap, badge, QR or a paper card. Two-tap notes for a loud hall: “send pricing”, “book a demo”, “decision maker”. Voice when it is quieter.
-Five staff meet one company; you see one page. The strongest internal relationship owns it.
+A smiling stallholder standing at her art booth
+A smiling woman at an expo, bright stands blurred behind her
+Tap, badge, QR or a paper card. Two-tap notes for a loud hall, voice when it is quieter.
+Five people on your team meet one company; you see one page. The strongest relationship owns it.
 Follow-ups drafted for each account, in your voice, with the promise in them. One yes per message.
 Customers, meetings held, deals opened, repeat business. By salesperson, across events. Real meetings, not scans.
 Your show with TapNConnect
-Seats
-A Basic or Pro seat per person on the stand. Stand cards for the counter, where taps go to the company.
-The stand
-Today at the booth: who is here, who is worth a second conversation, what was promised.
-The evening
-The recap: accounts, owners, drafts waiting for a yes.
-The quarter
-Results: what came of it, and the people worth keeping warm until the next show.
+A scan list: Lead 1, Lead 2, Lead 3.
+Follow-ups written on Monday, from memory.
+Nobody knows who on the team knows the buyer.
+Usually, a scan list.
+Five conversations end up as “Lead 1” to “Lead 5”.
+A tap at the stand
+A tap, a scan or a paper card. One yes from the visitor and it is saved.
+The account page fills
+Everyone on your team who met them lands on one page, with one owner.
+Monday, drafted
+A follow-up for each account, in your voice, with the promise in it.
+Then your CRM
+One click sends the account across, with the context your CRM never had.
+Thank you for Tuesday. The proposal is attached.
+Draft for Al Noor Trading
+Pricing, as promised.
+Draft for Oasis Energy
+Account page
 Seats
 Basic and Pro seats, with or without an event, plus stand cards. Priced per seat by a person within a working day.
 Do visitors need the app?
@@ -414,27 +434,24 @@ TapNConnect for sponsors — what your sponsorship delivered
 Your banner on the event’s attendee cards and event page, rotated by tier. Views counted only on screen, no cookies, no identities. Keep the people who tapped with starter cards.
 What your sponsorship delivered, counted honestly. And the people who tapped, kept.
 Your banner where people actually look: on the attendee cards they tap and the event page they open. Counted when it was on screen, never guessed.
-A darkened hall with a lit screen and rows of seated attendees
-The lit screen at the front of a hall, with the audience in silhouette
-A logo on a wall and no way to say who saw it.
-Your banner on the attendee cards and the event page, placed by tier.
-Reach is an estimate.
-A view counts only when the banner was on screen. A click goes through a short redirect.
-The people who tapped drift away after the show.
-Two starter cards for your team for 90 days, so those people stay in your circle.
+Two people smile as they shake hands outside a brick building
 Platinum, Gold, Silver, Bronze decide where the logo shows, how large, and your share of banner views.
 A view counts only when the banner was on screen. A click goes through a short redirect. No cookie, no stored address.
 Two tap cards for your team for 90 days after the show: Ask, reminders, the advisor and follow-up, so the people who tapped stay in your circle.
 Reach, the tier’s promise against what was delivered, and your relationships, in the same portal as the exhibitors.
 Your sponsorship with TapNConnect
-Tier
-Chosen with the organiser, or ordered here.
-Banner
-Your artwork, the dates, the event. Live on the attendee cards and the event page.
-Reach
-Views and clicks as they happen, with the tier’s promise beside them.
-After
-Your starter cards keep working for 90 days. Upgrade to seats when you want more.
+A logo on a wall and no way to say who saw it.
+Reach is an estimate.
+The people who tapped drift away after the show.
+Usually, a logo on a wall.
+Nobody can say who saw it.
+Your banner goes live
+On the attendee cards people tap and the event page they open, placed by your tier.
+Views, counted honestly
+A view counts only while the banner is on screen. No cookies, no identities.
+The people who tapped, kept
+Two starter cards for your team for 90 days, so those people stay in your circle.
+Your banner
 Tiers
 Platinum, Gold, Silver and Bronze. A person confirms the price within a working day.
 Is my banner on every member’s card?
@@ -450,30 +467,40 @@ TapNConnect for companies — relationship memory that survives staff churn
 Who in our company knows this person, and how well? Seats and cards for your team with or without events, a shared pool of AI credits, and every relationship kept by the company.
 Relationship memory that stays when people move on.
 Every relationship your team captures stays with the company when the salesperson leaves. Work accounts, separate from personal ones, by design.
-People mingling and talking at an evening networking event, glasses in hand
+Three smiling delegates with name badges at an event
 Sample figures
 Who here knows Qamar Bank?
 Mohammed · met in person
 Layla · two calls
-The relationship leaves with the salesperson.
-Every relationship your team captures stays with the company.
-Nobody is sure who knows whom.
-One page per company you deal with: who met whom, what was promised, who owns it.
-Work contacts mixed in with personal ones.
-Work accounts, apart from personal ones, by design.
 One page per company you deal with: who met whom, what was discussed, what was promised, who owns it.
 A seat is a work account with the work e-mail. A person’s own circle is theirs; what they capture for you is yours.
 Price lists, case studies, playbooks: the sales specialist drafts with them, with the source on every line.
 The hand-over to Salesforce, HubSpot or Dynamics is one click, with the context the CRM never had.
 Your year with TapNConnect
-Seats and cards
-Pick seats and cards for the team. Invite them by work e-mail.
+The relationship leaves with the salesperson.
+Nobody is sure who knows whom.
+Work contacts mixed in with personal ones.
+Usually, it walks out the door.
+When a salesperson leaves, the relationships leave with them.
 Capture everywhere
-Meetings, calls, trade shows, the Deira shop counter. Tap, voice, WhatsApp.
-Monday
-Each seat’s brief; each account’s owner; the drafts waiting for a yes.
-Results
-Customers, repeat business, introductions. By person, by quarter.
+Meetings, calls, trade shows, the shop counter. Tap, voice or WhatsApp, on a work seat.
+One page per company
+Who met whom, what was promised, who owns it. It stays when people move on.
+Monday, drafted
+Each seat’s brief, each account’s owner, and drafts waiting for a yes.
+Results, by quarter
+Customers, repeat business, introductions. By person.
+Meetings
+Calls
+Trade shows
+Shop counter
+Follow up with Qamar Bank
+Owner: Mohammed. Promise due Thursday.
+Introduce Layla to Al Noor
+Drafted for Layla’s yes.
+Customers
+Repeat business
+Introductions
 The everyday plan
 Seats, cards and a monthly AI pool on a 12-month term. Priced by seats and cards by a person within a working day.
 Does it read our inboxes?
@@ -489,27 +516,30 @@ TapNConnect for individuals — never lose a person again
 Founders, consultants, investors, recruiters, brokers. Free to start: your card, everyone you meet, 30 voice notes a month. Plus adds your assistant.
 A circle that lasts, and an assistant that remembers for you.
 For the people whose work is relationships: founders, consultants, investors, recruiters, brokers. The one right person instead of a broadcast.
-A smiling man holding up a blank badge on a lanyard
-Two friends walking arm in arm through a festival crowd, seen from behind
-“Where did I meet Sarah?” Lost in a camera roll.
-Answered with the evidence: where, when, and what you said.
-Walking into tomorrow’s meeting cold.
-A brief first: last time, open promises, what changed at their company.
-Good people go quiet, unnoticed.
-Three messages drafted every morning for the people who need a word. You say yes.
+A smiling guest holding the event programme by a window
+A smiling woman chatting at an event with friends beside her
 Where did I meet Sarah, what did we discuss, what did I promise? Answered, with the evidence.
 A brief before tomorrow’s meeting: last time, open promises, what changed at their company.
 Three messages drafted every morning for the relationships that need a word today. You say yes.
 Quiet relationships surfaced before they go cold. Who can introduce you, from your own circle.
 Your first week
-Day 1
-Create your card in two minutes. Import your contacts if you like; they stay yours.
-Day 2
-Meet someone. Tap, or hold to record. “Save this memory?” Yes.
-Day 3
+“Where did I meet Sarah?” Lost in a camera roll.
+Walking into tomorrow’s meeting cold.
+Good people go quiet, unnoticed.
+Usually, it is lost.
+The name is in a camera roll. The promise is in your head.
+Day 1: your card
+Create it in two minutes. Import your contacts if you like; they stay yours.
+Day 2: meet someone
+Tap, or hold to record. “Save this memory?” Yes.
+Day 3: Today
 Today shows its first card. You send the first note.
-Week 2
+Week 2: just ask
 You ask the assistant something you had forgotten. It knew.
+Layla Nasser
+Sample card
+Two minutes
+Where did I meet Sara?
 Plans
 Free keeps your card and your people. Plus adds your assistant. The card comes with a year of Plus.
 Is Free really free?
@@ -930,45 +960,61 @@ close
 المس، احفظ، تذكّر، الخطوة التالية، النتيجة. كيف يحفظ TapNConnect العلاقة حيث تحدث ويبقيها حية في الفعالية وكل يوم بعدها.
 علاقة، من المصافحة إلى النتيجة.
 TapNConnect هو نظام العلاقات للفعاليات وللناس فيها. حلقة واحدة وخمسة أفعال. هذا ما يحدث في فعالية وفي يوم ثلاثاء عادي.
-امرأة تشرح شيئًا بيديها لشخصين يستمعان إليها في فعالية.
 ملاحظة صوتية، 20 ثانية
 تعريف بهدى قبل الأحد.
 في الفعالية
-رجلان يتحدثان في قاعة مضيئة، ومن خلفهما مجموعة صغيرة تتبادل الحديث.
+قبل الفعالية وأثناءها وبعدها
 قبل
 الزائر
-ملفك وما تبحث عنه معروفان. يخبرك المساعد بمن يستحق اللقاء ولماذا.
+يخبرك المساعد بمن يستحق اللقاء، ولماذا.
 العارض
-الحسابات المستهدفة وأهداف المنصة محددة. والطرق الدافئة إليها تظهر من علاقات فريقك.
+حدّد حساباتك المستهدفة، فيجد لك الطرق الدافئة عبر فريقك.
 أثناء
 الزائر
-المس أو امسح. تُتبادل البيانات بموافقة واحدة. وملاحظة صوتية من 20 ثانية تصبح ذكرى فيها الوعد.
+المس أو امسح، وقل نعم مرة واحدة، وملاحظة صوتية من 20 ثانية تحفظ الوعد.
 العارض
-يصبح الزائر حسابًا له مالك ونية ومتابعة مقترحة، قبل أن تُغلق القاعة.
+يصبح الزائر حسابًا له مالك وخطوة تالية قبل أن تُغلق القاعة.
 بعد
 الزائر
-تغادر بدائرة تبقى، وتذكيرات مضبوطة، ومتابعات مكتوبة تنتظر موافقتك.
+تذكيرات مضبوطة ومتابعات مكتوبة تنتظر موافقتك.
 العارض
-حسابات مرتبة بالأولوية، ومن في الفريق يعرف كل شركة، جاهزة لـ CRM. تسليم الاثنين منجز.
+حسابات مرتبة وجاهزة لـ CRM. وتسليم الاثنين منجز.
+تحضيرك · مثال
+يستحق التحية: عمر، القاعة 3.
+الحسابات المستهدفة · مثال
+بنك قمر
+طريق دافئ: محمد.
+مثال · القاعة 3، 11:20
+لقاء شخصي
+مسودة إلى عمر · مثال
+سعدت بلقائك. الأسعار بحلول الخميس.
+أرسل
+لاحقًا
+بنك قمر · حساب
+لقاء شخصي مع مدير التقنية
+المالك: محمد
+تذكير
+أرسل الأسعار يوم الخميس
+جاهز لـ CRM
+يد ترتب برامج المؤتمر بجانب بطاقات أسماء فارغة على طاولة التسجيل.
 وللمنظم
-تقرير يجيب عن «ماذا صنعت تلك اللمسات؟»: علاقات جديدة ومتكررة، وتجمعات بين القطاعات، وأي العارضين صاروا محاور، وما يُستهدف في النسخة القادمة. أعداد ومجاميع، ولا اسم زائر أبدًا.
-أربعة متحدثين في جلسة حوارية يحملون الميكروفونات، وأمامهم جمهور جالس إلى الطاولات.
+تقرير عمّا صنعته اللمسات: علاقات جديدة ومتكررة، وأي العارضين صاروا محاور، ومن تستهدف في المرة القادمة. أعداد، ولا اسم زائر أبدًا.
 كل يوم بعدها
 الصباح
 افتح «اليوم»
-ثلاث بطاقات: علاقة تحتاج اهتمامًا، ووعد مستحق، وفرصة تواصل. «اكتب الثلاث» بلمسة.
+ثلاث بطاقات: من يحتاجك، وما استحق، ومن تلتقي. «اكتب الثلاث» بلمسة.
 اجتماع
 اضغط مطوّلًا للتسجيل
-الذكرى معبّأة مسبقًا، ولا يظهر شيء آخر.
+الذكرى معبّأة مسبقًا.
 بين الأمور
 أجب عن سؤال واحد في واتساب
-«كيف كان الاجتماع مع سارة؟ شيء تتذكره؟» رد واحد وانتهى.
+«كيف كان الاجتماع مع سارة؟» رد واحد وانتهى.
 أسبوعيًا
 قرر في خمسة
-أبقِ، أو اترك، أو اسأل عن خمس علاقات، بسحبة لكل واحدة.
+أبقِ، أو اترك، أو اسأل. بسحبة لكل واحدة.
 في أي وقت
 اسأل
-في التطبيق أو واتساب أو مساعدك الخاص (ChatGPT وClaude وSiri). كل إجابة بدليلها.
+في التطبيق أو واتساب أو مساعدك الخاص. كل إجابة بدليلها.
 ست طرق للحفظ، نتيجة واحدة
 المس بطاقة
 امسح شارة
@@ -983,9 +1029,9 @@ TapNConnect هو نظام العلاقات للفعاليات وللناس في�
 القاعة 3، الثلاثاء 11:20
 تحدثنا عن نطاق عمل الربع الثالث.
 وعدتَ بإرساله يوم الخميس.
-كل طريقة تصنع الذكرى نفسها: من، وأين، ومتى، وما تحدثتم فيه، وما وعد به كل منكما. ما حُفظ بثقة عالية يُحفظ بصمت مع إمكانية التراجع. ولا يُسأل سؤال إلا إذا غيّر جوابه ما سيحدث.
+كل طريقة تحفظ الذكرى نفسها: من، وأين، ومتى، وما قلتما، وما وعد به كل منكما. ما كان مؤكدًا يُحفظ بصمت مع إمكانية التراجع.
 ما يفعله المساعد وحده
-يحفظ ويذكّر ويقترح ويكتب المسودة. لا يُرسل ولا يكتب في CRM ولا يشارك اسمًا دون موافقتك. بعد ثلاث موافقات متطابقة يعرض عليك مرة واحدة أن يجعل ذلك الأمر تلقائيًا. وتوقفه بجملة.
+يحفظ ويذكّر ويقترح ويكتب المسودة. لا يُرسل ولا يكتب في CRM ولا يشارك اسمًا دون موافقتك. بعد ثلاث موافقات متطابقة يعرض عليك مرة واحدة أن يجعل ذلك الأمر تلقائيًا.
 يمكن لمساعدك إرسال بريد بعد موافقتك.
 من تلقاء نفسه
 يحفظ

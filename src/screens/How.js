@@ -4,6 +4,7 @@ import Cta from '@/components/Cta';
 import Reveal from '@/components/Reveal';
 import JsonLd from '@/components/JsonLd';
 import Photo from '@/components/Photo';
+import Video from '@/components/Video';
 import Sticker from '@/components/Sticker';
 import Thread from '@/components/Thread';
 import ScrollScenes from '@/components/ScrollScenes';
@@ -30,7 +31,7 @@ export default function How({ lang }) {
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
-            <div className="photo-card aspect-[4/5]"><Photo slot="how-hero" alt={h.hero.photoAlt} priority sizes="(min-width:1024px) 40vw, 90vw" imgClassName="object-[45%_30%]" /></div>
+            <div className="photo-card aspect-[4/5]"><Video name="how" className="absolute inset-0" mediaClassName="h-full w-full object-cover object-[40%_50%]" /></div>
             <Sticker tilt={3} tape meta={h.hero.sticker.meta} note={h.hero.sticker.note} className="absolute -bottom-6 end-2 w-56 sm:-end-4" />
           </div>
         </div>
