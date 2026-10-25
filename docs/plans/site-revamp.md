@@ -655,3 +655,37 @@ Hero sub-line and meta description name the category in plain words: *TapNConnec
 
 ### A1.4 Effects on C2
 C2 now covers: acts 4–8 (3D + copy), the "What everyone gains" section, Home sections 3–8 restyled, and stills regenerated (8 acts). C3–C6 are unchanged. Acceptance is unchanged, plus `acts.mjs` with 8 stops.
+
+---
+
+## 18. Amendment A2: Lagoon, calmer media, video, scroll journeys (founder feedback, 2026-10-25, second review)
+
+**Founder:** fonts, theme structure and the landing flow are liked. Change: (1) the images: several read aggressive ("people shouting"); the hero background is too blurry. Use only exhibitions, booths, people smiling, handshakes, introductions, explanations. (2) Use free commercial-use video (self-hosted). (3) How it works "At an event" is too much text: make it a playful scroll animation. (4) Buyer pages have too many timeline-like blocks: make each journey a scroll story. (5) Colour: from coral and cream back to Gulf Water, "where the sand meets the sea": sand, sea green and blue shades converging, with sand and sea particles in the background.
+
+**Decisions (founder, 2026-10-25):** palette **Lagoon**; video in the **Home hero and How it works**; the lead selects media within the subjects above (no contact-sheet round).
+
+### A2.1 Lagoon (token VALUES change; every token NAME stays, so components don't change)
+| Token | Light | Dark | Role |
+|---|---|---|---|
+| `--tnc-ground` | `#F3EADB` sand | `#0B1A1E` night sea | page ground |
+| `--tnc-sunken` | `#E8DCC6` wet sand | `#081418` | wells |
+| `--tnc-surface` | `#FFFDF8` | `#122429` | panels |
+| `--tnc-site-field` | `#0B3A44` deep sea | `#08262D` | story stage |
+| `--tnc-site-thread` | `#10A396` turquoise | `#4FD1C5` | the thread, knots, 3D tubes |
+| `--tnc-site-thread-strong` / `-text` | `#0B7F75` / `#0A6E66` | `#4FD1C5` / `#7FE0D6` | thread text, links |
+| `--tnc-site-sun` | `#E9C46A` sun on sand | `#F0CF7E` | highlights, the assistant's pulse |
+| clay 1–6 | sand `#E9D3AE`, sea green `#9ED9CF`, aqua `#5CC8C4`, shell `#F1C9B8`, lagoon blue `#7FB8D9`, driftwood `#CDBB9C` | 8% darker | 3D people, avatars |
+| **Primary button** | `--tnc-accent` petrol `#0B5F6B`, white text (7.3:1) | `#66D4E0`, dark text | one filled control per view |
+"You" in the story becomes **turquoise** (thread colour). No orange anywhere.
+**Shoreline background:** fixed behind every page: sand ground meeting a soft sea gradient (sea green → aqua → lagoon blue) along one edge, with a lightweight 2D canvas of **sand grains and sea-foam particles** drifting slowly. Off under reduced motion and data saver (static gradient only), pauses offscreen, ≤ 2 kB JS gzip, no dependency.
+
+### A2.2 Media (D2)
+- **Photos:** replace every slot whose subject fails the brief (aggressive, shouting, stage-backs, studio, logos, alcohol) with calm candid frames: exhibitions, booths, smiling people, handshakes, introductions, someone explaining at a stand. Sources: Unsplash, Pexels (free commercial licences; credits recorded). Same slot names and ratios. Gulf venues where possible.
+- **Video:** two muted loops (8–14 s), Pexels / Pixabay / Mixkit / Coverr, licence recorded: `hero` (an exhibition floor with people meeting, calm) and `how` (someone explaining at a booth / a handshake). Self-hosted `public/media/video/<name>.{mp4,webm}` (H.264 + VP9, 1280 w, ≤ 2.5 MB each) + poster `<name>.jpg`; `Video.js` plays only when visible, never on phones, reduced motion or data saver (poster shown). CSP unchanged (`default-src 'self'` covers media).
+- The hero background becomes the `hero` video (poster first paint), **no blur**, scrim only behind the copy.
+
+### A2.3 Scroll journeys (D3 How, D4 buyer pages)
+A shared `ScrollScenes` component: a sticky picture on one side, one short line per step on the other, the picture changing per step (CSS/SVG + stickers + photos, no WebGL, no new dependency), stacked statically under reduced motion. How "At an event" becomes Before → During → After as scenes (visitor and exhibitor strands, one sentence each). Each buyer page's journey (and its "before/with" pairs) becomes one scroll story; fewer stacked timeline blocks.
+
+### A2.4 Chunks
+D1 Lagoon + shoreline background + stills/OG regen (lead) · D2 media (builder) · D3+D4 scroll journeys (builder) · D5 integration, checks, finish review (lead). Acceptance as §14.
