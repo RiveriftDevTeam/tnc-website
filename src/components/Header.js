@@ -2,11 +2,15 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Globe } from 'lucide-react';
 import BrandMark from './BrandMark';
 import Cta from './Cta';
 import { pathFor, altLangPath, JOIN_URL, SIGN_IN_URL } from '@/content/site';
 import { track, EVENTS } from '@/lib/analytics';
+
+// The three header icons, inline (lucide-style strokes) so the icon runtime stays out of every page's first load
+const Icon = ({ d, size = 20 }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{d.map((p) => <path key={p} d={p} />)}</svg>;
+const MENU = ['M4 6h16', 'M4 12h16', 'M4 18h16'], CLOSE = ['M18 6 6 18', 'm6 6 12 12'];
+const GLOBE = ['M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20', 'M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20', 'M2 12h20'];
 
 export default function Header({ lang, d }) {
   const pathname = usePathname() || '/';
@@ -56,13 +60,13 @@ export default function Header({ lang, d }) {
           ))}
         </nav>
         <div className="ms-auto hidden items-center gap-1 lg:flex">
-          <Link prefetch={false} href={alt} hrefLang={lang === 'ar' ? 'en' : 'ar'} lang={lang === 'ar' ? 'en' : 'ar'} className={quiet} aria-label={d.nav.langLabel} onClick={() => track(EVENTS.lang_switch, { to: lang === 'ar' ? 'en' : 'ar' })}><Globe size={16} aria-hidden="true" /> {d.nav.language}</Link>
+          <Link prefetch={false} href={alt} hrefLang={lang === 'ar' ? 'en' : 'ar'} lang={lang === 'ar' ? 'en' : 'ar'} className={quiet} aria-label={d.nav.langLabel} onClick={() => track(EVENTS.lang_switch, { to: lang === 'ar' ? 'en' : 'ar' })}><Icon d={GLOBE} size={16} /> {d.nav.language}</Link>
           <a href={SIGN_IN_URL} className={quiet}>{d.nav.signIn}</a>
           <Cta href={pathFor('order', lang)} variant={overStory ? 'field' : 'tonal'} size="sm" placement="header">{d.nav.order}</Cta>
           <Cta href={JOIN_URL} variant="primary" size="sm" placement="header">{d.nav.startFree}</Cta>
         </div>
         <button type="button" className={`${quiet} ms-auto lg:hidden`} aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((v) => !v)}>
-          {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />} <span>{open ? d.nav.close : d.nav.menu}</span>
+          {open ? <Icon d={CLOSE} /> : <Icon d={MENU} />} <span>{open ? d.nav.close : d.nav.menu}</span>
         </button>
       </div>
       {open && (
@@ -75,7 +79,7 @@ export default function Header({ lang, d }) {
               <Cta href={JOIN_URL} variant="primary" placement="mobile-menu">{d.nav.startFree}</Cta>
               <Cta href={pathFor('order', lang)} variant="tonal" placement="mobile-menu">{d.nav.order}</Cta>
               <a href={SIGN_IN_URL} className="btn btn-quiet">{d.nav.signIn}</a>
-              <Link prefetch={false} href={alt} hrefLang={lang === 'ar' ? 'en' : 'ar'} className="btn btn-quiet" onClick={() => track(EVENTS.lang_switch, { to: lang === 'ar' ? 'en' : 'ar' })}><Globe size={16} aria-hidden="true" /> {d.nav.language}</Link>
+              <Link prefetch={false} href={alt} hrefLang={lang === 'ar' ? 'en' : 'ar'} className="btn btn-quiet" onClick={() => track(EVENTS.lang_switch, { to: lang === 'ar' ? 'en' : 'ar' })}><Icon d={GLOBE} size={16} /> {d.nav.language}</Link>
             </div>
           </div>
         </div>

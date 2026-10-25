@@ -6,7 +6,7 @@
 //   stills   no WebGL / low-end / slow frames: the act stills cross-fade on p instead of the scene
 //   reduced  prefers-reduced-motion: no sticky stage, the acts stack as sections, each with its still
 // ?stills=1 renders the scene alone for scripts/stills.mjs.
-// `photos` are server-rendered <Photo> elements by slot, so the media manifest never ships in this client bundle.
+// `photos` are server-rendered media elements by slot (the hall is the hero video), so the media manifest never ships here.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -100,7 +100,7 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
         const push = span(p, 0, 0.08) * 0.08 + span(p, 0.08, 0.19) * 0.17;
         hall.style.opacity = String(Math.max(1 - span(p, 0.19, 0.23), span(p, 0.39, 0.43) * 0.28 * (1 - span(p, 0.50, 0.55))));
         hall.style.transform = `scale(${1 + push})`;
-        hall.style.filter = `blur(${2.5 + span(p, 0.08, 0.19) * 5}px)`;
+        hall.style.filter = `blur(${span(p, 0.08, 0.19) * 5}px)`; // sharp at first; soft only while the clay hall rises over it
       }
       // act 7: one note at a time
       const k = Math.min(3, Math.floor(span(p, NOTES[0], NOTES[1]) * 4));
@@ -178,7 +178,7 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
           <div key={i} id={`act-${i + 1}`} className={`wrap grid items-center gap-8 py-14 md:grid-cols-2 ${i === 0 ? 'pt-28' : ''}`}>
             <div>{copy(a, i)}</div>
             <div className="relative aspect-[16/10] overflow-hidden rounded-photo bg-field-ink/5">
-              {ACT_PHOTO[i] && <div className={`absolute inset-0 opacity-50 ${ACT_PHOTO[i] === 'story-hall' ? 'blur-[2.5px]' : ''}`}>{photos[ACT_PHOTO[i]]}</div>}
+              {ACT_PHOTO[i] && <div className="absolute inset-0 opacity-60">{photos[ACT_PHOTO[i]]}</div>}
               <Still n={i + 1} lang={lang} className="absolute inset-0" alt={a.desc} />
             </div>
           </div>
@@ -193,7 +193,7 @@ export default function ScrollStory({ lang = 'en', acts, chips, primary, seconda
         {/* 1 · photos */}
         <div className="absolute inset-0" aria-hidden="true">
           {['story-hall'].map((slot, k) => (
-            <div key={slot} ref={(n) => (photoRefs.current[slot] = n)} className="absolute inset-0 will-change-[opacity,transform]" style={{ opacity: k ? 0 : 1, filter: k ? undefined : 'blur(2.5px)' }}>
+            <div key={slot} ref={(n) => (photoRefs.current[slot] = n)} className="absolute inset-0 will-change-[opacity,transform]" style={{ opacity: k ? 0 : 1 }}>
               {photos[slot]}
             </div>
           ))}

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@/components/icons';
 import { t } from '@/content';
 import { fill } from '@/content/fill';
 import { pathFor, JOIN_URL } from '@/content/site';
@@ -7,6 +7,7 @@ import { PLANS, fmtAED } from '@/content/plans';
 import Cta from '@/components/Cta';
 import ScrollStory from '@/components/ScrollStory';
 import Photo from '@/components/Photo';
+import Video from '@/components/Video';
 import Sticker from '@/components/Sticker';
 import Thread, { Knot } from '@/components/Thread';
 import Vignette from '@/components/Vignettes';
@@ -35,7 +36,7 @@ export default function Home({ lang }) {
         lang={lang} acts={h.acts} label={h.hero.sceneLabel} dir={d.dir}
         chips={Object.entries(h.chips).map(([k, label]) => ({ href: pathFor(k, lang), label }))}
         primary={h.hero.primary} primaryHref={JOIN_URL} secondary={h.hero.secondary} secondaryHref={pathFor('order', lang)}
-        photos={Object.fromEntries(['story-hall'].map((slot, k) => [slot, <Photo key={slot} slot={slot} alt="" sizes="100vw" priority={k === 0} className="absolute inset-0" imgClassName="h-full w-full object-cover" />]))}
+        photos={{ 'story-hall': <Video name="hero" className="absolute inset-0" /> }}
         skip={h.skip} storyNav={h.storyNav} chapter={h.chapter} sample={h.sample} cardName={h.cardName}
       />
 

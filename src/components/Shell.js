@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import AnalyticsBoot from './AnalyticsBoot';
 import JsonLd from './JsonLd';
-import Shore from './Shore';
+import ShoreParticles from './ShoreParticles';
 import { ORG, ldWebSite, graph } from '@/lib/seo';
 import { t } from '@/content';
 
@@ -16,7 +16,8 @@ export default function Shell({ lang, fonts, children }) {
     <html lang={lang} dir={ar ? 'rtl' : 'ltr'} className={fonts} suppressHydrationWarning>
       <body>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        <Shore />
+        <div className="shore" aria-hidden="true" />
+        <ShoreParticles />
         <Header lang={lang} d={chrome} />
         <main id="main">{children}</main>
         <Footer lang={lang} d={chrome} />

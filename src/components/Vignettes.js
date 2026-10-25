@@ -1,6 +1,6 @@
 // Small, honest pictures of the product for each buyer, drawn in HTML on the product's own tokens (sample figures).
 // Kept Thread: each is a paper note from the product, the figures in the display face, progress on the coral thread.
-import { Check, Mail, ArrowRight } from 'lucide-react';
+import { Check, Mail, ArrowRight } from './icons';
 import BrandMark from './BrandMark';
 
 function Frame({ title, sub, children, dark }) {

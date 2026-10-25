@@ -1,6 +1,6 @@
 // The welcome story (one person, one year) strung on the coral thread: five dated moments, each a paper note.
 // Desktop: a row with the thread through the knots. Phone: a column with the thread down the start side.
-import { Check } from 'lucide-react';
+import { Check } from './icons';
 import BrandMark from './BrandMark';
 import Thread, { Knot } from './Thread';
 

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
-// Where the sand meets the sea (plan Amendment A2.1): the fixed backdrop (tokens.css --tnc-backdrop) and a light 2D canvas of
+// Where the sand meets the sea (plan Amendment A2.1): over the fixed backdrop (Shell renders .shore), a light 2D canvas of
 // sand grains drifting low across the page and sea foam bobbing where the water is (top end). 30 fps, paused when the tab
 // is hidden; one still frame under reduced motion, data saver or on low-end devices. Decorative only.
 const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -43,10 +43,5 @@ export default function Shore() {
     addEventListener('resize', onResize); document.addEventListener('visibilitychange', onVis); mq.addEventListener('change', onTheme);
     return () => { cancelAnimationFrame(raf); removeEventListener('resize', onResize); document.removeEventListener('visibilitychange', onVis); mq.removeEventListener('change', onTheme); };
   }, []);
-  return (
-    <>
-      <div className="shore" aria-hidden="true" />
-      <canvas ref={ref} className="shore-particles" aria-hidden="true" />
-    </>
-  );
+  return <canvas ref={ref} className="shore-particles" aria-hidden="true" />;
 }
