@@ -12,6 +12,8 @@ import * as orderEn from './pages/order.en.js';
 import * as orderAr from './pages/order.ar.js';
 import * as trustEn from './pages/trust.en.js';
 import * as trustAr from './pages/trust.ar.js';
+import * as creditsEn from './pages/credits.en.js';
+import * as creditsAr from './pages/credits.ar.js';
 export { fill } from './fill.js';
 
 function merge(base, extra) {
@@ -22,7 +24,7 @@ function merge(base, extra) {
 // Each page module has a default export (its copy) and an optional `story` export merged over it.
 const pages = (...mods) => mods.reduce((acc, m) => merge(acc, m.story ? merge(m.default, m.story) : m.default), {});
 export const dict = {
-  en: merge(en, pages(homeEn, howEn, personasEn, pricingEn, orderEn, trustEn)),
-  ar: merge(ar, pages(homeAr, howAr, personasAr, pricingAr, orderAr, trustAr)),
+  en: merge(en, pages(homeEn, howEn, personasEn, pricingEn, orderEn, trustEn, creditsEn)),
+  ar: merge(ar, pages(homeAr, howAr, personasAr, pricingAr, orderAr, trustAr, creditsAr)),
 };
 export function t(lang) { return dict[lang] || dict.en; }

@@ -16,7 +16,7 @@ const en = {
   footer: {
     line: 'The human layer of the agent internet. Made in Dubai.',
     product: 'Product', buyers: 'Who it is for', company: 'Company',
-    legal: 'Privacy, terms and cookies', signIn: 'Member sign in', portal: 'Company portal', contact: 'Write to us',
+    legal: 'Privacy, terms and cookies', credits: 'Photo credits', signIn: 'Member sign in', portal: 'Company portal', contact: 'Write to us',
     analytics: 'Help us improve the site with anonymous usage figures?', allow: 'Allow', notNow: 'Not now', thanks: 'Thank you. You can change this in the footer any time.', off: 'Usage figures are off.',
     copyright: '© {year} TapNConnect. Riverift FZ-LLC, Dubai, UAE.',
   },
@@ -24,6 +24,6 @@ const en = {
     startFree: 'Start free', orderCompany: 'Order for your company', seePricing: 'See pricing', talkToPerson: 'Talk to a person',
     howItWorks: 'See how it works', getCard: 'Get the card', order: 'Order', askQuote: 'Ask for a quote', readMore: 'Read more',
   },
-  notFound: { title: 'Page not found', p: 'That page isn’t here. The start is one tap away.', home: 'Go to the start' },
+  notFound: { title: 'Lost someone? Let’s get you back.', p: 'That page isn’t here, but the start is one tap away.', home: 'Go to the start', photoAlt: 'Three friends laughing together in the late afternoon sun.' },
 };
 export default en;

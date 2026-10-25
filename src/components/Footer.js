@@ -35,7 +35,7 @@ export default function Footer({ lang, d }) {
         ])}
         {col(d.footer.buyers, Object.entries(d.nav.personas).map(([k, label]) => ({ href: pathFor(k, lang), label })))}
         {col(d.footer.company, [
-          { href: SIGN_IN_URL, label: d.footer.signIn }, { href: PORTAL_URL, label: d.footer.portal }, { href: `${LEGAL_URL}/${lang}`, label: d.footer.legal }, { href: `mailto:${SALES_EMAIL}`, label: d.footer.contact },
+          { href: SIGN_IN_URL, label: d.footer.signIn }, { href: PORTAL_URL, label: d.footer.portal }, { href: `${LEGAL_URL}/${lang}`, label: d.footer.legal }, { href: pathFor('credits', lang), label: d.footer.credits }, { href: `mailto:${SALES_EMAIL}`, label: d.footer.contact },
         ])}
       </div>
       <div className="hairline"><div className="wrap flex flex-wrap items-center justify-between gap-2 py-5 text-sm text-subtle"><span>{fill(d.footer.copyright, { year })}</span><Link prefetch={false} href={pathFor('home', lang === 'ar' ? 'en' : 'ar')} hrefLang={lang === 'ar' ? 'en' : 'ar'} className="transition-colors duration-quick hover:text-thread-text">{d.nav.language}</Link></div></div>
