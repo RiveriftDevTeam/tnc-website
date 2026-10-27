@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Organiser story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --field: #0B3A44; --ink: #F3EADB; --thread: #10A396; --sun: #E9C46A; --faded: #9AA5A3; --paper: #FBF6EC; --paper-ink: #14201F; }
+  :root[data-theme="dark"] { --field: #08262D; --ink: #E8F1EF; --thread: #4FD1C5; --sun: #F0CF7E; --faded: #3E4A4C; --paper: #F3EADB; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--field); color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 64px; font-size: 15px; z-index: 5; }
+  header b { font-family: 'Bricolage Grotesque', system-ui; font-size: 20px; }
+  header nav { display: flex; gap: 28px; opacity: .8; }
+  .stories a { color: inherit; text-decoration: none; opacity: .7; padding: 6px 12px; border-radius: 999px; }
+  .stories a[aria-current] { opacity: 1; background: rgb(243 234 219 / .14); }
+  .hero { position: relative; height: 100vh; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: center; padding: 0 64px; }
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, var(--field) 0%, var(--field) 20%, rgb(11 58 68 / 0) 46%); }
+  :root[data-theme="dark"] .hero::after { background: linear-gradient(90deg, var(--field) 0%, var(--field) 20%, rgb(8 38 45 / 0) 46%); }
+  .copy { position: relative; z-index: 3; max-width: 460px; }
+  .copy .txt { transition: opacity .45s ease, transform .45s ease; }
+  .copy .txt.out { opacity: 0; transform: translateY(8px); }
+  .kicker { font-family: Caveat, cursive; font-size: 24px; color: var(--sun); margin-bottom: 8px; min-height: 30px; }
+  h1 { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: clamp(38px, 4.4vw, 64px); line-height: 1.03; letter-spacing: -.025em; }
+  .copy p { margin-top: 20px; font-size: 18px; line-height: 1.55; opacity: .84; min-height: 84px; }
+  .ctas { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 14px 22px; border-radius: 999px; font-weight: 500; font-size: 16px; }
+  .btn.p { background: var(--sun); color: #14201F; }
+  .btn.s { border: 1.5px solid rgb(243 234 219 / .4); }
+  .stage { position: relative; height: 100%; }
+  canvas { position: absolute; top: 0; bottom: 0; left: -22%; width: 130%; height: 100%;
+    -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, #000 74%, transparent 100%); mask-image: radial-gradient(50% 50% at 50% 50%, #000 74%, transparent 100%); }
+  #ov { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  #ov > * { position: absolute; left: 0; top: 0; will-change: transform, opacity; opacity: 0; }
+  .cap { font-family: Caveat, cursive; font-weight: 700; font-size: 46px; line-height: 1; color: #7FE0D6; white-space: nowrap; text-shadow: 0 2px 18px rgb(0 0 0 / .35); }
+  .bubble { width: 238px; padding: 14px 16px; background: var(--paper); color: var(--paper-ink); border-radius: 26px; font-size: 15px; line-height: 1.35; box-shadow: 0 12px 30px rgb(0 0 0 / .3); }
+  .bubble::before, .bubble::after { content: ''; position: absolute; background: var(--paper); border-radius: 50%; }
+  .bubble::before { width: 18px; height: 18px; left: 26px; bottom: -14px; }
+  .bubble::after { width: 10px; height: 10px; left: 16px; bottom: -28px; }
+  .bubble .h { font-family: Caveat, cursive; font-size: 20px; color: #0A6E66; line-height: 1; margin-bottom: 4px; }
+  .bubble.glow { box-shadow: 0 0 0 3px rgb(233 196 106 / .9), 0 0 40px rgb(233 196 106 / .55); }
+  .skill { font-size: 12px; font-weight: 600; letter-spacing: .03em; color: #14201F; background: var(--paper); padding: 4px 9px 4px 7px; border-radius: 999px; white-space: nowrap; box-shadow: 0 4px 14px rgb(0 0 0 / .25); display: flex; gap: 5px; align-items: center; }
+  .skill::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sun); box-shadow: 0 0 6px var(--sun); }
+  .ind { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); white-space: nowrap; background: rgb(8 38 45 / .74); padding: 4px 9px 4px 8px; border-radius: 999px; border: 1px solid rgb(243 234 219 / .18); display: flex; gap: 6px; align-items: center; }
+  .ind i { width: 8px; height: 8px; border-radius: 50%; display: block; }
+  .stat { width: 214px; background: var(--paper); color: var(--paper-ink); border-radius: 14px; padding: 12px 14px; box-shadow: 0 14px 34px rgb(0 0 0 / .32); }
+  .stat .who { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #0A6E66; padding-right: 54px; }
+  .stat .n { font-family: 'Bricolage Grotesque', system-ui; font-size: 36px; font-weight: 700; line-height: 1.05; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .stat .d { font-size: 13px; line-height: 1.35; opacity: .8; margin-top: 2px; }
+  .smp { position: absolute; top: 10px; right: 10px; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; background: #EFE7D6; color: #6B6455; padding: 2px 6px; border-radius: 4px; }
+  .wkw { width: 236px; }
+  .wkw .row { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 0; border-top: 1px solid #EAE2D0; }
+  .wkw .row:first-of-type { border-top: 0; margin-top: 6px; }
+  .wkw .row b { font-family: 'Bricolage Grotesque', system-ui; font-size: 17px; font-variant-numeric: tabular-nums; }
+  .kpis { position: absolute; z-index: 3; right: 3.2%; top: 12%; width: min(650px, 50vw); display: grid; grid-template-columns: 1fr 1fr; gap: 12px; pointer-events: none; }
+  .panel { position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 16px; padding: 14px 16px 14px; box-shadow: 0 18px 40px rgb(0 0 0 / .34); opacity: 0; will-change: transform, opacity; }
+  .panel .who { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #0A6E66; margin-bottom: 10px; padding-right: 56px; }
+  .br { display: grid; grid-template-columns: 112px 1fr 44px; gap: 8px; align-items: center; font-size: 12.5px; margin-top: 6px; }
+  .br span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .br i { display: block; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #10A396, #4FD1C5); transform-origin: left; }
+  .br.sp i { background: linear-gradient(90deg, #D9A93F, #E9C46A); }
+  .br b { font-variant-numeric: tabular-nums; text-align: right; font-weight: 600; }
+  .hm { display: grid; grid-template-columns: 48px repeat(5, 1fr); gap: 3px; font-size: 10.5px; align-items: center; }
+  .hm .l { color: #5E6A68; font-weight: 600; }
+  .hm .c { height: 22px; border-radius: 4px; }
+  .hm .c.top { outline: 2px solid #E9C46A; outline-offset: 1px; }
+  .hm .h { text-align: center; color: #5E6A68; font-weight: 600; }
+  .hmnote { margin-top: 8px; font-size: 12.5px; } .hmnote b { color: #0A6E66; }
+  .conn { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; } .conn b { font-variant-numeric: tabular-nums; }
+  .big { font-family: 'Bricolage Grotesque', system-ui; font-size: 34px; font-weight: 700; line-height: 1; margin-top: 10px; }
+  .big + .d { font-size: 12.5px; opacity: .78; margin-top: 3px; }
+  .scenes { position: absolute; left: 64px; bottom: 26px; z-index: 5; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .scenes button { font: 500 12.5px Inter, system-ui; color: var(--ink); background: rgb(255 255 255 / .06); border: 1px solid rgb(243 234 219 / .18); border-radius: 999px; padding: 6px 11px; cursor: pointer; }
+  .scenes button.on { background: var(--ink); color: var(--field); border-color: var(--ink); }
+  .scenes button.pp { width: 32px; padding: 6px 0; }
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgb(243 234 219 / .08); z-index: 5; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--sun); opacity: .7; }
+  @media (max-width: 700px) {
+    header { padding: 18px 20px; } header nav { display: none; } header nav.stories { display: flex; gap: 2px; font-size: 12px; } .stories a { padding: 5px 8px; }
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 84px 20px 0; align-items: start; }
+    .hero::after { background: linear-gradient(180deg, var(--field) 0%, var(--field) 30%, rgb(11 58 68 / 0) 44%); }
+    h1 { font-size: 34px; } .kicker { font-size: 20px; min-height: 24px; margin-bottom: 4px; }
+    .copy p { font-size: 15px; margin-top: 10px; min-height: 0; } .ctas { margin-top: 16px; } .btn { padding: 11px 18px; font-size: 15px; }
+    canvas { left: -4%; width: 108%; -webkit-mask-image: radial-gradient(56% 50% at 50% 50%, #000 80%, transparent 100%); mask-image: radial-gradient(56% 50% at 50% 50%, #000 80%, transparent 100%); }
+    .scenes { left: 20px; right: 20px; bottom: 18px; gap: 4px; } .scenes button { padding: 5px 8px; font-size: 11px; }
+    .cap { font-size: 30px; } .bubble { width: 168px; font-size: 12.5px; padding: 9px 11px; }
+    .stat { width: 132px; padding: 8px 10px; } .stat .n { font-size: 22px; } .stat .d { font-size: 10.5px; } .stat .who { font-size: 9px; padding-right: 40px; } .smp { font-size: 8px; top: 7px; right: 7px; }
+    .wkw { width: 150px; } .wkw .row { font-size: 10.5px; padding: 3px 0; } .wkw .row b { font-size: 13px; }
+    .skill { font-size: 9.5px; padding: 3px 6px; } .ind { font-size: 8.5px; padding: 3px 6px; }
+    .kpis { top: auto; bottom: 104px; left: 14px; right: 14px; width: auto; gap: 6px; }
+    header b { font-size: 16px; } header nav.stories { font-size: 11px; } .stories a { padding: 4px 6px; }
+    .panel { padding: 8px 9px; border-radius: 11px; } .panel .who { font-size: 8.5px; margin-bottom: 4px; padding-right: 38px; }
+    .br { grid-template-columns: 62px 1fr 28px; gap: 4px; font-size: 9px; margin-top: 3px; } .br i { height: 5px; }
+    .hm { grid-template-columns: 26px repeat(5, 1fr); font-size: 7.5px; gap: 2px; } .hm .c { height: 11px; } .hmnote { font-size: 9px; margin-top: 4px; }
+    .conn { font-size: 9.5px; padding: 1px 0; } .big { font-size: 20px; margin-top: 4px; } .big + .d { font-size: 9px; }
+  }
+</style>
+</head>
+<body>
+<header><b>TapNConnect</b><nav class="stories"><a href="member-story.html">Member</a><a href="company-story.html">Company</a><a href="organiser-story.html" aria-current="page">Organiser</a><a href="sponsor-story.html">Sponsor</a></nav></header>
+<section class="hero" id="hero">
+  <div class="copy">
+    <div class="txt" id="txt"><div class="kicker" id="kick"></div><h1 id="h1"></h1><p id="p"></p></div>
+    <div class="ctas"><span class="btn p">Start free</span><span class="btn s">Order for your event</span></div>
+  </div>
+  <div class="stage" id="stage"><canvas id="c" role="img" aria-label="A short film for organisers: a busy exhibition hall full of conversations, handshakes and cards; then the hall empties and the organiser wonders what the event achieved; your AI assistant and its helper agents turn every conversation into a who-knows-who map, count the relationships made, keep counting season after season, and show which exhibitors, sponsors and industries connected."></canvas></div>
+  <div id="ov"></div>
+  <div class="kpis" id="kpis">
+    <div class="panel"><span class="smp">Sample</span><div class="who">Relationships by exhibitor</div>
+      <div class="br"><span>Qamar Bank</span><i style="width:100%"></i><b>1,240</b></div>
+      <div class="br"><span>Al Noor Logistics</span><i style="width:89%"></i><b>1,105</b></div>
+      <div class="br"><span>Pearl Realty</span><i style="width:77%"></i><b>958</b></div>
+      <div class="br"><span>Marina Health</span><i style="width:66%"></i><b>812</b></div>
+      <div class="br"><span>Oasis Retail</span><i style="width:58%"></i><b>721</b></div>
+    </div>
+    <div class="panel"><span class="smp">Sample</span><div class="who">Relationships by sponsor</div>
+      <div class="br sp"><span>Sahel Capital</span><i style="width:100%"></i><b>2,310</b></div>
+      <div class="br sp"><span>Gulf Grid Energy</span><i style="width:73%"></i><b>1,680</b></div>
+      <div class="br sp"><span>Falcon Freight</span><i style="width:48%"></i><b>1,120</b></div>
+      <div class="big">8,940</div><div class="d">relationships began at a sponsored spot</div>
+    </div>
+    <div class="panel"><span class="smp">Sample</span><div class="who">Industry match · who met whom</div><div class="hm" id="hm"></div>
+      <div class="hmnote">Strongest pair: <b>Fintech × Logistics</b> · 2,140</div>
+    </div>
+    <div class="panel"><span class="smp">Sample</span><div class="who">Top connectors</div>
+      <div class="conn"><span>Layla Nasser · Falcon Freight</span><b>96</b></div>
+      <div class="conn"><span>Omar Haddad · Qamar Bank</span><b>81</b></div>
+      <div class="conn"><span>Mira Joseph · Corniche Events</span><b>74</b></div>
+      <div class="big">47%</div><div class="d">came back next season, and met someone new</div>
+    </div>
+  </div>
+  <div class="scenes" id="scenes"></div>
+  <div class="bar"><i id="bar"></i></div>
+</section>
+
+<script type="importmap">{ "imports": { "three": "../../node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, DirectionalLight, Color, SRGBColorSpace, Vector3, Group, Shape,
+  ShapeGeometry, PlaneGeometry, BoxGeometry, CircleGeometry, CapsuleGeometry, SphereGeometry, TorusGeometry, TubeGeometry, RingGeometry,
+  QuadraticBezierCurve3, CatmullRomCurve3, MeshStandardMaterial, MeshBasicMaterial, Mesh, CanvasTexture, Sprite, SpriteMaterial, AdditiveBlending,
+  InstancedMesh, Object3D,
+} from 'three';
+
+const q = new URLSearchParams(location.search);
+if (q.get('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+const dark = q.get('theme') === 'dark';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const FIELD = new Color(css('--field')), SUNC = new Color(css('--sun'));
+const TEAL = dark ? '#4FD1C5' : '#10A396', SUN = css('--sun');
+const TEALC = new Color(TEAL);
+const ORG_C = dark ? '#3CC4B7' : '#14A89A';
+const CLAY = dark ? ['#D2BC98', '#8CC5BB', '#D9B4A4', '#6FA4C4', '#B8A88A'] : ['#E9D3AE', '#9ED9CF', '#F1C9B8', '#7FB8D9', '#CDBB9C'];
+
+// ---- the film: five scenes on one 64 s clock (pure functions of t, so any t renders as a still)
+const SC = [0, 13, 24, 38, 50, 64], L = 64;
+const KEY = [7.6, 21.0, 35.6, 48.6, 59.0];
+const NAMES = ['The show', 'Empty hall', 'The answer', 'Seasons', 'The KPIs'];
+const COPY = [
+  ['The organiser', 'Three days. Thousands of conversations.', 'Your hall is full of people meeting the people they came for.'],
+  ['After the show', 'Then the hall empties.', 'Badge scans and a headcount. Not what the event created.'],
+  ['Enter your assistant', 'Your assistant shows you.', 'Every relationship your event started, counted and kept.'],
+  ['Seasons later', 'It keeps counting after you close.', 'Season after season, see who still knows whom because of your event.'],
+  ['The proof', 'Prove what your event created.', 'For your sponsors, your exhibitors and next year’s budget.'],
+];
+const sceneOf = (t) => { for (let i = 0; i < 5; i++) if (t < SC[i + 1]) return i; return 4; };
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const span = (t, a, b) => clamp((t - a) / (b - a));
+const ease = (x) => x * x * (3 - 2 * x);
+const easeOut = (x) => 1 - (1 - x) ** 3;
+const mix = (a, b, k) => a + (b - a) * k;
+const bump = (t, a, b, f = 0.3) => ease(span(t, a, a + f)) * (1 - ease(span(t, b - f, b)));
+const seeded = (n) => { let s = n; return () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; };
+
+// ---- the hall: industries, booths (fictional names), conversation circles
+const IND = [
+  { k: 'Fintech', c: '#E9C46A' }, { k: 'Logistics', c: '#7FB8D9' }, { k: 'Retail', c: '#F1A99B' },
+  { k: 'Real estate', c: '#D8C49A' }, { k: 'Health', c: '#9ED9CF' }, { k: 'Energy', c: '#B9A6E8' },
+];
+const BOOTHS = [
+  { name: 'Qamar Bank', ind: 0, x: -3.0, z: -3.0 }, { name: 'Al Noor Logistics', ind: 1, x: -1.0, z: -3.0 }, { name: 'Oasis Retail', ind: 2, x: 1.0, z: -3.0 },
+  { name: 'Pearl Realty', ind: 3, x: 3.0, z: -3.0 }, { name: 'Marina Health', ind: 4, x: 5.0, z: -3.0 },
+  { name: 'Sahel Capital', ind: 0, x: -2.1, z: -0.6, s: 0.82 }, { name: 'Falcon Freight', ind: 1, x: 0.4, z: -0.6, s: 0.82 },
+  { name: 'Dune Robotics', ind: 2, x: 2.6, z: -0.6, s: 0.82 }, { name: 'Gulf Grid Energy', ind: 5, x: 4.8, z: -0.6, s: 0.82 },
+];
+const CIRCLES = [
+  [-3.2, -1.95, 4], [-0.9, -1.85, 3], [1.2, -1.95, 5], [3.0, -1.85, 3], [4.9, -1.95, 4],
+  [-2.8, 0.75, 4], [-0.6, 0.85, 3], [1.9, 0.7, 4], [4.0, 0.7, 3], [5.6, 1.0, 3],
+  [-1.4, 2.8, 4], [2.1, 2.75, 4], [4.4, 2.6, 3], [5.9, 2.9, 3], [-3.2, 1.9, 3],
+];
+const indOf = (x, z) => { let best = 0, d = 1e9; BOOTHS.forEach((b) => { const dd = (b.x - x) ** 2 + (b.z - z) ** 2; if (dd < d) { d = dd; best = b.ind; } }); return best; };
+const PEEPS = [];
+CIRCLES.forEach(([cx, cz, n], ci) => {
+  const ind = indOf(cx, cz), r = 0.3 + 0.05 * n, rnd = seeded(31 + ci * 7);
+  for (let k = 0; k < n; k++) { const a = (k / n) * Math.PI * 2 + rnd() * 0.5; PEEPS.push({ x: cx + Math.cos(a) * r, z: cz + Math.sin(a) * r * 0.85, ind, ci, ph: rnd() * 9, col: CLAY[Math.floor(rnd() * 5)] }); }
+});
+// the three vignettes: a handshake, a card handed over, two phones tapped
+const PAIRS = [
+  { kind: 'shake', a: [0.5, 1.75], b: [1.36, 1.75], ind: 1 },
+  { kind: 'card', a: [-1.95, 1.55], b: [-1.13, 1.55], ind: 0 },
+  { kind: 'tap', a: [3.0, 1.75], b: [3.82, 1.75], ind: 5 },
+];
+PAIRS.forEach((p) => { PEEPS.push({ x: p.a[0], z: p.a[1], ind: p.ind, pair: true }); PEEPS.push({ x: p.b[0], z: p.b[1], ind: p.ind, pair: true }); });
+
+// ---- three
+const canvas = document.getElementById('c'), hero = document.getElementById('hero');
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = SRGBColorSpace;
+const scene = new Scene();
+const camera = new PerspectiveCamera(35, 1, 0.1, 120);
+const hemi = new HemisphereLight(0xf3eadb, dark ? 0x061c22 : 0x0b3a44, 1.2); scene.add(hemi);
+const key = new DirectionalLight(0xfff0d8, 2.0); key.position.set(-3, 7, 6); scene.add(key);
+const rimL = new DirectionalLight(0x9fe3da, 1.4); rimL.position.set(5, 3, -5); scene.add(rimL);
+const world = new Group(); scene.add(world);
+
+const radial = (stops, n = 128) => { const c = document.createElement('canvas'); c.width = c.height = n; const g = c.getContext('2d'); const r = g.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2); stops.forEach(([o, col]) => r.addColorStop(o, col)); g.fillStyle = r; g.fillRect(0, 0, n, n); return new CanvasTexture(c); };
+const glowTex = radial([[0, 'rgba(255,240,200,1)'], [0.22, 'rgba(240,200,110,.5)'], [1, 'rgba(240,200,110,0)']]);
+const warmTex = radial([[0, 'rgba(255,226,170,.75)'], [0.4, 'rgba(255,214,150,.22)'], [1, 'rgba(255,214,150,0)']]);
+const whiteTex = radial([[0, 'rgba(255,255,255,1)'], [0.3, 'rgba(255,255,255,.45)'], [1, 'rgba(255,255,255,0)']]);
+const shadowTex = radial([[0, 'rgba(0,0,0,.5)'], [1, 'rgba(0,0,0,0)']]);
+const sprite = (tex = glowTex, color) => { const s = new Sprite(new SpriteMaterial({ map: tex, blending: AdditiveBlending, depthWrite: false, transparent: true, color: color ? new Color(color) : 0xffffff })); s.scale.setScalar(0); world.add(s); return s; };
+const rim = (m) => { m.onBeforeCompile = (s) => { s.fragmentShader = s.fragmentShader.replace('#include <dithering_fragment>', 'float rimF = pow(1.0 - max(dot(normalize(vNormal), normalize(vViewPosition)), 0.0), 2.4);\n gl_FragColor.rgb += rimF * 0.22;\n#include <dithering_fragment>'); }; return m; };
+function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+
+// the hall floor: a rounded slab, a touch lighter than the field, with a carpet aisle
+const floorShape = (() => { const s = new Shape(), w = 12.6, h = 9.4, r = 0.6, x = -w / 2, y = -h / 2; s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r); s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h); s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r); s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y); return s; })();
+const FLOOR_C = FIELD.clone().lerp(TEALC, 0.16).lerp(new Color('#F3EADB'), dark ? 0.05 : 0.07);
+const floorMat = new MeshStandardMaterial({ color: FLOOR_C.clone(), roughness: 0.95 });
+const floor = new Mesh(new ShapeGeometry(floorShape, 8), floorMat); floor.rotation.x = -Math.PI / 2; floor.position.set(1.0, 0, 0.3); world.add(floor);
+const aisleMat = new MeshStandardMaterial({ color: FIELD.clone().lerp(TEALC, 0.28), roughness: 1 });
+const aisle = new Mesh(new PlaneGeometry(1.5, 9.2), aisleMat); aisle.rotation.x = -Math.PI / 2; aisle.position.set(1.0, 0.003, 0.3); world.add(aisle);
+const aisle2 = new Mesh(new PlaneGeometry(12.4, 1.1), aisleMat); aisle2.rotation.x = -Math.PI / 2; aisle2.position.set(1.0, 0.0031, 1.95); world.add(aisle2);
+const floorShadow = new Mesh(new PlaneGeometry(15, 12), new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0.6 })); floorShadow.rotation.x = -Math.PI / 2; floorShadow.position.set(1.0, -0.02, 0.3); world.add(floorShadow);
+
+// booths
+const wallMat = new MeshStandardMaterial({ color: new Color('#F1EADC'), roughness: 0.85 });
+const boothLights = [];
+function fasciaTex(b) {
+  const c = document.createElement('canvas'); c.width = 640; c.height = 112; const g = c.getContext('2d');
+  g.fillStyle = '#FBF6EC'; g.fillRect(0, 0, 640, 112); g.fillStyle = IND[b.ind].c; g.fillRect(0, 0, 26, 112);
+  g.fillStyle = '#14201F'; g.font = '600 46px Inter, system-ui, sans-serif'; g.textBaseline = 'middle'; g.fillText(b.name, 52, 60, 560);
+  const t = new CanvasTexture(c); t.colorSpace = SRGBColorSpace; t.anisotropy = 8; return t;
+}
+const fasciaMats = [];
+BOOTHS.forEach((b) => {
+  const g = new Group(), s = b.s || 1; g.position.set(b.x, 0, b.z); g.scale.setScalar(s); world.add(g);
+  const indC = new Color(IND[b.ind].c);
+  const carpet = new Mesh(new PlaneGeometry(1.8, 1.4), new MeshStandardMaterial({ color: indC.clone().lerp(FIELD, 0.62), roughness: 1 })); carpet.rotation.x = -Math.PI / 2; carpet.position.set(0, 0.006, 0.3); g.add(carpet);
+  const wall = new Mesh(new BoxGeometry(1.8, 1.1, 0.06), wallMat); wall.position.set(0, 0.55, -0.35); g.add(wall);
+  const side = new Mesh(new BoxGeometry(0.06, 1.1, 0.6), wallMat); side.position.set(-0.87, 0.55, -0.05); g.add(side);
+  const band = new MeshStandardMaterial({ color: indC, roughness: 0.6 });
+  const fm = new MeshStandardMaterial({ map: fasciaTex(b), roughness: 0.7, emissive: new Color('#ffffff'), emissiveMap: null, emissiveIntensity: 0 }); fasciaMats.push(fm);
+  const fascia = new Mesh(new BoxGeometry(1.8, 0.32, 0.1), [band, band, band, band, fm, band]); fascia.position.set(0, 1.27, -0.31); g.add(fascia);
+  const counter = new Mesh(new BoxGeometry(0.72, 0.5, 0.34), new MeshStandardMaterial({ color: indC.clone().lerp(new Color('#ffffff'), 0.15), roughness: 0.7 })); counter.position.set(0.42, 0.25, 0.28); g.add(counter);
+  const screen = new Mesh(new BoxGeometry(0.5, 0.32, 0.03), new MeshStandardMaterial({ color: 0x1b2b2e, roughness: 0.3, emissive: indC, emissiveIntensity: 0.25 })); screen.position.set(-0.35, 0.78, -0.31); g.add(screen); b.screen = screen;
+  const lamp = sprite(warmTex); lamp.position.set(b.x, 1.75 * s + 0.1, b.z - 0.05); boothLights.push({ s: lamp, k: 2.2 * s });
+});
+
+// ---- the crowd: instanced clay people in conversation circles
+const crowd = PEEPS.filter((p) => !p.pair);
+const NCROWD = crowd.length;
+const crowdMat = rim(new MeshStandardMaterial({ roughness: 0.85, transparent: true }));
+const cBody = new InstancedMesh(new CapsuleGeometry(0.19, 0.7, 4, 14), crowdMat, NCROWD), cHead = new InstancedMesh(new SphereGeometry(0.15, 18, 12), crowdMat, NCROWD);
+const cShadow = new InstancedMesh(new PlaneGeometry(0.8, 0.8), new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }), NCROWD);
+crowd.forEach((p, i) => { const col = new Color(p.col); cBody.setColorAt(i, col); cHead.setColorAt(i, col); });
+world.add(cShadow, cBody, cHead);
+const O = new Object3D();
+const CS = 0.98;
+function placeCrowd(t, op, T) {
+  crowd.forEach((p, i) => {
+    const sway = Math.sin(T * 1.6 + p.ph) * 0.02, nod = Math.max(0, Math.sin(T * 2.2 + p.ph * 1.7)) * 0.03;
+    O.rotation.set(0, 0, sway); O.scale.setScalar(CS);
+    O.position.set(p.x, 0.55 * CS, p.z); O.updateMatrix(); cBody.setMatrixAt(i, O.matrix);
+    O.position.set(p.x + sway * 0.4, 1.3 * CS - nod, p.z); O.updateMatrix(); cHead.setMatrixAt(i, O.matrix);
+    O.rotation.set(-Math.PI / 2, 0, 0); O.position.set(p.x, 0.004, p.z); O.updateMatrix(); cShadow.setMatrixAt(i, O.matrix);
+  });
+  cBody.instanceMatrix.needsUpdate = cHead.instanceMatrix.needsUpdate = cShadow.instanceMatrix.needsUpdate = true;
+  crowdMat.opacity = op; cShadow.material.opacity = op; cBody.visible = cHead.visible = cShadow.visible = op > 0.01;
+}
+// talk sparks above each circle (scene 1)
+const sparks = CIRCLES.map(() => sprite(warmTex));
+
+// ---- articulated clay people (the vignettes, and the organiser)
+const GEO = { leg: new CapsuleGeometry(0.085, 0.5, 4, 12), torso: new CapsuleGeometry(0.2, 0.4, 6, 18), head: new SphereGeometry(0.15, 24, 16), upper: new CapsuleGeometry(0.062, 0.24, 4, 10), fore: new CapsuleGeometry(0.056, 0.22, 4, 10), hand: new SphereGeometry(0.068, 14, 10), shadow: new PlaneGeometry(1, 1) };
+function human(color, transparent = false) {
+  const mat = rim(new MeshStandardMaterial({ color: new Color(color), roughness: 0.85, transparent }));
+  const g = new Group(), body = new Group(); g.add(body);
+  const mk = (geo, parent, y) => { const m = new Mesh(geo, mat); m.position.y = y; parent.add(m); return m; };
+  const hip = (x) => { const h = new Group(); h.position.set(x, 0.78, 0); body.add(h); mk(GEO.leg, h, -0.36); return h; };
+  const hipL = hip(0.1), hipR = hip(-0.1);
+  mk(GEO.torso, body, 1.14);
+  const neck = new Group(); neck.position.y = 1.47; body.add(neck); mk(GEO.head, neck, 0.2);
+  const arm = (x) => { const sh = new Group(); sh.position.set(x, 1.38, 0); body.add(sh); mk(GEO.upper, sh, -0.17); const el = new Group(); el.position.y = -0.34; sh.add(el); mk(GEO.fore, el, -0.15); const hand = mk(GEO.hand, el, -0.31); return { sh, el, hand }; };
+  const R = arm(-0.27), Lf = arm(0.27);
+  const sh = new Mesh(GEO.shadow, new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })); sh.rotation.x = -Math.PI / 2; sh.position.y = 0.005; sh.scale.setScalar(0.9); g.add(sh);
+  world.add(g);
+  return { g, body, hipL, hipR, neck, R, L: Lf, mat, sh };
+}
+const REST = { shRx: 0.05, shRz: -0.1, elRx: -0.12, shLx: 0.05, shLz: 0.1, elLx: -0.12, neckX: 0, neckY: 0, legA: 0, bob: 0, lean: 0 };
+function pose(h, p) {
+  h.R.sh.rotation.set(p.shRx, 0, p.shRz); h.R.el.rotation.x = p.elRx;
+  h.L.sh.rotation.set(p.shLx, 0, p.shLz); h.L.el.rotation.x = p.elLx;
+  h.neck.rotation.set(p.neckX, p.neckY, 0); h.hipL.rotation.x = p.legA; h.hipR.rotation.x = -p.legA;
+  h.body.position.y = p.bob; h.body.rotation.x = p.lean;
+}
+const blendPose = (a, b, k) => { const o = {}; for (const n in a) o[n] = mix(a[n], b[n], k); return o; };
+const pairs = PAIRS.map((p, i) => {
+  const A = human(CLAY[(i * 2) % 5], true), B = human(CLAY[(i * 2 + 3) % 5], true);
+  A.g.position.set(p.a[0], 0, p.a[1]); B.g.position.set(p.b[0], 0, p.b[1]);
+  A.g.rotation.y = Math.PI / 2; B.g.rotation.y = -Math.PI / 2; A.g.scale.setScalar(0.86); B.g.scale.setScalar(0.86);
+  const o = { ...p, A, B };
+  if (p.kind === 'card') { o.card = new Mesh(new BoxGeometry(0.17, 0.11, 0.008), new MeshStandardMaterial({ color: 0xfbf6ec, roughness: 0.6, transparent: true })); world.add(o.card); }
+  if (p.kind === 'tap') {
+    const ph = () => { const m = new Mesh(new BoxGeometry(0.09, 0.17, 0.018), new MeshStandardMaterial({ color: 0x20282b, roughness: 0.3, emissive: TEALC, emissiveIntensity: 0.35, transparent: true })); return m; };
+    o.pa = ph(); o.pb = ph(); A.R.el.add(o.pa); B.R.el.add(o.pb); o.pa.position.set(0, -0.36, 0.04); o.pb.position.set(0, -0.36, 0.04);
+    o.ring = new Mesh(new RingGeometry(0.08, 0.1, 40), new MeshBasicMaterial({ color: TEALC, transparent: true, depthWrite: false })); world.add(o.ring);
+  }
+  o.glow = sprite(warmTex);
+  return o;
+});
+
+// the organiser: teal clay, with a lanyard and a badge
+const org = human(ORG_C);
+const lanyard = new Mesh(new TorusGeometry(0.16, 0.012, 6, 30, Math.PI * 1.15), new MeshStandardMaterial({ color: new Color(SUN), roughness: 0.5 }));
+lanyard.rotation.set(0.25, 0, Math.PI + (Math.PI * 1.15 - Math.PI) / -2); lanyard.position.set(0, 1.35, 0.12); org.body.add(lanyard);
+const badgeCv = document.createElement('canvas'); badgeCv.width = 120; badgeCv.height = 160; { const g = badgeCv.getContext('2d'); g.fillStyle = '#FBF6EC'; g.fillRect(0, 0, 120, 160); g.fillStyle = SUN; g.fillRect(0, 0, 120, 38); g.fillStyle = '#14201F'; g.font = '700 22px Inter'; g.fillText('ORGANISER', 8, 26, 104); g.fillStyle = '#9AA5A3'; g.fillRect(14, 64, 92, 10); g.fillRect(14, 86, 70, 10); }
+const badgeTex = new CanvasTexture(badgeCv); badgeTex.colorSpace = SRGBColorSpace;
+const badge = new Mesh(new PlaneGeometry(0.15, 0.2), new MeshBasicMaterial({ map: badgeTex, toneMapped: false })); badge.position.set(0, 1.05, 0.215); badge.rotation.x = -0.12; org.body.add(badge);
+const ORG_IN = new Vector3(1.0, 0, 5.2), ORG_AT = new Vector3(1.0, 0, 1.55);
+org.g.position.copy(ORG_IN);
+const orgGlow = sprite(radial([[0, 'rgba(79,209,197,.85)'], [1, 'rgba(79,209,197,0)']]));
+
+// ---- the agents: a lead bot and four helper bots of the same family (as in the member story)
+const VW = 160, VH = 88;
+function bot(scale, icon) {
+  const g = new Group();
+  const bodyMat = new MeshStandardMaterial({ color: new Color('#F4EFE6'), roughness: 0.32, metalness: 0.05, emissive: SUNC, emissiveIntensity: 0.06, transparent: true });
+  const body = new Mesh(new CapsuleGeometry(0.2, 0.12, 10, 28), bodyMat); body.scale.set(1.08, 1, 0.86); g.add(body);
+  const vCv = document.createElement('canvas'); vCv.width = VW * 2; vCv.height = VH * 2; const vTex = new CanvasTexture(vCv); vTex.colorSpace = SRGBColorSpace;
+  const vShape = new Shape(); { const w = 0.27, h = 0.15, r = 0.065, x = -w / 2, y = -h / 2; vShape.moveTo(x + r, y); vShape.lineTo(x + w - r, y); vShape.quadraticCurveTo(x + w, y, x + w, y + r); vShape.lineTo(x + w, y + h - r); vShape.quadraticCurveTo(x + w, y + h, x + w - r, y + h); vShape.lineTo(x + r, y + h); vShape.quadraticCurveTo(x, y + h, x, y + h - r); vShape.lineTo(x, y + r); vShape.quadraticCurveTo(x, y, x + r, y); }
+  const vGeo = new ShapeGeometry(vShape, 10); { const uv = vGeo.attributes.uv, p = vGeo.attributes.position; for (let i = 0; i < p.count; i++) uv.setXY(i, (p.getX(i) + 0.135) / 0.27, (p.getY(i) + 0.075) / 0.15); }
+  const visor = new Mesh(vGeo, new MeshBasicMaterial({ map: vTex, toneMapped: false, transparent: true })); visor.position.set(0, 0.04, 0.178); g.add(visor);
+  const core = new Mesh(new SphereGeometry(0.055, 16, 12), new MeshBasicMaterial({ color: new Color('#FFE9A8'), transparent: true })); core.position.y = -0.255; core.scale.set(1, 0.6, 1); g.add(core);
+  const ringG = new Group(); ringG.rotation.set(1.28, 0, 0.18); g.add(ringG);
+  const ring = new Mesh(new TorusGeometry(0.34, 0.006, 8, 72), new MeshBasicMaterial({ color: SUNC, transparent: true, opacity: 0.85 })); ringG.add(ring);
+  const bead = new Mesh(new SphereGeometry(0.022, 12, 8), new MeshBasicMaterial({ color: new Color('#FFF3D0'), transparent: true })); ringG.add(bead);
+  g.scale.setScalar(scale); g.visible = false; world.add(g);
+  const glow = sprite(), under = sprite();
+  return { g, bodyMat, visor, vCv, vTex, core, ringG, bead, glow, under, icon, scale, last: '' };
+}
+function drawVisor(b, T, mode) {
+  const sig = mode === 'think' ? Math.floor(T * 20) : mode; if (sig === b.last) return; b.last = sig;
+  const c = b.vCv.getContext('2d'); c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, VW, VH);
+  const gr = c.createLinearGradient(0, 0, 0, VH); gr.addColorStop(0, '#163B41'); gr.addColorStop(1, '#0B2226'); c.fillStyle = gr; c.fillRect(0, 0, VW, VH);
+  c.fillStyle = 'rgba(255,255,255,.07)'; c.beginPath(); c.ellipse(VW * 0.32, VH * 0.2, VW * 0.34, VH * 0.14, -0.1, 0, Math.PI * 2); c.fill();
+  c.fillStyle = SUN; c.strokeStyle = SUN; c.lineCap = 'round'; c.lineJoin = 'round'; c.shadowColor = SUN; c.shadowBlur = 10;
+  if (mode === 'think') {
+    for (let i = 0; i < 3; i++) { const k = 0.5 + 0.5 * Math.sin(T * 6 - i * 0.9); c.globalAlpha = 0.45 + 0.55 * k; c.beginPath(); c.arc(VW / 2 - 28 + i * 28, VH / 2 + 4, 6 + 3 * k, 0, Math.PI * 2); c.fill(); }
+    const sp = 0.5 + 0.5 * Math.sin(T * 2.3); c.globalAlpha = sp; const sx = VW - 30, sy = 22, s = 6 + 4 * sp;
+    c.beginPath(); c.moveTo(sx, sy - s); c.lineTo(sx + 2, sy - 2); c.lineTo(sx + s, sy); c.lineTo(sx + 2, sy + 2); c.lineTo(sx, sy + s); c.lineTo(sx - 2, sy + 2); c.lineTo(sx - s, sy); c.lineTo(sx - 2, sy - 2); c.closePath(); c.fill();
+    c.globalAlpha = 1;
+  } else if (mode === 'smile') {
+    c.lineWidth = 6; c.beginPath(); c.arc(VW / 2 - 24, VH / 2, 6, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(VW / 2 + 24, VH / 2, 6, 0, Math.PI * 2); c.fill();
+    c.beginPath(); c.arc(VW / 2, VH / 2 + 4, 16, 0.25 * Math.PI, 0.75 * Math.PI); c.stroke();
+  } else b.icon(c);
+  c.shadowBlur = 0; b.vTex.needsUpdate = true;
+}
+const HELPERS = ['Count', 'Connect', 'Compare', 'Report'];
+const ICONS = [
+  (c) => { c.lineWidth = 6; c.font = '700 40px Inter'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('123', 80, 47); }, // count
+  (c) => { c.lineWidth = 6; c.beginPath(); c.arc(56, 52, 8, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(104, 52, 8, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(80, 28, 8, 0, Math.PI * 2); c.fill(); c.beginPath(); c.moveTo(56, 52); c.lineTo(80, 28); c.lineTo(104, 52); c.lineTo(56, 52); c.stroke(); }, // connect: a small web
+  (c) => { c.lineWidth = 6; [[54, 30], [72, 18], [90, 40], [108, 24]].forEach(([x, h]) => { c.beginPath(); c.moveTo(x, 68); c.lineTo(x, 68 - h); c.stroke(); }); }, // compare: bars
+  (c) => { c.lineWidth = 5; rr(c, 56, 16, 48, 58, 6); c.stroke(); for (let i = 0; i < 3; i++) { c.beginPath(); c.moveTo(66, 32 + i * 13); c.lineTo(94, 32 + i * 13); c.stroke(); } }, // report: a page
+];
+const lead = bot(1.25, null);
+const helpers = HELPERS.map((h, i) => bot(0.62, ICONS[i]));
+function placeBot(b, p, s, T, ph, op = 1) {
+  b.g.visible = s > 0.01; b.g.position.copy(p); b.g.scale.setScalar(b.scale * Math.max(0.0001, s));
+  b.g.rotation.set(0.04 * Math.sin(T * 0.9 + ph), 0.18 * Math.sin(T * 0.5 + ph), 0.05 * Math.sin(T * 0.7 + ph));
+  b.ringG.rotation.z = T * 0.6 + ph; const a = T * 1.6 + ph; b.bead.position.set(Math.cos(a) * 0.34, Math.sin(a) * 0.34, 0);
+  b.bodyMat.opacity = op; b.glow.position.copy(p); b.glow.scale.setScalar(s > 0.01 ? b.scale * 1.6 * s * op : 0); b.glow.material.opacity = 0.55;
+  b.under.position.copy(p).add(new Vector3(0, -0.3 * b.scale, 0)); b.under.scale.setScalar(s > 0.01 ? b.scale * 0.8 * s * op : 0);
+}
+function setTube(m, curve, d, rad) { if (d <= 0.001) { m.visible = false; return; } const pts = []; for (let i = 0; i <= 24; i++) pts.push(curve.getPoint((i / 24) * d)); m.geometry.dispose(); m.geometry = new TubeGeometry(new CatmullRomCurve3(pts), 40, rad, 6); m.visible = true; }
+const beam = new Mesh(new TubeGeometry(new CatmullRomCurve3([new Vector3(), new Vector3(0, 0.01, 0)]), 2, 0.006, 6), new MeshBasicMaterial({ color: SUNC, transparent: true, opacity: 0.8 })); beam.visible = false; world.add(beam);
+// helpers sweep the hall with a soft scan beam each
+const scans = helpers.map(() => { const m = new Mesh(new TubeGeometry(new CatmullRomCurve3([new Vector3(), new Vector3(0, 0.01, 0)]), 2, 0.005, 6), new MeshBasicMaterial({ color: SUNC, transparent: true, opacity: 0.7, depthWrite: false })); m.visible = false; world.add(m); return m; });
+
+// ---- the graph: every conversation becomes a point, the points lift into a who-knows-who map clustered by industry
+const PIVOT = new Vector3(1.15, 3.85, -0.9);
+const graphG = new Group(); graphG.position.copy(PIVOT); world.add(graphG);
+const CL = IND.map((d, i) => { const a = (i / IND.length) * Math.PI * 2 + 0.55; return new Vector3(Math.cos(a) * 2.75, Math.sin(a) * 0.95, Math.sin(a) * 0.45); });
+const rndG = seeded(4242);
+const nodes = PEEPS.map((p) => {
+  const c = CL[p.ind], a = rndG() * Math.PI * 2, r = 0.18 + rndG() * 0.5;
+  const g = c.clone().add(new Vector3(Math.cos(a) * r, Math.sin(a) * r * 0.72, (rndG() - 0.5) * 0.4));
+  return { ind: p.ind, from: new Vector3(p.x, 1.62, p.z).sub(PIVOT), g, base: true };
+});
+const NBASE = nodes.length;
+// seasons 2 and 3: returning people link up, the map grows
+for (let sIdx = 0; sIdx < 2; sIdx++) for (let j = 0; j < 14; j++) {
+  const ind = (j * 5 + sIdx * 2) % IND.length, c = CL[ind], a = rndG() * Math.PI * 2, r = 0.35 + rndG() * 0.42;
+  nodes.push({ ind, g: c.clone().add(new Vector3(Math.cos(a) * r, Math.sin(a) * r * 0.72, (rndG() - 0.5) * 0.4)), season: sIdx + 2, t0: (sIdx ? 46.4 : 42.4) + j * 0.07 });
+}
+const NN = nodes.length;
+const nodeMesh = new InstancedMesh(new SphereGeometry(0.068, 14, 10), new MeshBasicMaterial({ toneMapped: false }), NN);
+nodes.forEach((n, i) => nodeMesh.setColorAt(i, new Color(IND[n.ind].c).lerp(new Color('#ffffff'), 0.12)));
+graphG.add(nodeMesh);
+const nodeGlow = new InstancedMesh(new PlaneGeometry(0.36, 0.36), new MeshBasicMaterial({ map: whiteTex, transparent: true, depthWrite: false, blending: AdditiveBlending, opacity: 0.5 }), NN);
+nodes.forEach((n, i) => nodeGlow.setColorAt(i, new Color(IND[n.ind].c)));
+graphG.add(nodeGlow);
+const clusterGlow = CL.map((c, i) => { const s = new Sprite(new SpriteMaterial({ map: whiteTex, color: new Color(IND[i].c), blending: AdditiveBlending, transparent: true, depthWrite: false, opacity: 0.22 })); s.position.copy(c); s.scale.setScalar(0); graphG.add(s); return s; });
+// edges: within an industry (soft, its colour) and across industries (teal) — curves that sag a little
+const edgeMats = IND.map((d) => new MeshBasicMaterial({ color: new Color(d.c), transparent: true, opacity: 0.55, depthWrite: false }));
+const crossMat = new MeshBasicMaterial({ color: new Color(dark ? '#7FE0D6' : '#4FD1C5'), transparent: true, opacity: 0.75, depthWrite: false });
+const edges = [];
+function edge(a, b, mat, t0, rad = 0.008) {
+  const A = nodes[a].g, B = nodes[b].g, len = A.distanceTo(B), mid = A.clone().lerp(B, 0.5); mid.y -= 0.1 + len * 0.08; mid.z += 0.12;
+  const geo = new TubeGeometry(new QuadraticBezierCurve3(A, mid, B), 24, rad, 5);
+  const m = new Mesh(geo, mat); m.visible = false; graphG.add(m); edges.push({ m, t0, total: geo.index.count });
+}
+const nearestIn = (i, pool) => { let best = -1, d = 1e9; pool.forEach((j) => { if (j === i) return; const dd = nodes[i].g.distanceToSquared(nodes[j].g); if (dd < d) { d = dd; best = j; } }); return best; };
+IND.forEach((d, ind) => {
+  const pool = []; nodes.forEach((n, i) => { if (n.base && n.ind === ind) pool.push(i); });
+  pool.forEach((i, k) => { if (k === 0) return; const j = nearestIn(i, pool.slice(0, k)); edge(i, j, edgeMats[ind], 31.9 + rndG() * 1.4); });
+  for (let k = 0; k < Math.floor(pool.length / 3); k++) { const i = pool[Math.floor(rndG() * pool.length)], j = pool[Math.floor(rndG() * pool.length)]; if (i !== j) edge(i, j, edgeMats[ind], 32.4 + rndG() * 1.2); }
+});
+// industry match: who met whom across the hall
+const MATCH = [[0, 1], [0, 1], [0, 1], [0, 3], [1, 2], [2, 3], [0, 5], [4, 0], [5, 1], [3, 4], [2, 4], [1, 3]];
+const pick = (ind, base = true) => { const pool = []; nodes.forEach((n, i) => { if (!!n.base === base && n.ind === ind) pool.push(i); }); return pool[Math.floor(rndG() * pool.length)]; };
+MATCH.forEach(([a, b]) => edge(pick(a), pick(b), crossMat, 32.6 + rndG() * 1.2, 0.009));
+nodes.forEach((n, i) => {
+  if (n.base) return;
+  const pool = []; nodes.forEach((m, j) => { if (m.ind === n.ind && (m.base || (m.season === n.season && j < i))) pool.push(j); });
+  edge(i, nearestIn(i, pool), edgeMats[n.ind], n.t0 + 0.3);
+  if (i % 2 === 0) { const other = (n.ind + 1 + Math.floor(rndG() * 4)) % IND.length; edge(i, pick(other), crossMat, n.t0 + 0.5, 0.008); }
+});
+
+// ---- HTML overlays
+const ov = document.getElementById('ov');
+const el = (cls, html = '') => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ov.appendChild(d); return d; };
+const capEl = el('cap'), bubbleEl = el('bubble', '<div class="h">Thinking…</div>What did we actually achieve?'), skillEls = HELPERS.map((h) => el('skill', h));
+const indEls = IND.map((d) => el('ind', `<i style="background:${d.c}"></i>${d.k}`));
+const STATS = [
+  { who: 'Relationships made', n: 18240, f: (v) => Math.round(v).toLocaleString('en-US'), d: 'between people who met at your show' },
+  { who: 'Met someone new', n: 4900, f: (v) => Math.round(v).toLocaleString('en-US'), d: 'people left with a new relationship' },
+  { who: 'Still in touch', n: 61, f: (v) => `${Math.round(v)}%`, d: 'after 90 days, not just a badge scan' },
+];
+const statEls = STATS.map((s) => el('stat', `<span class="smp">Sample</span><div class="who">${s.who}</div><div class="n">0</div><div class="d">${s.d}</div>`));
+const wkwEl = el('stat wkw', '<span class="smp">Sample</span><div class="who">Who knows whom</div><div class="row"><span>People in the map</span><b id="w1">4,900</b></div><div class="row"><span>Relationships</span><b id="w2">18,240</b></div><div class="row"><span>Came back this season</span><b id="w3">—</b></div>');
+const kpis = [...document.querySelectorAll('.panel')];
+// the industry match heatmap
+{
+  const H = ['Fin', 'Log', 'Ret', 'RE', 'Hlt'], V = [[0, 0.95, 0.4, 0.62, 0.3], [0.95, 0, 0.55, 0.45, 0.22], [0.4, 0.55, 0, 0.5, 0.36], [0.62, 0.45, 0.5, 0, 0.42], [0.3, 0.22, 0.36, 0.42, 0]];
+  let h = '<span></span>' + H.map((x) => `<span class="h">${x}</span>`).join('');
+  V.forEach((row, i) => { h += `<span class="l">${H[i]}</span>` + row.map((v, j) => `<span class="c${i === 0 && j === 1 ? ' top' : ''}" style="background:${i === j ? '#EFE7D6' : `rgba(16,163,150,${(0.12 + v * 0.85).toFixed(2)})`}"></span>`).join(''); });
+  document.getElementById('hm').innerHTML = h;
+}
+const V = new Vector3();
+let CR = null, HR = null;
+function pin(e, p, op, ax = -50, ay = -100, extra = '') {
+  if (op <= 0.005) { if (e.style.opacity !== '0') e.style.opacity = '0'; return; }
+  V.copy(p); world.localToWorld(V); V.project(camera);
+  const x = CR.left - HR.left + (V.x + 1) / 2 * CR.width, y = CR.top - HR.top + (1 - V.y) / 2 * CR.height;
+  e.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(${ax}%, ${ay}%) ${extra}`; e.style.opacity = op.toFixed(3);
+}
+const gWorld = (p) => p.clone().applyMatrix4(graphG.matrix);
+
+// ---- copy + camera
+let lastCopy = -1;
+function setCopy(i, instant) {
+  if (i === lastCopy) return; const first = lastCopy < 0; lastCopy = i;
+  const txt = document.getElementById('txt');
+  const put = () => { document.getElementById('kick').textContent = COPY[i][0]; document.getElementById('h1').textContent = COPY[i][1]; document.getElementById('p').textContent = COPY[i][2]; };
+  if (instant || first) { put(); txt.classList.remove('out'); return; }
+  txt.classList.add('out'); setTimeout(() => { put(); txt.classList.remove('out'); }, 380);
+}
+const narrow = () => camera.aspect < 1;
+function cameraAt(t, T) {
+  const n = narrow();
+  const S1 = { at: new Vector3(n ? 1.0 : 0.15, 0.3, 0.1), dir: new Vector3(0, 1.05, 1), w: n ? 9.6 : mix(13.6, 12.6, span(t, 0, 13)) };
+  const S2 = { at: new Vector3(n ? 1.0 : 0.25, 0.9, 0.6), dir: new Vector3(0.05, 0.5, 1), w: n ? 6.2 : 9.2 };
+  const S3 = { at: new Vector3(n ? 1.1 : 0.0, 2.05, 0.2), dir: new Vector3(0, 0.36, 1), w: n ? 8.6 : 13.2 };
+  const S4 = { at: new Vector3(n ? 1.1 : 0.05, 2.3, 0.1), dir: new Vector3(0.18 * Math.sin(T * 0.11), 0.3, 1), w: n ? 8.4 : 12.6 };
+  const S5 = { at: new Vector3(n ? 1.1 : -0.9, n ? 3.0 : 2.25, 0.2), dir: new Vector3(0, 0.34, 1), w: n ? 8.8 : 14.4 };
+  const k2 = ease(span(t, 12.8, 15.6)), k3 = ease(span(t, 24.2, 27.2)), k4 = ease(span(t, 38.0, 40.0)), k5 = ease(span(t, 50.0, 52.4));
+  const lerpS = (A, B, k) => ({ at: A.at.clone().lerp(B.at, k), dir: A.dir.clone().lerp(B.dir, k), w: mix(A.w, B.w, k) });
+  let s = lerpS(S1, S2, k2); s = lerpS(s, S3, k3); s = lerpS(s, S4, k4); s = lerpS(s, S5, k5);
+  const dir = s.dir.normalize(), tanH = Math.tan((camera.fov * Math.PI / 180) / 2), dist = Math.max(s.w / (2 * tanH * camera.aspect), 0.62 * s.w / (2 * tanH));
+  camera.position.copy(s.at).addScaledVector(dir, dist); camera.lookAt(s.at); camera.updateMatrixWorld(true);
+}
+
+// ---- poses
+const walkPose = (T, k) => ({ ...REST, legA: Math.sin(T * 7) * 0.42 * k, shRx: -Math.sin(T * 7) * 0.3 * k + 0.05, shLx: Math.sin(T * 7) * 0.3 * k + 0.05, bob: Math.abs(Math.sin(T * 7)) * 0.03 * k });
+function orgAt(t, T) {
+  const kw = ease(span(t, 14.4, 19.0));
+  const pos = ORG_IN.clone().lerp(ORG_AT, kw);
+  const walking = kw > 0 && kw < 1 ? 1 : 0;
+  let p = walkPose(T, walking);
+  // looking round the empty hall, then a slump
+  const look = span(t, 19.0, 21.8); if (look > 0 && look < 1) p.neckY = Math.sin(look * Math.PI * 2) * 0.55;
+  const slump = ease(span(t, 21.4, 22.4)) * (1 - ease(span(t, 24.6, 25.4)));
+  if (slump > 0) p = blendPose(p, { ...p, neckX: 0.3, shRx: -1.75, shRz: 0.5, elRx: -2.15, lean: 0.06 }, slump);
+  // looks up at the assistant, then at the map
+  const up = ease(span(t, 25.0, 26.0)) * (1 - ease(span(t, 49.6, 50.6)));
+  if (up > 0) p = blendPose(p, { ...p, neckX: -0.42 }, up);
+  // stands tall: hands on hips
+  const tall = ease(span(t, 50.6, 51.8)) * (1 - ease(span(t, 62.6, 63.4)));
+  if (tall > 0) p = blendPose(p, { ...p, shRx: 0.32, shRz: -0.42, elRx: -1.25, shLx: 0.32, shLz: 0.42, elLx: -1.25, neckX: -0.22 }, tall);
+  // facing: walks in away from us, then turns to face the hall and us
+  const face = mix(Math.PI, Math.PI, 1);
+  const turn = ease(span(t, 24.4, 25.6));
+  return { pos, p, rotY: mix(face, Math.PI * 2 + 0.25, turn), vis: t > 14.2 };
+}
+
+let ptrX = 0, ptrY = 0, tiltX = 0, tiltY = 0, lastDraw = -1;
+addEventListener('pointermove', (e) => { ptrX = e.clientX / innerWidth * 2 - 1; ptrY = e.clientY / innerHeight * 2 - 1; });
+
+function paint(T, still) {
+  const t = ((T % L) + L) % L, sc = sceneOf(t);
+  setCopy(sc, still);
+  document.querySelectorAll('.scenes button[data-i]').forEach((b) => b.classList.toggle('on', Number(b.dataset.i) === sc));
+  CR = canvas.getBoundingClientRect(); HR = hero.getBoundingClientRect();
+  tiltX += (ptrX - tiltX) * 0.05; tiltY += (ptrY - tiltY) * 0.05;
+  world.rotation.set(tiltY * 0.02, tiltX * 0.06 + Math.sin(T * 0.12) * 0.025, 0);
+  cameraAt(t, T); world.updateMatrixWorld(true);
+  const fade = ease(span(t, 0, 0.7)) * (1 - ease(span(t, 63, 64)));
+  canvas.style.opacity = ov.style.opacity = fade.toFixed(3);
+  document.getElementById('bar').style.width = `${(t / L * 100).toFixed(2)}%`;
+  const redraw = still || Math.abs(T - lastDraw) >= 0.05; if (redraw) lastDraw = T;
+
+  // the hall: lively, then the lights go down
+  const dim = ease(span(t, 13.2, 15.6)), live = 1 - dim;
+  hemi.intensity = mix(1.2, 0.5, dim); key.intensity = mix(2.0, 0.75, dim); rimL.intensity = mix(1.4, 0.9, dim);
+  floorMat.color.copy(FLOOR_C).lerp(FIELD, 0.45 * dim);
+  boothLights.forEach((b, i) => { b.s.scale.setScalar(b.k * (live * (0.9 + 0.1 * Math.sin(T * 1.3 + i)) + 0.0)); b.s.material.opacity = 0.8; });
+  BOOTHS.forEach((b) => { b.screen.material.emissiveIntensity = 0.25 * live + 0.03; });
+  const crowdOp = live * (1 - 0) ;
+  placeCrowd(t, crowdOp, T);
+  CIRCLES.forEach((c, i) => { const s = sparks[i], k = 0.5 + 0.5 * Math.sin(T * 2.4 + i * 1.7); s.position.set(c[0], 2.15, c[1]); s.scale.setScalar(live * (0.5 + 0.35 * k)); });
+
+  // the vignettes: a handshake, a card, a tap
+  pairs.forEach((o, i) => {
+    const op = live; o.A.g.visible = o.B.g.visible = op > 0.01; o.A.mat.opacity = o.B.mat.opacity = op; o.A.sh.material.opacity = o.B.sh.material.opacity = op;
+    const cyc = ((T + i * 1.1) % 3.4) / 3.4;
+    let pa = { ...REST }, pb = { ...REST };
+    const reach = bump(cyc, 0.12, 0.82, 0.16);
+    if (o.kind === 'shake') { const sh = { shRx: -1.12, shRz: -0.05, elRx: -0.38 + Math.sin(T * 16) * 0.09 * reach }; pa = blendPose(pa, { ...pa, ...sh }, reach); pb = blendPose(pb, { ...pb, ...sh }, reach); }
+    if (o.kind === 'card') {
+      pa = blendPose(pa, { ...pa, shRx: -1.0, elRx: -0.3 }, bump(cyc, 0.1, 0.6, 0.14)); pb = blendPose(pb, { ...pb, shRx: -1.0, elRx: -0.3 }, bump(cyc, 0.32, 0.92, 0.14));
+      o.A.g.updateMatrixWorld(true); o.B.g.updateMatrixWorld(true);
+      const ha = new Vector3(), hb = new Vector3(); o.A.R.hand.getWorldPosition(ha); o.B.R.hand.getWorldPosition(hb); world.worldToLocal(ha); world.worldToLocal(hb);
+      const pass = ease(span(cyc, 0.38, 0.58)); o.card.position.copy(ha).lerp(hb, pass); o.card.position.y += 0.05 + Math.sin(Math.PI * pass) * 0.05; o.card.rotation.set(-0.5, Math.PI / 2, 0); o.card.material.opacity = op * bump(cyc, 0.12, 0.88, 0.1); o.card.visible = op > 0.01;
+    }
+    if (o.kind === 'tap') {
+      const up = bump(cyc, 0.05, 0.9, 0.18); const ph = { shRx: -0.95, shRz: -0.12, elRx: -1.05 }; pa = blendPose(pa, { ...pa, ...ph, neckX: 0.25 }, up); pb = blendPose(pb, { ...pb, ...ph, neckX: 0.25 }, up);
+      o.pa.material.opacity = o.pb.material.opacity = op;
+      const ring = span(cyc, 0.4, 0.8); o.ring.position.set((o.a[0] + o.b[0]) / 2, 1.02, o.a[1]); o.ring.lookAt(camera.position.clone().applyMatrix4(world.matrixWorld.clone().invert())); o.ring.scale.setScalar(0.4 + ring * 3.2); o.ring.material.opacity = op * (ring > 0 && ring < 1 ? (1 - ring) : 0); o.ring.visible = op > 0.01;
+    }
+    pose(o.A, pa); pose(o.B, pb);
+    o.glow.position.set((o.a[0] + o.b[0]) / 2, 1.3, o.a[1]); o.glow.scale.setScalar(live * (o.kind === 'shake' ? 1.4 : 1.1) * (0.7 + 0.3 * reach));
+  });
+
+  // the organiser
+  const os = orgAt(t, T);
+  org.g.visible = os.vis; org.g.position.copy(os.pos); org.g.rotation.y = os.rotY; pose(org, os.p); org.g.updateMatrixWorld(true);
+  orgGlow.position.set(os.pos.x, 0.9, os.pos.z); orgGlow.scale.setScalar(os.vis ? (0.25 + 0.9 * ease(span(t, 25, 27)) + 0.5 * ease(span(t, 50.6, 52))) * (1 - span(t, 62.6, 63.4)) : 0); orgGlow.material.opacity = 0.45;
+  const head = new Vector3(); org.neck.getWorldPosition(head); world.worldToLocal(head);
+
+  // the lead agent arrives, reads the question, sends its helpers over the hall, then sits by the map
+  const lIn = easeOut(span(t, 24.4, 26.4)), lOut = ease(span(t, 62.4, 63.6));
+  const LEAD_AT = ORG_AT.clone().add(new Vector3(1.55, 2.25, 0.6));
+  const lp = LEAD_AT.clone(); lp.y += (1 - lIn) * 2.6 + Math.sin(T * 1.1) * 0.05;
+  if (t > 33.4) lp.lerp(PIVOT.clone().add(new Vector3(narrow() ? 2.0 : 2.3, narrow() ? 1.75 : 1.6, 0.6)), ease(span(t, 33.4, 35.6)));
+  placeBot(lead, lp, lIn * (1 - lOut), T, 0);
+  drawVisor(lead, T, t > 50.6 ? 'smile' : 'think');
+  const bubbleAt = head.clone().add(new Vector3(0.05, 0.6, 0));
+  const read = bump(t, 26.6, 28.0, 0.3);
+  if (read > 0) setTube(beam, new QuadraticBezierCurve3(lp.clone().add(new Vector3(-0.15, -0.1, 0.1)), lp.clone().lerp(bubbleAt, 0.5).add(new Vector3(0, 0.35, 0)), bubbleAt.clone().add(new Vector3(0.25, 0.25, 0))), ease(span(t, 26.6, 27.1)), 0.006); else beam.visible = false;
+  beam.material.opacity = read;
+  const HELP_AT = [new Vector3(-2.6, 2.6, -1.4), new Vector3(-0.2, 2.9, -2.2), new Vector3(2.5, 2.8, -2.0), new Vector3(4.7, 2.6, -1.2)];
+  helpers.forEach((hb, i) => {
+    const k = easeOut(span(t, 27.6 + i * 0.2, 29.0 + i * 0.2)), back = ease(span(t, 36.6 + i * 0.1, 37.8 + i * 0.1));
+    const p = lp.clone().lerp(HELP_AT[i], k).lerp(lp, back); p.y += Math.sin(T * 2 + i) * 0.04;
+    placeBot(hb, p, mix(0.2, 1, k) * (k > 0 ? 1 : 0) * (1 - back * 0.8) * (back < 1 ? 1 : 0), T, i * 1.7);
+    drawVisor(hb, T, 'icon');
+    pin(skillEls[i], p.clone().add(new Vector3(0, -0.3, 0)), k > 0 && back < 1 ? ease(span(t, 28.6 + i * 0.2, 29.1 + i * 0.2)) * (1 - back) : 0, -50, 0);
+    // a scan beam sweeping the hall floor below
+    const sk = bump(t, 28.8 + i * 0.2, 31.6, 0.4);
+    if (sk > 0) { const sweep = Math.sin(T * 1.4 + i) * 1.0; const tgt = new Vector3(HELP_AT[i].x + sweep, 1.5, HELP_AT[i].z + 1.4); setTube(scans[i], new QuadraticBezierCurve3(p, p.clone().lerp(tgt, 0.5).add(new Vector3(0, 0.1, 0)), tgt), 1, 0.005); scans[i].material.opacity = 0.6 * sk; } else scans[i].visible = false;
+  });
+
+  // the graph
+  graphG.rotation.set(0, 0.18 * Math.sin(T * 0.13) * ease(span(t, 34, 37)), 0); graphG.updateMatrix();
+  const gDim = 1 - 0.68 * ease(span(t, 50.4, 52.0));
+  const gOut = 1 - ease(span(t, 62.6, 63.8));
+  nodes.forEach((n, i) => {
+    let pos, s;
+    if (n.base) {
+      const pop = easeOut(span(t, 28.4 + (i % 23) * 0.05, 28.9 + (i % 23) * 0.05)), lift = ease(span(t, 30.0 + (i % 13) * 0.07, 32.2 + (i % 13) * 0.07));
+      pos = n.from.clone().lerp(n.g, lift); pos.y += Math.sin(Math.PI * lift) * 0.5; s = pop;
+    } else { pos = n.g.clone(); s = easeOut(span(t, n.t0, n.t0 + 0.45)) * (1 + 0.6 * bump(t, n.t0, n.t0 + 1.0, 0.3)); }
+    s *= gOut; const breath = 1 + 0.06 * Math.sin(T * 2 + i);
+    O.rotation.set(0, 0, 0); O.position.copy(pos); O.scale.setScalar(Math.max(0.0001, s * breath)); O.updateMatrix(); nodeMesh.setMatrixAt(i, O.matrix);
+    O.scale.setScalar(Math.max(0.0001, s * gDim)); O.quaternion.copy(camera.quaternion); O.updateMatrix(); nodeGlow.setMatrixAt(i, O.matrix); O.quaternion.set(0, 0, 0, 1);
+  });
+  nodeMesh.instanceMatrix.needsUpdate = nodeGlow.instanceMatrix.needsUpdate = true;
+  nodeMesh.material.opacity = 1; nodeGlow.material.opacity = 0.55 * gDim;
+  edges.forEach((e) => { const d = ease(span(t, e.t0, e.t0 + 0.9)) * (t < 63.8 ? 1 : 0); e.m.visible = d > 0.001; e.m.geometry.setDrawRange(0, Math.floor(e.total * d / 3) * 3); });
+  edgeMats.forEach((m) => { m.opacity = 0.55 * gDim * gOut; }); crossMat.opacity = 0.62 * gDim * gOut;
+  const season = t > 46.4 ? 3 : t > 42.4 ? 2 : 1;
+  clusterGlow.forEach((s, i) => { s.scale.setScalar(easeOut(span(t, 32.4, 33.6)) * (1.5 + 0.18 * (season - 1)) * gDim * gOut); });
+
+  // ---- overlays
+  const capOp = bump(t, 38.6, 42.2, 0.3) + bump(t, 42.4, 46.2, 0.3) + bump(t, 46.4, 49.8, 0.3);
+  const capTxt = `Season ${season}`; if (capEl.textContent !== capTxt) capEl.textContent = capTxt;
+  pin(capEl, gWorld(new Vector3(narrow() ? -0.6 : -1.6, narrow() ? 1.75 : 1.6, 0)), capOp, -50, -100, 'rotate(-3deg)');
+  pin(bubbleEl, bubbleAt, bump(t, 20.2, 27.8, 0.4), -18, -100);
+  bubbleEl.classList.toggle('glow', read > 0.2);
+  IND.forEach((d, i) => { pin(indEls[i], gWorld(CL[i].clone().add(new Vector3(0, -0.62, 0.1))), ease(span(t, 33.2 + i * 0.08, 33.7 + i * 0.08)) * gDim * gOut * (narrow() ? 0.95 : 1), -50, 0); });
+  // the first answers, counted up beside the organiser
+  STATS.forEach((s, i) => {
+    const a = 34.0 + i * 0.55, k = ease(span(t, a, a + 0.5)) * (1 - ease(span(t, 37.8, 38.6)));
+    if (redraw && k > 0) statEls[i].querySelector('.n').textContent = s.f(s.n * easeOut(span(t, a, a + 1.6)));
+    if (k <= 0.005) { statEls[i].style.opacity = '0'; return; }
+    const W = HR.width, H = HR.height, n = narrow();
+    const x = n ? 14 + i * ((W - 28) / 3) : W - 250, y = n ? H - 236 : H * 0.36 + i * 132;
+    statEls[i].style.transform = `translate(${x}px, ${y}px) translateY(${((1 - k) * 14).toFixed(1)}px) scale(${mix(0.94, 1, k).toFixed(3)})`; statEls[i].style.opacity = k.toFixed(3);
+  });
+  // who knows whom, season by season
+  const wk = ease(span(t, 39.2, 39.8)) * (1 - ease(span(t, 49.6, 50.4)));
+  if (redraw && wk > 0) {
+    const sk = (a) => easeOut(span(t, a, a + 1.4));
+    const people = 4900 + 1400 * sk(42.4) + 1500 * sk(46.4), rel = 18240 + 8660 * sk(42.4) + 7600 * sk(46.4), back = season === 1 ? '—' : `${Math.round(31 * sk(42.4) + 7 * sk(46.4))}%`;
+    document.getElementById('w1').textContent = Math.round(people).toLocaleString('en-US'); document.getElementById('w2').textContent = Math.round(rel).toLocaleString('en-US'); document.getElementById('w3').textContent = back;
+  }
+  if (wk > 0.005) { const n = narrow(); wkwEl.style.transform = `translate(${n ? (HR.width - 150) / 2 : HR.width - 278}px, ${n ? HR.height - 236 : HR.height * 0.52}px) translateY(${((1 - wk) * 14).toFixed(1)}px)`; wkwEl.style.opacity = wk.toFixed(3); } else wkwEl.style.opacity = '0';
+  // the KPIs
+  kpis.forEach((p, i) => { const a = 51.0 + i * 0.55, k = ease(span(t, a, a + 0.6)) * (1 - ease(span(t, 62.6, 63.4))); p.style.opacity = k.toFixed(3); p.style.transform = `translateY(${((1 - k) * 18).toFixed(1)}px) scale(${mix(0.96, 1, k).toFixed(3)})`; p.querySelectorAll('.br i').forEach((b) => { b.style.transform = `scaleX(${easeOut(span(t, a + 0.3, a + 1.4)).toFixed(3)})`; }); });
+
+  renderer.render(scene, camera);
+}
+
+function size() { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+size(); addEventListener('resize', size);
+
+// ---- controls
+let T = 0, paused = false;
+const scenesEl = document.getElementById('scenes');
+const still = q.has('t') || reduced;
+NAMES.forEach((n, i) => { const b = document.createElement('button'); b.dataset.i = i; b.textContent = `${i + 1} ${n}`; b.onclick = () => { T = still ? KEY[i] : SC[i] + 0.05; if (still) { lastCopy = -2; paint(T, true); } }; scenesEl.appendChild(b); });
+const pp = document.createElement('button'); pp.className = 'pp'; pp.textContent = '❚❚'; pp.setAttribute('aria-label', 'Pause'); pp.onclick = () => { paused = !paused; pp.textContent = paused ? '▶' : '❚❚'; pp.setAttribute('aria-label', paused ? 'Play' : 'Pause'); };
+if (!still) scenesEl.appendChild(pp);
+
+await Promise.race([Promise.all(['600 46px Inter', '400 24px Inter', '700 36px "Bricolage Grotesque"', '700 30px Caveat'].map((f) => document.fonts.load(f))), new Promise((r) => setTimeout(r, 2500))]);
+// fascia text needs Inter loaded: repaint the boards once fonts are in
+world.traverse((o) => { if (o.material && Array.isArray(o.material)) o.material.forEach((m) => { if (m.map) { /* keep */ } }); });
+BOOTHS.forEach((b, i) => { fasciaMats[i].map = fasciaTex(b); fasciaMats[i].needsUpdate = true; });
+if (still) {
+  T = q.has('t') ? Number(q.get('t')) : KEY[q.has('scene') ? Number(q.get('scene')) - 1 : 0];
+  if (q.has('px')) ptrX = tiltX = Number(q.get('px'));
+  paint(T, true); window.__ready = true;
+} else {
+  if (q.has('scene')) T = SC[Number(q.get('scene')) - 1] + 0.05;
+  const STEP = 1 / 60; let last = performance.now(), acc = 0;
+  const loop = (now) => { const dt = Math.min(0.25, (now - last) / 1000); last = now; if (!paused) { acc += dt; while (acc >= STEP) { T += STEP; acc -= STEP; } } paint(T, false); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop); window.__ready = true;
+}
+</script>
+</body>
+</html>

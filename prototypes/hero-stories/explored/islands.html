@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Islands hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --field: #0B3A44; --field-rgb: 11 58 68; --ink: #F3EADB; --sun: #E9C46A; }
+  :root[data-theme="dark"] { --field: #08262D; --field-rgb: 8 38 45; --ink: #E8F1EF; --sun: #F0CF7E; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--field); color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  .scrim { position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    background: linear-gradient(90deg, rgb(var(--field-rgb) / .78) 0%, rgb(var(--field-rgb) / .5) 30%, rgb(var(--field-rgb) / 0) 52%),
+                linear-gradient(180deg, rgb(var(--field-rgb) / .55) 0%, rgb(var(--field-rgb) / 0) 16%); }
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 64px; font-size: 15px; z-index: 3; }
+  header b { font-family: 'Bricolage Grotesque', system-ui; font-size: 20px; }
+  header nav { display: flex; gap: 28px; opacity: .85; }
+  .hero { position: relative; z-index: 2; height: 100vh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; padding: 0 64px; pointer-events: none; }
+  .copy { max-width: 520px; pointer-events: auto; }
+  h1 { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: clamp(40px, 5vw, 72px); line-height: 1.02; letter-spacing: -.025em; text-shadow: 0 2px 30px rgb(var(--field-rgb) / .5); }
+  .copy p { margin-top: 22px; font-size: 18px; line-height: 1.55; opacity: .88; text-shadow: 0 1px 16px rgb(var(--field-rgb) / .6); }
+  .ctas { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 14px 22px; border-radius: 999px; font-weight: 500; font-size: 16px; }
+  .btn.p { background: var(--sun); color: #14201F; }
+  .btn.s { border: 1.5px solid rgb(243 234 219 / .45); background: rgb(var(--field-rgb) / .35); }
+  @media (max-width: 700px) {
+    header { padding: 18px 20px; } header nav { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 92px 20px 0; align-items: start; }
+    h1 { font-size: 40px; } .copy p { font-size: 16px; margin-top: 14px; } .ctas { margin-top: 20px; }
+    .scrim { background: linear-gradient(180deg, rgb(var(--field-rgb) / .85) 0%, rgb(var(--field-rgb) / .6) 42%, rgb(var(--field-rgb) / 0) 62%); }
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="scrim"></div>
+<header><b>TapNConnect</b><nav><span>How it works</span><span>For organisers</span><span>Pricing</span><span>Order</span></nav></header>
+<section class="hero">
+  <div class="copy">
+    <h1>Stay close to the people you meet.</h1>
+    <p>Every tap becomes a thread, and an assistant keeps each one alive: it remembers who people are and what you promised, and tells you when a word would count.</p>
+    <div class="ctas"><span class="btn p">Start free</span><span class="btn s">Order for your company</span></div>
+  </div>
+</section>
+
+<script type="importmap">{ "imports": { "three": "../../../node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, DirectionalLight, AmbientLight, Color, SRGBColorSpace, Vector3, Group, Fog,
+  SphereGeometry, BoxGeometry, CylinderGeometry, PlaneGeometry, ShapeGeometry, Shape, TubeGeometry, CatmullRomCurve3, QuadraticBezierCurve3,
+  MeshStandardMaterial, MeshBasicMaterial, ShaderMaterial, Mesh, BackSide, DoubleSide, CanvasTexture, Sprite, SpriteMaterial, AdditiveBlending,
+} from 'three';
+
+const q = new URLSearchParams(location.search);
+const dark = q.get('theme') === 'dark';
+if (dark) document.documentElement.dataset.theme = 'dark';
+const phone = innerWidth < 700;
+
+// ---- palette (site tokens + a dusk sky)
+const PAL = dark ? {
+  top: '#04161B', mid: '#0B2C35', horizon: '#3D4F57', glow: '#B07A52', sun: '#F0CF7E', deep: '#061D24', haze: '#2A3F46',
+  sand: '#C9B08C', green: '#4F7458', palm: '#3F6249', wall: '#D8CDBA', wood: '#6E4A33', sail: '#E8DDC8', faded: '#3E4A4C',
+} : {
+  top: '#0B3A44', mid: '#2D6670', horizon: '#E9B98A', glow: '#F2C27E', sun: '#E9C46A', deep: '#0D4550', haze: '#D2A985',
+  sand: '#E9D3AE', green: '#7FA77E', palm: '#4F8A62', wall: '#F3EADB', wood: '#8A5D3D', sail: '#F6EEDD', faded: '#9AA5A3',
+};
+const C = Object.fromEntries(Object.entries(PAL).map(([k, v]) => [k, new Color(v)]));
+const SUN_DIR = new Vector3(0.17, dark ? -0.04 : 0.012, -1).normalize();
+
+// ---- the archipelago: you, the people near you, and the ones who come later through introductions
+const ISLES = [
+  { id: 'you', x: 0.4, z: 0.4, r: 1.35, palms: 2, tower: true, join: 0 },
+  { id: 'A', x: -2.4, z: -1.6, r: 0.8, palms: 1, join: 0.9 },
+  { id: 'B', x: 2.9, z: -1.5, r: 0.76, palms: 1, join: 1.5 },
+  { id: 'C', x: -0.9, z: -4.8, r: 0.7, palms: 0, join: 2.1 },
+  { id: 'D', x: 3.4, z: -6.4, r: 0.66, palms: 1, join: 2.7 },
+  { id: 'E', x: -3.4, z: -6.2, r: 0.64, palms: 2, join: 3.3 },
+  { id: 'F', x: 1.2, z: -8.8, r: 0.6, palms: 1, join: 3.9 },
+  { id: 'G', x: 2.5, z: 2.7, r: 0.6, palms: 1, join: 4.5 },
+  { id: 'H', x: -2.2, z: 2.3, r: 0.55, palms: 0, join: 5.1 },
+  { id: 'N1', x: 4.6, z: -4.9, r: 0.6, palms: 1, join: null },
+  { id: 'N2', x: -2.7, z: -8.8, r: 0.6, palms: 1, join: null },
+  { id: 'N3', x: -3.8, z: -3.7, r: 0.56, palms: 0, join: null },
+  { id: 'N4', x: 5.8, z: -8.6, r: 0.6, palms: 2, join: null },
+];
+const INTROS = [['B', 'N1'], ['C', 'N2'], ['A', 'N3'], ['D', 'N4']];
+const DRIFT_ORDER = ['G', 'H', 'F', 'D', 'E', 'C'];
+
+const seeded = (n) => { let s = 4211 + n; return () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; };
+const easeIO = (x) => (x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2);
+const easeOut = (x) => 1 - (1 - x) ** 3;
+const clamp01 = (x) => Math.max(0, Math.min(1, x));
+const approach = (v, t, d) => (v < t ? Math.min(t, v + d) : Math.max(t, v - d));
+
+// ---- renderer, camera, sky, water
+const canvas = document.getElementById('c');
+const renderer = new WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = SRGBColorSpace;
+const scene = new Scene();
+const FOG_NEAR = 15, FOG_FAR = 33;
+scene.fog = new Fog(C.haze, FOG_NEAR, FOG_FAR);
+const camera = new PerspectiveCamera(phone ? 44 : 34, 1, 0.1, 200);
+const CAM = phone ? new Vector3(0.6, 4.2, 17) : new Vector3(0, 2.5, 12.8);
+const LOOK = new Vector3(0, 0.25, -3.5);
+
+scene.add(new HemisphereLight(dark ? 0x9fb6c8 : 0xffe2c0, dark ? 0x07202a : 0x1d5560, dark ? 0.9 : 1.25));
+scene.add(new AmbientLight(0xffffff, dark ? 0.12 : 0.18));
+const sunLight = new DirectionalLight(dark ? 0xa8c0d8 : 0xffd2a0, dark ? 0.7 : 2.1);
+sunLight.position.copy(SUN_DIR).multiplyScalar(30).setY(dark ? 10 : 6); scene.add(sunLight);
+const fill = new DirectionalLight(dark ? 0x4a7a88 : 0x9fd6d0, 0.45); fill.position.set(-6, 5, 10); scene.add(fill);
+
+const sky = new Mesh(new SphereGeometry(120, 32, 16), new ShaderMaterial({
+  side: BackSide, depthWrite: false, fog: false,
+  uniforms: { uTop: { value: C.top }, uMid: { value: C.mid }, uHor: { value: C.horizon }, uGlow: { value: C.glow }, uSun: { value: C.sun }, uDir: { value: SUN_DIR }, uHaze: { value: C.haze }, uSunVis: { value: dark ? 0.0 : 1.0 } },
+  vertexShader: 'varying vec3 vD; void main(){ vD = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: `uniform vec3 uTop, uMid, uHor, uGlow, uSun, uDir, uHaze; uniform float uSunVis; varying vec3 vD;
+    void main(){
+      float y = vD.y;
+      vec3 c = mix(uHor, uMid, smoothstep(0.0, 0.16, y));
+      c = mix(c, uTop, smoothstep(0.14, 0.55, y));
+      float d = max(dot(normalize(vD), uDir), 0.0);
+      c += uGlow * (pow(d, 6.0) * 0.55 + pow(d, 40.0) * 0.5) * smoothstep(-0.05, 0.25, 0.3 - y);
+      c += uSun * smoothstep(0.99978, 0.99988, d) * 2.4 * uSunVis;
+      c += uSun * pow(d, 160.0) * 0.6 * uSunVis;
+      c = mix(c, uHaze, smoothstep(0.02, -0.04, y));
+      gl_FragColor = vec4(c, 1.0);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }`,
+}));
+scene.add(sky);
+
+const waterU = {
+  uT: { value: 0 }, uDeep: { value: C.deep }, uSky: { value: C.horizon }, uTop: { value: C.mid }, uHaze: { value: C.haze }, uSun: { value: C.sun }, uGlow: { value: C.glow },
+  uDir: { value: SUN_DIR }, uCam: { value: new Vector3() }, uNear: { value: FOG_NEAR - 4 }, uFar: { value: FOG_FAR + 30 }, uSpec: { value: dark ? 0.35 : 1.0 },
+};
+const water = new Mesh(new PlaneGeometry(240, 240, 160, 160), new ShaderMaterial({
+  uniforms: waterU, fog: false,
+  vertexShader: `uniform float uT; varying vec3 vW;
+    float H(vec2 p, float t){ return 0.05*sin(p.x*0.55 + t*0.7) + 0.035*sin(p.y*0.9 - t*0.9) + 0.02*sin((p.x+p.y)*1.7 + t*1.3); }
+    void main(){ vec4 w = modelMatrix * vec4(position, 1.0); w.y += H(w.xz, uT); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
+  fragmentShader: `uniform float uT, uNear, uFar, uSpec; uniform vec3 uDeep, uSky, uTop, uHaze, uSun, uGlow, uDir, uCam; varying vec3 vW;
+    vec2 dH(vec2 p, float t){
+      float dx = 0.05*0.55*cos(p.x*0.55 + t*0.7) + 0.02*1.7*cos((p.x+p.y)*1.7 + t*1.3);
+      float dz = 0.035*0.9*cos(p.y*0.9 - t*0.9) + 0.02*1.7*cos((p.x+p.y)*1.7 + t*1.3);
+      // fine ripples for the glints
+      return vec2(dx, dz) * 0.6;
+    }
+    void main(){
+      float dist0 = length(vW - uCam);
+      vec2 g = dH(vW.xz, uT);
+      // fine ripples, irregular, gone with distance (no moire)
+      vec2 p = vW.xz; float t = uT; float near = 1.0 - smoothstep(6.0, 22.0, dist0);
+      g += near * 0.035 * vec2(cos(p.x*3.1 + sin(p.y*1.7)*1.8 + t*1.9) + 0.6*cos(p.x*5.3 - p.y*3.7 + t*2.6),
+                               cos(p.y*3.7 + sin(p.x*1.3)*1.6 - t*1.7) + 0.6*cos(p.y*6.1 + p.x*2.3 - t*2.2));
+      vec3 n = normalize(vec3(-g.x, 1.0, -g.y));
+      vec3 v = normalize(uCam - vW);
+      float fres = pow(1.0 - max(dot(n, v), 0.0), 4.0);
+      vec3 r = reflect(-v, n);
+      vec3 skyR = mix(uSky, uTop, smoothstep(0.0, 0.35, r.y));
+      vec3 c = mix(uDeep, skyR, 0.12 + 0.75 * fres);
+      float s = max(dot(r, uDir), 0.0);
+      c += uSun * (pow(s, 400.0) * 2.2 + pow(s, 60.0) * 0.22) * uSpec;
+      c += uGlow * pow(s, 4.0) * 0.08 * uSpec;
+      float dist = length(vW - uCam);
+      c = mix(c, uHaze, smoothstep(uNear, uFar, dist));
+      gl_FragColor = vec4(c, 1.0);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }`,
+}));
+water.rotation.x = -Math.PI / 2; scene.add(water);
+const waveAt = (x, z, t) => 0.05 * Math.sin(x * 0.55 + t * 0.7) + 0.035 * Math.sin(z * 0.9 - t * 0.9) + 0.02 * Math.sin((x + z) * 1.7 + t * 1.3);
+
+// ---- textures
+const radial = (stops, size = 128) => { const c = document.createElement('canvas'); c.width = c.height = size; const g = c.getContext('2d'); const r = g.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2); stops.forEach(([o, col]) => r.addColorStop(o, col)); g.fillStyle = r; g.fillRect(0, 0, size, size); return new CanvasTexture(c); };
+const glowTex = radial([[0, 'rgba(255,244,214,1)'], [0.18, 'rgba(250,214,140,.6)'], [0.5, 'rgba(240,190,110,.14)'], [1, 'rgba(240,190,110,0)']]);
+const streakTex = (() => { const c = document.createElement('canvas'); c.width = 32; c.height = 128; const g = c.getContext('2d'); const lg = g.createLinearGradient(0, 0, 0, 128); lg.addColorStop(0, 'rgba(250,214,140,.9)'); lg.addColorStop(1, 'rgba(250,214,140,0)'); g.fillStyle = lg; g.fillRect(0, 0, 32, 128); const m = g.getImageData(0, 0, 32, 128); for (let y = 0; y < 128; y++) for (let x = 0; x < 32; x++) { const k = (y * 32 + x) * 4 + 3; const fx = 1 - Math.abs(x - 15.5) / 16; m.data[k] *= fx * fx * (0.8 + 0.2 * Math.sin(y * 0.35) ** 2); } g.putImageData(m, 0, 0); return new CanvasTexture(c); })();
+const foamTex = radial([[0, 'rgba(255,255,255,0)'], [0.62, 'rgba(255,255,255,0)'], [0.74, 'rgba(255,250,240,.55)'], [0.84, 'rgba(255,250,240,.12)'], [1, 'rgba(255,255,255,0)']]);
+const puffTex = radial([[0, 'rgba(255,252,244,.5)'], [1, 'rgba(255,252,244,0)']]);
+
+const glows = [];
+function glowSprite(parent, size, opacity = 1) { const s = new Sprite(new SpriteMaterial({ map: glowTex, blending: AdditiveBlending, depthWrite: false, depthTest: false, transparent: true, fog: false, opacity })); s.renderOrder = 10; s.scale.setScalar(size); s.userData.base = size; parent.add(s); glows.push(s); return s; }
+function streakSprite(size) { const s = new Sprite(new SpriteMaterial({ map: streakTex, blending: AdditiveBlending, depthWrite: false, depthTest: false, transparent: true, fog: false })); s.renderOrder = 5; s.center.set(0.5, 1); s.scale.set(size * 0.42, size * 1.5, 1); scene.add(s); return s; }
+
+// ---- island builder: a sand dome, a green cap, palms, a little Gulf house with a lit window (that person's warmth)
+const sphereG = new SphereGeometry(1, 36, 18), boxG = new BoxGeometry(1, 1, 1), cylG = new CylinderGeometry(1, 1, 1, 10);
+const leafG = new SphereGeometry(1, 10, 6);
+function palm(rnd, mats) {
+  const g = new Group();
+  const h = 0.55 + rnd() * 0.3, lean = (rnd() - 0.5) * 0.5;
+  const pts = []; for (let i = 0; i <= 6; i++) { const t = i / 6; pts.push(new Vector3(Math.sin(t * 1.2) * lean * 0.5, t * h, 0)); }
+  const trunk = new Mesh(new TubeGeometry(new CatmullRomCurve3(pts), 12, 0.03, 6), mats.wood); g.add(trunk);
+  const top = pts[6];
+  for (let i = 0; i < 7; i++) {
+    const a = (i / 7) * Math.PI * 2 + rnd() * 0.4;
+    const leaf = new Mesh(leafG, mats.palm); leaf.scale.set(0.26, 0.022, 0.07);
+    const holder = new Group(); holder.position.copy(top); holder.rotation.y = a;
+    leaf.position.set(0.2, -0.06, 0); leaf.rotation.z = -0.45 - rnd() * 0.25; holder.add(leaf); g.add(holder);
+  }
+  return g;
+}
+const isles = [];
+const byId = {};
+ISLES.forEach((d, i) => {
+  const rnd = seeded(i * 13 + 5);
+  const mats = {
+    sand: new MeshStandardMaterial({ color: C.sand.clone(), roughness: 0.95, flatShading: true }),
+    green: new MeshStandardMaterial({ color: C.green.clone(), roughness: 0.95, flatShading: true }),
+    palm: new MeshStandardMaterial({ color: C.palm.clone(), roughness: 0.9 }),
+    wood: new MeshStandardMaterial({ color: C.wood.clone(), roughness: 0.9 }),
+    wall: new MeshStandardMaterial({ color: C.wall.clone(), roughness: 0.85 }),
+    win: new MeshBasicMaterial({ color: C.sun.clone() }),
+  };
+  const g = new Group();
+  const sand = new Mesh(sphereG, mats.sand); sand.scale.set(d.r, d.r * 0.3, d.r * 0.86); g.add(sand);
+  const cap = new Mesh(sphereG, mats.green); cap.scale.set(d.r * 0.62, d.r * 0.3, d.r * 0.52); cap.position.set(-d.r * 0.12, 0.05, -d.r * 0.12); g.add(cap);
+  // the house: a white block with a flat roof, and a wind tower on yours
+  const hs = d.r * 0.42;
+  const house = new Group(); house.position.set(d.r * 0.12, d.r * 0.22, d.r * 0.05);
+  const body = new Mesh(boxG, mats.wall); body.scale.set(hs, hs * 0.72, hs * 0.8); body.position.y = hs * 0.36; house.add(body);
+  const roof = new Mesh(boxG, mats.wall); roof.scale.set(hs * 1.08, hs * 0.08, hs * 0.88); roof.position.y = hs * 0.74; house.add(roof);
+  if (d.tower) { const tw = new Mesh(boxG, mats.wall); tw.scale.set(hs * 0.32, hs * 0.75, hs * 0.32); tw.position.set(-hs * 0.28, hs * 1.08, -hs * 0.1); house.add(tw);
+    const tr = new Mesh(boxG, mats.wall); tr.scale.set(hs * 0.38, hs * 0.06, hs * 0.38); tr.position.set(-hs * 0.28, hs * 1.47, -hs * 0.1); house.add(tr); }
+  const win = new Mesh(new PlaneGeometry(1, 1), mats.win); win.scale.set(hs * 0.24, hs * 0.3, 1); win.position.set(hs * 0.14, hs * 0.34, hs * 0.401); house.add(win);
+  const door = new Mesh(new PlaneGeometry(1, 1), mats.win); door.scale.set(hs * 0.18, hs * 0.38, 1); door.position.set(-hs * 0.22, hs * 0.19, hs * 0.401); house.add(door);
+  g.add(house);
+  const lamp = glowSprite(house, d.r * 1.5); lamp.position.set(0, hs * 0.4, hs * 0.5);
+  for (let p = 0; p < d.palms; p++) { const pm = palm(rnd, mats); const a = Math.PI * (0.75 + p * 0.55 + rnd() * 0.3); pm.position.set(Math.cos(a) * d.r * 0.5, d.r * 0.2, Math.sin(a) * d.r * 0.4); pm.scale.setScalar(0.75 + d.r * 0.35); g.add(pm); }
+  if (d.id === 'you') { const dock = new Mesh(boxG, mats.wood); dock.scale.set(0.9, 0.05, 0.22); dock.position.set(d.r * 1.0, 0.06, d.r * 0.1); dock.rotation.y = 0.15; g.add(dock); }
+  const foam = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ map: foamTex, transparent: true, depthWrite: false })); foam.rotation.x = -Math.PI / 2; foam.scale.set(d.r * 2.7, d.r * 2.35, 1);
+  scene.add(g, foam);
+  const streak = streakSprite(d.r);
+  const isle = { ...d, i, g, mats, lamp, streak, foam, house, home: new Vector3(d.x, 0, d.z), pos: new Vector3(d.x, 0, d.z),
+    rise: d.id === 'you' ? 1 : 0, riseT: d.id === 'you' ? 1 : 0, warm: 1, warmT: 1, flash: 0, drift: 0, driftT: 0, state: 'home', phase: rnd() * 6.28, spin: rnd() * 6.28,
+    out: new Vector3(Math.sign(d.x) * 0.12, 0, -1).normalize() };
+  isles.push(isle); byId[d.id] = isle;
+});
+const you = byId.you;
+const DOCK = new Vector3(2.2, 0, 0.55);
+
+// ---- the dhow: a wooden hull, a lateen sail, a lantern at the stern
+const dhow = new Group();
+const dmat = { wood: new MeshStandardMaterial({ color: C.wood, roughness: 0.85 }), sail: new MeshStandardMaterial({ color: C.sail, roughness: 0.9, side: DoubleSide, emissive: C.glow, emissiveIntensity: dark ? 0.12 : 0.32 }) };
+const hull = new Mesh(new SphereGeometry(1, 28, 12, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), dmat.wood); hull.scale.set(0.5, 0.17, 0.15); hull.position.y = 0.07; dhow.add(hull);
+const prow = new Mesh(boxG, dmat.wood); prow.scale.set(0.2, 0.025, 0.035); prow.position.set(0.52, 0.12, 0); prow.rotation.z = 0.5; dhow.add(prow);
+const sternPost = new Mesh(boxG, dmat.wood); sternPost.scale.set(0.12, 0.09, 0.22); sternPost.position.set(-0.38, 0.11, 0); dhow.add(sternPost);
+const deck = new Mesh(new SphereGeometry(1, 28, 6), new MeshStandardMaterial({ color: C.wood.clone().multiplyScalar(1.25), roughness: 0.9 })); deck.scale.set(0.5, 0.004, 0.15); deck.position.y = 0.07; dhow.add(deck);
+const mast = new Mesh(cylG, dmat.wood); mast.scale.set(0.014, 0.66, 0.014); mast.position.set(0.06, 0.4, 0); dhow.add(mast);
+const sh = new Shape(); sh.moveTo(-0.36, 0.12); sh.lineTo(0.34, 0.78); sh.quadraticCurveTo(0.27, 0.42, 0.24, 0.12); sh.lineTo(-0.36, 0.12);
+const sail = new Mesh(new ShapeGeometry(sh, 12), dmat.sail); const sailArm = new Group(); sailArm.position.x = 0.06; sail.position.x = -0.06; sailArm.rotation.y = 0.75; sailArm.add(sail); dhow.add(sailArm);
+const dLamp = new Mesh(new SphereGeometry(0.035, 12, 8), new MeshBasicMaterial({ color: C.sun })); dLamp.position.set(-0.46, 0.18, 0); dhow.add(dLamp);
+const dGlow = glowSprite(dhow, 1.1); dGlow.position.copy(dLamp.position);
+dhow.scale.setScalar(1.45); scene.add(dhow);
+const dStreak = streakSprite(0.9);
+const ropeMat = new MeshBasicMaterial({ color: C.sun });
+const rope = new Mesh(new TubeGeometry(new CatmullRomCurve3([new Vector3(), new Vector3(0.1, 0, 0)]), 2, 0.012, 5), ropeMat); rope.visible = false; scene.add(rope);
+const WAKE = 28;
+const wake = Array.from({ length: WAKE }, () => { const m = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ map: puffTex, transparent: true, depthWrite: false })); m.rotation.x = -Math.PI / 2; m.visible = false; scene.add(m); return { m, p: new Vector3(), age: 99 }; });
+let wakeI = 0, wakeClock = 0;
+
+// ---- bridges of light: planks along an arch, lanterns lighting one by one
+const bridges = [];
+function makeBridge(a, b) {
+  const pa = a.home.clone(), pb = b.home.clone(), dir = pb.clone().sub(pa).normalize();
+  const s = pa.clone().addScaledVector(dir, a.r * 0.78).setY(0.1), e = pb.clone().addScaledVector(dir, -b.r * 0.78).setY(0.1);
+  const mid = s.clone().lerp(e, 0.5); mid.y = 0.1 + s.distanceTo(e) * 0.16;
+  const curve = new QuadraticBezierCurve3(s, mid, e);
+  const N = Math.max(10, Math.round(s.distanceTo(e) / 0.16));
+  const g = new Group(), planks = [], lamps = [];
+  const pmat = new MeshStandardMaterial({ color: C.sail, roughness: 0.8, emissive: C.glow.clone(), emissiveIntensity: 0.12 });
+  for (let i = 0; i < N; i++) {
+    const t = (i + 0.5) / N, p = curve.getPoint(t), tan = curve.getTangent(t);
+    const pl = new Mesh(boxG, pmat); pl.scale.set(0.11, 0.025, 0.26); pl.position.copy(p);
+    pl.rotation.y = Math.atan2(-tan.z, tan.x); pl.rotation.z = Math.asin(tan.y);
+    pl.visible = false; g.add(pl); planks.push(pl);
+    if (i % 3 === 1) { const l = new Mesh(new SphereGeometry(0.04, 10, 8), new MeshBasicMaterial({ color: C.sun })); l.position.copy(p).add(new Vector3(0, 0.14, 0)); l.visible = false; g.add(l); const gl = glowSprite(l, 0.6); lamps.push({ l, gl, t }); }
+  }
+  scene.add(g);
+  const br = { a, b, planks, lamps, build: 0, buildT: 0, pmat }; bridges.push(br); return br;
+}
+
+// ---- sky lanterns: the goal reached, a small light rising from the new island
+const lanterns = [];
+function skyLantern(isle) {
+  const m = new Mesh(new BoxGeometry(0.09, 0.12, 0.09), new MeshBasicMaterial({ color: new Color('#FFE2A6') }));
+  const g = new Group(); g.add(m); const gl = glowSprite(g, 1.2); scene.add(g);
+  lanterns.push({ g, gl, t0: T, x: isle.home.x, z: isle.home.z, y0: isle.r * 0.7 });
+}
+
+// ---- simulation
+let T = 0; const events = [];
+const at = (t, fn) => { events.push({ t, fn }); events.sort((x, y) => x.t - y.t); };
+const D = { mode: 'docked', from: DOCK.clone(), to: DOCK.clone(), ctrl: DOCK.clone(), t0: 0, dur: 1, target: null, pos: DOCK.clone(), head: 0.6, onDone: null };
+const bridged = new Set();
+
+function sailTo(to, dur, onDone, bend = 1.2) {
+  D.from.copy(D.pos); D.to.copy(to); D.t0 = T; D.dur = dur; D.onDone = onDone; D.mode = 'sail';
+  const mid = D.from.clone().lerp(D.to, 0.5), dir = D.to.clone().sub(D.from); const perp = new Vector3(-dir.z, 0, dir.x).normalize();
+  D.ctrl.copy(mid).addScaledVector(perp, bend);
+}
+function towHome(isle) {
+  const from = isle.pos.clone(), to = isle.home.clone(), dir = to.clone().sub(from).normalize();
+  D.mode = 'tow'; D.t0 = T; D.dur = Math.max(4, from.distanceTo(to) / 1.3); D.target = isle; D.towFrom = from; D.towTo = to; D.towDir = dir;
+  isle.state = 'towed';
+}
+function startDrift(isle) { isle.state = 'drifting'; isle.driftT = 1; isle.warmT = 0.12; }
+
+// growth: the islands rise around you one by one, each house lights up
+isles.forEach((s) => { if (s.join && s.join > 0) { at(s.join, () => { s.riseT = 1; }); at(s.join + 0.7, () => { s.flash = 0.8; }); } });
+at(6.6, () => startDrift(byId.G));
+at(7.4, () => startDrift(byId.H));
+
+const FIRST = 11.5, CYCLE = 17;
+function cycle(k) {
+  const tc = FIRST + k * CYCLE;
+  // the assistant: the dhow sails out to an island that drifted, and tows it home
+  at(tc, () => {
+    const isle = isles.find((s) => s.state === 'drifted' || s.state === 'drifting');
+    if (!isle) return;
+    isle.state = 'hailed';
+    const toward = isle.home.clone().sub(isle.pos).normalize();
+    const arrive = isle.pos.clone().addScaledVector(toward, isle.r + 0.95);
+    sailTo(arrive, Math.max(3, D.pos.distanceTo(arrive) / 2.4), () => { at(T + 0.5, () => towHome(isle)); });
+  });
+  // a goal: a new island rises beyond a friend's, and a bridge of light forms between them
+  at(tc + 8.5, () => {
+    const pair = INTROS[k]; if (!pair) return;
+    const [via, who] = pair.map((id) => byId[id]);
+    if (via.state !== 'home') return;
+    who.riseT = 1; bridged.add(via.id); bridged.add(who.id);
+    const br = makeBridge(via, who); at(T + 1.2, () => { br.buildT = 1; });
+    at(T + 3.6, () => { who.flash = 1.4; skyLantern(who); });
+  });
+  // time keeps passing: another island starts to drift
+  at(tc + 13, () => {
+    const s = DRIFT_ORDER.map((id) => byId[id]).filter((x) => x.state === 'home' && !bridged.has(x.id));
+    if (s.length) startDrift(s[k % s.length]);
+  });
+  at(tc + CYCLE - 0.2, () => cycle(k + 1));
+}
+cycle(0);
+
+const tmp = new Vector3(), tmp2 = new Vector3();
+function step(dt) {
+  T += dt;
+  while (events.length && events[0].t <= T) events.shift().fn();
+  for (const s of isles) {
+    s.rise = approach(s.rise, s.riseT, dt * 0.55);
+    s.flash = Math.max(0, s.flash - dt * 0.6);
+    if (s.state === 'drifting' || s.state === 'drifted') {
+      s.drift = approach(s.drift, 1, dt / 7); if (s.drift >= 1) s.state = 'drifted';
+      s.pos.copy(s.home).addScaledVector(s.out, 10 * easeIO(s.drift));
+      s.pos.x += Math.sin(s.drift * 3) * 0.5 * s.drift;
+    }
+    s.warm = approach(s.warm, s.warmT, dt * (s.warmT > s.warm ? 0.9 : 0.16));
+  }
+  // dhow
+  const was = D.pos.clone();
+  if (D.mode === 'sail') {
+    const u = clamp01((T - D.t0) / D.dur), e = easeIO(u);
+    const a = D.from.clone().lerp(D.ctrl, e), b = D.ctrl.clone().lerp(D.to, e); D.pos.copy(a.lerp(b, e));
+    if (u >= 1) { D.mode = 'wait'; const f = D.onDone; D.onDone = null; f && f(); }
+  } else if (D.mode === 'tow') {
+    const s = D.target, u = clamp01((T - D.t0) / D.dur), e = easeIO(u);
+    s.pos.copy(D.towFrom).lerp(D.towTo, e);
+    D.pos.copy(s.pos).addScaledVector(D.towDir, s.r + 0.95);
+    if (u > 0.55) s.warmT = 1;
+    if (u >= 1) {
+      s.state = 'home'; s.drift = 0; s.driftT = 0; s.flash = 1.3; s.warmT = 1;
+      D.mode = 'wait'; D.target = null;
+      at(T + 0.8, () => sailTo(DOCK, Math.max(2.5, D.pos.distanceTo(DOCK) / 2.4), () => { D.mode = 'docked'; }, -1.0));
+    }
+  }
+  const mv = D.pos.clone().sub(was);
+  if (mv.lengthSq() > 1e-7) D.head = Math.atan2(-mv.z, mv.x);
+  D.speed = mv.length() / Math.max(dt, 1e-4);
+  wakeClock += dt;
+  if (wakeClock > 0.11) { wakeClock = 0; if (D.speed > 0.4) { const w = wake[wakeI++ % WAKE]; w.p.copy(D.pos); w.age = 0; } }
+  for (const w of wake) w.age += dt;
+  for (const br of bridges) br.build = approach(br.build, br.buildT, dt / 2.2);
+}
+
+// ---- paint
+let ptrX = 0, ptrY = 0, tX = 0, tY = 0;
+addEventListener('pointermove', (e) => { ptrX = e.clientX / innerWidth * 2 - 1; ptrY = e.clientY / innerHeight * 2 - 1; });
+const camPos = new Vector3();
+function paint() {
+  tX += (ptrX - tX) * 0.035; tY += (ptrY - tY) * 0.035;
+  camPos.copy(CAM); camPos.x += tX * 0.9 + Math.sin(T * 0.05) * 0.4; camPos.y += -tY * 0.25;
+  camera.position.copy(camPos); camera.lookAt(LOOK);
+  sky.position.copy(camPos);
+  waterU.uT.value = T; waterU.uCam.value.copy(camPos);
+  for (const s of isles) {
+    const r = easeOut(s.rise);
+    const bob = waveAt(s.pos.x, s.pos.z, T) * 0.8;
+    s.g.position.set(s.pos.x, (1 - r) * -1.1 * s.r + bob - 0.02, s.pos.z);
+    s.g.rotation.set(Math.sin(T * 0.7 + s.phase) * 0.02, s.spin * 0.1 + s.drift * 0.6, Math.cos(T * 0.6 + s.phase) * 0.02);
+    s.g.visible = s.rise > 0.001;
+    s.foam.position.set(s.pos.x, 0.035 + bob * 0.5, s.pos.z); s.foam.visible = s.g.visible;
+    s.foam.material.opacity = r * (0.75 + 0.25 * Math.sin(T * 1.3 + s.phase));
+    const w = s.warm * clamp01((s.rise - 0.75) * 4);
+    const fade = (1 - s.warm) * 0.55;
+    s.mats.sand.color.copy(C.sand).lerp(C.faded, fade); s.mats.green.color.copy(C.green).lerp(C.faded, fade);
+    s.mats.wall.color.copy(C.wall).lerp(C.faded, fade * 0.8);
+    s.mats.win.color.copy(C.faded).multiplyScalar(0.55).lerp(C.sun, w);
+    const dist = s.g.position.distanceTo(camPos), fog = clamp01((dist - FOG_NEAR) / (FOG_FAR - FOG_NEAR));
+    const lampK = (w * 0.85 + s.flash * 0.9) * (1 - fog * 0.85);
+    s.lamp.material.opacity = Math.min(1, lampK); s.lamp.scale.setScalar(s.lamp.userData.base * (0.8 + 0.5 * s.flash + 0.06 * Math.sin(T * 2 + s.phase)));
+    s.streak.position.set(s.pos.x + s.r * 0.15, 0.04, s.pos.z + s.r * 0.6); s.streak.material.opacity = 0.4 * lampK; s.streak.visible = s.g.visible;
+  }
+  // dhow
+  const dBob = waveAt(D.pos.x, D.pos.z, T);
+  dhow.position.set(D.pos.x, 0.06 + dBob, D.pos.z);
+  dhow.rotation.set(Math.sin(T * 1.3) * 0.05, D.head, Math.sin(T * 0.9) * 0.04);
+  dStreak.position.set(D.pos.x, 0.03, D.pos.z + 0.3); dStreak.material.opacity = 0.5;
+  dGlow.scale.setScalar(1.1 + 0.08 * Math.sin(T * 3));
+  for (const w of wake) {
+    const a = w.age / 3.2; w.m.visible = a < 1;
+    if (a < 1) { w.m.position.set(w.p.x, 0.04, w.p.z); w.m.scale.setScalar(0.35 + a * 1.6); w.m.material.opacity = (1 - a) * 0.7; }
+  }
+  if (D.mode === 'tow' && D.target) {
+    const s = D.target;
+    const stern = new Vector3(-0.46 * 1.45, 0.2, 0).applyAxisAngle(new Vector3(0, 1, 0), D.head).add(dhow.position);
+    const edge = s.g.position.clone().addScaledVector(D.towDir, s.r * 0.85); edge.y = 0.12;
+    const mid = stern.clone().lerp(edge, 0.5); mid.y -= 0.12;
+    rope.geometry.dispose(); rope.geometry = new TubeGeometry(new CatmullRomCurve3([stern, mid, edge]), 16, 0.024, 6); rope.visible = true;
+  } else rope.visible = false;
+  for (const br of bridges) {
+    const n = br.planks.length, k = Math.floor(easeIO(br.build) * n);
+    br.planks.forEach((p, i) => { p.visible = i < k; });
+    br.lamps.forEach((l) => { const on = clamp01((br.build - l.t) * 4); l.l.visible = on > 0; l.gl.material.opacity = on * (0.45 + 0.1 * Math.sin(T * 2 + l.t * 9)); });
+    br.pmat.emissiveIntensity = 0.12 + 0.25 * br.build;
+  }
+  for (const L of lanterns) {
+    const a = (T - L.t0) / 9; L.g.visible = a < 1;
+    if (a < 1) { L.g.position.set(L.x + Math.sin(a * 5) * 0.15, L.y0 + a * 4.2, L.z); L.gl.material.opacity = Math.min(1, a * 6) * (1 - a); L.g.children[0].material.opacity = 1 - a; L.g.children[0].material.transparent = true; }
+  }
+  renderer.render(scene, camera);
+}
+
+function size() {
+  const W = innerWidth, H = innerHeight;
+  renderer.setSize(W, H, false); camera.aspect = W / H;
+  if (phone) camera.setViewOffset(W, H, 0, -H * 0.2, W, H); else camera.setViewOffset(W, H, -W * 0.17, -H * 0.02, W, H);
+  camera.updateProjectionMatrix();
+}
+size(); addEventListener('resize', size);
+
+const still = q.has('t') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) {
+  const target = q.has('t') ? Number(q.get('t')) : 32;
+  while (T < target) step(1 / 60);
+  paint(); window.__ready = true;
+} else {
+  let last = performance.now();
+  const loop = (now) => { step(Math.min(0.05, (now - last) / 1000)); last = now; paint(); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop); window.__ready = true;
+}
+</script>
+</body>
+</html>

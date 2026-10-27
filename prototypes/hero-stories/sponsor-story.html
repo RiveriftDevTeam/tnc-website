@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sponsor story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --field: #0B3A44; --ink: #F3EADB; --thread: #10A396; --sun: #E9C46A; --faded: #9AA5A3; --paper: #FBF6EC; --paper-ink: #14201F; --navy: #173A5E; }
+  :root[data-theme="dark"] { --field: #08262D; --ink: #E8F1EF; --thread: #4FD1C5; --sun: #F0CF7E; --faded: #3E4A4C; --paper: #F3EADB; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--field); color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 64px; font-size: 15px; z-index: 4; }
+  header b { font-family: 'Bricolage Grotesque', system-ui; font-size: 20px; }
+  header nav { display: flex; gap: 28px; opacity: .8; }
+  .stories a { color: inherit; text-decoration: none; opacity: .7; padding: 6px 12px; border-radius: 999px; }
+  .stories a[aria-current] { opacity: 1; background: rgb(243 234 219 / .14); }
+  .hero { position: relative; height: 100vh; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: center; padding: 0 64px; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(45% 60% at 66% 52%, rgb(255 255 255 / .05), transparent 70%); pointer-events: none; }
+  .copy { position: relative; z-index: 3; max-width: 460px; }
+  .copy .txt { transition: opacity .45s ease, transform .45s ease; }
+  .copy .txt.out { opacity: 0; transform: translateY(8px); }
+  .kicker { font-family: Caveat, cursive; font-size: 24px; color: var(--sun); margin-bottom: 8px; min-height: 30px; }
+  h1 { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: clamp(38px, 4.4vw, 64px); line-height: 1.03; letter-spacing: -.025em; }
+  .copy p { margin-top: 20px; font-size: 18px; line-height: 1.55; opacity: .84; min-height: 84px; }
+  .ctas { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 14px 22px; border-radius: 999px; font-weight: 500; font-size: 16px; }
+  .btn.p { background: var(--sun); color: #14201F; }
+  .btn.s { border: 1.5px solid rgb(243 234 219 / .4); }
+  .stage { position: relative; height: 100%; }
+  canvas { position: absolute; top: 0; bottom: 0; left: -22%; width: 130%; height: 100%;
+    -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, #000 74%, transparent 100%); mask-image: radial-gradient(50% 50% at 50% 50%, #000 74%, transparent 100%); }
+  #ov { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  #ov > * { position: absolute; left: 0; top: 0; will-change: transform, opacity; opacity: 0; }
+  .cap { font-family: Caveat, cursive; font-weight: 700; font-size: 40px; line-height: 1; color: var(--sun); white-space: nowrap; text-shadow: 0 2px 18px rgb(0 0 0 / .35); }
+  .qm { font-family: Caveat, cursive; font-weight: 700; font-size: 44px; line-height: 1; color: var(--ink); text-shadow: 0 2px 12px rgb(0 0 0 / .4); }
+  .bubble { width: 230px; padding: 14px 16px; background: var(--paper); color: var(--paper-ink); border-radius: 26px; font-size: 15px; line-height: 1.35; box-shadow: 0 12px 30px rgb(0 0 0 / .3); }
+  .bubble::before, .bubble::after { content: ''; position: absolute; background: var(--paper); border-radius: 50%; }
+  .bubble::before { width: 18px; height: 18px; left: 26px; bottom: -14px; }
+  .bubble::after { width: 10px; height: 10px; left: 16px; bottom: -28px; }
+  .bubble .h { font-family: Caveat, cursive; font-size: 20px; color: #0A6E66; line-height: 1; margin-bottom: 4px; }
+  .bubble .tick { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #10A396; color: #fff; font-size: 13px; font-weight: 700; margin-right: 6px; vertical-align: -3px; }
+  .bubble.glow { box-shadow: 0 0 0 3px rgb(233 196 106 / .9), 0 0 40px rgb(233 196 106 / .55); }
+  .skill { font-size: 12px; font-weight: 600; letter-spacing: .03em; color: #14201F; background: var(--paper); padding: 4px 9px 4px 7px; border-radius: 999px; white-space: nowrap; box-shadow: 0 4px 14px rgb(0 0 0 / .25); display: flex; gap: 5px; align-items: center; }
+  .skill::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sun); box-shadow: 0 0 6px var(--sun); }
+  .stat { width: 200px; background: var(--paper); color: var(--paper-ink); border-radius: 14px; padding: 12px 14px 12px; box-shadow: 0 14px 34px rgb(0 0 0 / .32); }
+  .stat .who { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #0A6E66; padding-right: 50px; }
+  .stat .n { font-family: 'Bricolage Grotesque', system-ui; font-size: 34px; font-weight: 700; line-height: 1.05; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .stat .d { font-size: 13px; line-height: 1.35; opacity: .8; margin-top: 2px; }
+  .stat .s { position: absolute; top: 10px; right: 10px; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; background: #EFE7D6; color: #6B6455; padding: 2px 6px; border-radius: 4px; }
+  .stat.ghost { background: rgb(8 38 45 / .9); color: var(--ink); border: 2px dashed rgb(243 234 219 / .5); box-shadow: none; width: 210px; }
+  .stat.ghost .who { color: rgb(243 234 219 / .75); }
+  .stat.ghost .n { font-family: Caveat, cursive; font-size: 46px; }
+  .bars { margin-top: 8px; display: grid; gap: 6px; }
+  .bars div { display: grid; grid-template-columns: 62px 1fr 32px; gap: 6px; align-items: center; font-size: 12px; }
+  .bars i { display: block; height: 7px; border-radius: 4px; background: #10A396; width: var(--w, 0%); }
+  .bars b { font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+  .report { width: 318px; background: var(--paper); color: var(--paper-ink); border-radius: 18px; padding: 16px 18px 16px; box-shadow: 0 22px 50px rgb(0 0 0 / .38); }
+  .report .rh { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #5E6B69; }
+  .report .rh .mk { width: 22px; height: 22px; border-radius: 6px; background: var(--navy); position: relative; overflow: hidden; }
+  .report .rh .mk::before { content: ''; position: absolute; left: 5px; top: 7px; width: 12px; height: 6px; border-radius: 12px 12px 0 0; background: var(--sun); }
+  .report .rh .mk::after { content: ''; position: absolute; left: 3px; right: 3px; top: 14px; height: 2px; background: var(--sun); border-radius: 2px; }
+  .report .rh .s { margin-left: auto; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; background: #EFE7D6; color: #6B6455; padding: 2px 6px; border-radius: 4px; }
+  .report .rt { font-family: 'Bricolage Grotesque', system-ui; font-size: 22px; font-weight: 700; line-height: 1.1; margin-top: 10px; }
+  .report .cmp { display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px; margin-top: 12px; }
+  .report .col { border-radius: 12px; padding: 9px 10px; }
+  .report .ban { border: 1.5px dashed #C9BFAE; color: #7B746A; }
+  .report .crd { background: #E3F5F1; border: 1.5px solid #10A396; }
+  .report .col .l { font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  .report .col .v { font-family: 'Bricolage Grotesque', system-ui; font-size: 28px; font-weight: 700; line-height: 1.1; margin-top: 2px; }
+  .report .ban .v { font-family: Caveat, cursive; font-size: 34px; }
+  .report .col .d { font-size: 12px; opacity: .8; }
+  .report ul { list-style: none; padding: 0; margin-top: 10px; display: grid; gap: 5px; font-size: 13.5px; }
+  .report li b { font-variant-numeric: tabular-nums; }
+  .report li::before { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #10A396; margin-right: 8px; vertical-align: 1px; }
+  .scenes { position: absolute; left: 64px; bottom: 26px; z-index: 4; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .scenes button { font: 500 12.5px Inter, system-ui; color: var(--ink); background: rgb(255 255 255 / .06); border: 1px solid rgb(243 234 219 / .18); border-radius: 999px; padding: 6px 11px; cursor: pointer; }
+  .scenes button.on { background: var(--ink); color: var(--field); border-color: var(--ink); }
+  .scenes button.pp { width: 32px; padding: 6px 0; }
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgb(243 234 219 / .08); z-index: 4; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--sun); opacity: .7; }
+  @media (max-width: 700px) {
+    header { padding: 18px 16px; } header b { font-size: 15px; } header nav { display: none; } header nav.stories { display: flex; gap: 0; font-size: 11px; } .stories a { padding: 4px 6px; }
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 84px 20px 0; align-items: start; }
+    h1 { font-size: 34px; } .kicker { font-size: 20px; min-height: 24px; margin-bottom: 4px; }
+    .copy p { font-size: 15px; margin-top: 10px; min-height: 0; } .ctas { margin-top: 16px; } .btn { padding: 11px 18px; font-size: 15px; }
+    canvas { left: -4%; width: 108%; -webkit-mask-image: radial-gradient(56% 50% at 50% 50%, #000 80%, transparent 100%); mask-image: radial-gradient(56% 50% at 50% 50%, #000 80%, transparent 100%); }
+    .scenes { left: 20px; right: 20px; bottom: 18px; gap: 4px; } .scenes button { padding: 5px 8px; font-size: 11px; }
+    .cap { font-size: 26px; } .qm { font-size: 30px; } .bubble { width: 158px; font-size: 12px; padding: 9px 11px; }
+    .stat { width: 136px; padding: 8px 10px; } .stat .n { font-size: 22px; } .stat .d { font-size: 10.5px; } .stat .who { font-size: 9px; padding-right: 40px; } .stat .s { font-size: 8px; }
+    .stat.ghost { width: 140px; } .stat.ghost .n { font-size: 32px; }
+    .bars div { grid-template-columns: 46px 1fr 26px; font-size: 9.5px; gap: 4px; }
+    .report { width: 214px; padding: 11px 12px; } .report .rt { font-size: 16px; } .report .col .v { font-size: 20px; } .report .ban .v { font-size: 24px; } .report ul { font-size: 11px; } .report .col .d { font-size: 10px; } .report .rh { font-size: 10px; }
+    .skill { font-size: 9.5px; padding: 3px 6px; }
+    .report li:last-child { display: none; } .report .cmp { margin-top: 8px; } .report ul { margin-top: 6px; }
+  }
+</style>
+</head>
+<body>
+<header><b>TapNConnect</b><nav class="stories"><a href="member-story.html">Member</a><a href="company-story.html">Company</a><a href="organiser-story.html">Organiser</a><a href="sponsor-story.html" aria-current="page">Sponsor</a></nav></header>
+<section class="hero" id="hero">
+  <div class="copy">
+    <div class="txt" id="txt"><div class="kicker" id="kick"></div><h1 id="h1"></h1><p id="p"></p></div>
+    <div class="ctas"><span class="btn p">Order as a sponsor</span><span class="btn s">See how it works</span></div>
+  </div>
+  <div class="stage" id="stage"><canvas id="c" role="img" aria-label="A short film: a sponsor pays the organiser and wonders what they will get; banners around the hall go unmeasured; then every profile shared at the show carries the sponsor's message inside the card; an AI assistant and its helper agents count every view and click; the sponsor gets a clear report."></canvas></div>
+  <div id="ov"></div>
+  <div class="scenes" id="scenes"></div>
+  <div class="bar"><i id="bar"></i></div>
+</section>
+
+<script type="importmap">{ "imports": { "three": "../../node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, DirectionalLight, Color, SRGBColorSpace, Vector3, Euler, Group, Shape,
+  ExtrudeGeometry, ShapeGeometry, PlaneGeometry, BoxGeometry, CircleGeometry, CapsuleGeometry, SphereGeometry, TorusGeometry, CylinderGeometry,
+  MeshStandardMaterial, MeshBasicMaterial, Mesh, CanvasTexture, Sprite, SpriteMaterial, AdditiveBlending, InstancedMesh, Object3D,
+} from 'three';
+
+const q = new URLSearchParams(location.search);
+if (q.get('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+const dark = q.get('theme') === 'dark';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const FIELD = new Color(css('--field')), SUNC = new Color(css('--sun'));
+const TEAL = dark ? '#4FD1C5' : '#10A396', SUN = css('--sun'), NAVY = '#173A5E';
+const TEALC = new Color(TEAL);
+const YOU_C = dark ? '#3CC4B7' : '#14A89A';
+const CLAY = dark ? ['#D2BC98', '#8CC5BB', '#D9B4A4', '#6FA4C4', '#B8A88A'] : ['#E9D3AE', '#9ED9CF', '#F1C9B8', '#7FB8D9', '#CDBB9C'];
+
+// ---- the film: five scenes on one 66 s clock (pure functions of t, so any t renders as a still)
+const SC = [0, 11, 23, 37, 51, 66], L = 66;
+const KEY = [6.6, 18.4, 31.2, 49.2, 59.6];
+const NAMES = ['The deal', 'Banners', 'In every card', 'Counted', 'The report'];
+const COPY = [
+  ['The sponsor', 'You paid for the show.', 'And you got a logo on a banner. Who saw it?'],
+  ['At the show', 'Banners are hope, not proof.', 'Nobody can tell you who looked, or who cared.'],
+  ['With TapNConnect', 'Now you’re inside every card.', 'Every profile shared at the show carries your message, where people actually look.'],
+  ['Enter the assistant', 'Every view and click, counted.', 'Your assistant and its helpers show exactly what your sponsorship delivered.'],
+  ['After the show', 'Sponsorship you can count.', 'Proof for this year, and a reason to come back next year.'],
+];
+const sceneOf = (t) => { for (let i = 0; i < 5; i++) if (t < SC[i + 1]) return i; return 4; };
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const span = (t, a, b) => clamp((t - a) / (b - a));
+const ease = (x) => x * x * (3 - 2 * x);
+const easeOut = (x) => 1 - (1 - x) ** 3;
+const mix = (a, b, k) => a + (b - a) * k;
+const bump = (t, a, b, f = 0.3) => ease(span(t, a, a + f)) * (1 - ease(span(t, b - f, b)));
+const fmt = (n) => Math.round(n).toLocaleString('en-US');
+
+// ---- three
+const canvas = document.getElementById('c'), hero = document.getElementById('hero');
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = SRGBColorSpace;
+const scene = new Scene();
+const camera = new PerspectiveCamera(35, 1, 0.1, 80);
+scene.add(new HemisphereLight(0xf3eadb, dark ? 0x061c22 : 0x0b3a44, 1.15));
+const key = new DirectionalLight(0xfff3e0, 2.1); key.position.set(-3, 4, 6); scene.add(key);
+const rimL = new DirectionalLight(0x9fe3da, 2.0); rimL.position.set(4, 2, -4); scene.add(rimL);
+const rimR = new DirectionalLight(0xffe2b0, 1.2); rimR.position.set(-5, -2, -3); scene.add(rimR);
+const world = new Group(); scene.add(world);
+
+const radial = (stops, n = 128) => { const c = document.createElement('canvas'); c.width = c.height = n; const g = c.getContext('2d'); const r = g.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2); stops.forEach(([o, col]) => r.addColorStop(o, col)); g.fillStyle = r; g.fillRect(0, 0, n, n); return new CanvasTexture(c); };
+const glowTex = radial([[0, 'rgba(255,240,200,1)'], [0.22, 'rgba(240,200,110,.5)'], [1, 'rgba(240,200,110,0)']]);
+const tealGlow = radial([[0, 'rgba(79,209,197,.9)'], [1, 'rgba(79,209,197,0)']]);
+const shadowTex = radial([[0, 'rgba(0,0,0,.5)'], [1, 'rgba(0,0,0,0)']]);
+const glowSprite = (tex = glowTex) => { const s = new Sprite(new SpriteMaterial({ map: tex, blending: AdditiveBlending, depthWrite: false, transparent: true })); s.scale.setScalar(0); world.add(s); return s; };
+const rim = (m) => { m.onBeforeCompile = (s) => { s.fragmentShader = s.fragmentShader.replace('#include <dithering_fragment>', 'float rimF = pow(1.0 - max(dot(normalize(vNormal), normalize(vViewPosition)), 0.0), 2.4);\n gl_FragColor.rgb += rimF * 0.22;\n#include <dithering_fragment>'); }; return m; };
+function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+const tex = (w, h) => { const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const t = new CanvasTexture(cv); t.colorSpace = SRGBColorSpace; t.anisotropy = 8; return { cv, t, c: cv.getContext('2d') }; };
+
+const gC = FIELD.clone().lerp(TEALC, 0.18).getHexString();
+const ground = new Mesh(new CircleGeometry(11, 64), new MeshBasicMaterial({ map: radial([[0, `#${gC}dd`], [0.5, `#${gC}55`], [1, `#${gC}00`]]), transparent: true, depthWrite: false }));
+ground.rotation.x = -Math.PI / 2; ground.position.set(1.0, 0, -1.2); world.add(ground);
+
+// ---- the sponsor's mark: a low sun over two dunes (fictional brand: Sahel Capital)
+function drawMark(c, x, y, s, col = '#E9C46A') {
+  c.save(); c.fillStyle = col; c.strokeStyle = col; c.lineCap = 'round';
+  c.beginPath(); c.arc(x, y, s * 0.5, Math.PI, 0); c.closePath(); c.fill();
+  c.lineWidth = s * 0.13;
+  c.beginPath(); c.moveTo(x - s * 0.95, y + s * 0.3); c.quadraticCurveTo(x - s * 0.2, y + s * 0.02, x + s * 0.95, y + s * 0.3); c.stroke();
+  c.beginPath(); c.moveTo(x - s * 0.7, y + s * 0.62); c.quadraticCurveTo(x + s * 0.1, y + s * 0.38, x + s * 0.8, y + s * 0.62); c.stroke();
+  c.restore();
+}
+
+// ---- clay people with arms (the member story's figures)
+const GEO = { leg: new CapsuleGeometry(0.085, 0.5, 4, 12), torso: new CapsuleGeometry(0.2, 0.4, 6, 18), head: new SphereGeometry(0.15, 24, 16), upper: new CapsuleGeometry(0.062, 0.24, 4, 10), fore: new CapsuleGeometry(0.056, 0.22, 4, 10), hand: new SphereGeometry(0.068, 14, 10), shadow: new PlaneGeometry(1, 1) };
+function human(color, transparent = false) {
+  const mat = rim(new MeshStandardMaterial({ color: new Color(color), roughness: 0.85, transparent }));
+  const g = new Group(), body = new Group(); g.add(body);
+  const mk = (geo, parent, y) => { const m = new Mesh(geo, mat); m.position.y = y; parent.add(m); return m; };
+  const hip = (x) => { const h = new Group(); h.position.set(x, 0.78, 0); body.add(h); mk(GEO.leg, h, -0.36); return h; };
+  const hipL = hip(0.1), hipR = hip(-0.1);
+  mk(GEO.torso, body, 1.14);
+  const neck = new Group(); neck.position.y = 1.47; body.add(neck); mk(GEO.head, neck, 0.2);
+  const arm = (x) => { const sh = new Group(); sh.position.set(x, 1.38, 0); body.add(sh); mk(GEO.upper, sh, -0.17); const el = new Group(); el.position.y = -0.34; sh.add(el); mk(GEO.fore, el, -0.15); const hand = mk(GEO.hand, el, -0.31); return { sh, el, hand }; };
+  const R = arm(-0.27), Lf = arm(0.27);
+  const sh = new Mesh(GEO.shadow, new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })); sh.rotation.x = -Math.PI / 2; sh.position.y = 0.005; sh.scale.setScalar(0.9); g.add(sh);
+  world.add(g);
+  return { g, body, hipL, hipR, neck, R, L: Lf, mat, sh };
+}
+const REST = { shRx: 0.05, shRz: -0.1, elRx: -0.12, shLx: 0.05, shLz: 0.1, elLx: -0.12, neckX: 0, neckY: 0, legA: 0, bob: 0, lean: 0 };
+function pose(h, p) {
+  h.R.sh.rotation.set(p.shRx, 0, p.shRz); h.R.el.rotation.x = p.elRx;
+  h.L.sh.rotation.set(p.shLx, 0, p.shLz); h.L.el.rotation.x = p.elLx;
+  h.neck.rotation.set(p.neckX, p.neckY, 0); h.hipL.rotation.x = p.legA; h.hipR.rotation.x = -p.legA;
+  h.body.position.y = p.bob; h.body.rotation.x = p.lean;
+}
+const blendPose = (a, b, k) => { const o = {}; for (const n in a) o[n] = mix(a[n], b[n], k); return o; };
+const localPos = (obj) => { const v = new Vector3(); obj.getWorldPosition(v); return world.worldToLocal(v); };
+
+// the sponsor (our protagonist, in teal) and the organiser (lanyard and badge)
+const sponsor = human(YOU_C, true);
+const organiser = human(dark ? '#D2BC98' : '#E9D3AE', true);
+{
+  const strapMat = new MeshStandardMaterial({ color: new Color(TEAL), roughness: 0.6 });
+  for (const sx of [-1, 1]) {
+    const a = new Vector3(sx * 0.11, 1.43, 0.1), b = new Vector3(sx * 0.025, 1.17, 0.215), len = a.distanceTo(b);
+    const strap = new Mesh(new CylinderGeometry(0.011, 0.011, len, 6), strapMat); strap.position.copy(a).lerp(b, 0.5);
+    strap.quaternion.setFromUnitVectors(new Vector3(0, 1, 0), b.clone().sub(a).normalize()); organiser.body.add(strap);
+  }
+  const badge = new Mesh(new BoxGeometry(0.14, 0.18, 0.012), new MeshStandardMaterial({ color: 0xf7f5f0, roughness: 0.5 }));
+  badge.position.set(0, 1.07, 0.205); organiser.body.add(badge);
+  const strip = new Mesh(new BoxGeometry(0.14, 0.045, 0.014), new MeshStandardMaterial({ color: new Color(TEAL), roughness: 0.5 })); strip.position.set(0, 1.135, 0.206); organiser.body.add(strip);
+}
+const SP_FROM = new Vector3(-3.4, 0, 0.75), SP_AT = new Vector3(-1.45, 0, 0.5), ORG_AT = new Vector3(-0.45, 0, 0.3);
+organiser.g.position.copy(ORG_AT);
+
+// the sponsorship envelope, handed over in scene 1
+const env = (() => {
+  const T = tex(340, 220), c = T.c;
+  c.fillStyle = '#F6EFE0'; c.fillRect(0, 0, 340, 220); c.strokeStyle = '#D9CBAE'; c.lineWidth = 3; c.beginPath(); c.moveTo(0, 0); c.lineTo(170, 120); c.lineTo(340, 0); c.stroke();
+  c.fillStyle = '#C9A44A'; c.beginPath(); c.arc(170, 120, 26, 0, Math.PI * 2); c.fill(); drawMark(c, 170, 118, 22, '#FBF6EC');
+  c.fillStyle = '#7A6A3A'; c.font = '700 20px Inter'; c.textAlign = 'center'; c.fillText('GOLD SPONSOR', 170, 190);
+  const m = new Mesh(new BoxGeometry(0.36, 0.23, 0.02), [0, 0, 0, 0, new MeshStandardMaterial({ map: T.t, roughness: 0.6, transparent: true }), new MeshStandardMaterial({ color: 0xf0e7d4, roughness: 0.6, transparent: true })].map((x) => x || new MeshStandardMaterial({ color: 0xe9dfc9, transparent: true })));
+  m.visible = false; world.add(m); return m;
+})();
+
+// ---- the hall: banners and roll-ups (the organiser's placement), a crowd, two pairs sharing profiles
+function bannerTex(W, H, roll) {
+  const T = tex(W, H), c = T.c;
+  const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#1D4670'); g.addColorStop(1, '#122E4B'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+  c.globalAlpha = 0.08; c.fillStyle = '#fff'; for (let i = 0; i < 6; i++) { c.beginPath(); c.arc(W * 0.8, H * 0.9, 120 + i * 90, 0, Math.PI * 2); c.lineWidth = 2; c.strokeStyle = '#fff'; c.stroke(); } c.globalAlpha = 1;
+  drawMark(c, W / 2, H * 0.22, W * 0.2);
+  c.fillStyle = '#FBF6EC'; c.textAlign = 'center'; c.font = `800 ${W * 0.2}px Inter`; c.fillText('SAHEL', W / 2, H * 0.42);
+  c.font = `600 ${W * 0.075}px Inter`; c.fillText('C A P I T A L', W / 2, H * 0.48);
+  c.fillStyle = 'rgba(251,246,236,.8)'; c.font = `400 ${W * 0.062}px Inter`; c.fillText('Banking that', W / 2, H * 0.6); c.fillText('moves with you', W / 2, H * 0.6 + W * 0.085);
+  c.fillStyle = '#E9C46A'; c.fillRect(0, H * 0.86, W, H * 0.14);
+  c.fillStyle = '#173A5E'; c.font = `700 ${W * 0.048}px Inter`; c.fillText(roll ? 'GOLD SPONSOR' : 'GOLD SPONSOR · GULF TECH EXPO', W / 2, H * 0.94);
+  return T.t;
+}
+const bTex = bannerTex(400, 760, false), rTex = bannerTex(360, 720, true);
+const banners = [];
+[[0.2, -4.7], [2.1, -4.9], [4.0, -4.7]].forEach(([x, z], i) => {
+  const geo = new PlaneGeometry(1.25, 2.4); geo.translate(0, -1.2, 0);
+  const m = new Mesh(geo, new MeshStandardMaterial({ map: bTex, roughness: 0.7, transparent: true, side: 2 })); m.position.set(x, 4.0, z); m.rotation.y = (1 - i) * 0.12; world.add(m);
+  const rod = new Mesh(new CylinderGeometry(0.02, 0.02, 1.35, 8), new MeshStandardMaterial({ color: 0x9aa5a3, metalness: 0.6, roughness: 0.3, transparent: true })); rod.rotation.z = Math.PI / 2; rod.position.set(0, 0, 0.01); m.add(rod);
+  banners.push({ m, kind: 'hang' });
+});
+[[5.15, -1.7, -0.5], [-1.15, -2.9, 0.35]].forEach(([x, z, ry]) => {
+  const geo = new PlaneGeometry(0.9, 1.85); geo.translate(0, 0.925, 0);
+  const m = new Mesh(geo, new MeshStandardMaterial({ map: rTex, roughness: 0.7, transparent: true, side: 2 })); m.position.set(x, 0.06, z); m.rotation.y = ry; world.add(m);
+  const foot = new Mesh(new BoxGeometry(0.98, 0.06, 0.22), new MeshStandardMaterial({ color: 0x7c8584, metalness: 0.5, roughness: 0.35, transparent: true })); foot.position.set(0, -0.03, 0); m.add(foot);
+  banners.push({ m, kind: 'roll' });
+});
+
+// the crowd (instanced): some wander, some stand in small circles
+let seed = 4271; const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+const PAIRS = [[new Vector3(2.75, 0, -0.85), new Vector3(3.6, 0, -0.6)], [new Vector3(-0.15, 0, -1.95), new Vector3(0.68, 0, -2.2)]];
+const crowd = [];
+while (crowd.length < 30) {
+  const x = -1.5 + rnd() * 7.2, z = -4.3 + rnd() * 2.75;
+  if (x < 0.2 && z > -1.3) continue;
+  if (PAIRS.some(([a, b]) => Math.hypot(x - a.x, z - a.z) < 0.7 || Math.hypot(x - b.x, z - b.z) < 0.7)) continue;
+  if (crowd.some((p) => Math.hypot(x - p.x0, z - p.z) < 0.62)) continue;
+  const moving = rnd() < 0.5;
+  crowd.push({ x0: x, z, v: moving ? (rnd() < 0.5 ? -1 : 1) * (0.18 + rnd() * 0.22) : 0, r: rnd(), col: CLAY[Math.floor(rnd() * 5)], s: 1.02 + rnd() * 0.16, ph: rnd() * 9 });
+}
+const NC = crowd.length;
+const crowdMat = rim(new MeshStandardMaterial({ roughness: 0.85, transparent: true }));
+const cBody = new InstancedMesh(new CapsuleGeometry(0.2, 0.4, 4, 14), crowdMat, NC), cHead = new InstancedMesh(new SphereGeometry(0.15, 18, 12), crowdMat, NC);
+const cShadow = new InstancedMesh(new PlaneGeometry(0.9, 0.9), new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }), NC);
+crowd.forEach((p, i) => { const col = new Color(p.col); cBody.setColorAt(i, col); cHead.setColorAt(i, col); });
+world.add(cShadow, cBody, cHead);
+const O = new Object3D();
+const crowdHead = crowd.map(() => new Vector3());
+const wrap = (x, a, b) => a + ((((x - a) % (b - a)) + (b - a)) % (b - a));
+function placeCrowd(t, T) {
+  const k = span(t, 10.9, 12.9);
+  for (let i = 0; i < NC; i++) {
+    const p = crowd[i]; const rise = easeOut(clamp(k * 1.6 - p.r * 0.6)), s = Math.max(0.0001, rise) * p.s;
+    const x = p.v ? wrap(p.x0 + p.v * T, -1.6, 5.8) : p.x0 + Math.sin(T * 0.4 + p.ph) * 0.05;
+    const bob = p.v ? Math.abs(Math.sin(T * 7 + p.ph)) * 0.03 : Math.sin(T * 1.3 + p.ph) * 0.012, y = (1 - rise) * -0.5 + bob;
+    O.rotation.set(0, 0, 0);
+    O.position.set(x, 0.62 * s + y, p.z); O.scale.setScalar(s); O.updateMatrix(); cBody.setMatrixAt(i, O.matrix);
+    O.position.set(x, 1.12 * s + y, p.z); O.updateMatrix(); cHead.setMatrixAt(i, O.matrix);
+    O.position.set(x, 0.006, p.z); O.rotation.set(-Math.PI / 2, 0, 0); O.scale.setScalar(s * 0.85); O.updateMatrix(); cShadow.setMatrixAt(i, O.matrix);
+    crowdHead[i].set(x, 1.3 * s + y, p.z);
+  }
+  cBody.instanceMatrix.needsUpdate = cHead.instanceMatrix.needsUpdate = cShadow.instanceMatrix.needsUpdate = true;
+  cBody.visible = cHead.visible = cShadow.visible = t > 10.9;
+}
+// the sharing pairs: full figures with a phone in hand
+const pairs = PAIRS.map(([a, b], pi) => [a, b].map((at, j) => {
+  const h = human(CLAY[(pi * 2 + j + 1) % 5], true); h.g.position.copy(at);
+  const ph = new Mesh(new BoxGeometry(0.075, 0.15, 0.012), new MeshStandardMaterial({ color: 0x2b3336, metalness: 0.5, roughness: 0.3 }));
+  ph.position.set(0, -0.33, 0.06); ph.rotation.x = -0.5; h.R.el.add(ph);
+  const scr = new Mesh(new PlaneGeometry(0.06, 0.13), new MeshBasicMaterial({ color: 0xdff3ef })); scr.position.z = 0.007; ph.add(scr);
+  h.phone = ph; return h;
+}));
+
+// ---- the phone (the contacts mock's phone): a shared profile, with the sponsor strip inside
+const phoneG = new Group(); world.add(phoneG);
+const PW = 1.56, PH = 3.24, PR = 0.24, PD = 0.1, BEV = 0.035;
+const SW = 640, SH = 1408, K = 1.4;
+const SCW = 1.44, SCH = SCW * SH / SW, SZ = PD / 2 + BEV + 0.003;
+const PS = 0.7, PHONE_POS = new Vector3(1.2, 1.62, 1.25), PHONE_ROT = new Euler(-0.04, -0.36, 0.02);
+const pShape = (() => { const s = new Shape(), x = -PW / 2, y = -PH / 2; s.moveTo(x + PR, y); s.lineTo(x + PW - PR, y); s.quadraticCurveTo(x + PW, y, x + PW, y + PR); s.lineTo(x + PW, y + PH - PR); s.quadraticCurveTo(x + PW, y + PH, x + PW - PR, y + PH); s.lineTo(x + PR, y + PH); s.quadraticCurveTo(x, y + PH, x, y + PH - PR); s.lineTo(x, y + PR); s.quadraticCurveTo(x, y, x + PR, y); return s; })();
+const pGeo = new ExtrudeGeometry(pShape, { depth: PD, bevelEnabled: true, bevelThickness: BEV, bevelSize: BEV, bevelSegments: 5, curveSegments: 16 }); pGeo.translate(0, 0, -PD / 2);
+const pMat = new MeshStandardMaterial({ color: dark ? 0x2a3134 : 0x343c3f, metalness: 0.55, roughness: 0.32, transparent: true });
+phoneG.add(new Mesh(pGeo, pMat));
+const glassMat = new MeshStandardMaterial({ color: 0x050708, roughness: 0.15, metalness: 0.1, transparent: true });
+const glass = new Mesh(new ShapeGeometry(pShape, 16), glassMat); glass.scale.setScalar(0.985); glass.position.z = PD / 2 + BEV + 0.001; phoneG.add(glass);
+for (const [yy, hh] of [[0.75, 0.42], [0.2, 0.26]]) { const b = new Mesh(new BoxGeometry(0.03, hh, 0.06), pMat); b.position.set(PW / 2 + BEV + 0.008, yy, 0); phoneG.add(b); }
+const scrCv = document.createElement('canvas'); scrCv.width = SW * K; scrCv.height = SH * K;
+const scrTex = new CanvasTexture(scrCv); scrTex.colorSpace = SRGBColorSpace; scrTex.anisotropy = 8;
+const scrMat = new MeshBasicMaterial({ map: scrTex, transparent: true, toneMapped: false });
+const screenM = new Mesh(new PlaneGeometry(SCW, SCH), scrMat); screenM.position.z = SZ; phoneG.add(screenM);
+const sheenCv = document.createElement('canvas'); sheenCv.width = 256; sheenCv.height = 512; { const c = sheenCv.getContext('2d'); const gr = c.createLinearGradient(0, 0, 256, 512); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.42, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, 'rgba(255,255,255,.10)'); gr.addColorStop(0.62, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(0, 0, 256, 512); }
+const sheenMat = new MeshBasicMaterial({ map: new CanvasTexture(sheenCv), transparent: true, blending: AdditiveBlending, depthWrite: false });
+const sheen = new Mesh(new PlaneGeometry(SCW, SCH), sheenMat); sheen.position.z = SZ + 0.012; phoneG.add(sheen);
+const stripGlow = glowSprite();
+const pxY = (py) => SCH / 2 - (py / SH) * SCH;
+const phoneLocal = (x, y, z = SZ + 0.006) => new Vector3(x, y, z).applyMatrix4(phoneG.matrix);
+
+let scrLast = '';
+function drawProfile(slide, hi, views) {
+  const sig = `${slide.toFixed(2)}|${hi.toFixed(2)}|${views}`; if (sig === scrLast) return; scrLast = sig;
+  const c = scrCv.getContext('2d'); c.setTransform(K, 0, 0, K, 0, 0); c.clearRect(0, 0, SW, SH);
+  c.save(); rr(c, 0, 0, SW, SH, 70); c.clip();
+  c.fillStyle = '#F7F5F0'; c.fillRect(0, 0, SW, SH);
+  c.fillStyle = '#111'; rr(c, SW / 2 - 62, 22, 124, 34, 17); c.fill();
+  c.fillStyle = '#14201F'; c.font = '600 24px Inter'; c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.fillText('18:20', 44, 50);
+  c.strokeStyle = '#14201F'; c.lineWidth = 2; rr(c, SW - 92, 32, 44, 22, 6); c.stroke(); c.fillStyle = '#14201F'; c.fillRect(SW - 88, 36, 26, 14); c.fillRect(SW - 46, 39, 3, 8);
+  c.fillStyle = 'rgba(16,163,150,.13)'; rr(c, 36, 92, 360, 50, 25); c.fill();
+  c.fillStyle = '#0A6E66'; c.beginPath(); c.arc(64, 117, 8, 0, Math.PI * 2); c.fill(); c.font = '600 23px Inter'; c.fillText('Shared with you · just now', 84, 125);
+  c.save(); c.translate(0, (1 - easeOut(slide)) * 1000); c.globalAlpha = clamp(slide * 1.6);
+  // the profile card
+  c.shadowColor = 'rgba(20,32,31,.14)'; c.shadowBlur = 30; c.shadowOffsetY = 8; c.fillStyle = '#FFFFFF'; rr(c, 28, 168, SW - 56, 1132, 40); c.fill(); c.shadowColor = 'transparent';
+  c.fillStyle = '#C9C2EE'; c.beginPath(); c.arc(SW / 2, 320, 92, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#3A3530'; c.font = '600 64px Inter'; c.textAlign = 'center'; c.fillText('LN', SW / 2, 342);
+  c.fillStyle = '#14201F'; c.font = '700 50px Inter'; c.fillText('Layla Nasser', SW / 2, 478);
+  c.fillStyle = '#5E6B69'; c.font = '400 28px Inter'; c.fillText('Product Lead · Lumen Studio', SW / 2, 524);
+  c.fillStyle = '#0A6E66'; c.font = '600 24px Inter'; c.fillText('Met at Gulf Tech Expo · Hall 4', SW / 2, 572);
+  c.fillStyle = '#ECE8E0'; c.fillRect(64, 610, SW - 128, 2);
+  c.textAlign = 'left'; c.fillStyle = '#8B8F8C'; c.font = '700 19px Inter'; c.fillText('INTERESTED IN', 64, 660);
+  let x = 64; for (const w of ['Payments', 'Fintech', 'Retail']) { c.font = '500 24px Inter'; const ww = c.measureText(w).width + 40; c.fillStyle = '#F1EEE7'; rr(c, x, 680, ww, 50, 25); c.fill(); c.fillStyle = '#3A3F40'; c.fillText(w, x + 20, 714); x += ww + 12; }
+  c.fillStyle = '#14201F'; rr(c, 64, 766, 246, 74, 37); c.fill(); c.fillStyle = '#fff'; c.font = '600 26px Inter'; c.textAlign = 'center'; c.fillText('Save', 64 + 123, 812);
+  c.strokeStyle = '#CFC6B4'; c.lineWidth = 2; rr(c, 330, 766, 246, 74, 37); c.stroke(); c.fillStyle = '#3A3F40'; c.fillText('Message', 330 + 123, 812);
+  // the sponsor strip, inside the card
+  const sy = 892, sh = 300;
+  if (hi > 0.01) { c.save(); c.shadowColor = SUN; c.shadowBlur = 40 * hi; c.fillStyle = NAVY; rr(c, 44, sy, SW - 88, sh, 30); c.fill(); c.restore(); }
+  c.fillStyle = NAVY; rr(c, 44, sy, SW - 88, sh, 30); c.fill();
+  if (hi > 0.01) { c.strokeStyle = SUN; c.globalAlpha = clamp(slide * 1.6) * hi; c.lineWidth = 7; rr(c, 47, sy + 3, SW - 94, sh - 6, 28); c.stroke(); c.globalAlpha = clamp(slide * 1.6); }
+  drawMark(c, 124, sy + 112, 54);
+  c.textAlign = 'left'; c.fillStyle = 'rgba(255,255,255,.62)'; c.font = '600 21px Inter'; c.fillText('PRESENTED BY', 206, sy + 78);
+  c.fillStyle = '#FFFFFF'; c.font = '700 42px Inter'; c.fillText('Sahel Capital', 206, sy + 128);
+  c.fillStyle = 'rgba(255,255,255,.14)'; c.fillRect(76, sy + 180, SW - 152, 2);
+  c.fillStyle = '#E9C46A'; c.font = '600 28px Inter'; c.fillText('Open an account in 5 minutes  →', 76, sy + 238);
+  c.restore();
+  c.fillStyle = '#8B8F8C'; c.font = '500 22px Inter'; c.textAlign = 'center'; c.fillText(views > 0 ? `Your offer seen ${fmt(views)} times today` : '1 of 86 profiles shared with you today', SW / 2, 1360);
+  c.restore(); scrTex.needsUpdate = true;
+}
+
+// small profile cards that fly between phones across the hall, each with the sponsor strip
+const miniTex = (() => {
+  const T = tex(320, 210), c = T.c;
+  c.fillStyle = '#FFFFFF'; rr(c, 4, 4, 312, 202, 24); c.fill();
+  c.fillStyle = '#F2D99B'; c.beginPath(); c.arc(56, 62, 30, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#3A3F40'; rr(c, 100, 42, 150, 18, 9); c.fill(); c.fillStyle = '#C9C6C0'; rr(c, 100, 72, 110, 14, 7); c.fill();
+  c.save(); rr(c, 4, 4, 312, 202, 24); c.clip(); c.fillStyle = NAVY; c.fillRect(4, 124, 312, 82); c.restore();
+  drawMark(c, 46, 162, 22); c.fillStyle = '#FFFFFF'; c.font = '700 26px Inter'; c.fillText('Sahel Capital', 82, 172);
+  return T.t;
+})();
+const minis = Array.from({ length: 9 }, () => { const m = new Mesh(new PlaneGeometry(0.44, 0.29), new MeshBasicMaterial({ map: miniTex, transparent: true, depthWrite: false })); m.visible = false; m.renderOrder = 3; world.add(m); return { m, g: glowSprite() }; });
+const dots = Array.from({ length: 16 }, () => { const s = new Sprite(new SpriteMaterial({ map: glowTex, blending: AdditiveBlending, depthWrite: false, transparent: true })); s.scale.setScalar(0); s.renderOrder = 5; world.add(s); return s; });
+
+// ---- the agents: a lead bot and three helper bots (from the member story)
+const VW = 160, VH = 88;
+function bot(scale, icon) {
+  const g = new Group();
+  const bodyMat = new MeshStandardMaterial({ color: new Color('#F4EFE6'), roughness: 0.32, metalness: 0.05, emissive: SUNC, emissiveIntensity: 0.06, transparent: true });
+  const body = new Mesh(new CapsuleGeometry(0.2, 0.12, 10, 28), bodyMat); body.scale.set(1.08, 1, 0.86); g.add(body);
+  const vCv = document.createElement('canvas'); vCv.width = VW * 2; vCv.height = VH * 2; const vTex = new CanvasTexture(vCv); vTex.colorSpace = SRGBColorSpace;
+  const vShape = new Shape(); { const w = 0.27, h = 0.15, r = 0.065, x = -w / 2, y = -h / 2; vShape.moveTo(x + r, y); vShape.lineTo(x + w - r, y); vShape.quadraticCurveTo(x + w, y, x + w, y + r); vShape.lineTo(x + w, y + h - r); vShape.quadraticCurveTo(x + w, y + h, x + w - r, y + h); vShape.lineTo(x + r, y + h); vShape.quadraticCurveTo(x, y + h, x, y + h - r); vShape.lineTo(x, y + r); vShape.quadraticCurveTo(x, y, x + r, y); }
+  const vGeo = new ShapeGeometry(vShape, 10); { const uv = vGeo.attributes.uv, p = vGeo.attributes.position; for (let i = 0; i < p.count; i++) uv.setXY(i, (p.getX(i) + 0.135) / 0.27, (p.getY(i) + 0.075) / 0.15); }
+  const visor = new Mesh(vGeo, new MeshBasicMaterial({ map: vTex, toneMapped: false, transparent: true })); visor.position.set(0, 0.04, 0.178); g.add(visor);
+  const core = new Mesh(new SphereGeometry(0.055, 16, 12), new MeshBasicMaterial({ color: new Color('#FFE9A8'), transparent: true })); core.position.y = -0.255; core.scale.set(1, 0.6, 1); g.add(core);
+  const ringG = new Group(); ringG.rotation.set(1.28, 0, 0.18); g.add(ringG);
+  const ring = new Mesh(new TorusGeometry(0.34, 0.006, 8, 72), new MeshBasicMaterial({ color: SUNC, transparent: true, opacity: 0.85 })); ringG.add(ring);
+  const bead = new Mesh(new SphereGeometry(0.022, 12, 8), new MeshBasicMaterial({ color: new Color('#FFF3D0'), transparent: true })); ringG.add(bead);
+  g.scale.setScalar(scale); g.visible = false; world.add(g);
+  const glow = glowSprite(), under = glowSprite();
+  return { g, bodyMat, visor, vCv, vTex, core, ringG, bead, glow, under, icon, scale, last: '' };
+}
+function drawVisor(b, T, mode) {
+  const sig = mode === 'think' ? Math.floor(T * 20) : mode; if (sig === b.last) return; b.last = sig;
+  const c = b.vCv.getContext('2d'); c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, VW, VH);
+  const gr = c.createLinearGradient(0, 0, 0, VH); gr.addColorStop(0, '#163B41'); gr.addColorStop(1, '#0B2226'); c.fillStyle = gr; c.fillRect(0, 0, VW, VH);
+  c.fillStyle = 'rgba(255,255,255,.07)'; c.beginPath(); c.ellipse(VW * 0.32, VH * 0.2, VW * 0.34, VH * 0.14, -0.1, 0, Math.PI * 2); c.fill();
+  c.fillStyle = SUN; c.strokeStyle = SUN; c.lineCap = 'round'; c.lineJoin = 'round'; c.shadowColor = SUN; c.shadowBlur = 10;
+  if (mode === 'think') {
+    for (let i = 0; i < 3; i++) { const k = 0.5 + 0.5 * Math.sin(T * 6 - i * 0.9); c.globalAlpha = 0.45 + 0.55 * k; c.beginPath(); c.arc(VW / 2 - 28 + i * 28, VH / 2 + 4, 6 + 3 * k, 0, Math.PI * 2); c.fill(); }
+    const sp = 0.5 + 0.5 * Math.sin(T * 2.3); c.globalAlpha = sp; const sx = VW - 30, sy = 22, s = 6 + 4 * sp;
+    c.beginPath(); c.moveTo(sx, sy - s); c.lineTo(sx + 2, sy - 2); c.lineTo(sx + s, sy); c.lineTo(sx + 2, sy + 2); c.lineTo(sx, sy + s); c.lineTo(sx - 2, sy + 2); c.lineTo(sx - s, sy); c.lineTo(sx - 2, sy - 2); c.closePath(); c.fill();
+    c.globalAlpha = 1;
+  } else if (mode === 'smile') {
+    c.lineWidth = 6; c.beginPath(); c.arc(VW / 2 - 24, VH / 2, 6, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(VW / 2 + 24, VH / 2, 6, 0, Math.PI * 2); c.fill();
+    c.beginPath(); c.arc(VW / 2, VH / 2 + 4, 16, 0.25 * Math.PI, 0.75 * Math.PI); c.stroke();
+  } else b.icon(c);
+  c.shadowBlur = 0; b.vTex.needsUpdate = true;
+}
+const HELPERS = ['Count', 'Match', 'Report'];
+const ICONS = [
+  (c) => { c.lineWidth = 6; c.beginPath(); c.moveTo(48, 46); c.quadraticCurveTo(80, 18, 112, 46); c.quadraticCurveTo(80, 74, 48, 46); c.stroke(); c.beginPath(); c.arc(80, 46, 9, 0, Math.PI * 2); c.fill(); }, // count: an eye
+  (c) => { c.lineWidth = 6; c.beginPath(); c.ellipse(68, 46, 18, 12, 0, 0, Math.PI * 2); c.stroke(); c.beginPath(); c.ellipse(92, 46, 18, 12, 0, 0, Math.PI * 2); c.stroke(); }, // match: linked rings
+  (c) => { c.lineWidth = 6; [[56, 22], [76, 34], [96, 16]].forEach(([x, h]) => { c.beginPath(); c.moveTo(x, 64); c.lineTo(x, 64 - h - 14); c.stroke(); }); c.beginPath(); c.moveTo(46, 66); c.lineTo(112, 66); c.stroke(); }, // report: bars
+];
+const lead = bot(1.2, null);
+const helpers = HELPERS.map((h, i) => bot(0.6, ICONS[i]));
+function placeBot(b, p, s, T, ph, op = 1) {
+  b.g.visible = s > 0.01; b.g.position.copy(p); b.g.scale.setScalar(b.scale * Math.max(0.0001, s));
+  b.g.rotation.set(0.04 * Math.sin(T * 0.9 + ph), 0.18 * Math.sin(T * 0.5 + ph), 0.05 * Math.sin(T * 0.7 + ph));
+  b.ringG.rotation.z = T * 0.6 + ph; const a = T * 1.6 + ph; b.bead.position.set(Math.cos(a) * 0.34, Math.sin(a) * 0.34, 0);
+  b.bodyMat.opacity = op; b.glow.position.copy(p); b.glow.scale.setScalar(s > 0.01 ? b.scale * 1.6 * s * op : 0); b.glow.material.opacity = 0.55;
+  b.under.position.copy(p).add(new Vector3(0, -0.3 * b.scale, 0)); b.under.scale.setScalar(s > 0.01 ? b.scale * 0.8 * s * op : 0);
+}
+
+// ---- HTML overlays
+const ov = document.getElementById('ov');
+const el = (cls, html = '') => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ov.appendChild(d); return d; };
+const bubbleEl = el('bubble'), capEl = el('cap');
+const QM = [3, 7, 11, 15, 19, 23, 28, 32];
+const qmEls = QM.map(() => el('qm', '?'));
+const ghostEl = el('stat ghost', '<div class="who">Banner · seen by</div><div class="n">?</div><div class="d">Who looked? Who cared? Nobody can say.</div>');
+const skillEls = HELPERS.map((h) => el('skill', h));
+const STATS = [
+  { who: 'Seen in shared cards', n: 18420, d: 'views of your message' },
+  { who: 'Clicked', n: 1312, d: 'opened your offer' },
+  { who: 'Asked to hear from you', n: 240, d: 'people, with their permission' },
+];
+const statEls = STATS.map((s) => el('stat', `<span class="s">Sample</span><div class="who">${s.who}</div><div class="n">0</div><div class="d">${s.d}</div>`));
+const IND = [['Fintech', 34], ['Logistics', 21], ['Retail', 15]];
+const indEl = el('stat', `<span class="s">Sample</span><div class="who">Top industries reached</div><div class="bars">${IND.map(([n, v]) => `<div><span>${n}</span><i></i><b>${v}%</b></div>`).join('')}</div>`);
+const reportEl = el('report', `<div class="rh"><span class="mk"></span>Sahel Capital · Gulf Tech Expo<span class="s">Sample</span></div>
+  <div class="rt">What your sponsorship delivered</div>
+  <div class="cmp"><div class="col ban"><div class="l">Banners</div><div class="v">?</div><div class="d">seen by, unknown</div></div>
+  <div class="col crd"><div class="l">In every card</div><div class="v">18,420</div><div class="d">views, counted</div></div></div>
+  <ul><li><b>1,312</b> clicks on your offer</li><li><b>240</b> people asked to hear from you</li><li>Top: Fintech · Logistics · Retail</li></ul>`);
+const V = new Vector3();
+let CR = null, HR = null;
+function pin(e, p, op, ax = -50, ay = -100, extra = '') {
+  if (op <= 0.005) { if (e.style.opacity !== '0') e.style.opacity = '0'; return; }
+  V.copy(p); world.localToWorld(V); V.project(camera);
+  const x = CR.left - HR.left + (V.x + 1) / 2 * CR.width, y = CR.top - HR.top + (1 - V.y) / 2 * CR.height;
+  e.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(${ax}%, ${ay}%) ${extra}`; e.style.opacity = op.toFixed(3);
+}
+
+// ---- poses
+const walkK = (t) => easeOut(span(t, 0.2, 2.4));
+function sponsorPose(t) {
+  const w = walkK(t), walking = w > 0 && w < 0.98, ph = t * 8;
+  let p = { ...REST, legA: walking ? Math.sin(ph) * 0.42 * (1 - w) * 1.4 : 0, shRx: walking ? -Math.sin(ph) * 0.3 * (1 - w) : 0.05, shLx: walking ? Math.sin(ph) * 0.3 * (1 - w) : 0.05, bob: walking ? Math.abs(Math.sin(ph)) * 0.03 * (1 - w) : 0 };
+  const give = bump(t, 2.7, 5.4, 0.45);
+  if (give > 0) p = blendPose(p, { ...p, shRx: -1.15, shRz: -0.05, elRx: -0.3 }, give);
+  const unsure = ease(span(t, 5.6, 6.4)) * (1 - ease(span(t, 9.8, 10.6))) + ease(span(t, 13.0, 14.0)) * (1 - ease(span(t, 22.4, 23.4)));
+  if (unsure > 0) p = blendPose(p, { ...p, shRx: -1.72, shRz: 0.32, elRx: -2.15, neckX: 0.14, neckY: 0.16, shLx: 0.08, shLz: 0.05 }, unsure);
+  const joy = ease(span(t, 55.0, 55.9)) * (1 - ease(span(t, 64.2, 65.0)));
+  if (joy > 0) p = blendPose(p, { ...p, shRx: -0.1, shRz: -2.35, elRx: -0.35, shLx: -0.1, shLz: 2.35, elLx: -0.35, neckX: -0.2, bob: Math.abs(Math.sin(t * 5)) * 0.045 }, joy);
+  return p;
+}
+function organiserPose(t) {
+  let p = { ...REST };
+  const take = bump(t, 3.1, 5.9, 0.45);
+  if (take > 0) p = blendPose(p, { ...p, shRx: -1.1, shRz: -0.05, elRx: -0.35 }, take);
+  const nod = bump(t, 5.8, 7.6, 0.3); if (nod > 0) p.neckX = Math.sin(t * 7) * 0.12 * nod;
+  const proud = ease(span(t, 55.4, 56.2)) * (1 - ease(span(t, 64.2, 65.0)));
+  if (proud > 0) p = blendPose(p, { ...p, shRx: -0.35, shRz: -2.3, elRx: -0.5 + Math.sin(t * 6) * 0.25, neckX: -0.1 }, proud);
+  return p;
+}
+function sponsorYaw(t) {
+  let y = mix(1.5, 1.35, ease(span(t, 2.0, 2.6)));
+  y = mix(y, 2.35, ease(span(t, 11.4, 13.0)));
+  y = mix(y, 1.05, ease(span(t, 23.4, 25.0)));
+  y = mix(y, 0.45, ease(span(t, 51.2, 52.8)));
+  return y;
+}
+const organiserYaw = (t) => mix(mix(mix(-1.25, 2.6, ease(span(t, 11.8, 13.4))), 0.6, ease(span(t, 23.6, 25.2))), -0.55, ease(span(t, 51.2, 52.8)));
+
+// ---- copy + camera
+let lastCopy = -1;
+function setCopy(i, instant) {
+  if (i === lastCopy) return; const first = lastCopy < 0; lastCopy = i;
+  const txt = document.getElementById('txt');
+  const put = () => { document.getElementById('kick').textContent = COPY[i][0]; document.getElementById('h1').textContent = COPY[i][1]; document.getElementById('p').textContent = COPY[i][2]; };
+  if (instant || first) { put(); txt.classList.remove('out'); return; }
+  txt.classList.add('out'); setTimeout(() => { put(); txt.classList.remove('out'); }, 380);
+}
+const narrow = () => camera.aspect < 1;
+const CAMS = (n) => [
+  { at: new Vector3(-0.95, 1.2, 0.4), dir: new Vector3(0.05, 0.08, 1), w: n ? 3.4 : 4.8 },
+  { at: new Vector3(n ? 1.6 : 0.85, 1.75, -1.7), dir: new Vector3(0, 0.2, 1), w: n ? 7.6 : 11.4 },
+  { at: new Vector3(n ? 1.15 : 0.75, 1.55, n ? 0.8 : 0.3), dir: new Vector3(0, 0.08, 1), w: n ? 3.0 : 7.2 },
+  { at: new Vector3(n ? 1.75 : 1.85, n ? 2.3 : 1.75, 0.3), dir: new Vector3(0, 0.08, 1), w: n ? 5.4 : 8.6 },
+  { at: new Vector3(n ? -0.35 : -0.25, n ? 1.15 : 1.35, 0.4), dir: new Vector3(0.03, 0.08, 1), w: n ? 4.2 : 5.8 },
+];
+function cameraAt(t) {
+  const C = CAMS(narrow()), s = sceneOf(t), prev = C[Math.max(0, s - 1)], cur = C[s];
+  const k = s === 0 ? 1 : ease(span(t, SC[s] - 0.2, SC[s] + 1.8));
+  const at = prev.at.clone().lerp(cur.at, k), dir = prev.dir.clone().lerp(cur.dir, k).normalize(), w = mix(prev.w, cur.w, k);
+  const tanH = Math.tan((camera.fov * Math.PI / 180) / 2), dist = Math.max(w / (2 * tanH * camera.aspect), 0.62 * w / (2 * tanH));
+  camera.position.copy(at).addScaledVector(dir, dist); camera.lookAt(at); camera.updateMatrixWorld(true);
+}
+// where the counters sit (scene 4): beside the phone on wide screens, a grid on phones
+const ANCHORS = (n) => n
+  ? [new Vector3(0.75, 3.2, 1.0), new Vector3(2.75, 3.2, 1.0), new Vector3(0.75, 1.25, 1.0), new Vector3(2.75, 1.25, 1.0)]
+  : [new Vector3(2.7, 2.7, 1.0), new Vector3(4.2, 2.7, 1.0), new Vector3(2.7, 1.42, 1.0), new Vector3(4.2, 1.42, 1.0)];
+
+let ptrX = 0, ptrY = 0, tiltX = 0, tiltY = 0;
+addEventListener('pointermove', (e) => { ptrX = e.clientX / innerWidth * 2 - 1; ptrY = e.clientY / innerHeight * 2 - 1; });
+
+function flightAt(j) {
+  const kind = j % 4;
+  if (kind === 0 || kind === 2) { const pr = pairs[kind === 0 ? 0 : 1], f = (j >> 2) % 2; return [pr[f], pr[1 - f]]; }
+  const a = (j * 7 + 3) % NC, b = (a + 5 + (j % 3)) % NC; return [a, b];
+}
+
+function paint(T, still) {
+  const t = ((T % L) + L) % L, sc = sceneOf(t), n = narrow();
+  setCopy(sc, still);
+  document.querySelectorAll('.scenes button[data-i]').forEach((b) => b.classList.toggle('on', Number(b.dataset.i) === sc));
+  CR = canvas.getBoundingClientRect(); HR = hero.getBoundingClientRect();
+  tiltX += (ptrX - tiltX) * 0.05; tiltY += (ptrY - tiltY) * 0.05;
+  world.rotation.set(tiltY * 0.025, tiltX * 0.07 + Math.sin(T * 0.12) * 0.03, 0);
+  cameraAt(t); world.updateMatrixWorld(true);
+  const fade = ease(span(t, 0, 0.7)) * (1 - ease(span(t, 65, 66)));
+  canvas.style.opacity = ov.style.opacity = fade.toFixed(3);
+  document.getElementById('bar').style.width = `${(t / L * 100).toFixed(2)}%`;
+
+  // the sponsor walks in; the organiser waits
+  sponsor.g.position.copy(SP_FROM).lerp(SP_AT, walkK(t)); sponsor.g.rotation.y = sponsorYaw(t); pose(sponsor, sponsorPose(t));
+  organiser.g.rotation.y = organiserYaw(t); pose(organiser, organiserPose(t));
+  const away = n ? ease(span(t, 24.0, 25.0)) * (1 - ease(span(t, 51.0, 52.0))) : ease(span(t, 37.2, 38.2)) * (1 - ease(span(t, 51.0, 52.0)));
+  for (const h of [sponsor, organiser]) { h.mat.opacity = 1 - away; h.sh.material.opacity = 1 - away; h.g.visible = away < 0.99; }
+  sponsor.g.updateMatrixWorld(true); organiser.g.updateMatrixWorld(true);
+
+  // the envelope: from the sponsor's hand to the organiser's, then tucked away
+  const handS = localPos(sponsor.R.hand), handO = localPos(organiser.R.hand);
+  const ek = ease(span(t, 3.5, 4.7)), eOut = ease(span(t, 6.6, 7.4));
+  env.visible = t > 2.5 && eOut < 1;
+  if (env.visible) {
+    env.position.copy(handS).lerp(handO, ek).add(new Vector3(0, 0.06 + Math.sin(Math.PI * ek) * 0.08, 0.04));
+    env.rotation.set(-0.2, 0.25 + ek * 0.3, 0.1 - ek * 0.2); env.scale.setScalar(mix(1, 0.4, eOut));
+    env.material.forEach((m) => { m.opacity = (1 - eOut) * ease(span(t, 2.5, 2.8)); });
+  }
+
+  // the hall: banners drop in, the crowd fills the floor
+  banners.forEach((b, i) => {
+    const k = easeOut(span(t, 11.3 + i * 0.25, 12.6 + i * 0.25));
+    b.m.visible = t > 11.2; b.m.scale.set(1, Math.max(0.0001, b.kind === 'hang' ? k : 1), 1);
+    const op = b.kind === 'hang' ? clamp(k * 3) : k; b.m.material.opacity = op; b.m.children.forEach((c) => { c.material.opacity = op; });
+    b.m.material.color.setScalar(sc >= 2 ? mix(1, 0.62, ease(span(t, 23.4, 25))) : 1);
+  });
+  placeCrowd(t, T);
+  pairs.forEach((pr) => pr.forEach((h, j) => {
+    const k = easeOut(span(t, 11.4, 12.8)); h.g.visible = t > 11.2; h.mat.opacity = k; h.sh.material.opacity = k;
+    const other = pr[1 - j].g.position; h.g.rotation.y = Math.atan2(other.x - h.g.position.x, other.z - h.g.position.z);
+    const lift = ease(span(t, 23.4, 24.4));
+    let p = { ...REST, neckX: 0.18 * lift }; p = blendPose(p, { ...p, shRx: -1.25, elRx: -0.9, shRz: -0.05 }, lift);
+    pose(h, p); h.phone.visible = lift > 0.05; h.g.updateMatrixWorld(true);
+  }));
+
+  // the shared profile cards: phone to phone, each carrying the sponsor strip
+  const flying = t > 23.6 && t < 50.4, FL = 1.2, GAP = 0.42;
+  minis.forEach((mm) => { mm.m.visible = false; mm.g.scale.setScalar(0); });
+  if (flying) {
+    const jNow = Math.floor((t - 23.6) / GAP);
+    for (let j = Math.max(0, jNow - 3); j <= jNow; j++) {
+      const t0 = 23.6 + j * GAP, k = span(t, t0, t0 + FL); if (k <= 0 || k >= 1) continue;
+      const [A, B] = flightAt(j);
+      const a = typeof A === 'number' ? crowdHead[A].clone() : localPos(A.phone), b = typeof B === 'number' ? crowdHead[B].clone() : localPos(B.phone);
+      const e = ease(k), p = a.clone().lerp(b, e); p.y += Math.sin(Math.PI * e) * (0.55 + a.distanceTo(b) * 0.15);
+      const mm = minis[j % minis.length]; mm.m.visible = true; mm.m.position.copy(p); mm.m.quaternion.copy(camera.quaternion);
+      const s = Math.sin(Math.PI * k) * 0.35 + 0.65; mm.m.scale.setScalar(s * (n ? 1.15 : 1)); mm.m.material.opacity = clamp(Math.sin(Math.PI * k) * 2.2);
+      mm.g.position.copy(p).add(new Vector3(0, -0.1, 0.02)); mm.g.scale.setScalar(0.55 * Math.sin(Math.PI * k));
+    }
+  }
+
+  // the phone: rises with a shared profile; the strip lights up
+  const pIn = easeOut(span(t, 24.0, 25.6)), pOut = ease(span(t, 51.0, 52.4)), pNarrowOut = n ? ease(span(t, 37.0, 38.2)) : 0;
+  const pop = pIn * (1 - Math.max(pOut, pNarrowOut));
+  phoneG.visible = pop > 0.01;
+  phoneG.position.copy(PHONE_POS).add(new Vector3(0, (1 - pIn) * -1.6 + Math.sin(T * 0.8) * 0.02, 0)); phoneG.rotation.copy(PHONE_ROT); phoneG.rotation.y += Math.sin(T * 0.35) * 0.04;
+  phoneG.scale.setScalar(PS * mix(0.85, 1, pIn)); phoneG.updateMatrix();
+  pMat.opacity = glassMat.opacity = scrMat.opacity = sheenMat.opacity = pop;
+  const hi = bump(t, 28.2, 36.6, 0.6) * (0.75 + 0.25 * Math.sin(T * 3)) + bump(t, 41, 50.5, 0.6) * 0.5;
+  const views = t > 40 ? Math.round(18420 * ease(span(t, 40.2, 48.6))) : 0;
+  if (phoneG.visible) drawProfile(span(t, 25.4, 26.6), hi, views);
+  stripGlow.position.copy(phoneLocal(0, pxY(1042), SZ + 0.04)); stripGlow.scale.setScalar(phoneG.visible ? 1.6 * hi * pop : 0);
+
+  // the lead agent and its helpers: count, match, report
+  const A = ANCHORS(n);
+  const LEAD3 = n ? new Vector3(1.75, 4.55, 0.8) : new Vector3(1.05, 3.4, 0.9), LEAD5 = n ? new Vector3(0.75, 2.55, 0.8) : new Vector3(0.5, 2.62, 0.7);
+  const lIn = easeOut(span(t, 37.2, 39.2)), lOut = ease(span(t, 64.0, 65.0));
+  const lp = LEAD3.clone(); lp.y += (1 - lIn) * 2.4 + Math.sin(T * 1.1) * 0.05; lp.lerp(LEAD5, ease(span(t, 51.2, 53.0)));
+  placeBot(lead, lp, lIn * (1 - lOut), T, 0); drawVisor(lead, T, t > 54 ? 'smile' : 'think');
+  const HELP_AT = n
+    ? [A[0].clone().add(new Vector3(-0.2, 1.25, 0.1)), A[1].clone().add(new Vector3(0.2, 1.25, 0.1)), A[3].clone().add(new Vector3(0.0, -1.0, 0.15))]
+    : [A[0].clone().add(new Vector3(0, 0.72, 0.1)), A[1].clone().add(new Vector3(0, 0.72, 0.1)), A[3].clone().add(new Vector3(0.95, -0.15, 0.1))];
+  helpers.forEach((hb, i) => {
+    const k = easeOut(span(t, 39.2 + i * 0.25, 40.6 + i * 0.25)), back = ease(span(t, 50.8 + i * 0.1, 51.8 + i * 0.1));
+    const p = lp.clone().lerp(HELP_AT[i], k).lerp(lp, back); p.y += Math.sin(T * 2 + i) * 0.03;
+    placeBot(hb, p, mix(0.2, 1, k) * (k > 0 ? 1 : 0) * (1 - back * 0.8) * (back < 1 ? 1 : 0), T, i * 1.7);
+    hb.g.rotation.y += -0.3; drawVisor(hb, T, 'icon');
+    pin(skillEls[i], p.clone().add(new Vector3(0, -0.26, 0)), k > 0 && back < 1 ? ease(span(t, 40.2 + i * 0.25, 40.7 + i * 0.25)) * (1 - back) : 0, -50, 0);
+  });
+  // counts: little gold dots from the shared cards to the counters
+  dots.forEach((d, i) => {
+    d.scale.setScalar(0); if (t < 40.4 || t > 49.8) return;
+    const per = 2.6, ph = ((t - 40.4) - i * 0.17) % per; if (ph < 0 || ph > 1.05) return;
+    const k = ease(ph / 1.05), from = crowdHead[(i * 5 + Math.floor((t - 40.4) / per) * 3) % NC], to = A[i % 3];
+    const p = from.clone().lerp(to, k); p.y += Math.sin(Math.PI * k) * 0.9; p.z += Math.sin(Math.PI * k) * 0.3;
+    d.position.copy(p); d.scale.setScalar(0.32 * Math.sin(Math.PI * clamp(k * 1.2)) + 0.06);
+  });
+
+  // ---- overlays
+  const sHead = localPos(sponsor.neck);
+  const bubbleAt = sHead.clone().add(new Vector3(0.05, 0.62, 0));
+  const done = t > 55.6;
+  if (bubbleEl.dataset.k !== String(done)) { bubbleEl.innerHTML = done ? '<div class="h">Gulf Tech Expo</div><span class="tick">✓</span>Worth it. Renewing for next year.' : '<div class="h">Thinking…</div>What will I actually get?'; bubbleEl.dataset.k = String(done); }
+  bubbleEl.classList.toggle('glow', bump(t, 55.6, 57.4, 0.3) > 0.2);
+  pin(bubbleEl, bubbleAt, Math.min(1, bump(t, 5.4, 23.6, 0.4) + bump(t, 55.4, 64.8, 0.4)), -18, -100);
+  // question marks over heads that walk past the banners
+  qmEls.forEach((e, i) => {
+    const idx = QM[i] % NC, ph = ((t - 13.2 - i * 0.55) % 3.4 + 3.4) % 3.4;
+    const op = t > 13.2 && t < 22.8 ? bump(ph, 0, 2.2, 0.45) * 0.7 * (1 - ease(span(t, 22.2, 22.8))) : 0;
+    pin(e, crowdHead[idx].clone().add(new Vector3(0, 0.32 + ph * 0.05, 0)), op, -50, -100, `rotate(${(i % 2 ? 8 : -6)}deg)`);
+  });
+  pin(ghostEl, n ? new Vector3(2.0, 0.55, -2.2) : new Vector3(2.1, 1.45, -4.4), ease(span(t, 14.2, 15.0)) * (1 - ease(span(t, 22.4, 23.2))), -50, 0);
+  // the callout: your message, in every card
+  if (n) pin(capEl, phoneLocal(0, SCH / 2 + 0.1), bump(t, 28.4, 36.8, 0.5) * pop, -50, -100, 'rotate(-3deg)');
+  else pin(capEl, phoneLocal(SCW / 2 + 0.1, pxY(1040)), bump(t, 28.4, 36.8, 0.5) * pop, 0, -50, 'rotate(-3deg)');
+  if (capEl.textContent === '') capEl.innerHTML = n ? 'your message, in every card' : '← your message,<br>&nbsp;&nbsp;&nbsp;in every card';
+  // counters
+  const cIn = (i) => ease(span(t, 40.0 + i * 0.35, 40.6 + i * 0.35)) * (1 - ease(span(t, 50.8, 51.6)));
+  const prog = ease(span(t, 40.2, 48.6));
+  STATS.forEach((s, i) => {
+    const v = fmt(s.n * prog), nEl = statEls[i].children[2]; if (nEl.textContent !== v) nEl.textContent = v;
+    pin(statEls[i], A[i], cIn(i), -50, -50, `scale(${mix(0.88, 1, easeOut(span(t, 40.0 + i * 0.35, 40.6 + i * 0.35))).toFixed(3)})`);
+  });
+  [...indEl.querySelectorAll('i')].forEach((b, i) => b.style.setProperty('--w', `${(IND[i][1] / 34 * 100 * ease(span(t, 42 + i * 0.4, 46 + i * 0.4))).toFixed(1)}%`));
+  pin(indEl, A[3], cIn(3), -50, -50, `scale(${mix(0.88, 1, easeOut(span(t, 41.05, 41.65))).toFixed(3)})`);
+  // the report: from the assistant to the sponsor
+  const rk = easeOut(span(t, 52.6, 54.0));
+  const REP = n ? new Vector3(-0.3, 0.72, 1.6) : new Vector3(0.62, 1.55, 0.9);
+  const rp = lp.clone().lerp(REP, rk);
+  pin(reportEl, rp, ease(span(t, 52.6, 53.2)) * (1 - ease(span(t, 64.4, 65.2))), n ? -50 : -8, -50, `scale(${mix(0.3, 1, rk).toFixed(3)})`);
+
+  renderer.render(scene, camera);
+}
+
+function size() { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+size(); addEventListener('resize', size);
+
+// ---- controls
+let T = 0, paused = false;
+const scenesEl = document.getElementById('scenes');
+const still = q.has('t') || reduced;
+NAMES.forEach((nm, i) => { const b = document.createElement('button'); b.dataset.i = i; b.textContent = `${i + 1} ${nm}`; b.onclick = () => { T = still ? KEY[i] : SC[i] + 0.05; if (still) { lastCopy = -2; paint(T, true); } }; scenesEl.appendChild(b); });
+const pp = document.createElement('button'); pp.className = 'pp'; pp.textContent = '❚❚'; pp.setAttribute('aria-label', 'Pause'); pp.onclick = () => { paused = !paused; pp.textContent = paused ? '▶' : '❚❚'; pp.setAttribute('aria-label', paused ? 'Play' : 'Pause'); };
+if (!still) scenesEl.appendChild(pp);
+
+await Promise.race([Promise.all(['600 34px Inter', '400 24px Inter', '700 50px Inter', '800 80px Inter', '700 30px Caveat'].map((f) => document.fonts.load(f))), new Promise((r) => setTimeout(r, 2500))]);
+// banners were drawn before the fonts loaded: redraw them now
+{ const nb = bannerTex(400, 760, false), nr = bannerTex(360, 720, true); banners.forEach((b) => { b.m.material.map = b.kind === 'hang' ? nb : nr; b.m.material.needsUpdate = true; }); }
+if (still) {
+  T = q.has('t') ? Number(q.get('t')) : KEY[q.has('scene') ? Number(q.get('scene')) - 1 : 0];
+  if (q.has('px')) ptrX = tiltX = Number(q.get('px'));
+  paint(T, true); window.__ready = true;
+} else {
+  if (q.has('scene')) T = SC[Number(q.get('scene')) - 1] + 0.05;
+  const STEP = 1 / 60; let last = performance.now(), acc = 0;
+  const loop = (now) => { const dt = Math.min(0.25, (now - last) / 1000); last = now; if (!paused) { acc += dt; while (acc >= STEP) { T += STEP; acc -= STEP; } } paint(T, false); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop); window.__ready = true;
+}
+</script>
+</body>
+</html>

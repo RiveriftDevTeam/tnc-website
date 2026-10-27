@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card pile hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Caveat:wght@500;600&family=DM+Serif+Display&family=Inter:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root { --field: #0B3A44; --ink: #F3EADB; --thread: #10A396; --sun: #E9C46A; }
+  :root[data-theme="dark"] { --field: #08262D; --ink: #E8F1EF; --thread: #4FD1C5; --sun: #F0CF7E; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--field); color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 64px; font-size: 15px; z-index: 3; }
+  header b { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: 20px; }
+  header nav { display: flex; gap: 28px; opacity: .8; }
+  .hero { position: relative; height: 100vh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; padding: 0 64px; }
+  .copy { position: relative; z-index: 2; max-width: 500px; }
+  h1 { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: clamp(40px, 4.8vw, 68px); line-height: 1.03; letter-spacing: -.025em; }
+  .copy p { margin-top: 22px; font-size: 19px; line-height: 1.55; opacity: .8; }
+  .ctas { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 14px 22px; border-radius: 999px; font-weight: 500; font-size: 16px; }
+  .btn.p { background: var(--sun); color: #14201F; }
+  .btn.s { border: 1.5px solid rgb(243 234 219 / .4); }
+  .cue { margin-top: 40px; font-size: 14px; letter-spacing: .02em; display: inline-flex; gap: 10px; align-items: center; opacity: .55; transition: none; }
+  .cue i { display: inline-block; width: 1px; height: 22px; background: currentColor; }
+  .stage { position: relative; height: 100%; }
+  canvas { position: absolute; top: 0; bottom: 0; left: -10%; width: 118%; height: 100%;
+    -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, #000 66%, transparent 100%); mask-image: radial-gradient(50% 50% at 50% 50%, #000 66%, transparent 100%); }
+  .when { position: absolute; right: 7%; top: 21%; z-index: 2; font-family: Caveat, cursive; font-weight: 600; font-size: 34px; color: var(--ink); opacity: 0; transform: rotate(-3deg); white-space: nowrap; }
+  @media (max-width: 700px) {
+    header { padding: 18px 20px; } header nav { display: none; }
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 92px 20px 0; align-items: start; }
+    h1 { font-size: 40px; } .copy p { font-size: 16px; margin-top: 14px; } .ctas { margin-top: 20px; } .cue { margin-top: 18px; }
+    canvas { left: -5%; width: 110%; }
+    .when { top: 6%; right: 8%; font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<header><b>TapNConnect</b><nav><span>How it works</span><span>For organisers</span><span>Pricing</span><span>Order</span></nav></header>
+<section class="hero">
+  <div class="copy">
+    <h1>Usually, this is where it ends.</h1>
+    <p>The hall empties. The cards go in a drawer. By next week the names have faded.</p>
+    <div class="ctas"><span class="btn p">Start free</span><span class="btn s">Order for your company</span></div>
+    <div class="cue" id="cue"><i></i>See how it doesn’t</div>
+  </div>
+  <div class="stage" id="stage"><canvas id="c"></canvas><div class="when" id="when"></div></div>
+</section>
+
+<script type="importmap">{ "imports": { "three": "../../node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, SpotLight, Color, SRGBColorSpace, Vector3, Group, Fog,
+  BoxGeometry, MeshStandardMaterial, MeshBasicMaterial, Mesh, PlaneGeometry, CircleGeometry, ShadowMaterial, CanvasTexture,
+  CatmullRomCurve3, TubeGeometry, PCFSoftShadowMap, BufferGeometry, Float32BufferAttribute, Points, PointsMaterial, AdditiveBlending,
+  Sprite, SpriteMaterial,
+} from 'three';
+
+const q = new URLSearchParams(location.search);
+if (q.get('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+const dark = q.get('theme') === 'dark';
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const FIELD = new Color(css('--field')), TEAL = new Color(css('--thread'));
+
+// ---- deterministic randomness
+let seed = 20261027; const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp01 = (x) => Math.min(1, Math.max(0, x));
+const span = (t, a, b) => clamp01((t - a) / (b - a));
+const smooth = (x) => x * x * (3 - 2 * x);
+const easeOut = (x) => 1 - (1 - x) ** 3;
+const easeInOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2);
+
+// ---- the cards (fictional people and companies only)
+const PAPER = { cream: ['#F3EADB', '#2A2723'], white: ['#FAFAF6', '#1E2326'], black: ['#1B1B1D', '#EDE6D6'], kraft: ['#C8A47C', '#2B2118'], mist: ['#DCE3E5', '#1F2B30'], sage: ['#D6DCCB', '#22291F'] };
+const CARDS = [
+  { name: 'Hassan Ali', title: 'Project Director', co: 'Gulfstone Construction', paper: 'white', accent: '#B4472C', layout: 0, mark: 2, font: 'sans' },
+  { name: 'Mei Lin', title: 'Sourcing Manager', co: 'Jade Bridge Trading', paper: 'cream', accent: '#2F6B4F', layout: 1, mark: 0, font: 'serif' },
+  { name: 'Khalid Mansour', title: 'Chief Executive', co: 'Atlas Fintech', paper: 'black', accent: '#D9B26A', layout: 3, mark: 1, font: 'sans', ar: 'خالد منصور', note: 'send deck!!' },
+  { name: 'Priya Nair', title: 'Growth Lead', co: 'Kite Payments', paper: 'white', accent: '#3E5CC4', layout: 2, mark: 3, font: 'sans' },
+  { name: 'Marco Bianchi', title: 'Creative Director', co: 'Bianchi Design', paper: 'kraft', accent: '#2B2118', layout: 1, mark: 2, font: 'serif', note: 'lunch next week?' },
+  { name: 'Aisha Rahim', title: 'Head of Partnerships', co: 'Bloom Clinics', paper: 'mist', accent: '#C2577A', layout: 0, mark: 0, font: 'sans' },
+  { name: 'Daniel Brooks', title: 'Regional Director', co: 'Halden Systems', paper: 'white', accent: '#1F3D5A', layout: 3, mark: 1, font: 'mono' },
+  { name: 'Fatima Al Zaabi', title: 'Senior Advisor', co: 'Majlis Advisory', paper: 'cream', accent: '#8C6A2E', layout: 0, mark: 3, font: 'serif', ar: 'فاطمة الزعابي', note: 'promised case study' },
+  { name: 'Zain Malik', title: 'Producer', co: 'Coral Media', paper: 'black', accent: '#E07A5F', layout: 2, mark: 0, font: 'sans' },
+  { name: 'Rana Khoury', title: 'Research Lead', co: 'Oasis Labs', paper: 'sage', accent: '#3A5A40', layout: 1, mark: 3, font: 'sans', note: 'Hall 4 – liked the demo' },
+  { name: 'Ali Rezaei', title: 'Account Executive', co: 'Pearl Telecom', paper: 'white', accent: '#6C3FA0', layout: 0, mark: 1, font: 'sans' },
+  { name: 'Sami Obeid', title: 'Managing Partner', co: 'Obeid & Co.', paper: 'cream', accent: '#1E1E1E', layout: 3, mark: 2, font: 'serif', note: 'WhatsApp him' },
+  { name: 'Noor Al Hashimi', title: 'Events Director', co: 'Corniche Events', paper: 'mist', accent: '#0E7C86', layout: 2, mark: 0, font: 'sans', ar: 'نور الهاشمي' },
+  { name: 'Lina Farouk', title: 'Brand Strategist', co: 'Saffron & Salt', paper: 'kraft', accent: '#8A2D1C', layout: 0, mark: 3, font: 'serif', note: 'his daughter → AUS' },
+  { name: 'Tariq Aziz', title: 'CTO', co: 'Mirage Robotics', paper: 'black', accent: '#4FD1C5', layout: 3, mark: 1, font: 'mono' },
+  { name: 'Karim Nasser', title: 'Sales Manager', co: 'Falcon Freight', paper: 'white', accent: '#C8102E', layout: 2, mark: 2, font: 'sans', note: 'follow up Tue' },
+  { name: 'Mira Patel', title: 'Product Director', co: 'Tidewater Health', paper: 'cream', accent: '#2E6F95', layout: 1, mark: 0, font: 'sans' },
+  { name: 'Yusuf Rahman', title: 'Head of Operations', co: 'Al Noor Logistics', paper: 'white', accent: '#1F6E5A', layout: 0, mark: 1, font: 'sans', ar: 'يوسف رحمن', note: 'call re: pilot!' },
+  { name: 'Sara Al Mansoori', title: 'Founder', co: 'Lumen Studio', paper: 'sage', accent: '#B5651D', layout: 2, mark: 3, font: 'serif', note: 'met at coffee stand' },
+  { name: 'Dana Saleh', title: 'Investor Relations', co: 'Dune Ventures', paper: 'mist', accent: '#9A6B2F', layout: 3, mark: 2, font: 'sans' },
+  { name: 'Huda Karim', title: 'Innovation Manager', co: 'Qamar Bank', paper: 'cream', accent: '#0B4F6C', layout: 0, mark: 0, font: 'serif', ar: 'هدى كريم' },
+  { name: 'Omar Haddad', title: 'Partnerships Lead', co: 'Sahel Capital', paper: 'white', accent: '#0F5257', layout: 0, mark: 1, font: 'sans', ar: 'عمر حداد', note: 'intro to Huda?', hero: true },
+];
+
+const W = 768, H = 452;
+const FONT = { sans: 'Inter', serif: '"DM Serif Display"', mono: '"Space Mono"' };
+function mark(g, kind, x, y, s, c) {
+  g.save(); g.fillStyle = c; g.strokeStyle = c; g.lineWidth = s * 0.14;
+  if (kind === 0) { g.beginPath(); g.arc(x + s / 2, y + s / 2, s / 2, 0, Math.PI * 2); g.fill(); g.fillStyle = 'rgba(255,255,255,.85)'; g.beginPath(); g.arc(x + s * 0.62, y + s * 0.4, s * 0.2, 0, Math.PI * 2); g.fill(); }
+  if (kind === 1) { g.beginPath(); g.moveTo(x, y + s); g.lineTo(x + s / 2, y); g.lineTo(x + s, y + s); g.closePath(); g.fill(); }
+  if (kind === 2) { g.fillRect(x, y, s * 0.36, s); g.fillRect(x + s * 0.5, y + s * 0.3, s * 0.36, s * 0.7); }
+  if (kind === 3) { g.beginPath(); g.arc(x + s / 2, y + s, s / 2, Math.PI, 0); g.stroke(); g.beginPath(); g.arc(x + s / 2, y + s, s * 0.22, Math.PI, 0); g.fill(); }
+  g.restore();
+}
+function slug(co) { return co.toLowerCase().replace(/[^a-z]/g, '').slice(0, 12); }
+function drawCard(c, i) {
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+  const [paper, ink] = PAPER[c.paper];
+  g.fillStyle = paper; g.fillRect(0, 0, W, H);
+  // paper tooth
+  for (let k = 0; k < 2200; k++) { g.fillStyle = `rgba(${c.paper === 'black' ? '255,255,255' : '0,0,0'},${0.018 + rnd() * 0.02})`; g.fillRect(rnd() * W, rnd() * H, 1.5, 1.5); }
+  const f = FONT[c.font], first = c.name.split(' ')[0].toLowerCase();
+  const contact = [`+971 50 555 0${(i * 37) % 900 + 100}`, `${first}@${slug(c.co)}.ae`];
+  g.fillStyle = ink; g.textBaseline = 'alphabetic';
+  if (c.layout === 0) {
+    mark(g, c.mark, 56, 52, 54, c.accent);
+    g.font = `600 26px ${f}`; g.fillStyle = c.accent; g.fillText(c.co.toUpperCase(), 128, 90);
+    g.fillStyle = ink; g.font = `${c.font === 'serif' ? 400 : 700} 50px ${f}`; g.fillText(c.name, 56, 250);
+    g.font = `400 26px ${f}`; g.globalAlpha = 0.75; g.fillText(c.title, 56, 290); g.globalAlpha = 1;
+    if (c.ar) { g.font = '500 28px "Geeza Pro", "Noto Naskh Arabic", serif'; g.textAlign = 'right'; g.globalAlpha = 0.7; g.fillText(c.ar, W - 56, 90); g.globalAlpha = 1; g.textAlign = 'left'; }
+    g.font = `400 21px ${f}`; g.globalAlpha = 0.7; g.fillText(contact[0], 56, 380); g.fillText(contact[1], 56, 408); g.globalAlpha = 1;
+  } else if (c.layout === 1) {
+    mark(g, c.mark, W / 2 - 36, 64, 72, c.accent);
+    g.textAlign = 'center'; g.font = `600 30px ${f}`; g.fillStyle = c.accent; g.fillText(c.co.toUpperCase().split('').join(' '), W / 2, 196);
+    g.fillStyle = ink; g.font = `${c.font === 'serif' ? 400 : 600} 40px ${f}`; g.fillText(c.name, W / 2, 300);
+    g.font = `400 23px ${f}`; g.globalAlpha = 0.72; g.fillText(`${c.title}  ·  ${contact[1]}`, W / 2, 340); g.fillText(contact[0], W / 2, 372); g.globalAlpha = 1; g.textAlign = 'left';
+  } else if (c.layout === 2) {
+    g.fillStyle = c.accent; g.fillRect(0, 0, 34, H);
+    g.fillStyle = ink; g.font = `${c.font === 'serif' ? 400 : 700} 52px ${f}`; g.fillText(c.name, 80, 120);
+    g.font = `400 26px ${f}`; g.globalAlpha = 0.75; g.fillText(c.title, 80, 160); g.globalAlpha = 1;
+    if (c.ar) { g.font = '500 28px "Geeza Pro", "Noto Naskh Arabic", serif'; g.globalAlpha = 0.65; g.fillText(c.ar, 80, 204); g.globalAlpha = 1; }
+    g.font = `400 21px ${f}`; g.globalAlpha = 0.7; g.fillText(contact[0], 80, 360); g.fillText(contact[1], 80, 390); g.globalAlpha = 1;
+    g.textAlign = 'right'; g.fillStyle = c.accent; g.font = `700 30px ${f}`; g.fillText(c.co, W - 52, 400); g.textAlign = 'left';
+  } else {
+    g.fillStyle = c.accent; g.font = `700 46px ${f}`; g.fillText(c.co, 56, 108);
+    g.fillStyle = ink; g.globalAlpha = 0.35; g.fillRect(56, 140, W - 112, 2); g.globalAlpha = 1;
+    g.textAlign = 'right'; g.font = `${c.font === 'serif' ? 400 : 600} 40px ${f}`; g.fillText(c.name, W - 56, 300);
+    g.font = `400 24px ${f}`; g.globalAlpha = 0.72; g.fillText(c.title, W - 56, 336); g.fillText(`${contact[0]}   ${contact[1]}`, W - 56, 400); g.globalAlpha = 1;
+    if (c.ar) { g.font = '500 28px "Geeza Pro", "Noto Naskh Arabic", serif'; g.globalAlpha = 0.65; g.fillText(c.ar, W - 56, 250); g.globalAlpha = 1; }
+    g.textAlign = 'left';
+  }
+  return cv;
+}
+const NOTE_AT = [[0.69, 0.8, -6], [0.74, 0.2, -8], [0.7, 0.6, -5], [0.3, 0.62, -4]];
+function drawNote(text, i, layout = 0) {
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+  if (!text) return cv;
+  g.save();
+  const [nx, ny, nr] = NOTE_AT[layout];
+  g.translate(W * nx, H * ny); g.rotate(nr * Math.PI / 180);
+  g.font = '600 58px Caveat'; g.fillStyle = '#fff'; g.textAlign = 'center';
+  g.fillText(text, 0, 0);
+  // the ballpoint underline
+  const w = g.measureText(text).width; g.lineWidth = 3.2; g.strokeStyle = '#fff'; g.beginPath(); g.moveTo(-w / 2, 14); g.bezierCurveTo(-w / 6, 22, w / 6, 8, w / 2 + 6, 16); g.stroke();
+  g.restore();
+  return cv;
+}
+function drawBadge() {
+  const bw = 520, bh = 740; const cv = document.createElement('canvas'); cv.width = bw; cv.height = bh; const g = cv.getContext('2d');
+  g.fillStyle = '#F7F5F0'; g.fillRect(0, 0, bw, bh);
+  g.fillStyle = '#0E3B5C'; g.fillRect(0, 0, bw, 230);
+  g.fillStyle = '#E9C46A'; g.fillRect(0, 230, bw, 10);
+  g.fillStyle = '#fff'; g.font = '700 54px "Bricolage Grotesque"'; g.fillText('GULF TECH', 40, 108); g.fillText('EXPO', 40, 168);
+  g.font = '500 22px Inter'; g.globalAlpha = 0.8; g.fillText('14–16 OCT  ·  HALL 1–6', 40, 206); g.globalAlpha = 1;
+  g.fillStyle = '#1C2328'; g.font = '700 58px Inter'; g.fillText('Layla', 40, 380); g.fillText('Nasser', 40, 446);
+  g.font = '400 26px Inter'; g.globalAlpha = 0.7; g.fillText('Independent consultant', 40, 492); g.globalAlpha = 1;
+  g.fillStyle = '#C8102E'; g.fillRect(0, bh - 120, bw, 120); g.fillStyle = '#fff'; g.font = '700 50px Inter'; g.textAlign = 'center'; g.fillText('VISITOR', bw / 2, bh - 44);
+  g.fillStyle = '#1C2328'; for (let k = 0; k < 9; k++) for (let j = 0; j < 9; j++) if ((k * 7 + j * 3 + k * j) % 3) g.fillRect(bw - 170 + k * 14, 300 + j * 14, 12, 12);
+  return cv;
+}
+
+// ---- three
+const stage = document.getElementById('stage'), canvas = document.getElementById('c');
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = SRGBColorSpace;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = PCFSoftShadowMap;
+const scene = new Scene(); scene.fog = new Fog(FIELD, 9, 15);
+const phone = innerWidth < 700;
+const camera = new PerspectiveCamera(30, 1, 0.1, 60);
+const CAM = phone ? new Vector3(0, 7.6, 6.6) : new Vector3(0.3, 6.0, 5.6);
+const hemi = new HemisphereLight(0xfff3e0, dark ? 0x061a1f : 0x0d3038, 0.55); scene.add(hemi);
+const key = new SpotLight(0xfff0d8, 70, 0, 0.42, 0.85, 2); key.position.set(-0.8, 8.5, 1.6); key.target.position.set(0, 0, 0);
+key.castShadow = true; key.shadow.mapSize.set(1536, 1536); key.shadow.bias = -0.0004; key.shadow.normalBias = 0.012; key.shadow.radius = 4;
+scene.add(key, key.target);
+// the one card the assistant picks up gets its own small light
+const pick = new SpotLight(0xe6fff9, 0, 0, 0.16, 0.9, 2); pick.position.set(0.4, 6, 1.4); scene.add(pick, pick.target);
+const world = new Group(); scene.add(world);
+
+const radial = (stops, n = 256) => { const c = document.createElement('canvas'); c.width = c.height = n; const g = c.getContext('2d'); const r = g.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2); stops.forEach(([o, col]) => r.addColorStop(o, col)); g.fillStyle = r; g.fillRect(0, 0, n, n); return new CanvasTexture(c); };
+// the lit pool on the desk, and the shadows the pile throws into it
+const poolC = FIELD.clone().lerp(new Color(0xffdcae), 0.32).getHexString();
+const pool = new Mesh(new CircleGeometry(3.6, 64), new MeshBasicMaterial({ map: radial([[0, `#${poolC}aa`], [0.35, `#${poolC}55`], [0.7, `#${poolC}18`], [1, `#${poolC}00`]]), transparent: true, depthWrite: false, fog: false }));
+pool.rotation.x = -Math.PI / 2; pool.position.y = -0.001; world.add(pool);
+const floor = new Mesh(new PlaneGeometry(14, 14), new ShadowMaterial({ opacity: 0.5 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; world.add(floor);
+
+// a card: paper box, printed top face with a fade/blur/dust shader and a handwritten-note layer
+const CW = 1.7, CD = 1.0, CT = 0.012;
+const cardGeo = new BoxGeometry(CW, CT, CD);
+function cardMaterial(tex, noteTex, paperHex) {
+  const u = { uFade: { value: 0 }, uNoteFade: { value: 0 }, uDust: { value: 0 }, uWarm: { value: 0 }, uPaper: { value: new Color(paperHex) }, uNote: { value: noteTex }, uTeal: { value: TEAL.clone() } };
+  const m = new MeshStandardMaterial({ map: tex, roughness: 0.92, metalness: 0 });
+  m.onBeforeCompile = (s) => {
+    Object.assign(s.uniforms, u);
+    s.fragmentShader = s.fragmentShader
+      .replace('#include <common>', `#include <common>
+uniform float uFade; uniform float uNoteFade; uniform float uDust; uniform float uWarm; uniform vec3 uPaper; uniform vec3 uTeal; uniform sampler2D uNote;
+float hsh(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }`)
+      .replace('#include <map_fragment>', `#ifdef USE_MAP
+  vec2 uv0 = vMapUv; float r = uFade * 0.0075;
+  vec4 s = texture2D(map, uv0) * 0.28 + (texture2D(map, uv0 + vec2(r, 0.)) + texture2D(map, uv0 - vec2(r, 0.)) + texture2D(map, uv0 + vec2(0., r * 1.7)) + texture2D(map, uv0 - vec2(0., r * 1.7))) * 0.18;
+  vec3 paperC = pow(uPaper, vec3(2.2));
+  float lum = dot(s.rgb, vec3(.299, .587, .114));
+  s.rgb = mix(s.rgb, vec3(lum), uFade * 0.7);
+  s.rgb = mix(s.rgb, paperC, uFade * 0.62);
+  // yellowing and dust
+  s.rgb *= mix(vec3(1.), vec3(1.0, 0.95, 0.84), uDust * 0.6);
+  float sp = step(0.988, hsh(floor(uv0 * vec2(260., 150.))));
+  s.rgb = mix(s.rgb, vec3(0.62, 0.6, 0.56), sp * uDust * 0.55 + uDust * 0.08);
+  // the handwritten note, in ballpoint blue, or teal when it warms
+  float n = texture2D(uNote, uv0 + vec2(0., 0.)).a;
+  float nb = (texture2D(uNote, uv0 + vec2(r * 1.4, 0.)).a + texture2D(uNote, uv0 - vec2(r * 1.4, 0.)).a) * 0.5;
+  n = mix(n, nb, uNoteFade);
+  vec3 pen = mix(pow(vec3(0.16, 0.27, 0.62), vec3(2.2)), pow(uTeal, vec3(2.2)) * 1.15, uWarm);
+  s.rgb = mix(s.rgb, pen, n * clamp(1. - uNoteFade * 0.92 + uWarm, 0., 1.));
+  diffuseColor *= s;
+#endif`)
+      .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+  totalEmissiveRadiance += pow(uTeal, vec3(2.2)) * texture2D(uNote, vMapUv).a * uWarm * 0.9;`);
+  };
+  m.userData.u = u;
+  return m;
+}
+const edgeMats = {}; const edgeMat = (hex) => (edgeMats[hex] ||= new MeshStandardMaterial({ color: new Color(hex).multiplyScalar(0.86), roughness: 0.95 }));
+
+// card faces are painted to canvas, so the faces need their fonts first
+await Promise.race([Promise.all(['600 58px Caveat', '400 26px Inter', '700 50px Inter', '600 26px Inter', '400 40px "DM Serif Display"', '400 21px "Space Mono"', '700 54px "Bricolage Grotesque"'].map((f) => document.fonts.load(f))), new Promise((r) => setTimeout(r, 4000))]);
+const cards = [];
+const N = CARDS.length;
+CARDS.forEach((c, i) => {
+  const tex = new CanvasTexture(drawCard(c, i)); tex.colorSpace = SRGBColorSpace; tex.anisotropy = 8;
+  const nt = new CanvasTexture(drawNote(c.note, i, c.layout));
+  const paperHex = PAPER[c.paper][0];
+  const top = cardMaterial(tex, nt, paperHex), e = edgeMat(paperHex);
+  const mesh = new Mesh(cardGeo, [e, e, top, e, e, e]); mesh.castShadow = true; mesh.receiveShadow = true;
+  // the heap: early cards spread wide, later cards land nearer the middle
+  const k = i / (N - 1), rad = lerp(1.25, 0.25, k) * (0.55 + rnd() * 0.45), ang = rnd() * Math.PI * 2;
+  const target = { x: Math.cos(ang) * rad, z: Math.sin(ang) * rad * 0.8, y: 0.03 + i * 0.02, ry: (rnd() - 0.5) * 1.9, rx: (rnd() - 0.5) * 0.012, rz: (rnd() - 0.5) * 0.012 };
+  if (c.hero) Object.assign(target, { x: 0.12, z: 0.18, ry: 0.16, rx: 0, rz: 0, y: 0.03 + i * 0.02 + 0.02 });
+  const drop = 0.5 + i * 0.2;
+  cards.push({ c, mesh, top, target, drop, from: { x: target.x + (rnd() - 0.5) * 0.8, z: target.z - 0.6 - rnd() * 0.5, ry: target.ry + (rnd() - 0.5) * 1.6, rx: (rnd() - 0.5) * 0.9 },
+    fadeAt: 6.6 + rnd() * 3.2, slide: null });
+  world.add(mesh);
+});
+// a few edge cards slide off into the dark as the months pass
+const outer = cards.map((cd, i) => ({ i, r: Math.hypot(cd.target.x, cd.target.z) })).filter((o) => o.i < N - 6 && cards[o.i].target.z < 0.35).sort((a, b) => b.r - a.r).slice(0, 4);
+outer.forEach((o, j) => { const cd = cards[o.i], a = Math.atan2(cd.target.z, cd.target.x); cd.slide = { at: 11.2 + j * 1.5, dx: Math.sign(Math.cos(a) || 1) * (1.6 + rnd() * 0.8), dz: -1.9 - rnd() * 1.0, spin: (rnd() - 0.5) * 1.2 }; });
+
+// the visitor badge and its lanyard, under the pile
+const badgeTex = new CanvasTexture(drawBadge()); badgeTex.colorSpace = SRGBColorSpace; badgeTex.anisotropy = 8;
+const badgeTop = cardMaterial(badgeTex, new CanvasTexture(drawNote('', 0)), '#F7F5F0');
+const badge = new Mesh(new BoxGeometry(0.92, 0.018, 1.31), [edgeMat('#E8E6E0'), edgeMat('#E8E6E0'), badgeTop, edgeMat('#E8E6E0'), edgeMat('#E8E6E0'), edgeMat('#E8E6E0')]);
+badge.castShadow = badge.receiveShadow = true; badge.position.set(-1.05, 0.012, 0.55); badge.rotation.set(0, 0.5, 0); world.add(badge);
+const lanyardPts = [[-1.25, 1.12], [-1.55, 1.5], [-2.15, 1.55], [-2.55, 1.1], [-2.35, 0.55], [-2.75, 0.05], [-3.3, -0.1]].map(([x, z]) => new Vector3(x, 0.012, z));
+const lanyardGeo = new TubeGeometry(new CatmullRomCurve3(lanyardPts), 160, 0.06, 6); lanyardGeo.scale(1, 0.18, 1);
+const lanyard = new Mesh(lanyardGeo, new MeshStandardMaterial({ color: 0x1d2c48, roughness: 0.75 })); lanyard.castShadow = lanyard.receiveShadow = true; world.add(lanyard);
+
+// dust in the light
+const DN = 260, dpos = new Float32Array(DN * 3), dseed = [];
+for (let i = 0; i < DN; i++) { dseed.push([rnd() * 4 - 2, rnd() * 3.5, rnd() * 3 - 1.5, rnd()]); }
+const dustGeo = new BufferGeometry(); dustGeo.setAttribute('position', new Float32BufferAttribute(dpos, 3));
+const dust = new Points(dustGeo, new PointsMaterial({ color: 0xfff1d8, size: 0.022, transparent: true, opacity: 0, depthWrite: false, blending: AdditiveBlending })); world.add(dust);
+
+// the one card that warms: a soft glow under it
+const glowTex = radial([[0, 'rgba(120,230,215,.9)'], [0.4, 'rgba(80,200,190,.25)'], [1, 'rgba(80,200,190,0)']]);
+const glow = new Sprite(new SpriteMaterial({ map: glowTex, transparent: true, depthWrite: false, blending: AdditiveBlending, opacity: 0 })); glow.scale.set(2.4, 1.5, 1); glow.material.depthTest = false; glow.renderOrder = -1; world.add(glow);
+
+// ---- the loop: drop, time passes, fade, one card warms, dark, again
+const L = 27;
+const WHEN = [[7, 'a week later'], [9.6, 'a month later'], [12.2, 'three months later'], [14.8, 'six months later']];
+const whenEl = document.getElementById('when'), cueEl = document.getElementById('cue');
+let ptrX = 0, ptrY = 0, tiltX = 0, tiltY = 0;
+addEventListener('pointermove', (e) => { ptrX = e.clientX / innerWidth * 2 - 1; ptrY = e.clientY / innerHeight * 2 - 1; });
+
+function frame(T, smoothTilt = true) {
+  const t = T % L;
+  if (smoothTilt) { tiltX += (ptrX - tiltX) * 0.05; tiltY += (ptrY - tiltY) * 0.05; } else { tiltX = ptrX; tiltY = ptrY; }
+  world.rotation.y = -0.12 + Math.sin(T * 0.05) * 0.05 + tiltX * 0.12; world.rotation.x = tiltY * 0.03;
+  // the camera eases in a touch over the months
+  const push = smooth(span(t, 6, 22));
+  camera.position.copy(CAM).multiplyScalar(1 - push * 0.07); camera.lookAt(0.05, 0, 0.05);
+
+  // light: up as the cards land, down as the months pass, out before the loop starts again
+  const lightUp = smooth(span(t, 0, 1.4)), lightDown = smooth(span(t, 6.5, 17)), out = smooth(span(t, 24, 26.6));
+  const L1 = lightUp * (1 - 0.62 * lightDown) * (1 - out);
+  key.intensity = 70 * L1; hemi.intensity = 0.5 * (0.3 + 0.7 * L1);
+  pool.material.opacity = 0.25 + 0.75 * L1; floor.material.opacity = 0.5 * L1 + 0.05;
+
+  const dustA = smooth(span(t, 7, 16)) * (1 - out);
+  const warmA = smooth(span(t, 18.2, 20.6)) * (1 - smooth(span(t, 23.6, 25.6)));
+  cards.forEach((cd, i) => {
+    const { mesh, target, from } = cd, u = cd.top.userData.u;
+    const d = span(t, cd.drop, cd.drop + 0.55);
+    mesh.visible = t >= cd.drop;
+    const fall = d * d; // gravity
+    const settle = Math.sin(span(t, cd.drop + 0.55, cd.drop + 0.85) * Math.PI) * 0.012;
+    let x = lerp(from.x, target.x, easeOut(d)), z = lerp(from.z, target.z, easeOut(d)), y = lerp(target.y + 2.6, target.y, fall) + settle;
+    let ry = lerp(from.ry, target.ry, easeOut(d)), rx = lerp(from.rx, target.rx, easeOut(d)), rz = target.rz;
+    if (cd.slide) { const s = easeInOut(span(t, cd.slide.at, cd.slide.at + 2.6)); x += cd.slide.dx * s; z += cd.slide.dz * s; ry += cd.slide.spin * s; y -= 0.25 * s * s; }
+    if (cd.c.hero) { y += 0.13 * warmA; rx += -0.05 * warmA; ry += 0.04 * warmA; }
+    mesh.position.set(x, y, z); mesh.rotation.set(rx, ry, rz);
+    const f = smooth(span(t, cd.fadeAt, cd.fadeAt + 6.5));
+    const back = cd.c.hero ? 1 - warmA * 0.9 : 1;
+    u.uFade.value = f * back; u.uNoteFade.value = smooth(span(t, cd.fadeAt - 0.8, cd.fadeAt + 4.2)) * back;
+    u.uDust.value = dustA * (cd.c.hero ? 1 - warmA : 1); u.uWarm.value = cd.c.hero ? warmA : 0;
+  });
+  badgeTop.userData.u.uFade.value = smooth(span(t, 7.5, 15)) * 0.6; badgeTop.userData.u.uDust.value = dustA;
+  const hero = cards[N - 1].mesh; glow.position.set(hero.position.x, 0.02, hero.position.z + 0.35); glow.material.opacity = 0; pick.target.position.copy(hero.position); pick.intensity = 34 * warmA;
+
+  for (let i = 0; i < DN; i++) {
+    const [x, y0, z, ph] = dseed[i]; const y = ((y0 - T * (0.05 + ph * 0.05)) % 3.5 + 3.5) % 3.5;
+    dpos[i * 3] = x + Math.sin(T * 0.3 + ph * 9) * 0.08; dpos[i * 3 + 1] = y; dpos[i * 3 + 2] = z + Math.cos(T * 0.25 + ph * 7) * 0.08;
+  }
+  dustGeo.attributes.position.needsUpdate = true; dust.material.opacity = dustA * 0.75 * (0.4 + 0.6 * L1 / Math.max(0.01, 1 - 0.62 * lightDown));
+
+  // the handwritten "time passes" note, and the scroll cue
+  let label = '', la = 0;
+  WHEN.forEach(([at, txt], j) => { if (t >= at) { label = txt; const next = WHEN[j + 1] ? WHEN[j + 1][0] : 18; la = smooth(span(t, at, at + 0.6)) * (1 - smooth(span(t, next - 0.5, next))); } });
+  whenEl.textContent = label; whenEl.style.opacity = (la * 0.85).toFixed(3);
+  cueEl.style.opacity = (0.55 + 0.45 * warmA).toFixed(3); cueEl.style.color = warmA > 0.05 ? `color-mix(in srgb, var(--thread) ${Math.round(warmA * 100)}%, var(--ink))` : '';
+
+  renderer.render(scene, camera);
+}
+
+function size() { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+size(); addEventListener('resize', size);
+
+const still = q.has('t') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) {
+  if (q.has('px')) ptrX = Number(q.get('px'));
+  frame(q.has('t') ? Number(q.get('t')) : 20.8, false); window.__ready = true;
+} else {
+  // fixed-step sim clock so the pace survives dropped frames
+  let T = 0, acc = 0, last = performance.now(); const STEP = 1 / 60;
+  const loop = (now) => { acc += Math.min(0.25, (now - last) / 1000); last = now; while (acc >= STEP) { T += STEP; acc -= STEP; } frame(T); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop); window.__ready = true;
+}
+</script>
+</body>
+</html>

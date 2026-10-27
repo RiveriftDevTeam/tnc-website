@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacts graveyard hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --field: #0B3A44; --ink: #F3EADB; --thread: #10A396; --sun: #E9C46A; }
+  :root[data-theme="dark"] { --field: #08262D; --ink: #E8F1EF; --thread: #4FD1C5; --sun: #F0CF7E; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--field); color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 64px; font-size: 15px; z-index: 3; }
+  header b { font-family: 'Bricolage Grotesque', system-ui; font-size: 20px; }
+  header nav { display: flex; gap: 28px; opacity: .8; }
+  .hero { position: relative; height: 100vh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; padding: 0 64px; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(42% 60% at 68% 50%, rgb(255 255 255 / .06), transparent 70%); pointer-events: none; }
+  .copy { position: relative; z-index: 2; max-width: 520px; }
+  h1 { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: clamp(40px, 5vw, 72px); line-height: 1.02; letter-spacing: -.025em; }
+  .copy p { margin-top: 22px; font-size: 18px; line-height: 1.55; opacity: .82; }
+  .ctas { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 14px 22px; border-radius: 999px; font-weight: 500; font-size: 16px; }
+  .btn.p { background: var(--sun); color: #14201F; }
+  .btn.s { border: 1.5px solid rgb(243 234 219 / .4); }
+  .cue { margin-top: 40px; font-size: 14px; letter-spacing: .02em; opacity: .6; display: flex; align-items: center; gap: 8px; }
+  .cue::after { content: ''; width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-3px); }
+  .stage { position: relative; height: 100%; }
+  canvas { position: absolute; top: 0; bottom: 0; left: -14%; width: 128%; height: 100%;
+    -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, #000 70%, transparent 100%); mask-image: radial-gradient(50% 50% at 50% 50%, #000 70%, transparent 100%); }
+  @media (max-width: 700px) {
+    header { padding: 18px 20px; } header nav { display: none; }
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 92px 20px 0; align-items: start; }
+    h1 { font-size: 40px; } .copy p { font-size: 16px; margin-top: 14px; } .ctas { margin-top: 20px; } .cue { display: none; }
+    canvas { left: -5%; width: 110%; }
+  }
+</style>
+</head>
+<body>
+<header><b>TapNConnect</b><nav><span>How it works</span><span>For organisers</span><span>Pricing</span><span>Order</span></nav></header>
+<section class="hero">
+  <div class="copy">
+    <h1>Usually, this is where it ends.</h1>
+    <p>The hall empties. The cards go in a drawer. By next week the names have faded.</p>
+    <div class="ctas"><span class="btn p">Start free</span><span class="btn s">Order for your company</span></div>
+    <div class="cue">See how it doesn’t</div>
+  </div>
+  <div class="stage" id="stage"><canvas id="c" role="img" aria-label="A phone full of contacts from events that were never messaged again; the names fade and drift away."></canvas></div>
+</section>
+
+<script type="importmap">{ "imports": { "three": "../../node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, DirectionalLight, Color, SRGBColorSpace, Group, Shape,
+  ExtrudeGeometry, ShapeGeometry, PlaneGeometry, BoxGeometry, MeshStandardMaterial, MeshBasicMaterial, Mesh, CanvasTexture,
+  Sprite, SpriteMaterial, AdditiveBlending,
+} from 'three';
+
+const q = new URLSearchParams(location.search);
+if (q.get('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+const dark = q.get('theme') === 'dark';
+const TEAL = dark ? '#4FD1C5' : '#10A396';
+
+// ---- the story, one 26 s loop on simulated time
+//  0–5    the event: new contacts pop in at the top, the count climbs
+//  5.4–7.8 a flick through the whole list: so many
+//  7.5–15 time passes: the date runs a year on, avatars grey, names fade, "last talked" counts up
+//  10.5–17 rows peel off the screen one by one and drift away into the dark
+//  19.5–22.4 one of them stops, warms to teal, and comes back to the top of the list
+//  24.6–26 a soft fade, and it starts again
+const L = 26;
+const still = q.has('t') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ADDS = [
+  ['Omar GITEX', 0.6], ['Sara coffee stand??', 1.3], ['Ahmed – expo day 2', 2.0], ['Huda (bank?)', 2.7], ['Yusuf panel guy', 3.4], ['Karim followup!!', 4.1],
+];
+const BASE = [
+  ['Unknown – Dubai', 'Never messaged'], ['Lina card', 'Met once · Oct 2024'], ['Rana from the dinner', 'Never messaged'], ['John LinkedIn', 'Last talked: 2 years ago'],
+  ['Faris (hall 4)', 'Met once · Mar 2025'], ['Dana – the AI talk', 'Never messaged'], ['Mira booth B12', 'Last talked: 14 months ago'], ['Tariq?? sponsor', 'Never messaged'],
+  ['Noor from Riyadh', 'Met once · Feb 2025'], ['Ali – call back', 'Last talked: 11 months ago'], ['Sami expo 2024', 'Never messaged'], ['Layla – business card', 'Met once · Sep 2024'],
+];
+const DETACH = { 'Sara coffee stand??': 10.5, 'Ahmed – expo day 2': 11.5, 'Unknown – Dubai': 12.3, 'Yusuf panel guy': 13.1, 'Lina card': 13.8, 'Omar GITEX': 14.6, 'Rana from the dinner': 15.4, 'John LinkedIn': 16.2 };
+// where each one drifts (phone space): mostly out to the sides, some towards you, some away
+const DRIFT = {
+  'Sara coffee stand??': [-1.35, 1.25, -1.0], 'Ahmed – expo day 2': [1.75, 1.3, -0.9], 'Unknown – Dubai': [-1.3, -1.25, -1.6], 'Yusuf panel guy': [1.7, -1.05, 0.4],
+  'Lina card': [-1.1, 2.0, -2.4], 'Omar GITEX': [-1.55, 0.25, 1.0], 'Rana from the dinner': [1.85, 0.3, -1.6], 'John LinkedIn': [-1.25, -1.9, -0.8],
+};
+const RETURNER = 'Omar GITEX', STOP = 19.3, WARM = 19.8, BACK0 = 20.6, BACK1 = 22.4;
+const PASTEL = ['#F3C6A8', '#A9D8CF', '#C9C2EE', '#F2D99B', '#B6D3EE', '#EDB9C4'];
+
+const contacts = [
+  ...ADDS.map(([name, add], i) => ({ name, add, sub: null, pastel: PASTEL[i % PASTEL.length] })).reverse(),
+  ...BASE.map(([name, sub], i) => ({ name, add: -1, sub, pastel: PASTEL[(i + 2) % PASTEL.length] })),
+];
+contacts.forEach((c) => { c.detach = DETACH[c.name] ?? null; });
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const span = (t, a, b) => clamp((t - a) / (b - a));
+const ease = (x) => x * x * (3 - 2 * x);
+const easeOut = (x) => 1 - (1 - x) ** 3;
+const mix = (a, b, t) => a + (b - a) * t;
+const hex = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+const mixHex = (a, b, t) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(mix(v, B[i], t))).join(',')})`; };
+const initials = (n) => n.replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+
+const age = (t) => ease(span(t, 7.5, 15));
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const dateOf = (t) => { const d = new Date(Date.UTC(2025, 9, 14) + age(t) * 365 * 864e5); return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`; };
+function since(days) {
+  if (days < 18) return '2 weeks ago'; if (days < 50) return '1 month ago'; if (days < 110) return '3 months ago';
+  if (days < 200) return '6 months ago'; if (days < 300) return '9 months ago'; return '1 year ago';
+}
+function subOf(c, t) {
+  if (c.name === RETURNER && t >= BACK1) return ['Back in touch · today', 'teal'];
+  if (c.add >= 0) return age(t) < 0.02 ? ['Added just now', 'fresh'] : [`Last talked: ${since(age(t) * 365)}`, 'old'];
+  return [c.sub, 'old'];
+}
+
+// ---- the screen: one canvas, redrawn each frame
+const SW = 640, SH = 1408, HEAD = 268, ROW = 112;
+const screenCv = document.createElement('canvas'); screenCv.width = SW; screenCv.height = SH;
+const g = screenCv.getContext('2d');
+const UI = { bg: '#F7F5F0', ink: '#14201F', muted: '#8B8F8C', line: '#E6E2DA', faded: '#C4C0B8', avatarOld: '#DAD6CE' };
+const FONT = 'Inter, system-ui, sans-serif';
+
+function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+
+/** One contact row at (0, y) on context c. state: {a: age 0..1, teal: 0..1, pop: 0..1} */
+function drawRow(c, contact, y, t, { a, teal = 0, pop = 0, bg = null }) {
+  if (bg) { c.fillStyle = bg; c.fillRect(0, y, SW, ROW); }
+  if (pop > 0) { c.fillStyle = `rgba(233,196,106,${0.32 * pop})`; c.fillRect(0, y, SW, ROW); }
+  const av = teal > 0 ? mixHex(UI.avatarOld, TEAL, teal) : mixHex(contact.pastel, UI.avatarOld, a);
+  c.fillStyle = av; c.beginPath(); c.arc(78, y + ROW / 2, 38, 0, Math.PI * 2); c.fill();
+  c.fillStyle = teal > 0.5 ? '#FFFFFF' : mixHex('#14201F', '#9C9890', a); c.font = `600 28px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText(initials(contact.name), 78, y + ROW / 2 + 1);
+  c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.fillStyle = teal > 0 ? mixHex(UI.faded, UI.ink, teal) : mixHex(UI.ink, UI.faded, a * 0.85); c.font = `600 33px ${FONT}`;
+  c.fillText(contact.name, 140, y + 50);
+  const [sub, kind] = subOf(contact, t);
+  c.font = `400 24px ${FONT}`;
+  c.fillStyle = kind === 'teal' || teal > 0.5 ? TEAL : kind === 'fresh' ? '#B5891E' : mixHex(UI.muted, UI.faded, a * 0.7);
+  c.fillText(sub, 140, y + 86);
+  c.fillStyle = UI.line; c.fillRect(140, y + ROW - 2, SW - 140, 2);
+}
+
+function presenceOf(c, t) {
+  let p = 1;
+  if (c.add >= 0) p = ease(span(t, c.add, c.add + 0.35));
+  if (c.detach != null && t >= c.detach) p = 1 - ease(span(t, c.detach + 0.5, c.detach + 1.0));
+  if (c.name === RETURNER && t >= BACK0) p = 0; // it comes back as a new row at the top (see below)
+  return p;
+}
+const backSlot = (t) => ease(span(t, BACK1 - 0.8, BACK1)); // the gap that opens at the top for the one coming back
+const scrollOf = (t) => Math.sin(Math.PI * span(t, 5.4, 7.8)) * 760 * (1 - 0.15 * Math.sin(Math.PI * 2 * span(t, 5.4, 7.8)));
+
+/** y of each contact row at time t (top of the list = HEAD), and which are drawn on screen. */
+function layout(t) {
+  let y = HEAD + 8 - scrollOf(t) + backSlot(t) * ROW;
+  return contacts.map((c) => { const p = presenceOf(c, t); const row = { c, y, p }; y += ROW * p; return row; });
+}
+
+function drawScreen(t) {
+  const a = age(t);
+  g.clearRect(0, 0, SW, SH);
+  g.save(); rr(g, 0, 0, SW, SH, 70); g.clip();
+  g.fillStyle = UI.bg; g.fillRect(0, 0, SW, SH);
+  // the list
+  g.save(); g.beginPath(); g.rect(0, HEAD, SW, SH - HEAD); g.clip();
+  for (const { c, y, p } of layout(t)) {
+    if (y > SH || y < HEAD - ROW) continue;
+    const detached = c.detach != null && t >= c.detach;
+    if (detached || p < 0.999 && c.add >= 0 && t < c.add + 0.35) {
+      if (detached) continue;
+      g.save(); g.globalAlpha = p; drawRow(g, c, y, t, { a, pop: 1 }); g.restore(); continue;
+    }
+    drawRow(g, c, y, t, { a, pop: c.add >= 0 ? 1 - span(t, c.add + 0.35, c.add + 1.4) : 0 });
+  }
+  if (t >= BACK1) { const ret = contacts.find((c) => c.name === RETURNER); drawRow(g, ret, HEAD + 8, t, { a, teal: 1, pop: 0, bg: `rgba(16,163,150,${0.10 + 0.12 * (1 - span(t, BACK1, BACK1 + 1.2))})` }); }
+  g.restore();
+  // header
+  g.fillStyle = UI.bg; g.fillRect(0, 0, SW, HEAD);
+  g.fillStyle = '#111'; rr(g, SW / 2 - 62, 22, 124, 34, 17); g.fill(); // camera pill
+  g.fillStyle = UI.ink; g.font = `600 24px ${FONT}`; g.fillText('18:20', 44, 50);
+  g.strokeStyle = UI.ink; g.lineWidth = 2; rr(g, SW - 92, 32, 44, 22, 6); g.stroke(); g.fillStyle = UI.ink; g.fillRect(SW - 88, 36, 26, 14); g.fillRect(SW - 46, 39, 3, 8);
+  // the date: it runs a year on while nobody calls
+  const ds = dateOf(t); g.font = `600 22px ${FONT}`; const dw = g.measureText(ds).width + 32;
+  g.fillStyle = a > 0.02 && a < 0.999 ? '#14201F' : 'rgba(20,32,31,.08)'; rr(g, SW / 2 - dw / 2, 74, dw, 38, 19); g.fill();
+  g.fillStyle = a > 0.02 && a < 0.999 ? '#F7F5F0' : UI.muted; g.textAlign = 'center'; g.fillText(ds, SW / 2, 101); g.textAlign = 'left';
+  g.fillStyle = UI.ink; g.font = `700 54px ${FONT}`; g.fillText('Contacts', 40, 176);
+  const added = ADDS.filter(([, at]) => t >= at).length;
+  g.fillStyle = UI.muted; g.font = `400 24px ${FONT}`; g.textAlign = 'right'; g.fillText(`${(1278 + added).toLocaleString('en-US')} contacts`, SW - 40, 176); g.textAlign = 'left';
+  g.fillStyle = '#ECE8E0'; rr(g, 32, 200, SW - 64, 52, 16); g.fill();
+  g.fillStyle = UI.muted; g.font = `400 24px ${FONT}`; g.fillText('Search', 84, 234);
+  g.strokeStyle = UI.muted; g.lineWidth = 2.5; g.beginPath(); g.arc(60, 224, 9, 0, Math.PI * 2); g.stroke(); g.beginPath(); g.moveTo(66, 231); g.lineTo(72, 238); g.stroke();
+  g.fillStyle = UI.line; g.fillRect(0, HEAD - 2, SW, 2);
+  // the soft loop fade
+  const fade = Math.max(span(t, 24.6, 25.6), 1 - span(t, 0, 0.5));
+  if (fade > 0) { g.fillStyle = `rgba(247,245,240,${fade})`; g.fillRect(0, HEAD, SW, SH - HEAD); }
+  g.restore();
+  screenTex.needsUpdate = true;
+}
+
+// ---- three
+const canvas = document.getElementById('c');
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = SRGBColorSpace;
+const scene = new Scene();
+const phone = innerWidth < 700;
+const camera = new PerspectiveCamera(30, 1, 0.1, 80);
+camera.position.set(0, phone ? -0.6 : 0.2, phone ? 10.6 : 9.2); camera.lookAt(0, 0, 0);
+scene.add(new HemisphereLight(0xf3eadb, dark ? 0x061c22 : 0x0b3a44, 1.1));
+const key = new DirectionalLight(0xfff3e0, 2.2); key.position.set(-3, 4, 6); scene.add(key);
+const rimL = new DirectionalLight(0x9fe3da, 2.6); rimL.position.set(4, 2, -4); scene.add(rimL);
+const rimR = new DirectionalLight(0xffe2b0, 1.4); rimR.position.set(-5, -2, -3); scene.add(rimR);
+
+const world = new Group(); scene.add(world);
+const phoneG = new Group(); world.add(phoneG);
+const PW = 1.56, PH = 3.24, PR = 0.24, PD = 0.1, BEV = 0.035;
+const body = (() => {
+  const s = new Shape(), x = -PW / 2, y = -PH / 2;
+  s.moveTo(x + PR, y); s.lineTo(x + PW - PR, y); s.quadraticCurveTo(x + PW, y, x + PW, y + PR); s.lineTo(x + PW, y + PH - PR); s.quadraticCurveTo(x + PW, y + PH, x + PW - PR, y + PH);
+  s.lineTo(x + PR, y + PH); s.quadraticCurveTo(x, y + PH, x, y + PH - PR); s.lineTo(x, y + PR); s.quadraticCurveTo(x, y, x + PR, y);
+  const geo = new ExtrudeGeometry(s, { depth: PD, bevelEnabled: true, bevelThickness: BEV, bevelSize: BEV, bevelSegments: 5, curveSegments: 16 });
+  geo.translate(0, 0, -PD / 2);
+  return { shape: s, mesh: new Mesh(geo, new MeshStandardMaterial({ color: dark ? 0x2a3134 : 0x343c3f, metalness: 0.55, roughness: 0.32 })) };
+})();
+phoneG.add(body.mesh);
+const glass = new Mesh(new ShapeGeometry(body.shape, 16), new MeshStandardMaterial({ color: 0x050708, roughness: 0.15, metalness: 0.1 }));
+glass.scale.setScalar(0.985); glass.position.z = PD / 2 + BEV + 0.001; phoneG.add(glass);
+for (const [yy, hh] of [[0.75, 0.42], [0.2, 0.26]]) { const b = new Mesh(new BoxGeometry(0.03, hh, 0.06), body.mesh.material); b.position.set(PW / 2 + BEV + 0.008, yy, 0); phoneG.add(b); }
+
+const screenTex = new CanvasTexture(screenCv); screenTex.colorSpace = SRGBColorSpace; screenTex.anisotropy = 8;
+const SCW = 1.44, SCH = SCW * SH / SW, SZ = PD / 2 + BEV + 0.003;
+const screen = new Mesh(new PlaneGeometry(SCW, SCH), new MeshBasicMaterial({ map: screenTex, transparent: true, toneMapped: false }));
+screen.position.z = SZ; phoneG.add(screen);
+// a glass sheen across the screen
+const sheenCv = document.createElement('canvas'); sheenCv.width = 256; sheenCv.height = 512; { const c = sheenCv.getContext('2d'); const gr = c.createLinearGradient(0, 0, 256, 512); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.42, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, 'rgba(255,255,255,.10)'); gr.addColorStop(0.62, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(0, 0, 256, 512); }
+const sheen = new Mesh(new PlaneGeometry(SCW, SCH), new MeshBasicMaterial({ map: new CanvasTexture(sheenCv), transparent: true, blending: AdditiveBlending, depthWrite: false }));
+sheen.position.z = SZ + 0.002; phoneG.add(sheen);
+
+const px2y = (py) => SCH / 2 - (py / SH) * SCH;
+const ROWH = ROW / SH * SCH;
+
+// floating rows: a small canvas each, drawn as they peel off
+const floats = contacts.filter((c) => c.detach != null).map((c, i) => {
+  const cv = document.createElement('canvas'); cv.width = SW; cv.height = ROW;
+  const tex = new CanvasTexture(cv); tex.colorSpace = SRGBColorSpace; tex.anisotropy = 8;
+  const mat = new MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false });
+  const m = new Mesh(new PlaneGeometry(SCW, ROWH), mat); m.visible = false; phoneG.add(m);
+  const side = i % 2 ? 1 : -1;
+  const dir = DRIFT[c.name]; return { c, cv, tex, m, side: Math.sign(dir[0]), dir, startY: 0 };
+});
+const glowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'); const r = x.createRadialGradient(64, 64, 0, 64, 64, 64); r.addColorStop(0, 'rgba(79,209,197,.9)'); r.addColorStop(1, 'rgba(79,209,197,0)'); x.fillStyle = r; x.fillRect(0, 0, 128, 128); return new CanvasTexture(c); })();
+const glow = new Sprite(new SpriteMaterial({ map: glowTex, blending: AdditiveBlending, depthWrite: false, transparent: true })); glow.scale.set(0, 0, 1); phoneG.add(glow);
+
+function rowStartY(c) { const r = layout(c.detach).find((x) => x.c === c); return px2y(r.y + ROW / 2); }
+
+function placeFloats(t, redraw = true) {
+  const a = age(t);
+  for (const f of floats) {
+    const td = f.c.detach;
+    if (t < td || t > td + 8.5) { f.m.visible = false; continue; }
+    if (!f.startY || f.loopStart !== Math.floor(T / L)) { f.startY = rowStartY(f.c); f.loopStart = Math.floor(T / L); }
+    const ret = f.c.name === RETURNER;
+    let lin = span(t, td + 0.35, td + 7.5), p = easeOut(lin);
+    let teal = 0, op = 1 - ease(span(lin, 0.5, 1));
+    let x = f.dir[0] * p, y = f.startY + f.dir[1] * p, z = SZ + 0.02 + 0.18 * ease(span(t, td, td + 0.35)) + f.dir[2] * p;
+    let rz = f.side * 0.35 * p, ry = -f.side * 0.55 * p, rx = 0.25 * p;
+    x += Math.sin(t * 0.8 + td) * 0.05 * p; y += Math.sin(t * 0.6 + td * 2) * 0.06 * p;
+    if (ret) {
+      const ps = easeOut(span(STOP, td + 0.35, td + 7.5));
+      if (t >= STOP) { p = ps; x = f.dir[0] * p; y = f.startY + f.dir[1] * p; z = SZ + 0.2 + f.dir[2] * p; rz = f.side * 0.35 * p; ry = -f.side * 0.55 * p; rx = 0.25 * p; }
+      op = t < STOP ? 1 - 0.45 * p : 1 - 0.45 * ps;
+      teal = ease(span(t, WARM, WARM + 0.6)); op = mix(op, 1, teal);
+      const b = ease(span(t, BACK0, BACK1));
+      if (b > 0) {
+        const ty = px2y(HEAD + 8 + ROW / 2);
+        x = mix(x, 0, b); y = mix(y, ty, b); z = mix(z, SZ + 0.02, b) + Math.sin(Math.PI * b) * 0.5; rz = mix(rz, 0, b); ry = mix(ry, 0, b); rx = mix(rx, 0, b);
+      }
+      if (t >= BACK1) { f.m.visible = false; glow.scale.set(0, 0, 1); continue; }
+      glow.position.set(x, y, z - 0.05); const gs = teal * (1.6 + 0.2 * Math.sin(t * 4)); glow.scale.set(gs * 1.6, gs * 0.7, 1);
+    }
+    f.m.visible = op > 0.01; f.m.position.set(x, y, z); f.m.rotation.set(rx, ry, rz); f.m.material.opacity = op;
+    if (!redraw) continue;
+    const c = f.cv.getContext('2d'); c.clearRect(0, 0, SW, ROW);
+    rr(c, 0, 0, SW, ROW, 22); c.save(); c.clip();
+    drawRow(c, f.c, 0, t, { a: Math.max(a, ret ? 0 : 0.85 * span(t, td, td + 3)), teal, bg: teal > 0 ? mixHex(UI.bg, '#E9F7F5', teal) : UI.bg });
+    c.restore(); f.tex.needsUpdate = true;
+  }
+}
+
+// ---- loop
+let lastDraw = -1, T = 0, ptrX = 0, ptrY = 0, tiltX = 0, tiltY = 0;
+addEventListener('pointermove', (e) => { ptrX = e.clientX / innerWidth * 2 - 1; ptrY = e.clientY / innerHeight * 2 - 1; });
+function paint() {
+  const t = T % L;
+  tiltX += (ptrX - tiltX) * 0.05; tiltY += (ptrY - tiltY) * 0.05;
+  phoneG.position.y = Math.sin(T * 0.7) * 0.05;
+  phoneG.rotation.set(-0.06 + tiltY * 0.06 + Math.sin(T * 0.5) * 0.015, -0.36 + tiltX * 0.16 + Math.sin(T * 0.23) * 0.03, 0.05);
+  world.position.x = phone ? 0 : -0.15;
+  // the screen and the floating rows are canvases: redraw them at 20 Hz, the 3D moves every frame
+  if (still || T - lastDraw >= 0.05 || T < lastDraw) { drawScreen(t); lastDraw = T; placeFloats(t, true); } else placeFloats(t, false);
+  renderer.render(scene, camera);
+}
+function size() { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+size(); addEventListener('resize', size);
+
+await Promise.race([Promise.all(['600 33px Inter', '400 24px Inter', '700 54px Inter'].map((f) => document.fonts.load(f))), new Promise((r) => setTimeout(r, 2500))]);
+if (still) {
+  T = q.has('t') ? Number(q.get('t')) : 17;
+  if (q.has('px')) ptrX = tiltX = Number(q.get('px'));
+  paint(); window.__ready = true;
+} else {
+  const STEP = 1 / 60; let last = performance.now(), acc = 0;
+  const loop = (now) => { acc += Math.min(0.25, (now - last) / 1000); last = now; while (acc >= STEP) { T += STEP; acc -= STEP; } paint(); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop); window.__ready = true;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Majlis hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --field: #0B3A44; --ink: #F3EADB; --sun: #E9C46A; }
+  :root[data-theme="dark"] { --field: #08262D; --ink: #E8F1EF; --sun: #F0CF7E; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--field); color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 64px; font-size: 15px; z-index: 3; }
+  header b { font-family: 'Bricolage Grotesque', system-ui; font-size: 20px; }
+  header nav { display: flex; gap: 28px; opacity: .8; }
+  .hero { position: relative; height: 100vh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; padding: 0 64px; }
+  .copy { position: relative; z-index: 2; max-width: 520px; }
+  h1 { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: clamp(40px, 5vw, 72px); line-height: 1.02; letter-spacing: -.025em; }
+  .copy p { margin-top: 22px; font-size: 18px; line-height: 1.55; opacity: .82; }
+  .ctas { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 14px 22px; border-radius: 999px; font-weight: 500; font-size: 16px; }
+  .btn.p { background: var(--sun); color: #14201F; }
+  .btn.s { border: 1.5px solid rgb(243 234 219 / .4); }
+  .stage { position: relative; height: 100%; }
+  canvas { position: absolute; top: 0; bottom: 0; left: -10%; width: 118%; height: 100%;
+    -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(50% 50% at 50% 50%, #000 62%, transparent 100%); }
+  @media (max-width: 700px) {
+    header { padding: 18px 20px; } header nav { display: none; }
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 92px 20px 0; align-items: start; }
+    h1 { font-size: 40px; } .copy p { font-size: 16px; margin-top: 14px; } .ctas { margin-top: 20px; }
+    canvas { left: -5%; width: 110%; }
+  }
+</style>
+</head>
+<body>
+<header><b>TapNConnect</b><nav><span>How it works</span><span>For organisers</span><span>Pricing</span><span>Order</span></nav></header>
+<section class="hero">
+  <div class="copy">
+    <h1>Stay close to the people you meet.</h1>
+    <p>Every tap becomes a thread, and an assistant keeps each one alive: it remembers who people are and what you promised, and tells you when a word would count.</p>
+    <div class="ctas"><span class="btn p">Start free</span><span class="btn s">Order for your company</span></div>
+  </div>
+  <div class="stage" id="stage"><canvas id="c"></canvas></div>
+</section>
+
+<script type="importmap">{ "imports": { "three": "../../../node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, DirectionalLight, PointLight, Color, SRGBColorSpace, Vector2, Vector3, Group,
+  LatheGeometry, SphereGeometry, CylinderGeometry, CapsuleGeometry, TorusGeometry, ConeGeometry, PlaneGeometry, CircleGeometry, TubeGeometry,
+  CatmullRomCurve3, MeshStandardMaterial, MeshBasicMaterial, Mesh, CanvasTexture, Sprite, SpriteMaterial, AdditiveBlending, BackSide,
+  PMREMGenerator, ACESFilmicToneMapping, Quaternion, RepeatWrapping,
+} from 'three';
+
+const q = new URLSearchParams(location.search);
+if (q.get('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+const dark = q.get('theme') === 'dark';
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const FIELD = new Color(css('--field')), SUN = new Color(css('--sun')), INK = new Color(css('--ink'));
+const BRASS = new Color(dark ? '#D9AE55' : '#CF9F45');
+const COFFEE_HOT = new Color('#C08A34'), COFFEE_COLD = new Color('#3E2C1C');
+const CUP = new Color('#F5ECDD'), CUP_COLD = new Color('#B9B6AE');
+
+// ---- small helpers
+const canvasTex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new CanvasTexture(c); t.colorSpace = SRGBColorSpace; return t; };
+const radial = (stops, sx = 1, sy = 1) => canvasTex(128, 128 * (sy / sx), (g, w, h) => { g.scale(1, sy / sx); const r = g.createRadialGradient(64, 64, 0, 64, 64, 64); stops.forEach(([o, col]) => r.addColorStop(o, col)); g.fillStyle = r; g.fillRect(0, 0, 128, 128); });
+const lerp = (a, b, t) => a + (b - a) * t;
+const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2);
+const easeOut = (x) => 1 - (1 - x) ** 3;
+const seeded = (n) => { let s = 4211 + n; return () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; };
+
+// ---- the carpet: an Al Sadu band weave, red, black, white and ochre
+const RED = '#74231F', RED2 = '#561816', BLACK = '#1E1714', WHITE = '#EDE3D0', OCHRE = '#C79A3E';
+function sadu(g, W, H) {
+  let y = 0;
+  const band = (h, bg, motif, fg, fg2) => {
+    g.fillStyle = bg; g.fillRect(0, y, W, h);
+    g.fillStyle = fg;
+    if (motif === 'teeth') { const s = h * 0.9; for (let x = 0; x < W; x += s) { g.beginPath(); g.moveTo(x, y + h); g.lineTo(x + s / 2, y + h * 0.15); g.lineTo(x + s, y + h); g.fill(); } }
+    if (motif === 'teethDown') { const s = h * 0.9; for (let x = 0; x < W; x += s) { g.beginPath(); g.moveTo(x, y); g.lineTo(x + s / 2, y + h * 0.85); g.lineTo(x + s, y); g.fill(); } }
+    if (motif === 'checks') { const s = h / 2; for (let x = 0; x < W; x += s) for (let r = 0; r < 2; r++) if (((x / s) + r) % 2 < 1) g.fillRect(x, y + r * s, s, s); }
+    if (motif === 'diamonds') {
+      const s = h * 1.1;
+      for (let x = s / 2; x < W + s; x += s) {
+        g.fillStyle = fg; g.beginPath(); g.moveTo(x, y + h * 0.1); g.lineTo(x + s * 0.45, y + h / 2); g.lineTo(x, y + h * 0.9); g.lineTo(x - s * 0.45, y + h / 2); g.fill();
+        g.fillStyle = fg2; g.beginPath(); g.moveTo(x, y + h * 0.3); g.lineTo(x + s * 0.22, y + h / 2); g.lineTo(x, y + h * 0.7); g.lineTo(x - s * 0.22, y + h / 2); g.fill();
+        g.fillStyle = bg; g.fillRect(x - 3, y + h / 2 - 3, 6, 6);
+      }
+    }
+    if (motif === 'lattice') {
+      const s = h / 3;
+      g.strokeStyle = fg; g.lineWidth = 4;
+      for (let x = -h; x < W + h; x += s * 1.4) { g.beginPath(); g.moveTo(x, y); g.lineTo(x + h, y + h); g.stroke(); g.beginPath(); g.moveTo(x + h, y); g.lineTo(x, y + h); g.stroke(); }
+      g.fillStyle = fg2;
+      for (let x = 0; x < W + s; x += s * 1.4) for (let r = 0; r < 3; r++) { const cx = x + (r % 2 ? s * 0.7 : 0), cy = y + s * (r + 0.5); g.beginPath(); g.moveTo(cx, cy - 7); g.lineTo(cx + 7, cy); g.lineTo(cx, cy + 7); g.lineTo(cx - 7, cy); g.fill(); }
+    }
+    y += h;
+  };
+  const edge = () => { band(14, BLACK, 'plain'); band(6, OCHRE, 'plain'); band(44, RED, 'teeth', BLACK); band(14, WHITE, 'checks', BLACK); band(80, BLACK, 'diamonds', WHITE, RED); band(14, WHITE, 'checks', BLACK); band(44, RED, 'teethDown', BLACK); band(6, OCHRE, 'plain'); };
+  edge(); band(H - 2 * 222, RED2, 'lattice', '#2a1512', OCHRE); edge();
+  // wool: a little irregularity in every row
+  const rnd = seeded(7);
+  for (let i = 0; i < 9000; i++) { g.fillStyle = `rgba(${rnd() < 0.5 ? '0,0,0' : '255,240,220'},${0.03 + rnd() * 0.05})`; g.fillRect(rnd() * W, rnd() * H, 2 + rnd() * 8, 1.5); }
+}
+
+// ---- simulation state
+const SLOTS = 14, RING = 2.05, ZS = 0.8;
+const INITIAL = [0, 1, 3, 4, 6, 8, 10, 11];
+const GUESTS = [[1, 2], [8, 9], [4, 5], [11, 12], [6, 7], [0, 13]]; // friend slot → new guest's slot beside them
+const rndC = seeded(31);
+const cups = Array.from({ length: SLOTS }, (_, s) => {
+  const a = s / SLOTS * Math.PI * 2 + 0.12, r = RING + (rndC() - 0.5) * 0.18;
+  return { s, a, r, x: r * Math.cos(a), z: r * Math.sin(a) * ZS, appear: 0, appearT: 0, warm: 0, warmT: 0, warmSpd: 0.33, fill: 0, flash: 0, seed: rndC() * 10, spin: rndC() * 6 };
+});
+
+let T = 0; const events = [];
+const at = (t, fn) => { events.push({ t, fn }); events.sort((a, b) => a.t - b.t); };
+// the table is set: each cup arrives poured and steaming
+INITIAL.forEach((s, j) => at(0.4 + j * 0.32, () => Object.assign(cups[s], { appearT: 1, fill: 1, warm: 1, warmT: 1 })));
+
+// the dallah: a queue of moves (glide, tilt, pour) and instant steps
+const dallah = { pos: new Vector3(), yaw: 0, tilt: 0, queue: [], cur: null, pouring: null };
+const HOME = { pos: new Vector3(-0.3, 0.06, 0.12), yaw: 0.2, tilt: 0 };
+Object.assign(dallah, { pos: HOME.pos.clone(), yaw: HOME.yaw, tilt: 0 });
+const POUR_TILT = -0.62;
+function queuePour(c, amount = 1, dur = 1.4) {
+  dallah.queue.push({ fn: () => { const p = poseFor(c); dallah.queue.unshift(
+    { dur: 1.15, to: { pos: p.pos, yaw: p.yaw, tilt: 0 }, arc: 0.45 },
+    { dur: 0.5, to: { pos: p.pos, yaw: p.yaw, tilt: POUR_TILT } },
+    { dur, to: { pos: p.pos, yaw: p.yaw, tilt: POUR_TILT - 0.06 }, pour: c, amount },
+    { dur: 0.45, to: { pos: p.pos.clone().add(new Vector3(0, 0.1, 0)), yaw: p.yaw, tilt: 0 }, end: () => { c.flash = 1; } },
+  ); } });
+}
+function queueHome() { dallah.queue.push({ dur: 1.2, to: HOME, arc: 0.35 }); }
+
+const CYCLE = 19.5, FIRST = 5.4;
+function cycle(k) {
+  const tc = FIRST + k * CYCLE;
+  // time passes: a few cups go cold
+  at(tc, () => {
+    const hot = cups.filter((c) => c.appearT === 1 && c.warmT === 1);
+    const pick = [hot[(k * 3) % hot.length], hot[(k * 3 + 4) % hot.length], hot[(k * 3 + 6) % hot.length]].filter((c, i, a) => c && a.indexOf(c) === i).slice(0, k === 0 ? 3 : 2);
+    pick.forEach((c, i) => at(T + i * 0.7, () => Object.assign(c, { warmT: 0, warmSpd: 0.3 })));
+    at(T + 3.4, () => {
+      // the assistant: the dallah goes to each cold cup and pours
+      pick.slice(0, 2).forEach((c) => queuePour(c));
+      // a guest: a friend's cup is warmed, and a new cup is set beside it
+      const gst = GUESTS[k % GUESTS.length], friend = cups[gst[0]], guest = cups[gst[1]];
+      dallah.queue.push({ fn: () => { friend.flash = 1; if (guest.appearT === 0) Object.assign(guest, { appearT: 1, fill: 0, warm: 0, warmT: 0 }); } });
+      queuePour(friend, 1, 0.8);
+      if (guest.fill < 1) queuePour(guest);
+      queueHome();
+    });
+  });
+  at(tc + CYCLE, () => cycle(k + 1));
+}
+cycle(0);
+
+// ---- three
+const stage = document.getElementById('stage'), canvas = document.getElementById('c');
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = SRGBColorSpace;
+renderer.toneMapping = ACESFilmicToneMapping; renderer.toneMappingExposure = dark ? 0.9 : 1.0;
+const scene = new Scene();
+const phone = innerWidth < 700;
+const camera = new PerspectiveCamera(30, 1, 0.1, 80);
+camera.position.set(0, phone ? 11.5 : 8.7, phone ? 13.5 : 10.1); camera.lookAt(0, -0.45, 0.1);
+
+// a warm room for the brass to reflect: lamplight above, dark floor below
+{
+  const pm = new PMREMGenerator(renderer), env = new Scene();
+  const sky = canvasTex(64, 256, (g) => { const r = g.createLinearGradient(0, 0, 0, 256); r.addColorStop(0, '#fff2d6'); r.addColorStop(0.45, '#a8763c'); r.addColorStop(0.55, '#3a2616'); r.addColorStop(1, '#0b1f22'); g.fillStyle = r; g.fillRect(0, 0, 64, 256); });
+  env.add(new Mesh(new SphereGeometry(10, 32, 16), new MeshBasicMaterial({ map: sky, side: BackSide })));
+  const lamp = new Mesh(new SphereGeometry(1.4, 16, 12), new MeshBasicMaterial({ color: new Color(6, 4.6, 2.8) })); lamp.position.set(-4, 6, 3); env.add(lamp);
+  const lamp2 = new Mesh(new SphereGeometry(0.9, 16, 12), new MeshBasicMaterial({ color: new Color(2.5, 2, 1.4) })); lamp2.position.set(5, 4, -2); env.add(lamp2);
+  scene.environment = pm.fromScene(env, 0.04).texture; scene.environmentIntensity = dark ? 0.55 : 0.7;
+}
+scene.add(new HemisphereLight(0xffe7c4, dark ? 0x061c20 : 0x0d3138, dark ? 0.4 : 0.5));
+const lamp = new PointLight(0xffc883, dark ? 38 : 44, 0, 2); lamp.position.set(-1.6, 4.2, 1.6); scene.add(lamp);
+const fill = new DirectionalLight(0xfff0dc, dark ? 0.35 : 0.5); fill.position.set(3, 6, 4); scene.add(fill);
+
+const world = new Group(); world.position.x = phone ? 0 : -0.35; scene.add(world);
+
+// carpet
+const carpetTex = canvasTex(1024, 900, sadu); carpetTex.anisotropy = 8;
+const carpet = new Mesh(new PlaneGeometry(6.0, 5.2), new MeshStandardMaterial({ map: carpetTex, roughness: 0.95 }));
+carpet.rotation.x = -Math.PI / 2; carpet.position.y = 0.004; world.add(carpet);
+{ const sh = new Mesh(new PlaneGeometry(9, 8), new MeshBasicMaterial({ map: radial([[0, 'rgba(0,10,12,.55)'], [0.6, 'rgba(0,10,12,.35)'], [1, 'rgba(0,10,12,0)']]), transparent: true, depthWrite: false })); sh.rotation.x = -Math.PI / 2; world.add(sh); }
+// fringe at the two short ends
+{
+  const fr = new MeshStandardMaterial({ color: new Color(WHITE), roughness: 1 });
+  const tg = new CylinderGeometry(0.012, 0.012, 0.32, 4);
+  for (const side of [-1, 1]) for (let i = 0; i < 34; i++) { const m = new Mesh(tg, fr); m.rotation.z = Math.PI / 2; m.position.set(side * (3.0 + 0.15), 0.01, -2.52 + i * (5.04 / 33)); m.rotation.y = (i % 3 - 1) * 0.06; world.add(m); }
+}
+// bolster cushions along the back edge, as round a majlis wall
+{
+  const stripe = canvasTex(32, 512, (g, w, h) => { const bands = [[RED, 80], [BLACK, 18], [WHITE, 8], [OCHRE, 10], [WHITE, 8], [BLACK, 18]]; let y = 0; while (y < h) for (const [c, bh] of bands) { g.fillStyle = c; g.fillRect(0, y, w, bh); y += bh; } });
+  stripe.wrapS = stripe.wrapT = RepeatWrapping; stripe.repeat.set(1, 2);
+  const bm = new MeshStandardMaterial({ map: stripe, roughness: 0.9 });
+  for (const x of [-1.5, 1.5]) { const b = new Mesh(new CapsuleGeometry(0.3, 2.3, 6, 24), bm); b.rotation.z = Math.PI / 2; b.position.set(x, 0.3, -2.45); world.add(b); }
+}
+// the lamplight pool
+const radialWarm = radial([[0, 'rgba(255,214,140,.9)'], [0.5, 'rgba(255,190,110,.35)'], [1, 'rgba(255,190,110,0)']]);
+const pool = new Mesh(new PlaneGeometry(6, 6), new MeshBasicMaterial({ map: radialWarm, transparent: true, blending: AdditiveBlending, depthWrite: false, opacity: dark ? 0.22 : 0.18 }));
+pool.rotation.x = -Math.PI / 2; pool.position.y = 0.012; world.add(pool);
+
+const shadowTex = radial([[0, 'rgba(10,4,2,.6)'], [1, 'rgba(10,4,2,0)']]);
+const shadow = (size, y = 0.014) => { const m = new Mesh(new PlaneGeometry(size, size), new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })); m.rotation.x = -Math.PI / 2; m.position.y = y; world.add(m); return m; };
+const brass = new MeshStandardMaterial({ color: BRASS, metalness: 0.85, roughness: 0.32 });
+
+// the tray: engraved brass
+{
+  const engr = canvasTex(512, 512, (g) => {
+    g.fillStyle = '#c99a44'; g.fillRect(0, 0, 512, 512);
+    g.strokeStyle = 'rgba(110,70,20,.32)'; g.lineWidth = 2;
+    for (const r of [250, 236, 190, 120, 60]) { g.beginPath(); g.arc(256, 256, r, 0, Math.PI * 2); g.stroke(); }
+    // an eight-point star (khatam) and a ring of small petals
+    g.lineWidth = 2; for (const rot of []) { g.beginPath(); for (let i = 0; i < 4; i++) { const a = rot + i * Math.PI / 2; const x = 256 + Math.cos(a) * 110, y = 256 + Math.sin(a) * 110; i ? g.lineTo(x, y) : g.moveTo(x, y); } g.closePath(); g.stroke(); }
+    g.lineWidth = 1.6; for (let i = 0; i < 36; i++) { const a = i / 24 * Math.PI * 2; g.beginPath(); g.ellipse(256 + Math.cos(a) * 213, 256 + Math.sin(a) * 213, 11, 5, a, 0, Math.PI * 2); g.stroke(); }
+  });
+  const top = new MeshStandardMaterial({ map: engr, metalness: 0.8, roughness: 0.35 });
+  const tray = new Mesh(new CylinderGeometry(1.15, 1.19, 0.05, 72), [brass, top, brass]); tray.position.y = 0.025; world.add(tray);
+  const rim = new Mesh(new TorusGeometry(1.15, 0.028, 10, 96), brass); rim.rotation.x = Math.PI / 2; rim.position.y = 0.055; world.add(rim);
+  shadow(3.0, 0.008);
+  // a bowl of dates
+  const bowl = new Mesh(new LatheGeometry([[0, 0], [0.16, 0], [0.26, 0.05], [0.33, 0.14], [0.35, 0.17], [0.33, 0.17], [0.3, 0.13], [0.22, 0.07], [0, 0.06]].map(([r, y]) => new Vector2(r, y)), 40), new MeshStandardMaterial({ color: new Color('#EFE6D6'), roughness: 0.3 }));
+  bowl.position.set(0.42, 0.05, -0.38); world.add(bowl);
+  const bowlRim = new Mesh(new TorusGeometry(0.34, 0.008, 6, 48), brass); bowlRim.rotation.x = Math.PI / 2; bowlRim.position.set(0.42, 0.222, -0.38); world.add(bowlRim);
+  const dm = new MeshStandardMaterial({ color: new Color('#5a2a14'), roughness: 0.35 }), dg = new CapsuleGeometry(0.045, 0.08, 4, 10), rd = seeded(3);
+  for (let i = 0; i < 9; i++) { const d = new Mesh(dg, dm); const a = rd() * 6.28, r = rd() * 0.16; d.position.set(0.42 + Math.cos(a) * r, 0.17 + rd() * 0.05, -0.38 + Math.sin(a) * r); d.rotation.set(Math.PI / 2 + rd() - 0.5, rd() * 3, rd()); world.add(d); }
+}
+
+// cups: finjan, porcelain with a gold rim; the coffee is a disc at its level
+const CUP_S = 1.6;
+const finjan = new LatheGeometry([[0, 0], [0.075, 0], [0.085, 0.012], [0.1, 0.05], [0.13, 0.12], [0.155, 0.19], [0.165, 0.215], [0.152, 0.215], [0.14, 0.18], [0.115, 0.11], [0.085, 0.05], [0, 0.035]].map(([r, y]) => new Vector2(r, y)), 40);
+const rimG = new TorusGeometry(0.1585, 0.0075, 8, 48), bandG = new TorusGeometry(0.127, 0.006, 6, 48), discG = new CircleGeometry(1, 36);
+const rIn = (y) => (y < 0.05 ? lerp(0, 0.085, (y - 0.035) / 0.015) : y < 0.11 ? lerp(0.085, 0.115, (y - 0.05) / 0.06) : lerp(0.115, 0.14, (y - 0.11) / 0.07));
+const steamTex = radial([[0, 'rgba(255,248,236,.95)'], [0.45, 'rgba(255,248,236,.35)'], [1, 'rgba(255,248,236,0)']], 1, 2);
+const glowTex = radial([[0, 'rgba(255,236,190,1)'], [0.25, 'rgba(240,200,110,.5)'], [1, 'rgba(240,200,110,0)']]);
+const WISPS = 5;
+cups.forEach((c) => {
+  c.g = new Group(); c.g.position.set(c.x, 0, c.z); c.g.rotation.y = c.spin; world.add(c.g);
+  c.cupMat = new MeshStandardMaterial({ color: CUP.clone(), roughness: 0.28 });
+  const body = new Mesh(finjan, c.cupMat); body.scale.setScalar(CUP_S);
+  const rim = new Mesh(rimG, brass); rim.rotation.x = Math.PI / 2; rim.position.y = 0.215 * CUP_S; rim.scale.setScalar(CUP_S);
+  const band = new Mesh(bandG, brass); band.rotation.x = Math.PI / 2; band.position.y = 0.11 * CUP_S; band.scale.setScalar(CUP_S);
+  c.coffeeMat = new MeshStandardMaterial({ color: COFFEE_HOT.clone(), roughness: 0.15, emissive: new Color('#8a4e12'), emissiveIntensity: 0.25 });
+  c.disc = new Mesh(discG, c.coffeeMat); c.disc.rotation.x = -Math.PI / 2;
+  c.g.add(body, rim, band, c.disc);
+  c.shadow = shadow(0.75); c.shadow.position.set(c.x, 0.014, c.z);
+  c.glow = new Mesh(new PlaneGeometry(1.3, 1.3), new MeshBasicMaterial({ map: radialWarm, transparent: true, blending: AdditiveBlending, depthWrite: false, opacity: 0 }));
+  c.glow.rotation.x = -Math.PI / 2; c.glow.position.set(c.x, 0.016, c.z); world.add(c.glow);
+  c.wisps = Array.from({ length: WISPS }, () => { const s = new Sprite(new SpriteMaterial({ map: steamTex, transparent: true, depthWrite: false, opacity: 0 })); world.add(s); return s; });
+  c.flashS = new Sprite(new SpriteMaterial({ map: glowTex, blending: AdditiveBlending, depthWrite: false, transparent: true })); c.flashS.scale.setScalar(0); world.add(c.flashS);
+});
+
+// the dallah: a bulbous base, a waist, a flared neck, a domed lid with a finial, a long crescent beak and a loop handle
+const D_S = 0.95;
+const dRoot = new Group(), dTilt = new Group(); dRoot.add(dTilt); dRoot.scale.setScalar(D_S); world.add(dRoot);
+{
+  const prof = [[0, 0], [0.24, 0], [0.29, 0.025], [0.32, 0.09], [0.315, 0.18], [0.27, 0.27], [0.19, 0.34], [0.125, 0.4], [0.11, 0.47], [0.125, 0.55], [0.16, 0.62], [0.19, 0.675], [0.185, 0.69], [0, 0.69]];
+  dTilt.add(new Mesh(new LatheGeometry(prof.map(([r, y]) => new Vector2(r, y)), 56), brass));
+  const lid = new Mesh(new LatheGeometry([[0.19, 0.685], [0.18, 0.715], [0.15, 0.75], [0.1, 0.795], [0.055, 0.835], [0.04, 0.87], [0.0, 0.875]].map(([r, y]) => new Vector2(r, y)), 48), brass); dTilt.add(lid);
+  const fin = new Mesh(new SphereGeometry(0.04, 16, 12), brass); fin.position.y = 0.9; dTilt.add(fin);
+  const tip = new Mesh(new ConeGeometry(0.026, 0.11, 12), brass); tip.position.y = 0.98; dTilt.add(tip);
+  for (const [r, y, w] of [[0.3, 0.03, 0.014], [0.2, 0.33, 0.012], [0.112, 0.47, 0.012], [0.19, 0.69, 0.013]]) { const t = new Mesh(new TorusGeometry(r, w, 8, 56), brass); t.rotation.x = Math.PI / 2; t.position.y = y; dTilt.add(t); }
+  // the beak: tapering tube along a crescent
+  const spoutCurve = new CatmullRomCurve3([[0.27, 0.15], [0.4, 0.22], [0.52, 0.34], [0.6, 0.5], [0.66, 0.66], [0.73, 0.78], [0.84, 0.86], [0.92, 0.885]].map(([x, y]) => new Vector3(x, y, 0)));
+  const sg = new TubeGeometry(spoutCurve, 64, 1, 12), pa = sg.attributes.position, ctr = new Vector3(), v = new Vector3();
+  for (let i = 0; i <= 64; i++) { const u = i / 64; spoutCurve.getPointAt(u, ctr); const rad = lerp(0.06, 0.017, u ** 0.8); for (let j = 0; j <= 12; j++) { const k = i * 13 + j; v.fromBufferAttribute(pa, k).sub(ctr).multiplyScalar(rad).add(ctr); pa.setXYZ(k, v.x, v.y, v.z); } }
+  sg.computeVertexNormals(); dTilt.add(new Mesh(sg, brass));
+  const handle = new CatmullRomCurve3([[-0.15, 0.63], [-0.3, 0.68], [-0.42, 0.56], [-0.41, 0.38], [-0.34, 0.25], [-0.28, 0.2]].map(([x, y]) => new Vector3(x, y, 0)));
+  dTilt.add(new Mesh(new TubeGeometry(handle, 40, 0.022, 8), brass));
+}
+const SPOUT_TIP = new Vector3(0.93, 0.885, 0);
+const dShadow = shadow(1.4, 0.062);
+const stream = new Mesh(new CylinderGeometry(1, 1, 1, 10, 1, true), new MeshStandardMaterial({ color: COFFEE_HOT, emissive: new Color('#c98a2c'), emissiveIntensity: 0.9, roughness: 0.15, transparent: true, opacity: 0.92 }));
+world.add(stream); stream.visible = false;
+
+const cupTop = (c) => new Vector3(c.x, 0.2 * CUP_S, c.z);
+function tipFor(pos, yaw, tilt) {
+  dRoot.position.copy(pos); dRoot.rotation.set(0, yaw, 0); dTilt.rotation.set(0, 0, tilt);
+  dRoot.updateMatrix(); dTilt.updateMatrix();
+  return SPOUT_TIP.clone().applyMatrix4(dTilt.matrix).applyMatrix4(dRoot.matrix);
+}
+function poseFor(c) {
+  // stand on the tray side of the cup, beak pointing out to it
+  const d = new Vector3(c.x, 0, c.z).normalize(), yaw = Math.atan2(-d.z, d.x);
+  const tip = tipFor(new Vector3(), yaw, POUR_TILT - 0.06);
+  return { pos: cupTop(c).add(new Vector3(0, 0.38, 0)).sub(tip), yaw };
+}
+
+// ---- step and paint
+const approach = (v, t, d) => (v < t ? Math.min(t, v + d) : Math.max(t, v - d));
+function step(dt) {
+  T += dt;
+  while (events.length && events[0].t <= T) events.shift().fn();
+  for (const c of cups) {
+    c.appear = approach(c.appear, c.appearT, dt * 0.9);
+    c.warm = approach(c.warm, c.warmT, dt * c.warmSpd);
+    c.flash = Math.max(0, c.flash - dt * 0.7);
+  }
+  // dallah
+  if (!dallah.cur) {
+    while (dallah.queue.length && dallah.queue[0].fn) dallah.queue.shift().fn();
+    if (dallah.queue.length) { const m = dallah.queue.shift(); dallah.cur = { ...m, t: 0, from: { pos: dallah.pos.clone(), yaw: dallah.yaw, tilt: dallah.tilt }, fill0: m.pour ? m.pour.fill : 0 }; }
+  }
+  const m = dallah.cur; dallah.pouring = null;
+  if (m) {
+    m.t += dt; const u = Math.min(1, m.t / m.dur), e = ease(u);
+    dallah.pos.lerpVectors(m.from.pos, m.to.pos, e); if (m.arc) dallah.pos.y += Math.sin(Math.PI * e) * m.arc;
+    let dy = m.to.yaw - m.from.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); dallah.yaw = m.from.yaw + dy * e;
+    dallah.tilt = lerp(m.from.tilt, m.to.tilt, e);
+    if (m.pour) { const c = m.pour; dallah.pouring = c; c.fill = Math.max(c.fill, lerp(m.fill0, 1, u)); c.warm = Math.max(c.warm, u); c.warmT = 1; }
+    if (u >= 1) { m.end && m.end(); dallah.cur = null; }
+  }
+}
+
+let ptrX = 0, ptrY = 0, tiltX = 0, tiltY = 0;
+addEventListener('pointermove', (e) => { ptrX = e.clientX / innerWidth * 2 - 1; ptrY = e.clientY / innerHeight * 2 - 1; });
+const Y = new Vector3(0, 1, 0), tmp = new Vector3(), tmpC = new Color();
+
+function paint() {
+  tiltX += (ptrX - tiltX) * 0.04; tiltY += (ptrY - tiltY) * 0.04;
+  world.rotation.y = Math.sin(T * 0.05) * 0.1 + tiltX * 0.14; world.rotation.x = tiltY * 0.03;
+  for (const c of cups) {
+    const a = easeOut(c.appear), r = lerp(c.r + 1.4, c.r, a);
+    const x = r * Math.cos(c.a), z = r * Math.sin(c.a) * ZS;
+    c.g.position.set(x, 0, z); c.g.scale.setScalar(Math.max(0.0001, a)); c.g.visible = a > 0.001;
+    c.shadow.position.set(x, 0.014, z); c.shadow.scale.setScalar(a); c.shadow.visible = c.g.visible;
+    const fy = 0.035 + 0.135 * c.fill, rr = rIn(fy) * 0.98;
+    c.disc.visible = c.fill > 0.02; c.disc.position.y = fy * CUP_S; c.disc.scale.setScalar(rr * CUP_S);
+    const w = c.warm;
+    c.coffeeMat.color.copy(COFFEE_COLD).lerp(COFFEE_HOT, w); c.coffeeMat.roughness = lerp(0.85, 0.12, w); c.coffeeMat.emissiveIntensity = 0.35 * w + 0.05 * Math.sin(T * 3 + c.seed) * w;
+    c.cupMat.color.copy(CUP_COLD).lerp(CUP, 0.35 + 0.65 * w);
+    c.glow.position.set(x, 0.016, z); c.glow.material.opacity = 0.55 * w * a * (dark ? 1.1 : 0.9);
+    const rimY = 0.22 * CUP_S;
+    c.wisps.forEach((s, k) => {
+      const p = (T * 0.3 + k / WISPS + c.seed) % 1;
+      s.position.set(x + Math.sin(T * 1.2 + p * 5 + c.seed) * 0.07 * p, rimY + 0.04 + p * 0.95, z + Math.cos(T * 0.9 + p * 4 + c.seed) * 0.04 * p);
+      s.scale.set(0.16 + p * 0.36, 0.3 + p * 0.55, 1);
+      s.material.opacity = Math.max(0, w - 0.15) / 0.85 * Math.sin(Math.PI * p) ** 1.3 * 0.7 * a;
+    });
+    c.flashS.position.set(x, rimY, z); c.flashS.scale.setScalar(1.6 * easeOut(c.flash));
+  }
+  // dallah pose and the pour
+  const tip = tipFor(dallah.pos, dallah.yaw, dallah.tilt);
+  dShadow.position.set(dallah.pos.x, 0.062, dallah.pos.z); const h = Math.max(0, dallah.pos.y - 0.06); dShadow.scale.setScalar(1 + h * 0.6); dShadow.material.opacity = 1 / (1 + h * 1.5);
+  const pc = dallah.pouring;
+  if (pc) {
+    const end = new Vector3(pc.x, (0.035 + 0.135 * pc.fill) * CUP_S, pc.z);
+    tmp.subVectors(end, tip); const len = tmp.length();
+    stream.visible = len > 0.01; stream.position.copy(tip).addScaledVector(tmp, 0.5);
+    stream.quaternion.setFromUnitVectors(Y, tmp.normalize());
+    const wob = 0.024 + Math.sin(T * 30) * 0.003; stream.scale.set(wob, len, wob);
+  } else stream.visible = false;
+  renderer.render(scene, camera);
+}
+
+function size() { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+size(); addEventListener('resize', size);
+
+const still = q.has('t') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) {
+  const target = q.has('t') ? Number(q.get('t')) : 30;
+  while (T < target) step(1 / 60);
+  paint(); window.__ready = true;
+} else {
+  let last = performance.now();
+  const loop = (now) => { step(Math.min(0.05, (now - last) / 1000)); last = now; paint(); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop); window.__ready = true;
+}
+</script>
+</body>
+</html>

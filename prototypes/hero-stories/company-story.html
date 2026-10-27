@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Company story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --field: #0B3A44; --ink: #F3EADB; --thread: #10A396; --sun: #E9C46A; --faded: #9AA5A3; --paper: #FBF6EC; --paper-ink: #14201F; }
+  :root[data-theme="dark"] { --field: #08262D; --ink: #E8F1EF; --thread: #4FD1C5; --sun: #F0CF7E; --faded: #3E4A4C; --paper: #F3EADB; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--field); color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 64px; font-size: 15px; z-index: 4; }
+  header b { font-family: 'Bricolage Grotesque', system-ui; font-size: 20px; }
+  header nav { display: flex; gap: 28px; opacity: .8; }
+  .stories a { color: inherit; text-decoration: none; opacity: .7; padding: 6px 12px; border-radius: 999px; }
+  .stories a[aria-current] { opacity: 1; background: rgb(243 234 219 / .14); }
+  .hero { position: relative; height: 100vh; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: center; padding: 0 64px; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(45% 60% at 66% 52%, rgb(255 255 255 / .05), transparent 70%); pointer-events: none; }
+  .copy { position: relative; z-index: 3; max-width: 460px; }
+  .copy .txt { transition: opacity .45s ease, transform .45s ease; }
+  .copy .txt.out { opacity: 0; transform: translateY(8px); }
+  .kicker { font-family: Caveat, cursive; font-size: 24px; color: var(--sun); margin-bottom: 8px; min-height: 30px; }
+  h1 { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: clamp(38px, 4.4vw, 64px); line-height: 1.03; letter-spacing: -.025em; }
+  .copy p { margin-top: 20px; font-size: 18px; line-height: 1.55; opacity: .84; min-height: 84px; }
+  .ctas { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 14px 22px; border-radius: 999px; font-weight: 500; font-size: 16px; }
+  .btn.p { background: var(--sun); color: #14201F; }
+  .btn.s { border: 1.5px solid rgb(243 234 219 / .4); }
+  .stage { position: relative; height: 100%; }
+  canvas { position: absolute; top: 0; bottom: 0; left: -22%; width: 130%; height: 100%;
+    -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, #000 74%, transparent 100%); mask-image: radial-gradient(50% 50% at 50% 50%, #000 74%, transparent 100%); }
+  #ov { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  #ov > * { position: absolute; left: 0; top: 0; will-change: transform, opacity; opacity: 0; }
+  .cap { font-family: Caveat, cursive; font-weight: 700; font-size: 44px; line-height: 1; color: var(--ink); white-space: nowrap; text-shadow: 0 2px 18px rgb(0 0 0 / .35); }
+  .cap.warm { color: #7FE0D6; }
+  .bubble { width: 230px; padding: 14px 16px; background: var(--paper); color: var(--paper-ink); border-radius: 26px; font-size: 15px; line-height: 1.35; box-shadow: 0 12px 30px rgb(0 0 0 / .3); }
+  .bubble::before, .bubble::after { content: ''; position: absolute; background: var(--paper); border-radius: 50%; }
+  .bubble::before { width: 18px; height: 18px; left: 26px; bottom: -14px; }
+  .bubble::after { width: 10px; height: 10px; left: 16px; bottom: -28px; }
+  .bubble .h { font-family: Caveat, cursive; font-size: 20px; color: #0A6E66; line-height: 1; margin-bottom: 4px; }
+  .bubble .tick { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #10A396; color: #fff; font-size: 13px; font-weight: 700; margin-right: 6px; vertical-align: -3px; }
+  .bubble.glow { box-shadow: 0 0 0 3px rgb(233 196 106 / .9), 0 0 40px rgb(233 196 106 / .55); }
+  .skill { font-size: 12px; font-weight: 600; letter-spacing: .03em; color: #14201F; background: var(--paper); padding: 4px 9px 4px 7px; border-radius: 999px; white-space: nowrap; box-shadow: 0 4px 14px rgb(0 0 0 / .25); display: flex; gap: 5px; align-items: center; }
+  .skill::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sun); box-shadow: 0 0 6px var(--sun); }
+  .hub { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); white-space: nowrap; background: rgb(8 38 45 / .72); padding: 4px 9px; border-radius: 999px; border: 1px solid rgb(127 224 214 / .35); }
+  .hub.big { color: #14201F; background: var(--sun); border-color: transparent; }
+  .zone { font-size: 13px; font-weight: 600; color: #14201F; background: var(--paper); padding: 6px 12px 6px 10px; border-radius: 999px; white-space: nowrap; box-shadow: 0 6px 18px rgb(0 0 0 / .28); display: flex; gap: 7px; align-items: center; }
+  .zone::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--thread); }
+  .draft { background: var(--paper); color: var(--paper-ink); border-radius: 12px; padding: 7px 8px 7px 11px; font-size: 12.5px; white-space: nowrap; box-shadow: 0 10px 24px rgb(0 0 0 / .3); display: flex; gap: 8px; align-items: center; }
+  .draft b { font-weight: 600; }
+  .draft .send { background: var(--sun); color: #14201F; border-radius: 999px; padding: 3px 10px; font-weight: 600; }
+  .draft.sent .send { background: #10A396; color: #fff; }
+  .scenes { position: absolute; left: 64px; bottom: 26px; z-index: 4; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .scenes button { font: 500 12.5px Inter, system-ui; color: var(--ink); background: rgb(255 255 255 / .06); border: 1px solid rgb(243 234 219 / .18); border-radius: 999px; padding: 6px 11px; cursor: pointer; }
+  .scenes button.on { background: var(--ink); color: var(--field); border-color: var(--ink); }
+  .scenes button.pp { width: 32px; padding: 6px 0; }
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgb(243 234 219 / .08); z-index: 4; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--sun); opacity: .7; }
+  @media (max-width: 700px) {
+    header { padding: 18px 16px; } header b { font-size: 16px; } header nav.stories { display: flex; gap: 0; font-size: 11.5px; } .stories a { padding: 4px 6px; }
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 84px 20px 0; align-items: start; }
+    h1 { font-size: 34px; } .kicker { font-size: 20px; min-height: 24px; margin-bottom: 4px; }
+    .copy p { font-size: 15px; margin-top: 10px; min-height: 0; } .ctas { margin-top: 16px; } .btn { padding: 11px 18px; font-size: 15px; }
+    canvas { left: -4%; width: 108%; -webkit-mask-image: radial-gradient(56% 50% at 50% 50%, #000 80%, transparent 100%); mask-image: radial-gradient(56% 50% at 50% 50%, #000 80%, transparent 100%); }
+    .scenes { left: 20px; right: 20px; bottom: 18px; gap: 4px; } .scenes button { padding: 5px 8px; font-size: 11px; }
+    .cap { font-size: 28px; } .bubble { width: 150px; font-size: 12px; padding: 9px 11px; } .bubble .h { font-size: 16px; }
+    .skill { font-size: 9.5px; padding: 3px 6px; } .hub { font-size: 8.5px; padding: 3px 5px; letter-spacing: .06em; } .zone { font-size: 10px; padding: 4px 8px; } .draft { font-size: 9.5px; padding: 5px 6px 5px 8px; gap: 5px; }
+  }
+</style>
+</head>
+<body>
+<header><b>TapNConnect</b><nav class="stories"><a href="member-story.html">Member</a><a href="company-story.html" aria-current="page">Company</a><a href="organiser-story.html">Organiser</a><a href="sponsor-story.html">Sponsor</a></nav></header>
+<section class="hero" id="hero">
+  <div class="copy">
+    <div class="txt" id="txt"><div class="kicker" id="kick"></div><h1 id="h1"></h1><p id="p"></p></div>
+    <div class="ctas"><span class="btn p">Order for your company</span><span class="btn s">Talk to us</span></div>
+  </div>
+  <div class="stage" id="stage"><canvas id="c" role="img" aria-label="A short film: a company's sales team is stuck below its growth target; an AI assistant and its helper agents find who is worth meeting at a trade show; the team shakes hands on their stand and on the show floor, and every handshake lands in one shared pipeline; over the months the assistant drafts each follow-up and pulls cooling relationships forward; new clients light up the company's building."></canvas></div>
+  <div id="ov"></div>
+  <div class="scenes" id="scenes"></div>
+  <div class="bar"><i id="bar"></i></div>
+</section>
+
+<script type="importmap">{ "imports": { "three": "../../node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, DirectionalLight, Color, SRGBColorSpace, Vector3, Quaternion, Euler, Group, Shape,
+  ExtrudeGeometry, ShapeGeometry, PlaneGeometry, BoxGeometry, CircleGeometry, CapsuleGeometry, SphereGeometry, TorusGeometry, TubeGeometry,
+  QuadraticBezierCurve3, CatmullRomCurve3, MeshStandardMaterial, MeshBasicMaterial, Mesh, CanvasTexture, Sprite, SpriteMaterial, AdditiveBlending,
+} from 'three';
+
+const q = new URLSearchParams(location.search);
+if (q.get('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+const dark = q.get('theme') === 'dark';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const FIELD = new Color(css('--field')), SUNC = new Color(css('--sun'));
+const TEAL = dark ? '#4FD1C5' : '#10A396', SUN = css('--sun');
+const TEALC = new Color(TEAL);
+const YOU_C = dark ? '#3CC4B7' : '#14A89A';
+const CLAY = dark ? ['#D2BC98', '#8CC5BB', '#D9B4A4', '#6FA4C4', '#B8A88A'] : ['#E9D3AE', '#9ED9CF', '#F1C9B8', '#7FB8D9', '#CDBB9C'];
+
+// ---- the film: five scenes on one 66 s clock (pure functions of t, so any t renders as a still)
+const SC = [0, 12, 22, 36, 52, 66], L = 66, NS = 5;
+const KEY = [9.0, 19.2, 29.8, 47.9, 59.5];
+const NAMES = ['Target', 'Plan', 'Show', 'Nurture', 'Clients'];
+const COPY = [
+  ['The company', 'Growth needs new relationships.', 'Your sales team knows the number. Not who to meet, or how to keep them.'],
+  ['The plan', 'Your assistant brings a team.', 'It finds who is worth meeting, and keeps every conversation from going cold.'],
+  ['At the show', 'Exhibiting or just attending.', 'Every handshake, on your stand or on the floor, lands in one shared pipeline.'],
+  ['After the show', 'Nobody goes cold.', 'Your assistant drafts the follow-up at the right moment. Your team says yes.'],
+  ['The result', 'More clients from the same show.', 'Every employee’s relationships in one place, and the company keeps them when people move on.'],
+];
+const sceneOf = (t) => { for (let i = 0; i < NS; i++) if (t < SC[i + 1]) return i; return NS - 1; };
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const span = (t, a, b) => clamp((t - a) / (b - a));
+const ease = (x) => x * x * (3 - 2 * x);
+const easeOut = (x) => 1 - (1 - x) ** 3;
+const mix = (a, b, k) => a + (b - a) * k;
+const bump = (t, a, b, f = 0.3) => ease(span(t, a, a + f)) * (1 - ease(span(t, b - f, b)));
+const hexA = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const mixHex = (a, b, k) => { const A = hexA(a), B = hexA(b); return `rgb(${A.map((v, i) => Math.round(mix(v, B[i], k))).join(',')})`; };
+
+// two places: the company's building (A) and the show (B)
+const CXA = 0, CXB = 10;
+
+// ---- the people met at the show: four on the stand, two on the floor
+const H_STAND = [24.2, 26.8, 29.2, 31.6], H_FLOOR = [25.4, 29.4];
+const ROWS = [
+  { id: 'karim', name: 'Karim Nasser', co: 'Nasser Retail Group', tag: 'Retail', where: 'stand', shake: H_STAND[0], slot: 0,
+    steps: [[38.0, 'a'], [40.6, 'a'], [43.6, 'a'], [47.0, 'a']] },
+  { id: 'hamad', name: 'Hamad Saeed', co: 'Atlas Freight', tag: 'Logistics', where: 'floor', shake: H_FLOOR[0], slot: 1,
+    steps: [[39.0, 'a'], [42.2, 'a'], [45.6, 'a'], [49.2, 'a']] },
+  { id: 'faris', name: 'Faris Al Amiri', co: 'Gulf Cold Chain', tag: 'Logistics', where: 'stand', shake: H_STAND[1], slot: 2,
+    stall: 38.6, steps: [[41.0, 'r', 3], [44.6, 'a'], [47.8, 'a'], [50.2, 'a']] },
+  { id: 'dana', name: 'Dana Kareem', co: 'Corniche Hotels', tag: 'Hospitality', where: 'stand', shake: H_STAND[2], slot: 3,
+    stall: 40.4, steps: [[38.4, 'a'], [44.2, 'r', 2], [48.6, 'a']] },
+  { id: 'lina', name: 'Lina Haddad', co: 'Lumen Studio', tag: 'Media', where: 'floor', shake: H_FLOOR[1], slot: 4,
+    stall: 38.2, steps: [[46.8, 'r', 3], [50.0, 'a']] },
+  { id: 'priya', name: 'Priya Nair', co: 'Medline Clinics', tag: 'Healthcare', where: 'stand', shake: H_STAND[3], slot: 5,
+    steps: [[40.0, 'a'], [44.0, 'a'], [48.0, 'a']] },
+];
+const PASTEL = ['#F3C6A8', '#A9D8CF', '#C9C2EE', '#F2D99B', '#B6D3EE', '#EDB9C4'];
+ROWS.forEach((r, i) => { r.pastel = PASTEL[i % PASTEL.length]; });
+const DRAFTS = [
+  { row: 'karim', t: 40.6, what: 'Follow-up drafted' }, { row: 'priya', t: 44.0, what: 'Meeting invite ready' },
+  { row: 'hamad', t: 45.6, what: 'Proposal note ready' }, { row: 'karim', t: 47.0, what: 'Contract note ready' },
+];
+const COLS = ['Met', 'Talking', 'Meeting', 'Proposal', 'Client'];
+const HELPERS = ['Research', 'Remember', 'Follow up', 'Introduce'];
+const TARGETS = [['Karim Nasser', 'Nasser Retail Group', 'Retail'], ['Hamad Saeed', 'Atlas Freight', 'Logistics'], ['Dana Kareem', 'Corniche Hotels', 'Hospitality'], ['Priya Nair', 'Medline Clinics', 'Healthcare'], ['Faris Al Amiri', 'Gulf Cold Chain', 'Logistics']];
+
+// ---- three
+const canvas = document.getElementById('c'), hero = document.getElementById('hero');
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = SRGBColorSpace;
+const scene = new Scene();
+const camera = new PerspectiveCamera(35, 1, 0.1, 80);
+scene.add(new HemisphereLight(0xf3eadb, dark ? 0x061c22 : 0x0b3a44, 1.15));
+const key = new DirectionalLight(0xfff3e0, 2.1); key.position.set(-3, 4, 6); scene.add(key);
+const rimL = new DirectionalLight(0x9fe3da, 2.0); rimL.position.set(4, 2, -4); scene.add(rimL);
+const rimR = new DirectionalLight(0xffe2b0, 1.2); rimR.position.set(-5, -2, -3); scene.add(rimR);
+const world = new Group(); scene.add(world);
+
+const radial = (stops, n = 128) => { const c = document.createElement('canvas'); c.width = c.height = n; const g = c.getContext('2d'); const r = g.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2); stops.forEach(([o, col]) => r.addColorStop(o, col)); g.fillStyle = r; g.fillRect(0, 0, n, n); return new CanvasTexture(c); };
+const glowTex = radial([[0, 'rgba(255,240,200,1)'], [0.22, 'rgba(240,200,110,.5)'], [1, 'rgba(240,200,110,0)']]);
+const shadowTex = radial([[0, 'rgba(0,0,0,.5)'], [1, 'rgba(0,0,0,0)']]);
+const glowSprite = (tex = glowTex) => { const s = new Sprite(new SpriteMaterial({ map: tex, blending: AdditiveBlending, depthWrite: false, transparent: true })); s.scale.setScalar(0); world.add(s); return s; };
+const rim = (m) => { m.onBeforeCompile = (s) => { s.fragmentShader = s.fragmentShader.replace('#include <dithering_fragment>', 'float rimF = pow(1.0 - max(dot(normalize(vNormal), normalize(vViewPosition)), 0.0), 2.4);\n gl_FragColor.rgb += rimF * 0.22;\n#include <dithering_fragment>'); }; return m; };
+function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+const canvasTex = (w, h) => { const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const tex = new CanvasTexture(cv); tex.colorSpace = SRGBColorSpace; tex.anisotropy = 8; return { cv, tex }; };
+
+const gC = FIELD.clone().lerp(TEALC, 0.18).getHexString();
+const groundTex = radial([[0, `#${gC}dd`], [0.5, `#${gC}55`], [1, `#${gC}00`]]);
+for (const [x, r] of [[CXA + 0.3, 7], [CXB, 8]]) { const g = new Mesh(new CircleGeometry(r, 64), new MeshBasicMaterial({ map: groundTex, transparent: true, depthWrite: false })); g.rotation.x = -Math.PI / 2; g.position.set(x, 0, 0); world.add(g); }
+
+// ---- clay people with arms
+const GEO = { leg: new CapsuleGeometry(0.085, 0.5, 4, 12), torso: new CapsuleGeometry(0.2, 0.4, 6, 18), head: new SphereGeometry(0.15, 24, 16), upper: new CapsuleGeometry(0.062, 0.24, 4, 10), fore: new CapsuleGeometry(0.056, 0.22, 4, 10), hand: new SphereGeometry(0.068, 14, 10), shadow: new PlaneGeometry(1, 1) };
+function human(color, transparent = false) {
+  const mat = rim(new MeshStandardMaterial({ color: new Color(color), roughness: 0.85, transparent }));
+  const g = new Group(), body = new Group(); g.add(body);
+  const mk = (geo, parent, y) => { const m = new Mesh(geo, mat); m.position.y = y; parent.add(m); return m; };
+  const hip = (x) => { const h = new Group(); h.position.set(x, 0.78, 0); body.add(h); mk(GEO.leg, h, -0.36); return h; };
+  const hipL = hip(0.1), hipR = hip(-0.1);
+  mk(GEO.torso, body, 1.14);
+  const neck = new Group(); neck.position.y = 1.47; body.add(neck); mk(GEO.head, neck, 0.2);
+  const arm = (x) => { const sh = new Group(); sh.position.set(x, 1.38, 0); body.add(sh); mk(GEO.upper, sh, -0.17); const el = new Group(); el.position.y = -0.34; sh.add(el); mk(GEO.fore, el, -0.15); const hand = mk(GEO.hand, el, -0.31); return { sh, el, hand }; };
+  const R = arm(-0.27), Lf = arm(0.27);
+  const sh = new Mesh(GEO.shadow, new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })); sh.rotation.x = -Math.PI / 2; sh.position.y = 0.005; sh.scale.setScalar(0.9); g.add(sh);
+  world.add(g);
+  return { g, body, hipL, hipR, neck, R, L: Lf, mat, sh };
+}
+const REST = { shRx: 0.05, shRz: -0.1, elRx: -0.12, shLx: 0.05, shLz: 0.1, elLx: -0.12, neckX: 0, neckY: 0, legA: 0, bob: 0, lean: 0 };
+function pose(h, p) {
+  h.R.sh.rotation.set(p.shRx, 0, p.shRz); h.R.el.rotation.x = p.elRx;
+  h.L.sh.rotation.set(p.shLx, 0, p.shLz); h.L.el.rotation.x = p.elLx;
+  h.neck.rotation.set(p.neckX, p.neckY, 0); h.hipL.rotation.x = p.legA; h.hipR.rotation.x = -p.legA;
+  h.body.position.y = p.bob; h.body.rotation.x = p.lean;
+}
+const blendPose = (a, b, k) => { const o = {}; for (const n in a) o[n] = mix(a[n], b[n], k); return o; };
+const fade = (h, op) => { h.g.visible = op > 0.04; h.mat.opacity = op; h.sh.material.opacity = op; };
+
+// ---- A: the company's glass tower and its sales team
+const towerG = new Group(); world.add(towerG);
+const TW = 1.45, TD = 1.15, FLH = 0.44, NF = 6, BASE = 0.14;
+const TOWER_AT = new Vector3(CXA - 1.3, 0, -1.45);
+towerG.position.copy(TOWER_AT); towerG.rotation.y = 0.42;
+const facade = canvasTex(256, 96), facadeE = canvasTex(256, 96);
+{
+  const c = facade.cv.getContext('2d'); const g = c.createLinearGradient(0, 0, 256, 96); g.addColorStop(0, '#8FD0C8'); g.addColorStop(0.5, '#4E9D97'); g.addColorStop(1, '#3B8580'); c.fillStyle = g; c.fillRect(0, 0, 256, 96);
+  c.fillStyle = 'rgba(255,255,255,.16)'; c.beginPath(); c.moveTo(40, 0); c.lineTo(110, 0); c.lineTo(60, 96); c.lineTo(-10, 96); c.fill();
+  c.fillStyle = '#E9E2D2'; for (let x = 0; x <= 256; x += 32) c.fillRect(x - 2, 0, 4, 96); c.fillRect(0, 0, 256, 5); c.fillRect(0, 91, 256, 5);
+  const e = facadeE.cv.getContext('2d'); e.fillStyle = '#000'; e.fillRect(0, 0, 256, 96);
+  for (let x = 0; x < 256; x += 32) { const gg = e.createLinearGradient(0, 8, 0, 90); gg.addColorStop(0, '#FFE7A8'); gg.addColorStop(1, '#F2C46A'); e.fillStyle = gg; e.fillRect(x + 4, 8, 24, 80); }
+  facade.tex.needsUpdate = facadeE.tex.needsUpdate = true;
+}
+const LATE = [];
+const slabMat = new MeshStandardMaterial({ color: new Color('#EDE6D7'), roughness: 0.7 });
+const floors = [];
+{
+  const base = new Mesh(new BoxGeometry(TW + 0.3, BASE, TD + 0.3), slabMat); base.position.y = BASE / 2; towerG.add(base);
+  for (let f = 0; f < NF; f++) {
+    const m = new MeshStandardMaterial({ color: new Color('#FFFFFF'), map: facade.tex, emissive: new Color('#FFFFFF'), emissiveMap: facadeE.tex, emissiveIntensity: 0, roughness: 0.12, metalness: 0.25, transparent: true, opacity: 0.94 });
+    const glass = new Mesh(new BoxGeometry(TW, FLH - 0.05, TD), m); glass.position.y = BASE + f * FLH + 0.05 + (FLH - 0.05) / 2; towerG.add(glass);
+    const slab = new Mesh(new BoxGeometry(TW + 0.06, 0.05, TD + 0.06), slabMat); slab.position.y = BASE + f * FLH + 0.025; towerG.add(slab);
+    floors.push(m);
+  }
+  const top = BASE + NF * FLH;
+  const roof = new Mesh(new BoxGeometry(TW + 0.08, 0.1, TD + 0.08), slabMat); roof.position.y = top + 0.05; towerG.add(roof);
+  const box = new Mesh(new BoxGeometry(0.5, 0.18, 0.4), slabMat); box.position.set(-0.3, top + 0.19, -0.2); towerG.add(box);
+  const sign = canvasTex(512, 96); LATE.push(() => { const c = sign.cv.getContext('2d'); c.clearRect(0, 0, 512, 96); c.fillStyle = '#F7F2E8'; rr(c, 4, 10, 504, 76, 14); c.fill(); c.fillStyle = '#10A396'; c.beginPath(); c.moveTo(40, 70); c.lineTo(58, 26); c.lineTo(76, 70); c.closePath(); c.fill(); c.fillStyle = '#14201F'; c.font = '700 40px Inter'; c.textBaseline = 'middle'; c.fillText('MERIDIAN SYSTEMS', 96, 50); sign.tex.needsUpdate = true; });
+  const signM = new Mesh(new PlaneGeometry(1.25, 0.234), new MeshBasicMaterial({ map: sign.tex, transparent: true, toneMapped: false })); signM.position.set(0, top + 0.22, TD / 2 + 0.06); towerG.add(signM);
+}
+const tsh = new Mesh(GEO.shadow, new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0.7 })); tsh.rotation.x = -Math.PI / 2; tsh.scale.set(2.6, 2.2, 1); tsh.position.set(TOWER_AT.x, 0.004, TOWER_AT.z); world.add(tsh);
+towerG.updateMatrix();
+const towerFace = (f) => new Vector3(0.1 * (f % 2 ? 1 : -1), BASE + f * FLH + FLH / 2, TD / 2 + 0.02).applyMatrix4(towerG.matrix);
+
+const TEAM_AT = [new Vector3(CXA - 0.62, 0, 0.6), new Vector3(CXA + 0.0, 0, 0.82), new Vector3(CXA + 0.55, 0, 0.5)];
+const team = [human(YOU_C), human(CLAY[3]), human(CLAY[2])];
+team.forEach((h, i) => { h.g.position.copy(TEAM_AT[i]); });
+
+// the panel beside them: the chart (1), the target list (2), the results (5)
+const PNW = 760, PNH = 560, PANEL_W = 1.92, PANEL_H = PANEL_W * PNH / PNW;
+const PANEL_AT = new Vector3(CXA + 1.95, 1.95, 0.35);
+const panel = canvasTex(PNW * 1.4, PNH * 1.4);
+const panelM = new Mesh(new PlaneGeometry(PANEL_W, PANEL_H), new MeshBasicMaterial({ map: panel.tex, transparent: true, toneMapped: false, depthWrite: false }));
+panelM.position.copy(PANEL_AT); panelM.rotation.y = -0.18; panelM.renderOrder = 3; world.add(panelM); panelM.updateMatrix();
+let panelLast = '';
+function card(c) { c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 34; c.shadowOffsetY = 12; c.fillStyle = '#FBF6EC'; rr(c, 20, 16, PNW - 40, PNH - 44, 28); c.fill(); c.shadowColor = 'transparent'; }
+function sampleTag(c, x, y) { c.font = '600 17px Inter'; const w = c.measureText('SAMPLE').width + 18; c.fillStyle = '#EFE7D6'; rr(c, x - w, y, w, 28, 6); c.fill(); c.fillStyle = '#6B6455'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('SAMPLE', x - w / 2, y + 15); c.textAlign = 'left'; c.textBaseline = 'alphabetic'; }
+function drawChart(p) {
+  const c = panel.cv.getContext('2d'); c.setTransform(1.4, 0, 0, 1.4, 0, 0); c.clearRect(0, 0, PNW, PNH); card(c);
+  c.fillStyle = '#14201F'; c.font = '700 34px Inter'; c.fillText('Pipeline vs target', 56, 84);
+  c.font = '400 22px Inter'; c.fillStyle = '#6E7A78'; c.fillText('This year · Meridian sales', 56, 118); sampleTag(c, PNW - 56, 58);
+  const X0 = 80, X1 = PNW - 70, Y0 = PNH - 92, Y1 = 170, xs = (i) => X0 + (X1 - X0) * i / 11, ys = (v) => Y0 - (Y0 - Y1) * v / 100;
+  c.strokeStyle = '#E2DACB'; c.lineWidth = 1.5; for (let v = 0; v <= 100; v += 25) { c.beginPath(); c.moveTo(X0, ys(v)); c.lineTo(X1, ys(v)); c.stroke(); }
+  c.fillStyle = '#9A958E'; c.font = '500 17px Inter'; c.textAlign = 'center'; ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'].forEach((m, i) => c.fillText(m, xs(i), Y0 + 30)); c.textAlign = 'left';
+  c.setLineDash([10, 8]); c.strokeStyle = '#0A6E66'; c.lineWidth = 3; c.beginPath(); c.moveTo(xs(0), ys(30)); c.lineTo(xs(11), ys(96)); c.stroke(); c.setLineDash([]);
+  c.fillStyle = '#0A6E66'; c.font = '600 19px Inter'; c.fillText('Target', xs(11) - 66, ys(96) - 14);
+  const A = [30, 34, 36, 33, 35, 32, 31], n = Math.max(1, Math.floor(1 + p * (A.length - 1))), fr = 1 + p * (A.length - 1) - n;
+  const pts = A.slice(0, n).map((v, i) => [xs(i), ys(v)]); if (n < A.length) pts.push([mix(xs(n - 1), xs(n), fr), ys(mix(A[n - 1], A[n], fr))]);
+  c.fillStyle = 'rgba(181,82,59,.12)'; c.beginPath(); pts.forEach(([x, y], i) => (i ? c.lineTo(x, y) : c.moveTo(x, y))); for (let i = pts.length - 1; i >= 0; i--) { const x = pts[i][0], k = (x - X0) / (X1 - X0); c.lineTo(x, ys(30 + 66 * k)); } c.closePath(); c.fill();
+  c.strokeStyle = '#B5523B'; c.lineWidth = 5; c.lineJoin = 'round'; c.beginPath(); pts.forEach(([x, y], i) => (i ? c.lineTo(x, y) : c.moveTo(x, y))); c.stroke();
+  const [lx, ly] = pts[pts.length - 1]; c.fillStyle = '#B5523B'; c.beginPath(); c.arc(lx, ly, 8, 0, Math.PI * 2); c.fill();
+  if (p > 0.95) { c.font = '700 22px Inter'; c.fillStyle = '#B5523B'; c.fillText('Behind target', lx + 16, ly + 8); }
+  panel.tex.needsUpdate = true;
+}
+function drawList(k) {
+  const c = panel.cv.getContext('2d'); c.setTransform(1.4, 0, 0, 1.4, 0, 0); c.clearRect(0, 0, PNW, PNH); card(c);
+  c.fillStyle = '#7A6A3A'; c.font = '600 21px Inter'; c.fillStyle = SUN; c.beginPath(); c.arc(64, 64, 9, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#7A6A3A'; c.fillText('Your assistant’s plan', 84, 71);
+  c.fillStyle = '#14201F'; c.font = '700 32px Inter'; c.fillText('Who to meet at Gulf Tech Expo', 52, 120);
+  c.font = '500 21px Inter'; c.fillStyle = '#0A6E66'; c.fillText('Goal · 10 new accounts this year', 52, 154);
+  TARGETS.forEach(([n, co, tag], j) => {
+    const y = 186 + j * 64, done = k > j;
+    c.fillStyle = done ? '#EAF6F3' : '#F3EEE4'; rr(c, 44, y, PNW - 88, 54, 14); c.fill();
+    c.fillStyle = PASTEL[j]; c.beginPath(); c.arc(76, y + 27, 18, 0, Math.PI * 2); c.fill();
+    c.fillStyle = '#3A3530'; c.font = '600 15px Inter'; c.textAlign = 'center'; c.fillText(n.split(' ').map((w) => w[0]).slice(0, 2).join(''), 76, y + 32); c.textAlign = 'left';
+    c.fillStyle = '#14201F'; c.font = '600 21px Inter'; c.fillText(n, 106, y + 25); c.font = '400 17px Inter'; c.fillStyle = '#5E6B69'; c.fillText(co, 106, y + 46);
+    c.font = '600 16px Inter'; const tw = c.measureText(tag).width + 22, tx = PNW - 150 - tw; c.fillStyle = '#E6DFD0'; rr(c, tx, y + 14, tw, 28, 14); c.fill(); c.fillStyle = '#4C4A44'; c.fillText(tag, tx + 11, y + 33);
+    c.beginPath(); c.arc(PNW - 92, y + 27, 15, 0, Math.PI * 2); c.fillStyle = done ? '#10A396' : '#E2DACB'; c.fill();
+    if (done) { c.strokeStyle = '#fff'; c.lineWidth = 3.5; c.beginPath(); c.moveTo(PNW - 99, y + 27); c.lineTo(PNW - 94, y + 32); c.lineTo(PNW - 85, y + 21); c.stroke(); }
+  });
+  panel.tex.needsUpdate = true;
+}
+const KPIS = [['72', '%', 'relationships kept warm after 90 days'], ['31', '', 'meetings booked'], ['9', '', 'new accounts'], ['2.4', 'M', 'AED pipeline from one show']];
+function drawKpi(p) {
+  const c = panel.cv.getContext('2d'); c.setTransform(1.4, 0, 0, 1.4, 0, 0); c.clearRect(0, 0, PNW, PNH); card(c);
+  c.fillStyle = '#14201F'; c.font = '700 34px Inter'; c.fillText('From one show', 56, 84);
+  c.font = '400 22px Inter'; c.fillStyle = '#6E7A78'; c.fillText('Gulf Tech Expo · six months on', 56, 118); sampleTag(c, PNW - 56, 58);
+  KPIS.forEach(([n, u, d], i) => {
+    const x = 44 + (i % 2) * ((PNW - 100) / 2 + 12), y = 146 + Math.floor(i / 2) * 176, w = (PNW - 100) / 2, h = 160;
+    c.fillStyle = i === 2 ? '#E3F5F1' : '#F3EEE4'; rr(c, x, y, w, h, 18); c.fill();
+    const k = easeOut(clamp(p * 1.3 - i * 0.12)), val = Number(n), shown = n.includes('.') ? (val * k).toFixed(1) : Math.round(val * k);
+    c.fillStyle = i === 2 ? '#0A6E66' : '#14201F'; c.font = '700 58px Inter'; c.fillText(`${shown}${u}`, x + 22, y + 74);
+    c.font = '400 20px Inter'; c.fillStyle = '#4C5856'; const words = d.split(' '); let line = '', yy = y + 110; for (const wd of words) { const tst = line ? line + ' ' + wd : wd; if (c.measureText(tst).width > w - 40) { c.fillText(line, x + 22, yy); line = wd; yy += 26; } else line = tst; } c.fillText(line, x + 22, yy);
+  });
+  panel.tex.needsUpdate = true;
+}
+
+// ---- B: the show floor — your stand, and two other stands to walk to
+const boothMats = [];
+function booth(x, z, w, name, brand, ink, rot = 0) {
+  const g = new Group(); g.position.set(x, 0, z); g.rotation.y = rot; world.add(g);
+  const ban = canvasTex(512, 520); LATE.push(() => { const c = ban.cv.getContext('2d'); c.fillStyle = '#F4EFE6'; c.fillRect(0, 0, 512, 520); c.fillStyle = brand; c.fillRect(0, 0, 512, 118); c.fillStyle = ink; c.font = '700 44px Inter'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(name, 256, 62); c.fillStyle = brand; c.globalAlpha = 0.25; c.fillRect(0, 500, 512, 20); ban.tex.needsUpdate = true; });
+  const wallM = new MeshStandardMaterial({ map: ban.tex, roughness: 0.8, transparent: true });
+  const wall = new Mesh(new BoxGeometry(w, 2.3, 0.06), wallM); wall.position.y = 1.15; g.add(wall);
+  const cM = new MeshStandardMaterial({ color: new Color('#EDE6D7'), roughness: 0.7, transparent: true });
+  const counter = new Mesh(new BoxGeometry(w * 0.42, 0.62, 0.36), cM); counter.position.set(-w * 0.27, 0.31, 0.5); g.add(counter);
+  const topM = new MeshStandardMaterial({ color: new Color(brand), roughness: 0.6, transparent: true });
+  const top = new Mesh(new BoxGeometry(w * 0.42 + 0.04, 0.04, 0.4), topM); top.position.set(-w * 0.27, 0.64, 0.5); g.add(top);
+  boothMats.push(wallM, cM, topM);
+  return g;
+}
+const SA_AT = new Vector3(CXB - 1.95, 0, 0.3);
+booth(CXB - 2.1, -0.65, 1.7, 'MERIDIAN SYSTEMS', '#10A396', '#FFFFFF');
+const E1_AT = new Vector3(CXB + 1.05, 0, -0.15), E2_AT = new Vector3(CXB + 2.45, 0, 0.3);
+booth(CXB + 1.15, -0.95, 1.3, 'ATLAS FREIGHT', '#2E4A7A', '#FFFFFF', -0.12);
+booth(CXB + 2.6, -0.45, 1.3, 'LUMEN STUDIO', '#7A4B72', '#FFFFFF', -0.3);
+const sa = human(YOU_C, true), sb = human(CLAY[3], true), e1 = human(CLAY[0], true), e2 = human(CLAY[4], true);
+const visitors = [human(CLAY[2], true), human(CLAY[1], true)];
+sa.g.position.copy(SA_AT); sa.g.rotation.y = 1.15;
+e1.g.position.copy(E1_AT); e2.g.position.copy(E2_AT);
+const shakeSpot = (E, dir) => E.clone().add(dir.clone().normalize().multiplyScalar(1.04));
+const B_P1 = shakeSpot(E1_AT, new Vector3(-0.9, 0, 0.5)), B_P2 = shakeSpot(E2_AT, new Vector3(-0.92, 0, 0.38));
+const B_PATH = [[22.6, new Vector3(CXB - 0.35, 0, 1.45)], [23.4, new Vector3(CXB - 0.35, 0, 1.45)], [24.9, B_P1], [26.5, B_P1], [28.6, B_P2], [30.4, B_P2], [32.2, new Vector3(CXB + 0.8, 0, 1.5)]];
+
+// ---- the shared pipeline: the phone (the contacts mock's phone, ported as is)
+const phoneG = new Group(); world.add(phoneG);
+const PW = 1.56, PH = 3.24, PR = 0.24, PD = 0.1, BEV = 0.035;
+const SW = 640, SH = 1408, K = 1.4, ROWPX = 134;
+const SCW = 1.44, SCH = SCW * SH / SW, SZ = PD / 2 + BEV + 0.003;
+const PS = 0.5, PHONE_POS = new Vector3(CXB + 0.0, 2.95, 0.7), PHONE_ROT = new Euler(-0.04, -0.14, 0.02);
+const pShape = (() => { const s = new Shape(), x = -PW / 2, y = -PH / 2; s.moveTo(x + PR, y); s.lineTo(x + PW - PR, y); s.quadraticCurveTo(x + PW, y, x + PW, y + PR); s.lineTo(x + PW, y + PH - PR); s.quadraticCurveTo(x + PW, y + PH, x + PW - PR, y + PH); s.lineTo(x + PR, y + PH); s.quadraticCurveTo(x, y + PH, x, y + PH - PR); s.lineTo(x, y + PR); s.quadraticCurveTo(x, y, x + PR, y); return s; })();
+const pGeo = new ExtrudeGeometry(pShape, { depth: PD, bevelEnabled: true, bevelThickness: BEV, bevelSize: BEV, bevelSegments: 5, curveSegments: 16 }); pGeo.translate(0, 0, -PD / 2);
+const pMat = new MeshStandardMaterial({ color: dark ? 0x2a3134 : 0x343c3f, metalness: 0.55, roughness: 0.32, transparent: true });
+phoneG.add(new Mesh(pGeo, pMat));
+const glassMat = new MeshStandardMaterial({ color: 0x050708, roughness: 0.15, metalness: 0.1, transparent: true });
+const glass = new Mesh(new ShapeGeometry(pShape, 16), glassMat); glass.scale.setScalar(0.985); glass.position.z = PD / 2 + BEV + 0.001; phoneG.add(glass);
+for (const [yy, hh] of [[0.75, 0.42], [0.2, 0.26]]) { const b = new Mesh(new BoxGeometry(0.03, hh, 0.06), pMat); b.position.set(PW / 2 + BEV + 0.008, yy, 0); phoneG.add(b); }
+const scr = canvasTex(SW * K, SH * K);
+const scrMat = new MeshBasicMaterial({ map: scr.tex, transparent: true, toneMapped: false });
+const screenM = new Mesh(new PlaneGeometry(SCW, SCH), scrMat); screenM.position.z = SZ; phoneG.add(screenM);
+const sheenCv = document.createElement('canvas'); sheenCv.width = 256; sheenCv.height = 512; { const c = sheenCv.getContext('2d'); const gr = c.createLinearGradient(0, 0, 256, 512); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.42, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, 'rgba(255,255,255,.10)'); gr.addColorStop(0.62, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(0, 0, 256, 512); }
+const sheenMat = new MeshBasicMaterial({ map: new CanvasTexture(sheenCv), transparent: true, blending: AdditiveBlending, depthWrite: false });
+const sheen = new Mesh(new PlaneGeometry(SCW, SCH), sheenMat); sheen.position.z = SZ + 0.012; phoneG.add(sheen);
+phoneG.position.copy(PHONE_POS); phoneG.rotation.copy(PHONE_ROT); phoneG.scale.setScalar(PS); phoneG.updateMatrix();
+const PHONE_M = phoneG.matrix.clone(), PHONE_Q = phoneG.quaternion.clone();
+const phoneLocal = (x, y, z = SZ + 0.006) => new Vector3(x, y, z).applyMatrix4(PHONE_M);
+const pxY = (py) => SCH / 2 - (py / SH) * SCH;
+const ROWH = ROWPX / SW * SCW;
+const slotY = (r) => 282 + r.slot * ROWPX + ROWPX / 2;
+
+const initials = (n) => n.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+function drawRow(c, r, st) {
+  const W = SW, H = ROWPX; c.clearRect(0, 0, W, H);
+  const m = 8, w = W - m * 2, h = H - m * 2;
+  c.save(); c.translate(st.jit || 0, 0); rr(c, m, m, w, h, 20); c.clip();
+  c.fillStyle = st.warm > 0 ? mixHex('#FFFFFF', '#E6F6F3', st.warm) : mixHex('#FFFFFF', '#E4E1DB', st.age); c.fillRect(m, m, w, h);
+  if (st.warm > 0.01) { c.fillStyle = TEAL; c.globalAlpha = st.warm; c.fillRect(m, m, 9, h); c.globalAlpha = 1; }
+  const ax = m + 64, ay = H / 2;
+  c.fillStyle = st.age > 0 ? mixHex(r.pastel, '#C9C6C0', st.age) : r.pastel; c.beginPath(); c.arc(ax, ay, 38, 0, Math.PI * 2); c.fill();
+  c.fillStyle = mixHex('#3A3530', '#8F8A84', st.age); c.font = '600 28px Inter'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(initials(r.name), ax, ay + 1);
+  c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  c.font = '600 34px Inter'; c.fillStyle = mixHex('#14201F', '#9A958E', st.age); c.fillText(r.name, m + 124, H / 2 - 4);
+  const sub = st.age > 0.3 ? 'No reply · 3 weeks' : `${r.co} · ${r.where === 'stand' ? 'stand' : 'floor'}`;
+  c.font = '400 23px Inter'; c.fillStyle = mixHex('#5E6B69', '#A8A39C', st.age); c.fillText(sub, m + 124, H / 2 + 33);
+  const pill = st.client ? 'Client ✓' : r.tag; c.font = '600 22px Inter'; const pw = c.measureText(pill).width + 30, px = W - m - 18 - pw;
+  c.fillStyle = st.client ? TEAL : mixHex('#EFE9DD', '#E2DED7', st.age); rr(c, px, 22, pw, 40, 20); c.fill();
+  c.fillStyle = st.client ? '#FFFFFF' : mixHex('#4C4A44', '#9A958E', st.age); c.fillText(pill, px + 15, 50);
+  c.restore();
+  if (st.gold > 0.01) { c.save(); c.strokeStyle = SUN; c.globalAlpha = st.gold; c.lineWidth = 6; rr(c, m + 3, m + 3, w - 6, h - 6, 18); c.stroke(); c.restore(); }
+}
+function drawScreen(ns, nf) {
+  const c = scr.cv.getContext('2d'); c.setTransform(K, 0, 0, K, 0, 0); c.clearRect(0, 0, SW, SH);
+  c.save(); rr(c, 0, 0, SW, SH, 70); c.clip();
+  c.fillStyle = '#F7F5F0'; c.fillRect(0, 0, SW, SH);
+  c.fillStyle = '#111'; rr(c, SW / 2 - 62, 22, 124, 34, 17); c.fill();
+  c.fillStyle = '#14201F'; c.font = '600 24px Inter'; c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.fillText('10:42', 44, 50);
+  c.strokeStyle = '#14201F'; c.lineWidth = 2; rr(c, SW - 92, 32, 44, 22, 6); c.stroke(); c.fillStyle = '#14201F'; c.fillRect(SW - 88, 36, 26, 14); c.fillRect(SW - 46, 39, 3, 8);
+  c.font = '700 21px Inter'; c.fillStyle = '#0A6E66'; c.fillText('MERIDIAN · SHARED', 40, 104);
+  c.font = '700 54px Inter'; c.fillStyle = '#14201F'; c.fillText('Pipeline', 40, 162);
+  c.font = '400 24px Inter'; c.fillStyle = '#8B8F8C'; c.textAlign = 'right'; c.fillText(`${ns + nf} people`, SW - 40, 162); c.textAlign = 'left';
+  const tab = (x, w, label, on) => { c.fillStyle = on ? '#14201F' : '#DDF1EE'; rr(c, x, 190, w, 52, 26); c.fill(); c.fillStyle = on ? '#fff' : '#0A6E66'; c.font = '600 23px Inter'; c.textAlign = 'center'; c.fillText(label, x + w / 2, 224); c.textAlign = 'left'; };
+  tab(36, 196, `Stand · ${ns}`, true); tab(244, 196, `Floor · ${nf}`, false);
+  const more = ns + nf - 6;
+  if (more > 0) {
+    for (let i = 0; i < 3; i++) { c.globalAlpha = 0.55 - i * 0.15; c.fillStyle = '#E4DFD6'; rr(c, 16, 1120 + i * 24, SW - 32, 18, 9); c.fill(); }
+    c.globalAlpha = 1; c.fillStyle = '#6E7A78'; c.font = '600 24px Inter'; c.textAlign = 'center'; c.fillText(`+ ${more} more people`, SW / 2, 1210); c.textAlign = 'left';
+  }
+  c.restore(); scr.tex.needsUpdate = true;
+}
+ROWS.forEach((r) => {
+  const { cv, tex } = canvasTex(SW * K, ROWPX * K); r.cv = cv; r.tex = tex; r.last = '';
+  r.m = new Mesh(new PlaneGeometry(SCW, ROWH), new MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false })); r.m.visible = false; r.m.renderOrder = 2; world.add(r.m);
+});
+function paintRow(r, st) {
+  const sig = [st.age, st.warm, st.gold, st.jit || 0, st.client ? 1 : 0].map((v) => v.toFixed(2)).join();
+  if (sig === r.last) return; r.last = sig;
+  const c = r.cv.getContext('2d'); c.setTransform(K, 0, 0, K, 0, 0); drawRow(c, r, st); r.tex.needsUpdate = true;
+}
+
+// ---- the board (scene 4): five stages, one lane per person
+const BOARD = new Vector3(CXB, 1.72, 0.4), BS = 0.8, COLW = 1.27;
+const colX = (c) => BOARD.x + (c - 2) * COLW;
+const laneY = (i) => BOARD.y + 0.95 - i * 0.37;
+const colTex = radial([[0, 'rgba(255,255,255,1)'], [1, 'rgba(255,255,255,1)']], 8);
+const colMats = COLS.map((_, i) => { const m = new MeshBasicMaterial({ color: i === 4 ? new Color('#E9C46A') : new Color('#F3EADB'), transparent: true, opacity: 0, depthWrite: false }); const p = new Mesh(new PlaneGeometry(1.2, 2.62), m); p.position.set(colX(i), BOARD.y + 0.1, BOARD.z - 0.08); world.add(p); return m; });
+void colTex;
+
+// ---- the agents: a lead bot and four helper bots of the same family
+const VW = 160, VH = 88;
+function bot(scale, icon) {
+  const g = new Group();
+  const bodyMat = new MeshStandardMaterial({ color: new Color('#F4EFE6'), roughness: 0.32, metalness: 0.05, emissive: SUNC, emissiveIntensity: 0.06, transparent: true });
+  const body = new Mesh(new CapsuleGeometry(0.2, 0.12, 10, 28), bodyMat); body.scale.set(1.08, 1, 0.86); g.add(body);
+  const vCv = document.createElement('canvas'); vCv.width = VW * 2; vCv.height = VH * 2; const vTex = new CanvasTexture(vCv); vTex.colorSpace = SRGBColorSpace;
+  const vShape = new Shape(); { const w = 0.27, h = 0.15, r = 0.065, x = -w / 2, y = -h / 2; vShape.moveTo(x + r, y); vShape.lineTo(x + w - r, y); vShape.quadraticCurveTo(x + w, y, x + w, y + r); vShape.lineTo(x + w, y + h - r); vShape.quadraticCurveTo(x + w, y + h, x + w - r, y + h); vShape.lineTo(x + r, y + h); vShape.quadraticCurveTo(x, y + h, x, y + h - r); vShape.lineTo(x, y + r); vShape.quadraticCurveTo(x, y, x + r, y); }
+  const vGeo = new ShapeGeometry(vShape, 10); { const uv = vGeo.attributes.uv, p = vGeo.attributes.position; for (let i = 0; i < p.count; i++) uv.setXY(i, (p.getX(i) + 0.135) / 0.27, (p.getY(i) + 0.075) / 0.15); }
+  const visor = new Mesh(vGeo, new MeshBasicMaterial({ map: vTex, toneMapped: false, transparent: true })); visor.position.set(0, 0.04, 0.178); g.add(visor);
+  const core = new Mesh(new SphereGeometry(0.055, 16, 12), new MeshBasicMaterial({ color: new Color('#FFE9A8'), transparent: true })); core.position.y = -0.255; core.scale.set(1, 0.6, 1); g.add(core);
+  const ringG = new Group(); ringG.rotation.set(1.28, 0, 0.18); g.add(ringG);
+  const ring = new Mesh(new TorusGeometry(0.34, 0.006, 8, 72), new MeshBasicMaterial({ color: SUNC, transparent: true, opacity: 0.85 })); ringG.add(ring);
+  const bead = new Mesh(new SphereGeometry(0.022, 12, 8), new MeshBasicMaterial({ color: new Color('#FFF3D0'), transparent: true })); ringG.add(bead);
+  g.scale.setScalar(scale); g.visible = false; world.add(g);
+  const glow = glowSprite(), under = glowSprite();
+  return { g, bodyMat, visor, vCv, vTex, core, ringG, bead, glow, under, icon, scale, last: '' };
+}
+function drawVisor(b, T, mode) {
+  const sig = mode === 'think' ? Math.floor(T * 20) : mode; if (sig === b.last) return; b.last = sig;
+  const c = b.vCv.getContext('2d'); c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, VW, VH);
+  const gr = c.createLinearGradient(0, 0, 0, VH); gr.addColorStop(0, '#163B41'); gr.addColorStop(1, '#0B2226'); c.fillStyle = gr; c.fillRect(0, 0, VW, VH);
+  c.fillStyle = 'rgba(255,255,255,.07)'; c.beginPath(); c.ellipse(VW * 0.32, VH * 0.2, VW * 0.34, VH * 0.14, -0.1, 0, Math.PI * 2); c.fill();
+  c.fillStyle = SUN; c.strokeStyle = SUN; c.lineCap = 'round'; c.lineJoin = 'round'; c.shadowColor = SUN; c.shadowBlur = 10;
+  if (mode === 'think') {
+    for (let i = 0; i < 3; i++) { const k = 0.5 + 0.5 * Math.sin(T * 6 - i * 0.9); c.globalAlpha = 0.45 + 0.55 * k; c.beginPath(); c.arc(VW / 2 - 28 + i * 28, VH / 2 + 4, 6 + 3 * k, 0, Math.PI * 2); c.fill(); }
+    const sp = 0.5 + 0.5 * Math.sin(T * 2.3); c.globalAlpha = sp; const sx = VW - 30, sy = 22, s = 6 + 4 * sp;
+    c.beginPath(); c.moveTo(sx, sy - s); c.lineTo(sx + 2, sy - 2); c.lineTo(sx + s, sy); c.lineTo(sx + 2, sy + 2); c.lineTo(sx, sy + s); c.lineTo(sx - 2, sy + 2); c.lineTo(sx - s, sy); c.lineTo(sx - 2, sy - 2); c.closePath(); c.fill();
+    c.globalAlpha = 1;
+  } else if (mode === 'smile') {
+    c.lineWidth = 6; c.beginPath(); c.arc(VW / 2 - 24, VH / 2, 6, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(VW / 2 + 24, VH / 2, 6, 0, Math.PI * 2); c.fill();
+    c.beginPath(); c.arc(VW / 2, VH / 2 + 4, 16, 0.25 * Math.PI, 0.75 * Math.PI); c.stroke();
+  } else b.icon(c);
+  c.shadowBlur = 0; b.vTex.needsUpdate = true;
+}
+const ICONS = [
+  (c) => { c.lineWidth = 6; c.beginPath(); c.arc(74, 40, 17, 0, Math.PI * 2); c.stroke(); c.beginPath(); c.moveTo(86, 52); c.lineTo(100, 66); c.stroke(); }, // research: a magnifier
+  (c) => { c.lineWidth = 6; c.beginPath(); c.arc(80, 46, 22, 0, Math.PI * 2); c.stroke(); c.beginPath(); c.moveTo(80, 32); c.lineTo(80, 46); c.lineTo(92, 52); c.stroke(); }, // remember: a clock
+  (c) => { c.lineWidth = 5; c.beginPath(); c.moveTo(52, 46); c.lineTo(108, 24); c.lineTo(92, 70); c.lineTo(80, 52); c.closePath(); c.stroke(); c.beginPath(); c.moveTo(80, 52); c.lineTo(108, 24); c.stroke(); }, // follow up: a paper plane
+  (c) => { c.lineWidth = 6; c.beginPath(); c.arc(56, 46, 8, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(104, 46, 8, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(80, 30, 8, 0, Math.PI * 2); c.fill(); c.beginPath(); c.moveTo(56, 46); c.lineTo(80, 30); c.lineTo(104, 46); c.stroke(); }, // introduce: a bridge of three
+];
+const lead = bot(1.25, null);
+const helpers = HELPERS.map((h, i) => bot(0.62, ICONS[i]));
+const LEAD_A = new Vector3(CXA - 0.15, 3.45, 0.55), LEAD_B3 = new Vector3(CXB - 1.15, 3.5, 0.6), LEAD_B4 = new Vector3(CXB - 0.1, 3.95, 0.5), LEAD_A5 = new Vector3(CXA + 0.2, 3.5, 0.65);
+const HELP_A = [new Vector3(CXA + 0.95, 3.12, 0.9), new Vector3(CXA + 1.5, 3.2, 0.9), new Vector3(CXA + 2.05, 3.2, 0.9), new Vector3(CXA + 2.6, 3.12, 0.9)];
+const HELP_B4 = [new Vector3(CXB - 1.75, 3.6, 0.95), new Vector3(CXB - 0.95, 3.68, 0.95), new Vector3(CXB + 0.95, 3.68, 0.95), new Vector3(CXB + 1.75, 3.6, 0.95)];
+function placeBot(b, p, s, T, ph, op = 1) {
+  b.g.visible = s > 0.01; b.g.position.copy(p); b.g.scale.setScalar(b.scale * Math.max(0.0001, s));
+  b.g.rotation.set(0.04 * Math.sin(T * 0.9 + ph), 0.18 * Math.sin(T * 0.5 + ph), 0.05 * Math.sin(T * 0.7 + ph));
+  b.ringG.rotation.z = T * 0.6 + ph; const a = T * 1.6 + ph; b.bead.position.set(Math.cos(a) * 0.34, Math.sin(a) * 0.34, 0);
+  b.bodyMat.opacity = op; b.glow.position.copy(p); b.glow.scale.setScalar(s > 0.01 ? b.scale * 1.6 * s * op : 0); b.glow.material.opacity = 0.55;
+  b.under.position.copy(p).add(new Vector3(0, -0.3 * b.scale, 0)); b.under.scale.setScalar(s > 0.01 ? b.scale * 0.8 * s * op : 0);
+}
+const ropeMat = new MeshStandardMaterial({ color: SUNC, emissive: SUNC, emissiveIntensity: 0.9, roughness: 0.4, depthTest: false, transparent: true });
+const emptyTube = () => new TubeGeometry(new CatmullRomCurve3([new Vector3(), new Vector3(0, 0.01, 0)]), 2, 0.01, 6);
+const ropes = ROWS.flatMap((r) => r.steps.filter((s) => s[1] === 'r').map((s) => ({ r, at: s[0], helper: s[2], m: (() => { const m = new Mesh(emptyTube(), ropeMat); m.renderOrder = 6; m.visible = false; world.add(m); return m; })() })));
+const beam = new Mesh(emptyTube(), new MeshBasicMaterial({ color: SUNC, transparent: true, opacity: 0.8 })); beam.visible = false; world.add(beam);
+const beam2 = new Mesh(emptyTube(), new MeshBasicMaterial({ color: SUNC, transparent: true, opacity: 0.8, depthTest: false })); beam2.renderOrder = 7; beam2.visible = false; world.add(beam2);
+function setTube(m, curve, d, rad) { if (d <= 0.001) { m.visible = false; return; } const pts = []; for (let i = 0; i <= 24; i++) pts.push(curve.getPoint((i / 24) * d)); m.geometry.dispose(); m.geometry = new TubeGeometry(new CatmullRomCurve3(pts), 40, rad, 6); m.visible = true; }
+
+// ---- HTML overlays
+const ov = document.getElementById('ov');
+const el = (cls, html = '') => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ov.appendChild(d); return d; };
+const capEl = el('cap'), bubbleEl = el('bubble'), skillEls = HELPERS.map((h) => el('skill', h));
+const zoneEls = [el('zone', 'On your stand'), el('zone', 'Walking the floor')];
+const colEls = COLS.map((c, i) => el(i === 4 ? 'hub big' : 'hub', c));
+const draftEl = el('draft');
+const V = new Vector3();
+let CR = null, HR = null;
+function pin(e, p, op, ax = -50, ay = -100, extra = '') {
+  if (op <= 0.005) { if (e.style.opacity !== '0') e.style.opacity = '0'; return; }
+  V.copy(p); world.localToWorld(V); V.project(camera);
+  const x = CR.left - HR.left + (V.x + 1) / 2 * CR.width, y = CR.top - HR.top + (1 - V.y) / 2 * CR.height;
+  e.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(${ax}%, ${ay}%) ${extra}`; e.style.opacity = op.toFixed(3);
+}
+
+// ---- poses
+const SHAKE = (h) => [h - 0.35, h + 0.85];
+const shakePose = (p, t, h) => { const [a, b] = SHAKE(h), k = bump(t, a, b, 0.3); return k > 0 ? blendPose(p, { ...p, shRx: -1.12, shRz: -0.05, elRx: -0.38 + Math.sin(t * 14) * 0.09 * k, neckX: 0.05 }, k) : p; };
+const walkPose = (t, on) => ({ ...REST, legA: on ? Math.sin(t * 8) * 0.42 : 0, shRx: on ? -Math.sin(t * 8) * 0.3 : 0.05, shLx: on ? Math.sin(t * 8) * 0.3 : 0.05, bob: on ? Math.abs(Math.sin(t * 8)) * 0.03 : 0 });
+const HEAD_HAND = { shRx: -1.9, shRz: 0.45, elRx: -2.0, neckX: 0.32, shLx: 0.1, shLz: 0.06, lean: 0.06 };
+const SHRUG = { shRx: -0.35, shRz: -0.55, elRx: -1.45, shLx: -0.35, shLz: 0.55, elLx: -1.45, neckX: 0.12 };
+const CROSSED = { shRx: -0.85, shRz: 0.42, elRx: -1.7, shLx: -0.85, shLz: -0.42, elLx: -1.7, neckX: 0.22 };
+const JOY = { shRx: -0.1, shRz: -2.45, elRx: -0.35, shLx: -0.1, shLz: 2.45, elLx: -0.35, neckX: -0.22 };
+const ONE_UP = { shRx: -0.2, shRz: -2.3, elRx: -0.5, neckX: -0.15 };
+function teamPose(i, t) {
+  let p = { ...REST };
+  const stuck = ease(span(t, 1.2, 2.4)) * (1 - ease(span(t, 13.0, 14.0)));
+  if (stuck > 0) {
+    if (i === 0) p = blendPose(p, { ...p, ...HEAD_HAND, neckY: Math.sin(t * 3.2) * 0.3 * span(t, 3.4, 4.0) * (1 - span(t, 7.0, 7.6)) }, stuck);
+    if (i === 1) { const s = 0.5 + 0.5 * Math.sin(t * 1.6); p = blendPose(p, { ...p, ...SHRUG, bob: 0.03 * s }, stuck * (0.65 + 0.35 * s)); }
+    if (i === 2) p = blendPose(p, { ...p, ...CROSSED }, stuck);
+  }
+  const up = ease(span(t, 13.2, 14.4)) * (1 - ease(span(t, 21.0, 22.0)));
+  if (up > 0) p = blendPose(p, { ...p, neckX: -0.36, neckY: i === 2 ? -0.2 : 0.1 }, up);
+  const joy = ease(span(t, 56.6, 57.6)) * (1 - ease(span(t, 64.4, 65.4)));
+  if (joy > 0) {
+    const bob = Math.abs(Math.sin(t * 5 + i)) * 0.05;
+    if (i === 0) p = blendPose(p, { ...p, ...JOY, bob }, joy);
+    if (i === 1) p = blendPose(p, { ...p, ...ONE_UP, bob: bob * 0.6 }, joy);
+    if (i === 2) p = blendPose(p, { ...p, shRx: -1.0, shRz: 0.2, elRx: -1.2 + Math.sin(t * 9) * 0.25, shLx: -1.0, shLz: -0.2, elLx: -1.2 - Math.sin(t * 9) * 0.25, neckX: -0.1 }, joy);
+  }
+  return p;
+}
+const teamTurn = (i, t) => { const base = [0.32, 0.1, -0.35][i], toChart = [0.7, 0.55, 0.85][i]; const k1 = ease(span(t, 1.4, 2.6)) * (1 - ease(span(t, 12.6, 13.6))); const k5 = ease(span(t, 54.0, 55.4)); return mix(mix(base, toChart * (i === 0 ? 0.45 : 1), k1), [0.2, 0, -0.2][i], k5); };
+function visitorAt(h, t) {
+  const S = SA_AT.clone().add(new Vector3(0.97, 0, 0.37)), A = SA_AT.clone().add(new Vector3(1.5, 0, -3.0)), B = SA_AT.clone().add(new Vector3(-0.3, 0, -3.3));
+  const kIn = span(t, h - 1.75, h - 0.1), kOut = span(t, h + 0.85, h + 2.6);
+  const pos = kOut > 0 ? S.clone().lerp(B, ease(kOut)) : A.clone().lerp(S, easeOut(kIn));
+  const walking = (kIn > 0 && kIn < 1) || (kOut > 0 && kOut < 1);
+  const face = kOut > 0 ? Math.atan2(B.x - S.x, B.z - S.z) : Math.atan2(S.x - A.x, S.z - A.z);
+  const shakeFace = Math.atan2(SA_AT.x - S.x, SA_AT.z - S.z);
+  const op = ease(span(t, h - 1.75, h - 1.3)) * (1 - ease(span(t, h + 2.0, h + 2.6)));
+  const [a, b] = SHAKE(h), k = bump(t, a, b, 0.3);
+  let p = walkPose(t, walking);
+  if (k > 0) p = blendPose(p, { ...p, shRx: -1.12, elRx: -0.38 + Math.sin(t * 14) * 0.09 * k }, k);
+  return { pos, face: (kIn >= 1 && kOut <= 0) || k > 0 ? shakeFace : face, p, op };
+}
+function sbAt(t) {
+  let pos = B_PATH[0][1].clone(), walking = false, dir = new Vector3(0, 0, -1);
+  for (let i = 0; i < B_PATH.length - 1; i++) { const [ta, pa] = B_PATH[i], [tb, pb] = B_PATH[i + 1]; if (t >= ta && t < tb) { const k = ease(span(t, ta, tb)); pos = pa.clone().lerp(pb, k); walking = pa.distanceTo(pb) > 0.01 && k > 0.02 && k < 0.98; dir = pb.clone().sub(pa); } else if (t >= tb) pos = pb.clone(); }
+  let face = walking ? Math.atan2(dir.x, dir.z) : 0.6;
+  for (const [h, E] of [[H_FLOOR[0], E1_AT], [H_FLOOR[1], E2_AT]]) if (t > h - 1.0 && t < h + 1.1) face = Math.atan2(E.x - pos.x, E.z - pos.z);
+  let p = walkPose(t, walking); for (const h of H_FLOOR) p = shakePose(p, t, h);
+  return { pos, face, p };
+}
+
+// ---- row state: the phone (scene 3), then the board (scene 4)
+const ROPE = (a) => ({ throw: [a, a + 0.5], tense: [a + 0.5, a + 0.95], pull: [a + 0.95, a + 2.15], rel: [a + 2.15, a + 2.55] });
+function boardState(r, t) {
+  let col = 0, gold = 0, jit = 0, rescue = 1;
+  for (const [ta, kind] of r.steps) {
+    if (kind === 'a') col += ease(span(t, ta, ta + 0.8));
+    else { const R = ROPE(ta); const pull = ease(span(t, ...R.pull)), tense = span(t, ...R.tense); col += pull; gold = Math.max(gold, bump(t, R.tense[0] - 0.1, R.rel[1], 0.25)); if (tense > 0 && tense < 1) jit = Math.sin(t * 60) * 3 * tense; if (t < R.pull[1]) rescue = Math.min(rescue, pull); }
+  }
+  let age = 0; if (r.stall != null && t > r.stall) { age = ease(span(t, r.stall, r.stall + 1.4)); const rope = r.steps.find((s) => s[1] === 'r' && s[0] > r.stall); if (rope) age *= 1 - ease(span(t, ...ROPE(rope[0]).pull)); }
+  const warm = col < 0.05 ? 0 : 0.55 * clamp(col) + 0.45 * clamp(col - 3);
+  return { col, age: age * (1 - clamp(warm * 2)), warm, gold, jit, client: col > 3.6 };
+}
+
+// ---- copy + camera
+let lastCopy = -1;
+function setCopy(i, instant) {
+  if (i === lastCopy) return; const first = lastCopy < 0; lastCopy = i;
+  const txt = document.getElementById('txt');
+  const put = () => { document.getElementById('kick').textContent = COPY[i][0]; document.getElementById('h1').textContent = COPY[i][1]; document.getElementById('p').textContent = COPY[i][2]; };
+  if (instant || first) { put(); txt.classList.remove('out'); return; }
+  txt.classList.add('out'); setTimeout(() => { put(); txt.classList.remove('out'); }, 380);
+}
+const narrow = () => camera.aspect < 1;
+function cameraAt(t) {
+  const n = narrow();
+  const A = { at: new Vector3(CXA + (n ? 0.3 : 0.4), n ? 1.6 : 1.55, 0), dir: new Vector3(0, 0.07, 1), w: n ? 5.9 : 7.4 };
+  const B = { at: new Vector3(CXB + (n ? 0.25 : 0.2), n ? 1.6 : 1.6, 0), dir: new Vector3(0.02, 0.07, 1), w: n ? 7.0 : 8.4 };
+  const B4 = { at: new Vector3(CXB + (n ? 0.0 : 0.1), n ? 2.0 : 1.95, 0), dir: new Vector3(0, 0.04, 1), w: n ? 6.9 : 8.7 };
+  const kAB = ease(span(t, 22.0, 23.6)), kB4 = ease(span(t, 35.4, 36.8)), kA = ease(span(t, 52.0, 54.4));
+  let at = A.at.clone(), dir = A.dir.clone(), w = A.w;
+  if (kAB > 0) { at.lerp(B.at, kAB); dir.lerp(B.dir, kAB); w = mix(w, B.w, kAB); }
+  if (kB4 > 0) { at.lerp(B4.at, kB4); dir.lerp(B4.dir, kB4); w = mix(w, B4.w, kB4); }
+  if (kA > 0) { at.lerp(A.at, kA); dir.lerp(A.dir, kA); w = mix(w, A.w, kA); }
+  dir.normalize();
+  const tanH = Math.tan((camera.fov * Math.PI / 180) / 2), dist = Math.max(w / (2 * tanH * camera.aspect), 0.62 * w / (2 * tanH));
+  camera.position.copy(at).addScaledVector(dir, dist); camera.lookAt(at); camera.updateMatrixWorld(true);
+}
+
+let ptrX = 0, ptrY = 0, tiltX = 0, tiltY = 0, lastDraw = -1;
+addEventListener('pointermove', (e) => { ptrX = e.clientX / innerWidth * 2 - 1; ptrY = e.clientY / innerHeight * 2 - 1; });
+
+function paint(T, still) {
+  const t = ((T % L) + L) % L, sc = sceneOf(t);
+  setCopy(sc, still);
+  document.querySelectorAll('.scenes button[data-i]').forEach((b) => b.classList.toggle('on', Number(b.dataset.i) === sc));
+  CR = canvas.getBoundingClientRect(); HR = hero.getBoundingClientRect();
+  tiltX += (ptrX - tiltX) * 0.05; tiltY += (ptrY - tiltY) * 0.05;
+  world.rotation.set(tiltY * 0.02, tiltX * 0.05 + Math.sin(T * 0.12) * 0.02, 0);
+  cameraAt(t); world.updateMatrixWorld(true);
+  const fadeIn = ease(span(t, 0, 0.7)) * (1 - ease(span(t, 65, 66)));
+  canvas.style.opacity = ov.style.opacity = fadeIn.toFixed(3);
+  document.getElementById('bar').style.width = `${(t / L * 100).toFixed(2)}%`;
+  const redraw = still || Math.abs(T - lastDraw) >= 0.05; if (redraw) lastDraw = T;
+
+  // A: the team and the tower
+  team.forEach((h, i) => { h.g.rotation.y = teamTurn(i, t); pose(h, teamPose(i, t)); });
+  const arrived = ROWS.filter((r) => r.client).length;
+  floors.forEach((m, f) => {
+    let lit = [0, 3].includes(f) ? 0.3 : 0.05;
+    if (t < 3) lit *= 1; else if (t < 13) lit *= 1 - 0.5 * ease(span(t, 3, 6));
+    const clientF = [1, 2, 4]; const j = clientF.indexOf(f);
+    if (j >= 0) lit = Math.max(lit, ease(span(t, 54.2 + j * 0.45, 54.8 + j * 0.45)));
+    lit = Math.max(lit, ease(span(t, 55.4 + f * 0.22, 56.0 + f * 0.22)) * 0.85);
+    lit *= 1 - 0.0 * arrived;
+    m.emissiveIntensity = 0.95 * lit;
+  });
+
+  // the panel: chart → plan → results
+  let pMode = '', pK = 0, pArg = 0;
+  if (t < 14.0) { pMode = 'chart'; pK = ease(span(t, 0.8, 1.6)) * (1 - ease(span(t, 13.2, 14.0))); pArg = ease(span(t, 1.4, 4.2)); }
+  else if (t < 22.0) { pMode = 'list'; pK = ease(span(t, 14.2, 15.0)) * (1 - ease(span(t, 21.2, 22.0))); pArg = TARGETS.filter((_, j) => t > 17.6 + j * 0.55).length; }
+  else if (t > 55.0) { pMode = 'kpi'; pK = ease(span(t, 55.6, 56.4)) * (1 - ease(span(t, 64.6, 65.4))); pArg = ease(span(t, 56.2, 58.6)); }
+  panelM.visible = pK > 0.01; panelM.material.opacity = pK; panelM.scale.setScalar(mix(0.9, 1, easeOut(pK)));
+  if (panelM.visible && redraw) { const sig = pMode + (pMode === 'list' ? pArg : pArg.toFixed(2)); if (sig !== panelLast) { panelLast = sig; if (pMode === 'chart') drawChart(pArg); else if (pMode === 'list') drawList(pArg); else drawKpi(pArg); } }
+
+  // B: the show
+  const bOut = 1 - ease(span(t, 35.2, 36.2));
+  const bOn = t > 21.6 && t < 36.3;
+  boothMats.forEach((m) => { m.opacity = bOut; }); boothMats.forEach((m) => { m.visible = bOn; });
+  fade(sa, bOn ? bOut : 0); fade(e1, bOn ? bOut : 0); fade(e2, bOn ? bOut : 0); fade(sb, bOn ? bOut : 0);
+  let sap = { ...REST }; for (const h of H_STAND) sap = shakePose(sap, t, h); pose(sa, sap);
+  const sbs = sbAt(t); sb.g.position.copy(sbs.pos); sb.g.rotation.y = sbs.face; pose(sb, sbs.p);
+  for (const [h, E, e] of [[H_FLOOR[0], E1_AT, e1], [H_FLOOR[1], E2_AT, e2]]) {
+    let p = { ...REST }; p = shakePose(p, t, h); pose(e, p);
+    e.g.rotation.y = t > h - 1.4 && t < h + 1.1 ? Math.atan2(sbs.pos.x - E.x, sbs.pos.z - E.z) : 0.25;
+  }
+  visitors.forEach((v) => { v.g.visible = false; });
+  H_STAND.forEach((h, i) => {
+    if (t < h - 1.8 || t > h + 2.7) return; const v = visitors[i % 2], st = visitorAt(h, t);
+    v.g.visible = st.op > 0.04; v.g.position.copy(st.pos); v.g.rotation.y = st.face; pose(v, st.p); v.mat.opacity = st.op; v.sh.material.opacity = st.op; v.mat.color.set(CLAY[(i * 2 + 2) % CLAY.length]);
+  });
+  world.updateMatrixWorld(true);
+
+  // the phone: the team's shared pipeline
+  const pk = ease(span(t, 35.6, 36.8)), pin0 = easeOut(span(t, 22.4, 23.6));
+  phoneG.visible = t > 22.2 && t < 37.0;
+  phoneG.position.copy(PHONE_POS).add(new Vector3(0.1 * pk, -0.2 * pk + (1 - pin0) * 0.6, -1.2 * pk)); phoneG.scale.setScalar(PS * (1 - 0.4 * pk) * Math.max(0.0001, pin0));
+  pMat.opacity = glassMat.opacity = scrMat.opacity = sheenMat.opacity = (1 - pk) * pin0;
+  let ns = 0, nf = 0; ROWS.forEach((r) => { if (t > r.shake + 1.5) (r.where === 'stand' ? ns++ : nf++); });
+  const rush = ease(span(t, 32.6, 34.6)); ns += Math.round(rush * 38); nf += Math.round(rush * 17);
+  if (redraw && phoneG.visible) drawScreen(ns, nf);
+
+  // rows: from the handshake into the phone, then onto the board, then (clients) home to the tower
+  const handOf = (h) => { const v = new Vector3(); h.R.hand.getWorldPosition(v); world.worldToLocal(v); return v; };
+  const hands = { stand: handOf(sa), floor: handOf(sb) };
+  for (const r of ROWS) {
+    const t0 = r.shake + 0.3, t1 = r.shake + 1.55;
+    if (t < t0) { r.m.visible = false; continue; }
+    const st = t > 35.8 ? boardState(r, t) : { col: 0, age: 0, warm: 0, gold: 0, jit: 0, client: false };
+    r.client = st.client;
+    const fly = easeOut(span(t, t0, t1)), slot = phoneLocal(0, pxY(slotY(r)));
+    let pos, q, s, op = 1;
+    if (fly < 1) { pos = hands[r.where].clone().lerp(slot, fly); pos.y += Math.sin(Math.PI * fly) * 0.55; q = new Quaternion().slerp(PHONE_Q, fly); s = mix(0.3, PS, fly); }
+    else { pos = slot; q = PHONE_Q.clone(); s = PS; }
+    const lk = ease(span(t, 35.8 + r.slot * 0.12, 36.9 + r.slot * 0.12));
+    const boardPos = new Vector3(colX(Math.min(4, st.col)), laneY(r.slot), BOARD.z);
+    if (lk > 0) { pos = pos.clone().lerp(boardPos, lk); pos.z += Math.sin(Math.PI * lk) * 0.4; q = q.clone().slerp(new Quaternion(), lk); s = mix(s, BS, lk); }
+    if (t > 52.0) {
+      const j = ['karim', 'hamad', 'faris'].indexOf(r.id);
+      if (j < 0) op = 1 - ease(span(t, 52.0, 52.6));
+      else { const k = span(t, 52.3 + j * 0.45, 54.4 + j * 0.45), e = ease(k), to = towerFace([1, 2, 4][j]); pos = boardPos.clone().lerp(to, e); pos.y += Math.sin(Math.PI * e) * 1.3; s = mix(BS, 0.14, ease(span(k, 0.55, 1))); op = 1 - ease(span(k, 0.88, 1)); }
+    }
+    r.m.visible = op > 0.01; r.m.position.copy(pos); r.m.quaternion.copy(q); r.m.scale.setScalar(s); r.m.material.opacity = op;
+    r.pos = pos;
+    if (redraw && r.m.visible) paintRow(r, st);
+  }
+  const colK = ease(span(t, 35.9, 36.8)) * (1 - ease(span(t, 52.0, 52.8)));
+  colMats.forEach((m, i) => { m.opacity = colK * (i === 4 ? 0.16 : 0.07); });
+
+  // the lead agent and its helpers
+  const lIn = easeOut(span(t, 12.2, 14.0));
+  const lp = LEAD_A.clone(); lp.y += (1 - lIn) * 2.4;
+  lp.lerp(LEAD_B3, ease(span(t, 22.0, 23.6))).lerp(LEAD_B4, ease(span(t, 35.4, 36.8))).lerp(LEAD_A5, ease(span(t, 52.0, 54.4)));
+  lp.y += Math.sin(T * 1.1) * 0.05;
+  const lVis = lIn * (1 - ease(span(t, 65.0, 65.8)));
+  placeBot(lead, lp, lVis, T, 0);
+  drawVisor(lead, T, t > 56.2 && t < 65 ? 'smile' : 'think');
+  const head = new Vector3(); team[0].neck.getWorldPosition(head); world.worldToLocal(head);
+  const bubbleAt = head.clone().add(new Vector3(-0.05, 0.6, 0));
+  const read = bump(t, 14.3, 16.0, 0.3);
+  if (read > 0) setTube(beam, new QuadraticBezierCurve3(lp.clone().add(new Vector3(-0.15, -0.1, 0.1)), lp.clone().lerp(bubbleAt, 0.5).add(new Vector3(0, 0.3, 0)), bubbleAt.clone().add(new Vector3(0.3, 0.3, 0))), ease(span(t, 14.3, 14.8)), 0.006); else beam.visible = false;
+  beam.material.opacity = read;
+  helpers.forEach((hb, i) => {
+    const kA = easeOut(span(t, 15.6 + i * 0.2, 16.9 + i * 0.2)), backA = ease(span(t, 21.0 + i * 0.1, 22.0 + i * 0.1));
+    const kB = easeOut(span(t, 36.4 + i * 0.2, 37.7 + i * 0.2)), kO = ease(span(t, 52.0 + i * 0.1, 54.6 + i * 0.1));
+    let p = lp.clone(), s = 0;
+    if (t < 22.2) { p = lp.clone().lerp(HELP_A[i], kA).lerp(lp, backA); s = kA > 0 && backA < 1 ? mix(0.2, 1, kA) * (1 - 0.8 * backA) : 0; }
+    else if (t > 36.3) {
+      p = lp.clone().lerp(HELP_B4[i], kB); s = kB > 0 ? mix(0.2, 1, kB) : 0;
+      if (kO > 0) { const home = HELP_A[i].clone().add(new Vector3(0, 0.05 * Math.sin(T * 1.3 + i), 0)); p.lerp(home, kO); }
+      s *= 1 - ease(span(t, 65.0, 65.8));
+    }
+    p.y += Math.sin(T * 2 + i) * 0.03;
+    placeBot(hb, p, s, T, i * 1.7); hb.g.rotation.y += -0.3; drawVisor(hb, T, 'icon'); hb.pos = p;
+    const chipOp = t < 22.2 ? ease(span(t, 16.6 + i * 0.2, 17.1 + i * 0.2)) * (1 - backA) : t > 36.3 && t < 52.4 ? ease(span(t, 37.4 + i * 0.2, 37.9 + i * 0.2)) * (1 - ease(span(t, 51.8, 52.4))) : 0;
+    pin(skillEls[i], p.clone().add(new Vector3(0, -0.26, 0)), narrow() && t > 36 ? 0 : chipOp, -50, 0);
+  });
+  // research: the first helper scans each target on the list
+  const scanJ = Math.floor((t - 17.6) / 0.55), scanK = (t - 17.6) / 0.55 - scanJ;
+  if (t > 17.4 && t < 20.4 && scanJ >= 0 && scanJ < 5) {
+    const tgt = new Vector3(PANEL_W / 2 - 0.2, PANEL_H / 2 - ((186 + scanJ * 64 + 27) / PNH) * PANEL_H, 0.02).applyMatrix4(panelM.matrix);
+    const from = helpers[0].pos.clone().add(new Vector3(0, -0.1, 0.05));
+    setTube(beam2, new QuadraticBezierCurve3(from, from.clone().lerp(tgt, 0.5).add(new Vector3(0.1, 0.1, 0.2)), tgt), 1, 0.005); beam2.material.opacity = Math.sin(Math.PI * scanK) * 0.9;
+  } else beam2.visible = false;
+  // ropes: thrown, pulled taut, hauled forward a stage, let go
+  ropes.forEach(({ r, at, helper, m }) => {
+    const R = ROPE(at), hb = helpers[helper];
+    const throwK = ease(span(t, ...R.throw)), rel = ease(span(t, ...R.rel));
+    if (throwK <= 0 || rel >= 1 || !r.pos) { m.visible = false; return; }
+    const port = hb.pos.clone().add(new Vector3(0, -0.12, 0.05));
+    const end = r.pos.clone().add(new Vector3(SCW * BS / 2 - 0.06, 0, 0.04));
+    const tense = ease(span(t, ...R.tense)), pull = ease(span(t, ...R.pull));
+    const len = port.distanceTo(end), sag = len * (0.32 * (1 - tense) + 0.04 * (1 - pull)) + 0.01;
+    const mid = port.clone().lerp(end, 0.5); mid.y -= sag; if (pull > 0) mid.y += Math.sin(pull * Math.PI * 4) * 0.03 * (1 - pull);
+    const from = port.clone(), to = end.clone(); if (rel > 0) to.lerp(from, rel);
+    setTube(m, new QuadraticBezierCurve3(from, mid, to), throwK, 0.012);
+  });
+
+  // ---- overlays
+  const caps = [['Week 1', 36.8, 39.9], ['Month 1', 40.0, 44.9], ['Month 3', 45.0, 51.8]];
+  let capTxt = '', capOp = 0; for (const [s, a, b] of caps) if (t >= a && t < b) { capTxt = s; capOp = bump(t, a, b, 0.25); }
+  if (capTxt && capEl.textContent !== capTxt) capEl.textContent = capTxt;
+  pin(capEl, new Vector3(colX(0) - 0.5, BOARD.y - 1.32, BOARD.z + 0.1), capOp, 0, 0, 'rotate(-3deg)');
+  const done = t > 55;
+  if (bubbleEl.dataset.k !== String(done)) { bubbleEl.innerHTML = done ? '<div class="h">This year</div><span class="tick">✓</span>Growing, with new clients from one show' : '<div class="h">Thinking…</div>How do we grow this year?'; bubbleEl.dataset.k = String(done); }
+  bubbleEl.classList.toggle('glow', read > 0.2 || bump(t, 56.4, 58.0, 0.3) > 0.2);
+  pin(bubbleEl, bubbleAt, Math.min(1, bump(t, 2.2, 16.2, 0.4) + bump(t, 55.8, 64.8, 0.4)), -30, -100);
+  zoneEls.forEach((e, i) => pin(e, i === 0 ? SA_AT.clone().add(new Vector3(-0.15, 2.48, -0.95)) : new Vector3(CXB + 1.85, 2.48, -0.95), ease(span(t, 23.0 + i * 0.3, 23.6 + i * 0.3)) * (1 - ease(span(t, 34.8, 35.5))), -50, -100));
+  colEls.forEach((e, i) => pin(e, new Vector3(colX(i), BOARD.y + 1.32, BOARD.z), ease(span(t, 36.2 + i * 0.1, 36.7 + i * 0.1)) * (1 - ease(span(t, 51.8, 52.4))), -50, -50));
+  let di = -1, dk = 0; DRAFTS.forEach((d, i) => { const k = bump(t, d.t - 1.5, d.t + 0.9, 0.25); if (k > dk) { dk = k; di = i; } });
+  if (di >= 0) {
+    const d = DRAFTS[di], r = ROWS.find((x) => x.id === d.row), sent = t >= d.t;
+    const html = sent ? `<b>Sent</b> · you said yes <span class="send">✓</span>` : `<b>${d.what}</b> — send? <span class="send">Send</span>`;
+    if (draftEl.dataset.k !== html) { draftEl.innerHTML = html; draftEl.dataset.k = html; draftEl.classList.toggle('sent', sent); }
+    const right = boardState(r, t).col > 2.6;
+    pin(draftEl, r.pos.clone().add(new Vector3(right ? -SCW * BS / 2 + 0.05 : SCW * BS / 2 - 0.15, 0.14, 0.1)), dk, right ? -100 : 0, -100);
+  } else pin(draftEl, new Vector3(), 0);
+
+  renderer.render(scene, camera);
+}
+
+function size() { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+size(); addEventListener('resize', size);
+
+// ---- controls
+let T = 0, paused = false;
+const scenesEl = document.getElementById('scenes');
+const still = q.has('t') || reduced;
+NAMES.forEach((n, i) => { const b = document.createElement('button'); b.dataset.i = i; b.textContent = `${i + 1} ${n}`; b.onclick = () => { T = still ? KEY[i] : SC[i] + 0.05; if (still) { lastCopy = -2; lastDraw = -1; paint(T, true); } }; scenesEl.appendChild(b); });
+const pp = document.createElement('button'); pp.className = 'pp'; pp.textContent = '❚❚'; pp.setAttribute('aria-label', 'Pause'); pp.onclick = () => { paused = !paused; pp.textContent = paused ? '▶' : '❚❚'; pp.setAttribute('aria-label', paused ? 'Play' : 'Pause'); };
+if (!still) scenesEl.appendChild(pp);
+
+await Promise.race([Promise.all(['600 34px Inter', '400 24px Inter', '700 54px Inter', '700 30px Caveat'].map((f) => document.fonts.load(f))), new Promise((r) => setTimeout(r, 2500))]);
+LATE.forEach((f) => f());
+if (still) {
+  T = q.has('t') ? Number(q.get('t')) : KEY[q.has('scene') ? Number(q.get('scene')) - 1 : 0];
+  if (q.has('px')) ptrX = tiltX = Number(q.get('px'));
+  // settle row positions and helper positions used by ropes/pins: one warm-up pass
+  paint(T, true); paint(T, true); window.__paint = (x) => { lastDraw = -1; paint(x, true); paint(x, true); }; window.__ready = true;
+} else {
+  if (q.has('scene')) T = SC[Number(q.get('scene')) - 1] + 0.05;
+  const STEP = 1 / 60; let last = performance.now(), acc = 0;
+  const loop = (now) => { const dt = Math.min(0.25, (now - last) / 1000); last = now; if (!paused) { acc += dt; while (acc >= STEP) { T += STEP; acc -= STEP; } } paint(T, false); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop); window.__ready = true;
+}
+</script>
+</body>
+</html>

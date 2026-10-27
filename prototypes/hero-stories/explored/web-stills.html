@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living web hero mock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Caveat:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --field: #0B3A44; --ink: #F3EADB; --thread: #10A396; --sun: #E9C46A; --faded: #9AA5A3; --paper: #FBF6EC; --paper-ink: #14201F;
+  }
+  :root[data-theme="dark"] { --field: #08262D; --ink: #E8F1EF; --thread: #4FD1C5; --sun: #F0CF7E; --faded: #3E4A4C; --paper: #F3EADB; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--field); color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+  .hero { position: relative; height: 100vh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; padding: 0 64px; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 70% at 66% 52%, rgb(16 163 150 / .16), transparent 70%); pointer-events: none; }
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 64px; font-size: 15px; z-index: 3; }
+  header b { font-family: 'Bricolage Grotesque', system-ui; font-size: 20px; letter-spacing: -.01em; }
+  header nav { display: flex; gap: 28px; opacity: .8; }
+  .copy { position: relative; z-index: 2; max-width: 520px; }
+  h1 { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: clamp(40px, 5vw, 72px); line-height: 1.02; letter-spacing: -.025em; }
+  .copy p { margin-top: 22px; font-size: 18px; line-height: 1.55; opacity: .82; }
+  .ctas { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 14px 22px; border-radius: 999px; font-weight: 500; font-size: 16px; text-decoration: none; }
+  .btn.p { background: var(--sun); color: var(--paper-ink); }
+  .btn.s { border: 1.5px solid rgb(243 234 219 / .4); color: var(--ink); }
+  .stage { position: relative; height: 100%; }
+  canvas { position: absolute; top: 0; bottom: 0; left: -6%; width: 112%; height: 100%; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 90%, transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 90%, transparent 100%); }
+  @media (max-width: 700px) { canvas { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent); mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent); } }
+  .note { position: absolute; z-index: 2; width: 230px; background: var(--paper); color: var(--paper-ink); padding: 12px 14px 12px; border-radius: 6px; box-shadow: 0 10px 30px rgb(0 0 0 / .28); transform: translate(-50%, calc(-100% - 26px)) rotate(-1.6deg); font-size: 14px; line-height: 1.35; opacity: 0; }
+  .note.on { opacity: 1; }
+  .note .who { font-family: Caveat, cursive; font-size: 21px; color: #0A6E66; line-height: 1; margin-bottom: 4px; }
+  .note .row { margin-top: 10px; display: flex; gap: 8px; }
+  .note .row span { font-size: 12.5px; padding: 5px 10px; border-radius: 999px; background: var(--sun); font-weight: 500; }
+  .note .row span + span { background: transparent; border: 1px solid #c9bfae; }
+  .note::after { content: ''; position: absolute; left: 50%; bottom: -7px; width: 14px; height: 14px; background: var(--paper); transform: translateX(-50%) rotate(45deg); }
+  .label { position: absolute; z-index: 2; font-family: Caveat, cursive; font-size: 20px; color: var(--ink); transform: translate(-50%, 10px); white-space: nowrap; opacity: .85; }
+  .label.dim { opacity: .4; }
+  .tag { position: absolute; left: 64px; bottom: 28px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .5; z-index: 3; }
+  @media (max-width: 700px) {
+    header { padding: 18px 20px; } header nav { display: none; }
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 92px 20px 0; align-items: start; }
+    h1 { font-size: 40px; } .copy p { font-size: 16px; margin-top: 14px; } .ctas { margin-top: 20px; }
+    .note { width: 200px; font-size: 13px; }
+    .tag { left: 20px; }
+  }
+</style>
+</head>
+<body>
+<header><b>TapNConnect</b><nav><span>How it works</span><span>For organisers</span><span>Pricing</span><span>Order</span></nav></header>
+<section class="hero">
+  <div class="copy">
+    <h1>Stay close to the people you meet.</h1>
+    <p>Every tap becomes a thread, and an assistant keeps each one alive: it remembers who people are and what you promised, and tells you when a word would count.</p>
+    <div class="ctas"><a class="btn p">Start free</a><a class="btn s">Order for your company</a></div>
+  </div>
+  <div class="stage" id="stage"><canvas id="c"></canvas></div>
+</section>
+<div class="note" id="note"><div class="who" id="noteWho"></div><div id="noteText"></div><div class="row"><span id="noteYes"></span><span>Not now</span></div></div>
+<div id="labels"></div>
+<div class="tag" id="tag"></div>
+
+<script type="importmap">{ "imports": { "three": "../../../node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, DirectionalLight, Color, SRGBColorSpace, Vector3, Group,
+  CapsuleGeometry, SphereGeometry, MeshStandardMaterial, MeshBasicMaterial, Mesh, CircleGeometry, PlaneGeometry, RingGeometry,
+  CatmullRomCurve3, TubeGeometry, CanvasTexture, Sprite, SpriteMaterial, AdditiveBlending,
+} from 'three';
+
+const q = new URLSearchParams(location.search);
+const FRAME = Number(q.get('f') || 1);
+if (q.get('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const C = { thread: css('--thread'), sun: css('--sun'), faded: css('--faded'), field: css('--field') };
+const dark = q.get('theme') === 'dark';
+const CLAY = dark ? ['#D2BC98', '#8CC5BB', '#D9B4A4', '#6FA4C4', '#B8A88A'] : ['#E9D3AE', '#9ED9CF', '#F1C9B8', '#7FB8D9', '#CDBB9C'];
+const YOU = dark ? '#3CC4B7' : '#14A89A';
+
+// people: name, x, z, warm (thread still alive)
+const P = [
+  ['You', 0, 0, 1], ['Omar', 1.35, 0.55, 1], ['Sara', -1.25, 0.85, 1], ['Yusuf', -1.7, -0.95, 0], ['Huda', 2.75, -0.7, 0],
+  ['Mira', 0.35, -1.65, 1], ['Karim', -2.75, 0.15, 0], ['Lina', 1.95, 1.75, 0], ['Tariq', -0.5, 2.05, 1], ['Noor', -2.3, -2.25, 0],
+  ['Ali', 1.35, -2.6, 0], ['Rana', 3.25, 0.95, 0], ['Sami', -3.15, 1.7, 0],
+];
+const idx = Object.fromEntries(P.map((p, i) => [p[0], i]));
+// threads: from, to, warm. Yours first, then who-knows-whom.
+const E = [
+  ['You', 'Omar', 1], ['You', 'Sara', 1], ['You', 'Yusuf', 0], ['You', 'Mira', 1], ['You', 'Karim', 0], ['You', 'Lina', 0],
+  ['You', 'Tariq', 1], ['You', 'Noor', 0], ['You', 'Ali', 0], ['You', 'Sami', 0],
+  ['Omar', 'Huda', 0], ['Omar', 'Rana', 0], ['Sara', 'Tariq', 1], ['Yusuf', 'Karim', 0], ['Mira', 'Ali', 0], ['Lina', 'Rana', 0],
+];
+
+// frames: what the assistant is doing
+//  1 at rest: the web, some threads gone quiet
+//  2 a pulse runs to Yusuf, the thread warms behind it, a note pins to him
+//  3 a goal: You → Omar → Huda lit in sun, Huda haloed, the intro note
+const S = {
+  1: { yaw: -0.08, warm: {}, pulses: [], goal: null, note: null, tag: 'Frame 1 · at rest: your people, some threads gone quiet' },
+  2: { yaw: 0.02, warm: { 'You-Yusuf': 0.62 }, pulses: [['You', 'Yusuf', 0.62]], goal: null,
+       note: { at: 'Yusuf', who: 'Next week', text: 'Yusuf started at Al Noor. Congratulate him?', yes: 'Send a note' }, tag: 'Frame 2 · the assistant warms a quiet thread' },
+  3: { yaw: 0.12, warm: { 'You-Yusuf': 1, 'Omar-Huda': 1 }, path: ['You-Omar', 'Omar-Huda'], pulses: [['Omar', 'Huda', 0.9]], goal: 'Huda',
+       note: { at: 'Huda', who: 'When it helps', text: 'Omar can introduce you to Huda at Qamar Bank.', yes: 'Ask Omar' }, tag: 'Frame 3 · a goal moves: an introduction through Omar' },
+}[FRAME];
+document.getElementById('tag').textContent = S.tag;
+
+const stage = document.getElementById('stage'), canvas = document.getElementById('c');
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = SRGBColorSpace;
+const scene = new Scene();
+const camera = new PerspectiveCamera(30, 1, 0.1, 100);
+const phone = innerWidth < 700;
+camera.position.set(0, phone ? 9.5 : 7.4, phone ? 15.5 : 12.6); camera.lookAt(0, phone ? -0.2 : 0.1, 0);
+scene.add(new HemisphereLight(0xfff4e2, dark ? 0x0a2a30 : 0x1b4a52, 1.5));
+const sunL = new DirectionalLight(0xfff1d6, 1.9); sunL.position.set(-4, 7, 5); scene.add(sunL);
+
+const world = new Group(); world.rotation.y = S.yaw; scene.add(world);
+
+const radial = (stops) => { const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'); const r = g.createRadialGradient(64, 64, 0, 64, 64, 64); stops.forEach(([o, col]) => r.addColorStop(o, col)); g.fillStyle = r; g.fillRect(0, 0, 128, 128); return new CanvasTexture(c); };
+
+// the ground: a soft island of light, no edge
+const fieldC = new Color(C.field), islandC = fieldC.clone().lerp(new Color(C.thread), 0.22);
+const island = new Mesh(new CircleGeometry(4.3, 64), new MeshBasicMaterial({ map: radial([[0, `#${islandC.getHexString()}ff`], [0.45, `#${islandC.getHexString()}99`], [1, `#${islandC.getHexString()}00`]]), transparent: true, depthWrite: false }));
+island.rotation.x = -Math.PI / 2; world.add(island);
+
+// clay people
+const BODY_Y = 0.34, HEAD_Y = 0.82;
+const rim = (m) => { m.onBeforeCompile = (s) => { s.fragmentShader = s.fragmentShader.replace('#include <dithering_fragment>', 'float rimF = pow(1.0 - max(dot(normalize(vNormal), normalize(vViewPosition)), 0.0), 2.4);\n gl_FragColor.rgb += rimF * 0.28;\n#include <dithering_fragment>'); }; return m; };
+const shadowTex = radial([[0, 'rgba(0,0,0,.5)'], [1, 'rgba(0,0,0,0)']]);
+const bodyG = new CapsuleGeometry(0.2, 0.28, 4, 18), headG = new SphereGeometry(0.15, 24, 16), shadowG = new PlaneGeometry(0.9, 0.9);
+const pos = P.map(([, x, z]) => new Vector3(x, 0, z));
+const quietOf = (name) => { if (name === 'You' || name === 'Omar') return 0; const mine = E.find(([a, b]) => a === 'You' && b === name) || E.find(([, b]) => b === name); return mine && !mine[2] ? 1 : 0; };
+const warmedPeople = new Set(Object.entries(S.warm).filter(([, v]) => v >= 0.99).map(([k]) => k.split('-')[1]));
+P.forEach(([name], i) => {
+  const base = new Color(i === 0 ? YOU : CLAY[(i * 3) % CLAY.length]);
+  let quiet = quietOf(name); if (warmedPeople.has(name)) quiet = 0; if (S.warm['You-' + name] > 0 && S.warm['You-' + name] < 1) quiet = 0.45;
+  base.lerp(new Color(C.faded), quiet * 0.62);
+  const s = i === 0 ? 1.18 : 0.92 + ((i * 37) % 10) / 60;
+  const g = new Group(); g.position.copy(pos[i]); g.scale.setScalar(s);
+  const body = new Mesh(bodyG, rim(new MeshStandardMaterial({ color: base, roughness: 0.85 }))); body.position.y = BODY_Y;
+  const head = new Mesh(headG, rim(new MeshStandardMaterial({ color: base, roughness: 0.85 }))); head.position.y = HEAD_Y;
+  const sh = new Mesh(shadowG, new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })); sh.rotation.x = -Math.PI / 2; sh.position.y = 0.006;
+  g.add(sh, body, head); world.add(g);
+});
+
+// threads: a held string between two people, lifted at the middle
+const LIFT = 0.42;
+const curveOf = (a, b) => { const pts = []; for (let i = 0; i <= 20; i++) { const t = i / 20; const p = a.clone().lerp(b, t); p.y = 0.62 + Math.sin(Math.PI * t) * LIFT * Math.min(1, a.distanceTo(b) / 2.4); pts.push(p); } return new CatmullRomCurve3(pts); };
+const tube = (curve, t0, t1, color, emissive, r = 0.022) => {
+  const pts = []; for (let i = 0; i <= 40; i++) pts.push(curve.getPoint(t0 + (t1 - t0) * i / 40));
+  const m = new MeshStandardMaterial({ color: new Color(color), emissive: new Color(color), emissiveIntensity: emissive, roughness: 0.4, transparent: emissive < 0.2, opacity: emissive < 0.2 ? 0.7 : 1 });
+  const mesh = new Mesh(new TubeGeometry(new CatmullRomCurve3(pts), 64, r, 8), m); world.add(mesh); return mesh;
+};
+const curves = {};
+E.forEach(([a, b, warm]) => {
+  const key = `${a}-${b}`, curve = curveOf(pos[idx[a]], pos[idx[b]]); curves[key] = curve;
+  const onPath = S.path && S.path.includes(key);
+  const w = S.warm[key] ?? (warm ? 1 : 0);
+  if (onPath) { tube(curve, 0, 1, C.sun, 1.1, 0.03); return; }
+  if (w >= 1) { tube(curve, 0, 1, C.thread, 0.55); return; }
+  if (w <= 0) { tube(curve, 0, 1, C.faded, 0.05, 0.014); return; }
+  tube(curve, 0, w, C.thread, 0.9, 0.024); tube(curve, w, 1, C.faded, 0.05, 0.014);
+});
+
+// the assistant: sun pulses with a soft glow
+const glowTex = radial([[0, 'rgba(255,236,180,1)'], [0.25, 'rgba(240,200,110,.55)'], [1, 'rgba(240,200,110,0)']]);
+const glow = (p, size) => { const s = new Sprite(new SpriteMaterial({ map: glowTex, blending: AdditiveBlending, depthWrite: false, transparent: true })); s.position.copy(p); s.scale.setScalar(size); world.add(s); };
+S.pulses.forEach(([a, b, t]) => {
+  const p = curves[`${a}-${b}`].getPoint(t);
+  const bead = new Mesh(new SphereGeometry(0.075, 20, 14), new MeshBasicMaterial({ color: new Color(C.sun) })); bead.position.copy(p); world.add(bead);
+  glow(p, 0.9);
+});
+if (S.goal) {
+  const g = pos[idx[S.goal]];
+  const ring = new Mesh(new RingGeometry(0.42, 0.47, 64), new MeshBasicMaterial({ color: new Color(C.sun), transparent: true, opacity: 0.9 })); ring.rotation.x = -Math.PI / 2; ring.position.set(g.x, 0.012, g.z); world.add(ring);
+  const ring2 = new Mesh(new RingGeometry(0.62, 0.645, 64), new MeshBasicMaterial({ color: new Color(C.sun), transparent: true, opacity: 0.35 })); ring2.rotation.x = -Math.PI / 2; ring2.position.set(g.x, 0.012, g.z); world.add(ring2);
+  glow(new Vector3(g.x, 0.9, g.z), 2.2);
+}
+// you: a faint steady glow at the centre
+glow(new Vector3(0, 0.6, 0), 1.6);
+
+function size() { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+size();
+renderer.render(scene, camera);
+
+// HTML overlays pinned to 3D points
+const toScreen = (v) => { const p = v.clone(); world.localToWorld(p); p.project(camera); const r = canvas.getBoundingClientRect(); return [r.left + (p.x + 1) / 2 * r.width, r.top + (1 - p.y) / 2 * r.height]; };
+const labels = document.getElementById('labels');
+['You', 'Omar', 'Sara', 'Yusuf', 'Huda'].forEach((n) => {
+  const [x, y] = toScreen(pos[idx[n]].clone().setY(0)); const el = document.createElement('div'); el.className = 'label' + (quietOf(n) && !warmedPeople.has(n) && !(S.warm['You-' + n] > 0) ? ' dim' : ''); el.textContent = n === 'You' ? 'you' : n;
+  el.style.left = x + 'px'; el.style.top = y + 'px'; labels.appendChild(el);
+});
+if (S.note) {
+  const [x, y] = toScreen(pos[idx[S.note.at]].clone().setY(1.05));
+  const n = document.getElementById('note'); n.style.left = x + 'px'; n.style.top = y + 'px'; n.classList.add('on');
+  document.getElementById('noteWho').textContent = S.note.who; document.getElementById('noteText').textContent = S.note.text; document.getElementById('noteYes').textContent = S.note.yes;
+}
+document.fonts.ready.then(() => { window.__ready = true; });
+setTimeout(() => { window.__ready = true; }, 2500);
+</script>
+</body>
+</html>

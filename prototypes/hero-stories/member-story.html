@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Member story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --field: #0B3A44; --ink: #F3EADB; --thread: #10A396; --sun: #E9C46A; --faded: #9AA5A3; --paper: #FBF6EC; --paper-ink: #14201F; }
+  :root[data-theme="dark"] { --field: #08262D; --ink: #E8F1EF; --thread: #4FD1C5; --sun: #F0CF7E; --faded: #3E4A4C; --paper: #F3EADB; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--field); color: var(--ink); font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 22px 64px; font-size: 15px; z-index: 4; }
+  header b { font-family: 'Bricolage Grotesque', system-ui; font-size: 20px; }
+  header nav { display: flex; gap: 28px; opacity: .8; }
+  .hero { position: relative; height: 100vh; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: center; padding: 0 64px; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(45% 60% at 66% 52%, rgb(255 255 255 / .05), transparent 70%); pointer-events: none; }
+  .copy { position: relative; z-index: 3; max-width: 460px; }
+  .copy .txt { transition: opacity .45s ease, transform .45s ease; }
+  .copy .txt.out { opacity: 0; transform: translateY(8px); }
+  .kicker { font-family: Caveat, cursive; font-size: 24px; color: var(--sun); margin-bottom: 8px; min-height: 30px; }
+  h1 { font-family: 'Bricolage Grotesque', system-ui; font-weight: 700; font-size: clamp(38px, 4.4vw, 64px); line-height: 1.03; letter-spacing: -.025em; }
+  .copy p { margin-top: 20px; font-size: 18px; line-height: 1.55; opacity: .84; min-height: 84px; }
+  .ctas { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 14px 22px; border-radius: 999px; font-weight: 500; font-size: 16px; }
+  .btn.p { background: var(--sun); color: #14201F; }
+  .btn.s { border: 1.5px solid rgb(243 234 219 / .4); }
+  .stage { position: relative; height: 100%; }
+  canvas { position: absolute; top: 0; bottom: 0; left: -22%; width: 130%; height: 100%;
+    -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, #000 74%, transparent 100%); mask-image: radial-gradient(50% 50% at 50% 50%, #000 74%, transparent 100%); }
+  #ov { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  #ov > * { position: absolute; left: 0; top: 0; will-change: transform, opacity; opacity: 0; }
+  .cap { font-family: Caveat, cursive; font-weight: 700; font-size: 44px; line-height: 1; color: var(--ink); white-space: nowrap; text-shadow: 0 2px 18px rgb(0 0 0 / .35); }
+  .cap.warm { color: #7FE0D6; }
+  .bubble { width: 230px; padding: 14px 16px; background: var(--paper); color: var(--paper-ink); border-radius: 26px; font-size: 15px; line-height: 1.35; box-shadow: 0 12px 30px rgb(0 0 0 / .3); }
+  .bubble::before, .bubble::after { content: ''; position: absolute; background: var(--paper); border-radius: 50%; }
+  .bubble::before { width: 18px; height: 18px; left: 26px; bottom: -14px; }
+  .bubble::after { width: 10px; height: 10px; left: 16px; bottom: -28px; }
+  .bubble .h { font-family: Caveat, cursive; font-size: 20px; color: #0A6E66; line-height: 1; margin-bottom: 4px; }
+  .bubble .tick { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #10A396; color: #fff; font-size: 13px; font-weight: 700; margin-right: 6px; vertical-align: -3px; }
+  .bubble.glow { box-shadow: 0 0 0 3px rgb(233 196 106 / .9), 0 0 40px rgb(233 196 106 / .55); }
+  .skill { font-size: 12px; font-weight: 600; letter-spacing: .03em; color: #14201F; background: var(--paper); padding: 4px 9px 4px 7px; border-radius: 999px; white-space: nowrap; box-shadow: 0 4px 14px rgb(0 0 0 / .25); display: flex; gap: 5px; align-items: center; }
+  .skill::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sun); box-shadow: 0 0 6px var(--sun); }
+  .hub { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); white-space: nowrap; background: rgb(8 38 45 / .72); padding: 4px 9px; border-radius: 999px; border: 1px solid rgb(127 224 214 / .35); }
+  .hub.big { font-size: 13px; color: #14201F; background: var(--sun); border-color: transparent; }
+  .hub.you { font-size: 13px; color: #fff; background: #10A396; border-color: transparent; letter-spacing: .06em; }
+  .stat { width: 196px; background: var(--paper); color: var(--paper-ink); border-radius: 14px; padding: 12px 14px 12px; box-shadow: 0 14px 34px rgb(0 0 0 / .32); }
+  .stat .who { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #0A6E66; }
+  .stat .n { font-family: 'Bricolage Grotesque', system-ui; font-size: 34px; font-weight: 700; line-height: 1.05; margin-top: 4px; }
+  .stat .d { font-size: 13px; line-height: 1.35; opacity: .8; margin-top: 2px; }
+  .stat .s { position: absolute; top: 10px; right: 10px; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; background: #EFE7D6; color: #6B6455; padding: 2px 6px; border-radius: 4px; }
+  .scenes { position: absolute; left: 64px; bottom: 26px; z-index: 4; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .scenes button { font: 500 12.5px Inter, system-ui; color: var(--ink); background: rgb(255 255 255 / .06); border: 1px solid rgb(243 234 219 / .18); border-radius: 999px; padding: 6px 11px; cursor: pointer; }
+  .scenes button.on { background: var(--ink); color: var(--field); border-color: var(--ink); }
+  .scenes button.pp { width: 32px; padding: 6px 0; }
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgb(243 234 219 / .08); z-index: 4; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--sun); opacity: .7; }
+  @media (max-width: 700px) {
+    header { padding: 18px 16px; } header b { font-size: 15px; } header nav { display: none; } header nav.stories { display: flex; gap: 0; font-size: 11px; } header nav.stories a { padding: 4px 6px; }
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 84px 20px 0; align-items: start; }
+    h1 { font-size: 34px; } .kicker { font-size: 20px; min-height: 24px; margin-bottom: 4px; }
+    .copy p { font-size: 15px; margin-top: 10px; min-height: 0; } .ctas { margin-top: 16px; } .btn { padding: 11px 18px; font-size: 15px; }
+    canvas { left: -4%; width: 108%; -webkit-mask-image: radial-gradient(56% 50% at 50% 50%, #000 80%, transparent 100%); mask-image: radial-gradient(56% 50% at 50% 50%, #000 80%, transparent 100%); }
+    .scenes { left: 20px; right: 20px; bottom: 18px; gap: 4px; } .scenes button { padding: 5px 8px; font-size: 11px; }
+    .cap { font-size: 30px; } .bubble { width: 158px; font-size: 12px; padding: 9px 11px; } .stat { width: 128px; padding: 8px 10px; } .stat .n { font-size: 22px; } .stat .d { font-size: 11px; }
+    .skill { font-size: 9.5px; padding: 3px 6px; } .hub { font-size: 9px; padding: 3px 6px; } .hub.big, .hub.you { font-size: 10px; }
+  }
+  .stories a { color: inherit; text-decoration: none; opacity: .7; padding: 6px 12px; border-radius: 999px; }
+  .stories a[aria-current] { opacity: 1; background: rgb(243 234 219 / .14); }
+</style>
+</head>
+<body>
+<header><b>TapNConnect</b><nav class="stories"><a href="member-story.html" aria-current="page">Member</a><a href="company-story.html">Company</a><a href="organiser-story.html">Organiser</a><a href="sponsor-story.html">Sponsor</a></nav></header>
+<section class="hero" id="hero">
+  <div class="copy">
+    <div class="txt" id="txt"><div class="kicker" id="kick"></div><h1 id="h1"></h1><p id="p"></p></div>
+    <div class="ctas"><span class="btn p">Start free</span><span class="btn s">Order for your company</span></div>
+  </div>
+  <div class="stage" id="stage"><canvas id="c" role="img" aria-label="A short film: you shake hands with many people and each becomes a relationship on your phone; months pass and they fade; your AI assistant and its helper agents pull each one back, map them into your work and personal groups, and help you reach your goal; then everyone in the hall gains."></canvas></div>
+  <div id="ov"></div>
+  <div class="scenes" id="scenes"></div>
+  <div class="bar"><i id="bar"></i></div>
+</section>
+
+<script type="importmap">{ "imports": { "three": "../../node_modules/three/build/three.module.js" } }</script>
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, DirectionalLight, Color, SRGBColorSpace, Vector3, Quaternion, Euler, Group, Shape,
+  ExtrudeGeometry, ShapeGeometry, PlaneGeometry, BoxGeometry, CircleGeometry, CapsuleGeometry, SphereGeometry, TorusGeometry, TubeGeometry,
+  QuadraticBezierCurve3, CatmullRomCurve3, MeshStandardMaterial, MeshBasicMaterial, Mesh, CanvasTexture, Sprite, SpriteMaterial, AdditiveBlending,
+  InstancedMesh, Object3D,
+} from 'three';
+
+const q = new URLSearchParams(location.search);
+if (q.get('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+const dark = q.get('theme') === 'dark';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const FIELD = new Color(css('--field')), SUNC = new Color(css('--sun'));
+const TEAL = dark ? '#4FD1C5' : '#10A396', SUN = css('--sun'), BRICK = '#B5523B';
+const TEALC = new Color(TEAL);
+const YOU_C = dark ? '#3CC4B7' : '#14A89A';
+const CLAY = dark ? ['#D2BC98', '#8CC5BB', '#D9B4A4', '#6FA4C4', '#B8A88A'] : ['#E9D3AE', '#9ED9CF', '#F1C9B8', '#7FB8D9', '#CDBB9C'];
+
+// ---- the film: six scenes on one 66 s clock (pure functions of t, so any t renders as a still)
+const SC = [0, 10, 22, 34, 44, 54, 66], L = 66;
+const KEY = [5.6, 19.7, 29.6, 38.6, 50.8, 60.6];
+const NAMES = ['Hellos', 'Time', 'Rescue', 'In order', 'Again', 'Everyone'];
+const COPY = [
+  ['At the show', 'A hundred hellos.', 'Every handshake is a relationship you mean to keep.'],
+  ['Then', 'Then life happens.', 'Six months on, you can’t tell who is who. A few made it to the CRM. The rest faded.'],
+  ['Enter your assistant', 'Then your assistant steps in.', 'It brings a team: one remembers, one reconnects, one finds the introduction. Nothing goes out without your yes.'],
+  ['Sorted for you', 'Your people, in order.', 'Mapped the way your life is, one at a time, with a reason to reach out today.'],
+  ['The same six months', 'Six months later, again.', 'This time every relationship is warm, and the goal is done.'],
+  ['Not just you', 'And everyone in the hall gains.', 'Visitors keep a circle. Exhibitors get accounts. Sponsors see what they delivered. Organisers can prove it.'],
+];
+const sceneOf = (t) => { for (let i = 0; i < 6; i++) if (t < SC[i + 1]) return i; return 5; };
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const span = (t, a, b) => clamp((t - a) / (b - a));
+const ease = (x) => x * x * (3 - 2 * x);
+const easeOut = (x) => 1 - (1 - x) ** 3;
+const mix = (a, b, k) => a + (b - a) * k;
+const bump = (t, a, b, f = 0.3) => ease(span(t, a, a + f)) * (1 - ease(span(t, b - f, b)));
+const hexA = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const mixHex = (a, b, k) => { const A = hexA(a), B = hexA(b); return `rgb(${A.map((v, i) => Math.round(mix(v, B[i], k))).join(',')})`; };
+
+// ---- the people you meet: six handshakes, then the rush of the rest of the show
+const HS = (i) => 0.9 + i * 1.45;
+const ROWS = [
+  { id: 'omar', g: 'work', slot: 0, name: 'Omar Haddad', fuzzy: 'Omar (bank? fintech?)', sub: 'Met at Gulf Tech Expo · Hall 4', hs: 0, stamp: 'Lost touch', rope: 29.0, helper: 2, cl: 'Partners' },
+  { id: 'sara', g: 'work', slot: 1, name: 'Sara Al Mansoori', fuzzy: 'Sara — which Sara?', sub: 'Coffee stand · wants the pilot scope', hs: 1, stamp: 'Forgot', rope: 27.0, helper: 1, cl: 'Clients' },
+  { id: 'lina', g: 'personal', slot: 0, name: 'Lina Haddad', fuzzy: 'Lina from the dinner', sub: 'Friend of Sara · dinner, Jumeirah', hs: 2, stamp: 'Never followed up', rope: 30.0, helper: 1, cl: 'Friends' },
+  { id: 'yusuf', g: 'work', slot: 2, name: 'Yusuf Rahman', fuzzy: 'Yusuf panel guy', sub: 'Panel on logistics · Al Noor', hs: 3, stamp: 'Who is this?', rope: 28.0, helper: 0, cl: 'Partners' },
+  { id: 'karim', g: 'work', slot: 3, name: 'Karim Nasser', fuzzy: 'Karim ??', sub: 'Booth B12 · wants a demo', hs: 4, crm: 11.4, cl: 'Clients' },
+  { id: 'rana', g: 'personal', slot: 1, name: 'Rana Saleh', fuzzy: 'Rana (school?)', sub: 'Old classmate · met again at the show', hs: 5, stamp: 'Lost touch', rope: 31.0, helper: 3, cl: 'Friends' },
+  { id: 'tariq', g: 'personal', slot: 2, name: 'Tariq Aziz', fuzzy: 'Tariq …', sub: 'Runs on Saturdays · gym', hs: null, rush: 9.0, cl: 'Friends' },
+];
+const NHS = 6;
+const SWIPE = { sara: 13.6, yusuf: 14.6, omar: 15.8, lina: 17.0, rana: 18.2 };
+const PASTEL = ['#F3C6A8', '#A9D8CF', '#C9C2EE', '#F2D99B', '#B6D3EE', '#EDB9C4'];
+ROWS.forEach((r, i) => { r.pastel = PASTEL[i % PASTEL.length]; r.swipe = SWIPE[r.id] ?? null; });
+const EXTRAS = [
+  ['Clients', 'Faris Al Amiri'], ['Partners', 'Mira Joseph'], ['Team', 'Nadia Farouk'], ['Team', 'Hamad Saeed'], ['Team', 'Priya Nair'],
+  ['Family', 'Aisha'], ['Family', 'Uncle Majid'], ['Family', 'Mum'], ['Mentors', 'Noor Al Suwaidi'], ['Mentors', 'Dr Kamal Aziz'], ['Mentors', 'Reem Haddad'],
+].map(([cl, name], i) => ({ id: 'x' + i, cl, name, pastel: PASTEL[(i + 3) % PASTEL.length], extra: true }));
+const HUDA = { id: 'huda', cl: 'Partners', name: 'Huda Nasser', pastel: '#F2D99B', huda: true };
+const HELPERS = ['Remember', 'Reconnect', 'Introduce', 'Plan'];
+const FOCUS = [
+  { row: 'omar', t: 37.4, tag: 'Partners', name: 'Omar Haddad', why: 'Can introduce you to Huda at Qamar Bank — the intro you need.', yes: 'Ask Omar' },
+  { row: 'sara', t: 39.6, tag: 'Clients', name: 'Sara Al Mansoori', why: 'You promised her the pilot scope by Thursday.', yes: 'Draft it' },
+  { row: 'yusuf', t: 41.8, tag: 'Partners', name: 'Yusuf Rahman', why: 'Started at Al Noor this week. Say well done?', yes: 'Send a note' },
+];
+
+// ---- three
+const canvas = document.getElementById('c'), hero = document.getElementById('hero');
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = SRGBColorSpace;
+const scene = new Scene();
+const camera = new PerspectiveCamera(35, 1, 0.1, 80);
+// the phone's product lighting (from the contacts mock), shared by the whole scene
+scene.add(new HemisphereLight(0xf3eadb, dark ? 0x061c22 : 0x0b3a44, 1.15));
+const key = new DirectionalLight(0xfff3e0, 2.1); key.position.set(-3, 4, 6); scene.add(key);
+const rimL = new DirectionalLight(0x9fe3da, 2.0); rimL.position.set(4, 2, -4); scene.add(rimL);
+const rimR = new DirectionalLight(0xffe2b0, 1.2); rimR.position.set(-5, -2, -3); scene.add(rimR);
+const world = new Group(); scene.add(world);
+
+const radial = (stops, n = 128) => { const c = document.createElement('canvas'); c.width = c.height = n; const g = c.getContext('2d'); const r = g.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2); stops.forEach(([o, col]) => r.addColorStop(o, col)); g.fillStyle = r; g.fillRect(0, 0, n, n); return new CanvasTexture(c); };
+const glowTex = radial([[0, 'rgba(255,240,200,1)'], [0.22, 'rgba(240,200,110,.5)'], [1, 'rgba(240,200,110,0)']]);
+const tealGlow = radial([[0, 'rgba(79,209,197,.9)'], [1, 'rgba(79,209,197,0)']]);
+const shadowTex = radial([[0, 'rgba(0,0,0,.5)'], [1, 'rgba(0,0,0,0)']]);
+const glowSprite = (tex = glowTex) => { const s = new Sprite(new SpriteMaterial({ map: tex, blending: AdditiveBlending, depthWrite: false, transparent: true })); s.scale.setScalar(0); world.add(s); return s; };
+const rim = (m) => { m.onBeforeCompile = (s) => { s.fragmentShader = s.fragmentShader.replace('#include <dithering_fragment>', 'float rimF = pow(1.0 - max(dot(normalize(vNormal), normalize(vViewPosition)), 0.0), 2.4);\n gl_FragColor.rgb += rimF * 0.22;\n#include <dithering_fragment>'); }; return m; };
+function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+
+const gC = FIELD.clone().lerp(TEALC, 0.18).getHexString();
+const ground = new Mesh(new CircleGeometry(9, 64), new MeshBasicMaterial({ map: radial([[0, `#${gC}dd`], [0.5, `#${gC}55`], [1, `#${gC}00`]]), transparent: true, depthWrite: false }));
+ground.rotation.x = -Math.PI / 2; ground.position.set(0.6, 0, 0); world.add(ground);
+
+// ---- clay people with arms
+const GEO = { leg: new CapsuleGeometry(0.085, 0.5, 4, 12), torso: new CapsuleGeometry(0.2, 0.4, 6, 18), head: new SphereGeometry(0.15, 24, 16), upper: new CapsuleGeometry(0.062, 0.24, 4, 10), fore: new CapsuleGeometry(0.056, 0.22, 4, 10), hand: new SphereGeometry(0.068, 14, 10), shadow: new PlaneGeometry(1, 1) };
+function human(color, transparent = false) {
+  const mat = rim(new MeshStandardMaterial({ color: new Color(color), roughness: 0.85, transparent }));
+  const g = new Group(), body = new Group(); g.add(body);
+  const mk = (geo, parent, y) => { const m = new Mesh(geo, mat); m.position.y = y; parent.add(m); return m; };
+  const hip = (x) => { const h = new Group(); h.position.set(x, 0.78, 0); body.add(h); mk(GEO.leg, h, -0.36); return h; };
+  const hipL = hip(0.1), hipR = hip(-0.1);
+  mk(GEO.torso, body, 1.14);
+  const neck = new Group(); neck.position.y = 1.47; body.add(neck); mk(GEO.head, neck, 0.2);
+  const arm = (x) => { const sh = new Group(); sh.position.set(x, 1.38, 0); body.add(sh); mk(GEO.upper, sh, -0.17); const el = new Group(); el.position.y = -0.34; sh.add(el); mk(GEO.fore, el, -0.15); const hand = mk(GEO.hand, el, -0.31); return { sh, el, hand }; };
+  const R = arm(-0.27), Lf = arm(0.27);
+  const sh = new Mesh(GEO.shadow, new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })); sh.rotation.x = -Math.PI / 2; sh.position.y = 0.005; sh.scale.setScalar(0.9); g.add(sh);
+  world.add(g);
+  return { g, body, hipL, hipR, neck, R, L: Lf, mat, sh };
+}
+const REST = { shRx: 0.05, shRz: -0.1, elRx: -0.12, shLx: 0.05, shLz: 0.1, elLx: -0.12, neckX: 0, neckY: 0, legA: 0, bob: 0, lean: 0 };
+function pose(h, p) {
+  h.R.sh.rotation.set(p.shRx, 0, p.shRz); h.R.el.rotation.x = p.elRx;
+  h.L.sh.rotation.set(p.shLx, 0, p.shLz); h.L.el.rotation.x = p.elLx;
+  h.neck.rotation.set(p.neckX, p.neckY, 0); h.hipL.rotation.x = p.legA; h.hipR.rotation.x = -p.legA;
+  h.body.position.y = p.bob; h.body.rotation.x = p.lean;
+}
+const blendPose = (a, b, k) => { const o = {}; for (const n in a) o[n] = mix(a[n], b[n], k); return o; };
+const you = human(YOU_C);
+const YOU_AT = new Vector3(-1.45, 0, 0.35);
+you.g.position.copy(YOU_AT);
+const visitors = [0, 1, 2].map((i) => human(CLAY[(i * 2 + 1) % CLAY.length], true));
+
+// ---- the phone (the contacts mock's phone, ported as is)
+const phoneG = new Group(); world.add(phoneG);
+const PW = 1.56, PH = 3.24, PR = 0.24, PD = 0.1, BEV = 0.035;
+const SW = 640, SH = 1408, K = 1.4, ROWPX = 134;
+const SCW = 1.44, SCH = SCW * SH / SW, SZ = PD / 2 + BEV + 0.003;
+const PS = 0.66, PHONE_POS = new Vector3(0.72, 1.55, 1.05), PHONE_ROT = new Euler(-0.04, -0.4, 0.02);
+const pShape = (() => { const s = new Shape(), x = -PW / 2, y = -PH / 2; s.moveTo(x + PR, y); s.lineTo(x + PW - PR, y); s.quadraticCurveTo(x + PW, y, x + PW, y + PR); s.lineTo(x + PW, y + PH - PR); s.quadraticCurveTo(x + PW, y + PH, x + PW - PR, y + PH); s.lineTo(x + PR, y + PH); s.quadraticCurveTo(x, y + PH, x, y + PH - PR); s.lineTo(x, y + PR); s.quadraticCurveTo(x, y, x + PR, y); return s; })();
+const pGeo = new ExtrudeGeometry(pShape, { depth: PD, bevelEnabled: true, bevelThickness: BEV, bevelSize: BEV, bevelSegments: 5, curveSegments: 16 }); pGeo.translate(0, 0, -PD / 2);
+const pMat = new MeshStandardMaterial({ color: dark ? 0x2a3134 : 0x343c3f, metalness: 0.55, roughness: 0.32, transparent: true });
+phoneG.add(new Mesh(pGeo, pMat));
+const glassMat = new MeshStandardMaterial({ color: 0x050708, roughness: 0.15, metalness: 0.1, transparent: true });
+const glass = new Mesh(new ShapeGeometry(pShape, 16), glassMat); glass.scale.setScalar(0.985); glass.position.z = PD / 2 + BEV + 0.001; phoneG.add(glass);
+for (const [yy, hh] of [[0.75, 0.42], [0.2, 0.26]]) { const b = new Mesh(new BoxGeometry(0.03, hh, 0.06), pMat); b.position.set(PW / 2 + BEV + 0.008, yy, 0); phoneG.add(b); }
+const scrCv = document.createElement('canvas'); scrCv.width = SW * K; scrCv.height = SH * K;
+const scrTex = new CanvasTexture(scrCv); scrTex.colorSpace = SRGBColorSpace; scrTex.anisotropy = 8;
+const scrMat = new MeshBasicMaterial({ map: scrTex, transparent: true, toneMapped: false });
+const screenM = new Mesh(new PlaneGeometry(SCW, SCH), scrMat); screenM.position.z = SZ; phoneG.add(screenM);
+const sheenCv = document.createElement('canvas'); sheenCv.width = 256; sheenCv.height = 512; { const c = sheenCv.getContext('2d'); const gr = c.createLinearGradient(0, 0, 256, 512); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.42, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, 'rgba(255,255,255,.10)'); gr.addColorStop(0.62, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(0, 0, 256, 512); }
+const sheenMat = new MeshBasicMaterial({ map: new CanvasTexture(sheenCv), transparent: true, blending: AdditiveBlending, depthWrite: false });
+const sheen = new Mesh(new PlaneGeometry(SCW, SCH), sheenMat); sheen.position.z = SZ + 0.012; phoneG.add(sheen);
+phoneG.position.copy(PHONE_POS); phoneG.rotation.copy(PHONE_ROT); phoneG.scale.setScalar(PS); phoneG.updateMatrix();
+const PHONE_M = phoneG.matrix.clone(), PHONE_Q = phoneG.quaternion.clone();
+const phoneLocal = (x, y, z = SZ + 0.006) => new Vector3(x, y, z).applyMatrix4(PHONE_M);
+const pxY = (py) => SCH / 2 - (py / SH) * SCH;
+const ROWH = ROWPX / SW * SCW;
+const slotY = (r) => (r.g === 'work' ? 296 : 884) + r.slot * ROWPX + ROWPX / 2;
+
+// ---- canvas drawing
+const initials = (n) => n.replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).filter((w) => w.length > 1 || /[A-Z]/.test(w)).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+const monthsOf = (a) => { const m = Math.round(a * 6); return m < 1 ? 'Last talked: 1 week ago' : `Last talked: ${m} month${m > 1 ? 's' : ''} ago`; };
+function drawRow(c, r, st) {
+  const W = SW, H = ROWPX; c.clearRect(0, 0, W, H);
+  const m = 8, w = W - m * 2, h = H - m * 2;
+  c.save(); rr(c, m, m, w, h, 20); c.clip();
+  if (st.swipe > 0.001) {
+    c.fillStyle = dark ? '#C46A52' : BRICK; c.fillRect(m, m, w, h);
+    c.save(); c.translate(W - m - 136, H / 2); c.rotate(-0.06);
+    c.strokeStyle = 'rgba(255,255,255,.85)'; c.lineWidth = 3; rr(c, -112, -32, 224, 64, 9); c.stroke();
+    c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    const s = r.stamp.toUpperCase(); c.font = `700 ${s.length > 12 ? 21 : 26}px Inter`; c.fillText(s, 0, 1);
+    c.restore();
+  }
+  c.translate(-st.swipe * 284 + (st.jit || 0), 0);
+  c.fillStyle = st.warm > 0 ? mixHex('#FFFFFF', '#E6F6F3', st.warm) : mixHex('#FFFFFF', '#E4E1DB', st.age); c.fillRect(m, m, w, h);
+  if (st.warm > 0.01) { c.fillStyle = TEAL; c.globalAlpha = st.warm; c.fillRect(m, m, 9, h); c.globalAlpha = 1; }
+  const ax = m + 64, ay = H / 2;
+  c.fillStyle = st.age > 0 ? mixHex(r.pastel, '#C9C6C0', st.age) : r.pastel; c.beginPath(); c.arc(ax, ay, 38, 0, Math.PI * 2); c.fill();
+  c.fillStyle = mixHex('#3A3530', '#8F8A84', st.age); c.font = '600 28px Inter'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(initials(r.name), ax, ay + 1);
+  c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  const fz = ease(span(st.age, 0.35, 0.85)); c.font = '600 34px Inter'; c.fillStyle = mixHex('#14201F', '#9A958E', st.age);
+  if (fz < 1) { c.globalAlpha = 1 - fz; c.filter = fz > 0.05 ? `blur(${(fz * 3).toFixed(1)}px)` : 'none'; c.fillText(r.name, m + 124, H / 2 - 4); }
+  if (fz > 0) { c.globalAlpha = fz; c.filter = 'none'; c.fillText(r.fuzzy, m + 124, H / 2 - 4); }
+  c.globalAlpha = 1; c.filter = 'none';
+  let sub = r.sub, sc = mixHex('#5E6B69', '#A8A39C', st.age);
+  if (st.age > 0.25) sub = monthsOf(st.age);
+  c.font = '400 24px Inter'; c.fillStyle = sc; c.fillText(sub, m + 124, H / 2 + 33);
+  c.restore();
+  if (st.gold > 0.01) { c.save(); c.strokeStyle = SUN; c.globalAlpha = st.gold; c.lineWidth = 6; rr(c, m + 3, m + 3, w - 6, h - 6, 18); c.stroke(); c.restore(); }
+}
+function drawScreen(wc, pc) {
+  const c = scrCv.getContext('2d'); c.setTransform(K, 0, 0, K, 0, 0); c.clearRect(0, 0, SW, SH);
+  c.save(); rr(c, 0, 0, SW, SH, 70); c.clip();
+  c.fillStyle = '#F7F5F0'; c.fillRect(0, 0, SW, SH);
+  c.fillStyle = '#111'; rr(c, SW / 2 - 62, 22, 124, 34, 17); c.fill(); // camera pill
+  c.fillStyle = '#14201F'; c.font = '600 24px Inter'; c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.fillText('18:20', 44, 50);
+  c.strokeStyle = '#14201F'; c.lineWidth = 2; rr(c, SW - 92, 32, 44, 22, 6); c.stroke(); c.fillStyle = '#14201F'; c.fillRect(SW - 88, 36, 26, 14); c.fillRect(SW - 46, 39, 3, 8);
+  c.font = '700 54px Inter'; c.fillText('Relationships', 40, 150);
+  c.font = '400 24px Inter'; c.fillStyle = '#8B8F8C'; c.textAlign = 'right'; c.fillText(`${wc + pc} people`, SW - 40, 150); c.textAlign = 'left';
+  const tab = (x, w, label, on) => { c.fillStyle = on ? '#14201F' : '#ECE8E0'; rr(c, x, 178, w, 52, 26); c.fill(); c.fillStyle = on ? '#fff' : '#3A3F40'; c.font = '600 23px Inter'; c.textAlign = 'center'; c.fillText(label, x + w / 2, 212); c.textAlign = 'left'; };
+  tab(36, 178, `Work · ${wc}`, true); tab(226, 210, `Personal · ${pc}`, false);
+  const head = (y, s) => { c.font = '700 20px Inter'; c.fillStyle = '#8B8F8C'; c.fillText(s, 40, y); };
+  head(282, `WORK · ${wc}`); head(870, `PERSONAL · ${pc}`);
+  const more = wc + pc - 7;
+  if (more > 0) {
+    for (let i = 0; i < 3; i++) { c.globalAlpha = 0.55 - i * 0.15; c.fillStyle = '#E4DFD6'; rr(c, 16, 1300 + i * 24, SW - 32, 18, 9); c.fill(); }
+    c.globalAlpha = 1; c.fillStyle = '#6E7A78'; c.font = '600 24px Inter'; c.textAlign = 'center'; c.fillText(`+ ${more} more people`, SW / 2, 1384); c.textAlign = 'left';
+  }
+  c.restore(); scrTex.needsUpdate = true;
+}
+const mkRowMesh = (r) => {
+  const cv = document.createElement('canvas'); cv.width = SW * K; cv.height = ROWPX * K;
+  const tex = new CanvasTexture(cv); tex.colorSpace = SRGBColorSpace; tex.anisotropy = 8;
+  const m = new Mesh(new PlaneGeometry(SCW, ROWH), new MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false }));
+  m.visible = false; m.renderOrder = 2; world.add(m); r.cv = cv; r.tex = tex; r.m = m; r.last = '';
+};
+ROWS.forEach(mkRowMesh);
+function paintRow(r, st) {
+  const sig = [st.age, st.swipe, st.warm, st.gold, st.jit || 0].map((v) => v.toFixed(2)).join();
+  if (sig === r.last) return; r.last = sig;
+  const c = r.cv.getContext('2d'); c.setTransform(K, 0, 0, K, 0, 0); drawRow(c, r, st); r.tex.needsUpdate = true;
+}
+
+// ---- the CRM box, right beside the phone: only two make the hop
+const crm = new Group(); world.add(crm);
+const crmBox = new Mesh(new BoxGeometry(0.72, 0.42, 0.46), new MeshStandardMaterial({ color: dark ? 0x56605f : 0x6c7775, roughness: 0.6, metalness: 0.15 })); crmBox.position.y = 0.21; crm.add(crmBox);
+const crmCv = document.createElement('canvas'); crmCv.width = 360; crmCv.height = 200; const crmTex = new CanvasTexture(crmCv); crmTex.colorSpace = SRGBColorSpace;
+const crmFace = new Mesh(new PlaneGeometry(0.62, 0.344), new MeshBasicMaterial({ map: crmTex, toneMapped: false })); crmFace.position.set(0, 0.21, 0.232); crm.add(crmFace);
+const crmSh = new Mesh(GEO.shadow, new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0.6 })); crmSh.rotation.x = -Math.PI / 2; crmSh.scale.setScalar(1.2); world.add(crmSh);
+const CRM_AT = new Vector3(1.5, 0.3, 1.42), CRM_S = 0.78;
+crm.position.copy(CRM_AT); crm.rotation.y = -0.4; crmSh.position.set(CRM_AT.x, 0.006, CRM_AT.z);
+const CRM_TOP = CRM_AT.clone().add(new Vector3(0, 0.42 * CRM_S + 0.03, 0));
+let crmLast = -1;
+function drawCrm(n) {
+  if (n === crmLast) return; crmLast = n; const c = crmCv.getContext('2d');
+  c.fillStyle = '#EDE7DC'; c.fillRect(0, 0, 360, 200); c.fillStyle = '#14201F'; c.font = '800 64px Inter'; c.textAlign = 'center'; c.fillText('CRM', 180, 92);
+  c.font = '500 26px Inter'; c.fillStyle = '#5E6B69'; c.fillText(`${n} of 127 people`, 180, 150); crmTex.needsUpdate = true;
+}
+const crmFly = ['karim', 'faris'].map(() => { const m = new Mesh(new PlaneGeometry(SCW, ROWH), new MeshBasicMaterial({ color: 0xffffff, transparent: true, depthWrite: false })); m.visible = false; world.add(m); return m; });
+
+// ---- the agents: a lead bot and four helper bots of the same family
+const VW = 160, VH = 88;
+function bot(scale, icon) {
+  const g = new Group();
+  const bodyMat = new MeshStandardMaterial({ color: new Color('#F4EFE6'), roughness: 0.32, metalness: 0.05, emissive: SUNC, emissiveIntensity: 0.06, transparent: true });
+  const body = new Mesh(new CapsuleGeometry(0.2, 0.12, 10, 28), bodyMat); body.scale.set(1.08, 1, 0.86); g.add(body);
+  const vCv = document.createElement('canvas'); vCv.width = VW * 2; vCv.height = VH * 2; const vTex = new CanvasTexture(vCv); vTex.colorSpace = SRGBColorSpace;
+  const vShape = new Shape(); { const w = 0.27, h = 0.15, r = 0.065, x = -w / 2, y = -h / 2; vShape.moveTo(x + r, y); vShape.lineTo(x + w - r, y); vShape.quadraticCurveTo(x + w, y, x + w, y + r); vShape.lineTo(x + w, y + h - r); vShape.quadraticCurveTo(x + w, y + h, x + w - r, y + h); vShape.lineTo(x + r, y + h); vShape.quadraticCurveTo(x, y + h, x, y + h - r); vShape.lineTo(x, y + r); vShape.quadraticCurveTo(x, y, x + r, y); }
+  const vGeo = new ShapeGeometry(vShape, 10); { const uv = vGeo.attributes.uv, p = vGeo.attributes.position; for (let i = 0; i < p.count; i++) uv.setXY(i, (p.getX(i) + 0.135) / 0.27, (p.getY(i) + 0.075) / 0.15); }
+  const visor = new Mesh(vGeo, new MeshBasicMaterial({ map: vTex, toneMapped: false, transparent: true })); visor.position.set(0, 0.04, 0.178); g.add(visor);
+  const core = new Mesh(new SphereGeometry(0.055, 16, 12), new MeshBasicMaterial({ color: new Color('#FFE9A8'), transparent: true })); core.position.y = -0.255; core.scale.set(1, 0.6, 1); g.add(core);
+  const ringG = new Group(); ringG.rotation.set(1.28, 0, 0.18); g.add(ringG);
+  const ring = new Mesh(new TorusGeometry(0.34, 0.006, 8, 72), new MeshBasicMaterial({ color: SUNC, transparent: true, opacity: 0.85 })); ringG.add(ring);
+  const bead = new Mesh(new SphereGeometry(0.022, 12, 8), new MeshBasicMaterial({ color: new Color('#FFF3D0'), transparent: true })); ringG.add(bead);
+  g.scale.setScalar(scale); g.visible = false; world.add(g);
+  const glow = glowSprite(), under = glowSprite();
+  return { g, bodyMat, visor, vCv, vTex, core, ringG, bead, glow, under, icon, scale, last: '' };
+}
+function drawVisor(b, T, mode) {
+  const sig = mode === 'think' ? Math.floor(T * 20) : mode; if (sig === b.last) return; b.last = sig;
+  const c = b.vCv.getContext('2d'); c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, VW, VH);
+  const gr = c.createLinearGradient(0, 0, 0, VH); gr.addColorStop(0, '#163B41'); gr.addColorStop(1, '#0B2226'); c.fillStyle = gr; c.fillRect(0, 0, VW, VH);
+  c.fillStyle = 'rgba(255,255,255,.07)'; c.beginPath(); c.ellipse(VW * 0.32, VH * 0.2, VW * 0.34, VH * 0.14, -0.1, 0, Math.PI * 2); c.fill();
+  c.fillStyle = SUN; c.strokeStyle = SUN; c.lineCap = 'round'; c.lineJoin = 'round'; c.shadowColor = SUN; c.shadowBlur = 10;
+  if (mode === 'think') {
+    for (let i = 0; i < 3; i++) { const k = 0.5 + 0.5 * Math.sin(T * 6 - i * 0.9); c.globalAlpha = 0.45 + 0.55 * k; c.beginPath(); c.arc(VW / 2 - 28 + i * 28, VH / 2 + 4, 6 + 3 * k, 0, Math.PI * 2); c.fill(); }
+    const sp = 0.5 + 0.5 * Math.sin(T * 2.3); c.globalAlpha = sp; const sx = VW - 30, sy = 22, s = 6 + 4 * sp;
+    c.beginPath(); c.moveTo(sx, sy - s); c.lineTo(sx + 2, sy - 2); c.lineTo(sx + s, sy); c.lineTo(sx + 2, sy + 2); c.lineTo(sx, sy + s); c.lineTo(sx - 2, sy + 2); c.lineTo(sx - s, sy); c.lineTo(sx - 2, sy - 2); c.closePath(); c.fill();
+    c.globalAlpha = 1;
+  } else if (mode === 'smile') {
+    c.lineWidth = 6; c.beginPath(); c.arc(VW / 2 - 24, VH / 2, 6, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(VW / 2 + 24, VH / 2, 6, 0, Math.PI * 2); c.fill();
+    c.beginPath(); c.arc(VW / 2, VH / 2 + 4, 16, 0.25 * Math.PI, 0.75 * Math.PI); c.stroke();
+  } else b.icon(c);
+  c.shadowBlur = 0; b.vTex.needsUpdate = true;
+}
+const ICONS = [
+  (c) => { c.lineWidth = 6; c.beginPath(); c.arc(80, 46, 22, 0, Math.PI * 2); c.stroke(); c.beginPath(); c.moveTo(80, 32); c.lineTo(80, 46); c.lineTo(92, 52); c.stroke(); }, // remember: a clock
+  (c) => { c.lineWidth = 6; c.beginPath(); c.ellipse(68, 46, 18, 12, 0, 0, Math.PI * 2); c.stroke(); c.beginPath(); c.ellipse(92, 46, 18, 12, 0, 0, Math.PI * 2); c.stroke(); }, // reconnect: linked rings
+  (c) => { c.lineWidth = 6; c.beginPath(); c.arc(56, 46, 8, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(104, 46, 8, 0, Math.PI * 2); c.fill(); c.beginPath(); c.arc(80, 30, 8, 0, Math.PI * 2); c.fill(); c.beginPath(); c.moveTo(56, 46); c.lineTo(80, 30); c.lineTo(104, 46); c.stroke(); }, // introduce: a bridge of three
+  (c) => { c.lineWidth = 6; for (let i = 0; i < 3; i++) { c.beginPath(); c.moveTo(70, 28 + i * 18); c.lineTo(108, 28 + i * 18); c.stroke(); } c.beginPath(); c.moveTo(48, 28); c.lineTo(53, 33); c.lineTo(61, 23); c.stroke(); c.beginPath(); c.moveTo(48, 46); c.lineTo(53, 51); c.lineTo(61, 41); c.stroke(); }, // plan: a checklist
+];
+const lead = bot(1.25, null);
+const helpers = HELPERS.map((h, i) => bot(0.62, ICONS[i]));
+const LEAD_AT = new Vector3(-0.2, 2.95, 0.3);
+const HELP_AT = [new Vector3(1.95, 2.55, 1.25), new Vector3(2.3, 1.95, 1.3), new Vector3(2.25, 1.38, 1.38), new Vector3(2.05, 0.92, 1.55)];
+function placeBot(b, p, s, T, ph, op = 1) {
+  b.g.visible = s > 0.01; b.g.position.copy(p); b.g.scale.setScalar(b.scale * Math.max(0.0001, s));
+  b.g.rotation.set(0.04 * Math.sin(T * 0.9 + ph), 0.18 * Math.sin(T * 0.5 + ph), 0.05 * Math.sin(T * 0.7 + ph));
+  b.ringG.rotation.z = T * 0.6 + ph; const a = T * 1.6 + ph; b.bead.position.set(Math.cos(a) * 0.34, Math.sin(a) * 0.34, 0);
+  b.bodyMat.opacity = op; b.glow.position.copy(p); b.glow.scale.setScalar(s > 0.01 ? b.scale * 1.6 * s * op : 0); b.glow.material.opacity = 0.55;
+  b.under.position.copy(p).add(new Vector3(0, -0.3 * b.scale, 0)); b.under.scale.setScalar(s > 0.01 ? b.scale * 0.8 * s * op : 0);
+}
+const ropeMat = new MeshStandardMaterial({ color: SUNC, emissive: SUNC, emissiveIntensity: 0.9, roughness: 0.4, depthTest: false, transparent: true });
+const ropes = ROWS.filter((r) => r.rope).map((r) => { const m = new Mesh(new TubeGeometry(new CatmullRomCurve3([new Vector3(), new Vector3(0, 0.01, 0)]), 2, 0.01, 6), ropeMat); m.renderOrder = 6; m.visible = false; world.add(m); return { r, m }; });
+const beam = new Mesh(new TubeGeometry(new CatmullRomCurve3([new Vector3(), new Vector3(0, 0.01, 0)]), 2, 0.006, 6), new MeshBasicMaterial({ color: SUNC, transparent: true, opacity: 0.8 })); beam.visible = false; world.add(beam);
+function setTube(m, curve, d, rad) { if (d <= 0.001) { m.visible = false; return; } const pts = []; for (let i = 0; i <= 24; i++) pts.push(curve.getPoint((i / 24) * d)); m.geometry.dispose(); m.geometry = new TubeGeometry(new CatmullRomCurve3(pts), 40, rad, 6); m.visible = true; }
+
+// ---- the graph (scenes 4–5): you at the centre, two groups, six sub-groups, people as card-nodes
+const graphG = new Group(); world.add(graphG);
+const GC = new Vector3(1.6, 1.95, 0.35), GS = 0.78;
+const NODES = { you: new Vector3(0, 0, 0), Work: new Vector3(-1.05, 0.62, 0), Personal: new Vector3(1.05, -0.62, 0),
+  Partners: new Vector3(-0.8, 1.6, 0), Clients: new Vector3(-2.05, 1.05, 0), Team: new Vector3(-2.0, -0.12, 0),
+  Friends: new Vector3(2.05, 0.12, 0), Family: new Vector3(2.0, -1.05, 0), Mentors: new Vector3(0.8, -1.6, 0) };
+for (const k in NODES) NODES[k].multiplyScalar(GS);
+const SUBS = { Work: ['Partners', 'Clients', 'Team'], Personal: ['Friends', 'Family', 'Mentors'] };
+const groupOf = (s) => (SUBS.Work.includes(s) ? 'Work' : 'Personal');
+const members = {}; [...SUBS.Work, ...SUBS.Personal].forEach((s) => { members[s] = []; });
+[...ROWS, ...EXTRAS].forEach((r) => members[r.cl].push(r));
+members.Partners.push(HUDA);
+const PEOPLE = [...ROWS, ...EXTRAS, HUDA];
+PEOPLE.forEach((r) => {
+  const list = members[r.cl], k = list.indexOf(r), n = list.length;
+  const hub = NODES[groupOf(r.cl)], sub = NODES[r.cl];
+  const base = Math.atan2(sub.y - hub.y, sub.x - hub.x), spread = n > 3 ? 0.62 : 0.8;
+  const a = base + (k - (n - 1) / 2) * spread, rad = 0.74 * GS;
+  r.node = sub.clone().add(new Vector3(Math.cos(a) * rad, Math.sin(a) * rad * 0.92, 0.02 * k));
+});
+// soft edges, drawn on along their length
+const EDGE_TEAL = new MeshBasicMaterial({ color: TEALC.clone(), transparent: true, opacity: 0.85 });
+const EDGE_GOLD = new MeshBasicMaterial({ color: SUNC.clone(), transparent: true, opacity: 0.95 });
+const edges = [];
+function edge(a, b, t0, rad, mat = EDGE_TEAL) {
+  const len = a.distanceTo(b), mid = a.clone().lerp(b, 0.5); mid.y -= 0.1 * len; mid.z -= 0.08 * len;
+  const geo = new TubeGeometry(new QuadraticBezierCurve3(a.clone(), mid, b.clone()), 32, rad, 6);
+  const m = new Mesh(geo, mat); m.visible = false; graphG.add(m); edges.push({ m, t0, total: geo.index.count });
+}
+edge(NODES.you, NODES.Work, 34.8, 0.016); edge(NODES.you, NODES.Personal, 34.8, 0.016);
+for (const g of ['Work', 'Personal']) SUBS[g].forEach((s, i) => edge(NODES[g], NODES[s], 35.3 + i * 0.1, 0.012));
+PEOPLE.forEach((r, i) => { if (r.huda) return; edge(NODES[r.cl], r.node, 35.8 + (i % 6) * 0.08, 0.007); });
+edge(NODES.Partners, HUDA.node, 47.0, 0.009, EDGE_GOLD);
+edge(ROWS[0].node, HUDA.node, 46.8, 0.007, EDGE_GOLD);
+// hubs
+const hubTex = radial([[0, 'rgba(255,255,255,1)'], [0.45, 'rgba(255,255,255,.95)'], [0.55, 'rgba(255,255,255,.0)']], 128);
+const hubSprite = (color, s) => { const sp = new Sprite(new SpriteMaterial({ map: hubTex, color: new Color(color), transparent: true, depthWrite: false })); sp.scale.setScalar(0); sp.userData.s = s; graphG.add(sp); return sp; };
+const HUBS = { you: hubSprite(TEAL, 0.34), Work: hubSprite(SUN, 0.24), Personal: hubSprite(SUN, 0.24) };
+[...SUBS.Work, ...SUBS.Personal].forEach((s) => { HUBS[s] = hubSprite(dark ? '#7FE0D6' : '#9ED9CF', 0.15); });
+for (const k in HUBS) HUBS[k].position.copy(NODES[k]);
+const youNodeGlow = new Sprite(new SpriteMaterial({ map: tealGlow, blending: AdditiveBlending, depthWrite: false, transparent: true })); youNodeGlow.scale.setScalar(0); graphG.add(youNodeGlow);
+// people chips (sprites, always facing you)
+const CW = 300, CH = 92;
+PEOPLE.forEach((r) => {
+  const cv = document.createElement('canvas'); cv.width = CW * 2; cv.height = CH * 2; const tex = new CanvasTexture(cv); tex.colorSpace = SRGBColorSpace;
+  const sp = new Sprite(new SpriteMaterial({ map: tex, transparent: true, depthWrite: false, depthTest: false })); sp.scale.set(0, 0, 1); sp.position.copy(r.node); sp.renderOrder = 4; graphG.add(sp);
+  r.chip = sp; r.chipCv = cv; r.chipTex = tex; r.chipLast = '';
+});
+function paintChip(r, warm, gold) {
+  const sig = warm.toFixed(2) + gold.toFixed(2); if (sig === r.chipLast) return; r.chipLast = sig;
+  const c = r.chipCv.getContext('2d'); c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, CW, CH);
+  c.shadowColor = 'rgba(0,0,0,.28)'; c.shadowBlur = 10; c.shadowOffsetY = 3;
+  c.fillStyle = warm > 0 ? mixHex('#FFFFFF', '#E3F5F1', warm) : '#FFFFFF'; rr(c, 6, 8, CW - 12, CH - 18, (CH - 18) / 2); c.fill(); c.shadowColor = 'transparent';
+  if (warm > 0.01) { c.strokeStyle = TEAL; c.globalAlpha = warm; c.lineWidth = 4; rr(c, 8, 10, CW - 16, CH - 22, (CH - 22) / 2); c.stroke(); c.globalAlpha = 1; }
+  if (gold > 0.01) { c.strokeStyle = SUN; c.globalAlpha = gold; c.lineWidth = 6; rr(c, 7, 9, CW - 14, CH - 20, (CH - 20) / 2); c.stroke(); c.globalAlpha = 1; }
+  c.fillStyle = r.pastel; c.beginPath(); c.arc(44, CH / 2 - 1, 26, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#3A3530'; c.font = '600 21px Inter'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(initials(r.name), 44, CH / 2);
+  c.textAlign = 'left'; c.fillStyle = '#14201F'; c.font = '600 27px Inter';
+  const parts = r.name.split(' '); const label = parts.length > 1 && r.name.length > 12 ? `${parts[0]} ${parts[parts.length - 1][0]}.` : r.name;
+  c.fillText(label, 82, CH / 2 - (warm > 0.5 ? 9 : 0));
+  if (warm > 0.5) { c.font = '500 18px Inter'; c.fillStyle = dark ? '#0B7F75' : '#0A6E66'; c.fillText(r.huda ? 'New · via Omar' : 'In touch', 82, CH / 2 + 18); }
+  r.chipTex.needsUpdate = true;
+}
+const CHIP_W = 0.58;
+
+// ---- the suggestion card (one at a time, from its node, with a short line)
+const FW = 900, FH = 430;
+const focusCv = document.createElement('canvas'); focusCv.width = FW * 1.4; focusCv.height = FH * 1.4;
+const focusTex = new CanvasTexture(focusCv); focusTex.colorSpace = SRGBColorSpace; focusTex.anisotropy = 8;
+const FOCUS_W = 1.55;
+const focusM = new Mesh(new PlaneGeometry(FOCUS_W, FOCUS_W * FH / FW), new MeshBasicMaterial({ map: focusTex, transparent: true, toneMapped: false, depthTest: false, depthWrite: false })); focusM.renderOrder = 10; focusM.visible = false; world.add(focusM);
+const focusLine = new Mesh(new TubeGeometry(new CatmullRomCurve3([new Vector3(), new Vector3(0, 0.01, 0)]), 2, 0.008, 6), new MeshBasicMaterial({ color: SUNC, transparent: true, depthTest: false })); focusLine.renderOrder = 9; focusLine.visible = false; world.add(focusLine);
+let focusLast = -1;
+function drawFocus(i) {
+  if (i === focusLast) return; focusLast = i; const f = FOCUS[i], c = focusCv.getContext('2d'); c.setTransform(1.4, 0, 0, 1.4, 0, 0); c.clearRect(0, 0, FW, FH);
+  c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 40; c.shadowOffsetY = 14; c.fillStyle = '#FBF6EC'; rr(c, 24, 20, FW - 48, FH - 60, 30); c.fill(); c.shadowColor = 'transparent';
+  c.fillStyle = SUN; c.beginPath(); c.arc(78, 78, 12, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#7A6A3A'; c.font = '600 26px Inter'; c.textBaseline = 'middle'; c.fillText('Your assistant suggests', 102, 79);
+  c.fillStyle = '#0A6E66'; c.font = '600 24px Inter'; c.textAlign = 'right'; c.fillText(f.tag.toUpperCase(), FW - 66, 79); c.textAlign = 'left';
+  c.fillStyle = '#14201F'; c.font = '700 56px Inter'; c.textBaseline = 'alphabetic'; c.fillText(f.name, 64, 176);
+  c.font = '400 33px Inter'; c.fillStyle = '#33403E';
+  const words = f.why.split(' '); let line = '', y = 234; for (const w of words) { const tst = line ? line + ' ' + w : w; if (c.measureText(tst).width > FW - 140) { c.fillText(line, 64, y); line = w; y += 44; } else line = tst; } c.fillText(line, 64, y);
+  c.fillStyle = SUN; rr(c, 64, FH - 122, 220, 60, 30); c.fill(); c.fillStyle = '#14201F'; c.font = '600 27px Inter'; c.textAlign = 'center'; c.fillText(f.yes, 64 + 110, FH - 83);
+  c.strokeStyle = '#CFC6B4'; c.lineWidth = 2; rr(c, 302, FH - 122, 170, 60, 30); c.stroke(); c.fillStyle = '#3A3F40'; c.fillText('Not now', 302 + 85, FH - 83); c.textAlign = 'left';
+  focusTex.needsUpdate = true;
+}
+
+// ---- the hall (scene 6)
+const GROUPS = [
+  { who: 'Organiser', at: [-5.0, -3.2], n: 8, stat: ['68%', 'of visitors still in touch after 90 days'] },
+  { who: 'Sponsor', at: [1.7, -3.6], n: 9, stat: ['412', 'warm leads handed over'] },
+  { who: 'Exhibitor', at: [-4.5, 1.9], n: 10, stat: ['37', 'accounts opened from one show'] },
+  { who: 'Company', at: [1.5, 2.1], n: 10, stat: ['1 place', 'for every employee’s relationships'] },
+];
+const crowdPos = [];
+GROUPS.forEach((g, gi) => { let s = 7 + gi * 31; const rnd = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; for (let i = 0; i < g.n; i++) { const a = rnd() * Math.PI * 2, d = 0.4 + rnd() * 1.25; crowdPos.push([g.at[0] + Math.cos(a) * d, g.at[1] + Math.sin(a) * d * 0.8, rnd()]); } });
+{ let s = 991; const rnd = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; for (let i = 0; i < 26; i++) { const x = -1.6 + (rnd() - 0.5) * 9.5, z = -4.6 + rnd() * 8; if (Math.hypot(x - YOU_AT.x, z - YOU_AT.z) < 1.4) continue; crowdPos.push([x, z, rnd()]); } }
+const NC = crowdPos.length;
+const crowdMat = rim(new MeshStandardMaterial({ roughness: 0.85, transparent: true }));
+const cBody = new InstancedMesh(new CapsuleGeometry(0.2, 0.4, 4, 14), crowdMat, NC), cHead = new InstancedMesh(new SphereGeometry(0.15, 18, 12), crowdMat, NC);
+crowdPos.forEach(([, , r], i) => { const col = new Color(CLAY[Math.floor(r * 5) % 5]); cBody.setColorAt(i, col); cHead.setColorAt(i, col); });
+world.add(cBody, cHead);
+const O = new Object3D();
+function placeCrowd(t) {
+  const k = span(t, 55, 57.6);
+  for (let i = 0; i < NC; i++) {
+    const [x, z, r] = crowdPos[i]; const rise = easeOut(clamp(k * 1.6 - r * 0.6)); const s = Math.max(0.0001, rise) * 1.15, y = (1 - rise) * -0.5 + Math.sin(t * 1.3 + r * 9) * 0.015;
+    O.position.set(x, 0.62 * s + y, z); O.scale.setScalar(s); O.updateMatrix(); cBody.setMatrixAt(i, O.matrix);
+    O.position.set(x, 1.12 * s + y, z); O.updateMatrix(); cHead.setMatrixAt(i, O.matrix);
+  }
+  cBody.instanceMatrix.needsUpdate = true; cHead.instanceMatrix.needsUpdate = true;
+  cBody.visible = cHead.visible = t > 54.9; crowdMat.opacity = 1 - span(t, 64.6, 65.8);
+}
+const youGlow = glowSprite(tealGlow);
+
+// ---- HTML overlays
+const ov = document.getElementById('ov');
+const el = (cls, html = '') => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ov.appendChild(d); return d; };
+const capEl = el('cap'), bubbleEl = el('bubble'), skillEls = HELPERS.map((h) => el('skill', h));
+const hubEls = {}; ['you', 'Work', 'Personal', ...SUBS.Work, ...SUBS.Personal].forEach((k) => { hubEls[k] = el(k === 'you' ? 'hub you' : (k === 'Work' || k === 'Personal') ? 'hub big' : 'hub', k === 'you' ? 'You' : k); });
+const statEls = GROUPS.map((g) => el('stat', `<span class="s">Sample</span><div class="who">${g.who}</div><div class="n">${g.stat[0]}</div><div class="d">${g.stat[1]}</div>`));
+const V = new Vector3();
+let CR = null, HR = null;
+function pin(e, p, op, ax = -50, ay = -100, extra = '') {
+  if (op <= 0.005) { if (e.style.opacity !== '0') e.style.opacity = '0'; return; }
+  V.copy(p); world.localToWorld(V); V.project(camera);
+  const x = CR.left - HR.left + (V.x + 1) / 2 * CR.width, y = CR.top - HR.top + (1 - V.y) / 2 * CR.height;
+  e.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(${ax}%, ${ay}%) ${extra}`; e.style.opacity = op.toFixed(3);
+}
+const gWorld = (p) => p.clone().applyMatrix4(graphG.matrix);
+
+// ---- poses
+const SHAKE = (h) => [h - 0.35, h + 0.85];
+const youPoseAt = (t) => {
+  let p = { ...REST };
+  for (let i = 0; i < NHS; i++) { const [a, b] = SHAKE(HS(i)), k = bump(t, a, b, 0.3); if (k > 0) p = blendPose(p, { ...p, shRx: -1.12, shRz: -0.05, elRx: -0.38 + Math.sin(t * 16) * 0.09 * k, neckX: 0.05 }, k); }
+  const sad = ease(span(t, 15.4, 16.6)) * (1 - ease(span(t, 22.6, 23.6)));
+  if (sad > 0) p = blendPose(p, { ...p, shRx: -1.9, shRz: 0.45, elRx: -2.0, neckX: 0.32 + 0.05 * Math.sin(t * 2), neckY: Math.sin(t * 3.2) * 0.32 * span(t, 16.8, 17.4) * (1 - span(t, 20.8, 21.4)), shLx: 0.1, shLz: 0.06, lean: 0.06 }, sad);
+  const up = ease(span(t, 23.2, 24.6)) * (1 - ease(span(t, 33.5, 34.5)));
+  if (up > 0) p = blendPose(p, { ...p, neckX: -0.38, neckY: 0.25 }, up);
+  const joy = ease(span(t, 50.0, 50.8)) * (1 - ease(span(t, 53.6, 54.4)));
+  if (joy > 0) p = blendPose(p, { ...p, shRx: -0.1, shRz: -2.45, elRx: -0.35, shLx: -0.1, shLz: 2.45, elLx: -0.35, neckX: -0.22, bob: Math.abs(Math.sin(t * 5)) * 0.05 }, joy);
+  return p;
+};
+const youTurnAt = (t) => mix(mix(1.15, 0.5, ease(span(t, 11.5, 13.5))), 0.75, ease(span(t, 34, 36)));
+function visitorAt(i, t) {
+  const h = HS(i), S = YOU_AT.clone().add(new Vector3(0.97, 0, 0.37)), A = new Vector3(3.2, 0, -2.6), B = new Vector3(1.0, 0, -3.6);
+  const kIn = span(t, h - 1.55, h - 0.1), kOut = span(t, h + 0.85, h + 2.45);
+  const pos = kOut > 0 ? S.clone().lerp(B, ease(kOut)) : A.clone().lerp(S, easeOut(kIn));
+  const walking = (kIn > 0 && kIn < 1) || (kOut > 0 && kOut < 1);
+  const face = kOut > 0 ? Math.atan2(B.x - S.x, B.z - S.z) : Math.atan2(S.x - A.x, S.z - A.z);
+  const shakeFace = Math.atan2(YOU_AT.x - S.x, YOU_AT.z - S.z);
+  const op = ease(span(t, h - 1.55, h - 1.15)) * (1 - ease(span(t, h + 1.85, h + 2.45)));
+  const ph = t * 8;
+  let p = { ...REST, legA: walking ? Math.sin(ph) * 0.42 : 0, shRx: walking ? -Math.sin(ph) * 0.3 : 0.05, shLx: walking ? Math.sin(ph) * 0.3 : 0.05, bob: walking ? Math.abs(Math.sin(ph)) * 0.03 : 0 };
+  const [a, b] = SHAKE(h), k = bump(t, a, b, 0.3);
+  if (k > 0) p = blendPose(p, { ...p, shRx: -1.12, elRx: -0.38 + Math.sin(t * 16) * 0.09 * k }, k);
+  return { pos, face: (kIn >= 1 && kOut <= 0) || k > 0 ? shakeFace : face, p, op };
+}
+
+// ---- row state
+const ageAt = (t) => ease(span(t, 10.8, 19.5));
+const ROPE = (a) => ({ throw: [a, a + 0.5], tense: [a + 0.5, a + 0.95], pull: [a + 0.95, a + 2.15], rel: [a + 2.15, a + 2.55] });
+function rowState(r, t) {
+  let age = ageAt(t), swipe = 0, gold = 0, jit = 0, rescued = 0;
+  if (r.swipe != null) swipe = ease(span(t, r.swipe, r.swipe + 0.45));
+  if (r.rope) {
+    const R = ROPE(r.rope); const tense = span(t, ...R.tense), pull = ease(span(t, ...R.pull));
+    rescued = pull; swipe *= (1 - 0.08 * ease(tense)) * (1 - pull); gold = bump(t, R.tense[0] - 0.1, R.rel[1], 0.25);
+    if (tense > 0 && tense < 1) jit = Math.sin(t * 60) * 3 * tense;
+  } else rescued = ease(span(t, 32.8, 33.6));
+  age *= 1 - rescued;
+  if (t >= 34) { age = 0; swipe = 0; }
+  return { age, swipe, warm: 0, gold, jit };
+}
+
+// ---- copy + camera
+let lastCopy = -1;
+function setCopy(i, instant) {
+  if (i === lastCopy) return; const first = lastCopy < 0; lastCopy = i;
+  const txt = document.getElementById('txt');
+  const put = () => { document.getElementById('kick').textContent = COPY[i][0]; document.getElementById('h1').textContent = COPY[i][1]; document.getElementById('p').textContent = COPY[i][2]; };
+  if (instant || first) { put(); txt.classList.remove('out'); return; }
+  txt.classList.add('out'); setTimeout(() => { put(); txt.classList.remove('out'); }, 380);
+}
+const narrow = () => camera.aspect < 1;
+function cameraAt(t) {
+  const n = narrow();
+  const A = { at: new Vector3(n ? 0.1 : 0.15, n ? 1.35 : 1.45, 0), dir: new Vector3(0, 0.05, 1), w: n ? 4.7 : 6.9 };
+  const B = { at: new Vector3(n ? GC.x : 1.05, GC.y, 0), dir: new Vector3(-0.03, 0.05, 1), w: n ? 5.0 : 7.8 };
+  const C = { at: new Vector3(-2.5, 0.9, -0.6), dir: new Vector3(0, 0.45, 1), w: n ? 9.5 : 12.5 };
+  const k1 = ease(span(t, 34, 36)) * (1 - ease(span(t, 54.2, 57.2))), k2 = ease(span(t, 54.2, 57.6));
+  const at = A.at.clone().lerp(B.at, k1).lerp(C.at, k2), dir = A.dir.clone().lerp(B.dir, k1).lerp(C.dir, k2).normalize();
+  const w = mix(mix(A.w, B.w, k1), C.w, k2);
+  const tanH = Math.tan((camera.fov * Math.PI / 180) / 2), dist = Math.max(w / (2 * tanH * camera.aspect), 0.62 * w / (2 * tanH));
+  camera.position.copy(at).addScaledVector(dir, dist); camera.lookAt(at); camera.updateMatrixWorld(true);
+}
+
+let ptrX = 0, ptrY = 0, tiltX = 0, tiltY = 0, lastDraw = -1;
+addEventListener('pointermove', (e) => { ptrX = e.clientX / innerWidth * 2 - 1; ptrY = e.clientY / innerHeight * 2 - 1; });
+
+function paint(T, still) {
+  const t = ((T % L) + L) % L, sc = sceneOf(t);
+  setCopy(sc, still);
+  document.querySelectorAll('.scenes button[data-i]').forEach((b) => b.classList.toggle('on', Number(b.dataset.i) === sc));
+  CR = canvas.getBoundingClientRect(); HR = hero.getBoundingClientRect();
+  tiltX += (ptrX - tiltX) * 0.05; tiltY += (ptrY - tiltY) * 0.05;
+  world.rotation.set(tiltY * 0.025, tiltX * 0.07 + Math.sin(T * 0.12) * 0.03, 0);
+  cameraAt(t); world.updateMatrixWorld(true);
+  const fade = ease(span(t, 0, 0.7)) * (1 - ease(span(t, 65, 66)));
+  canvas.style.opacity = ov.style.opacity = fade.toFixed(3);
+  document.getElementById('bar').style.width = `${(t / L * 100).toFixed(2)}%`;
+  const redraw = still || Math.abs(T - lastDraw) >= 0.05; if (redraw) lastDraw = T;
+
+  // you
+  you.g.rotation.y = youTurnAt(t); pose(you, youPoseAt(t)); you.g.updateMatrixWorld(true);
+  const sixK = ease(span(t, 55.5, 57.5)) * (1 - span(t, 64.6, 65.8));
+  youGlow.position.set(YOU_AT.x, 0.95, YOU_AT.z); youGlow.scale.setScalar(sixK * 2.6 + ease(span(t, 50, 51)) * (1 - ease(span(t, 54, 55))) * 2.2);
+
+  // visitors (scene 1)
+  for (const v of visitors) v.g.visible = false;
+  for (let i = 0; i < NHS; i++) {
+    const h = HS(i); if (t < h - 1.6 || t > h + 2.5) continue;
+    const vis = visitors[i % 3], st = visitorAt(i, t);
+    vis.g.visible = true; vis.g.position.copy(st.pos); vis.g.rotation.y = st.face; pose(vis, st.p);
+    vis.mat.opacity = st.op; vis.sh.material.opacity = st.op; vis.mat.color.set(CLAY[(i * 2 + 1) % CLAY.length]);
+  }
+
+  // the phone
+  const pk = ease(span(t, 34.0, 35.4));
+  phoneG.visible = t < 35.5;
+  phoneG.position.copy(PHONE_POS).add(new Vector3(0.3 * pk, -0.2 * pk, -1.2 * pk)); phoneG.scale.setScalar(PS * (1 - 0.4 * pk));
+  pMat.opacity = glassMat.opacity = scrMat.opacity = 1 - pk; sheenMat.opacity = 1 - pk;
+  let wl = 0, pl = 0; ROWS.forEach((r) => { const land = r.hs != null ? HS(r.hs) + 1.3 : r.rush + 0.8; if (t > land) (r.g === 'work' ? wl++ : pl++); });
+  const rush = ease(span(t, 9.0, 9.9));
+  const wc = wl + Math.round(rush * 82), pc = pl + Math.round(rush * 39);
+  if (redraw && phoneVis(t)) drawScreen(wc, pc);
+
+  // rows: from the handshake into the phone; in scene 4 they lift out to their node and become chips
+  const hand = new Vector3(); you.R.hand.getWorldPosition(hand); world.worldToLocal(hand);
+  graphG.position.copy(GC); graphG.rotation.set(0.05 * Math.sin(T * 0.21), 0.14 * Math.sin(T * 0.26), 0); graphG.scale.setScalar(1 + 0.012 * Math.sin(T * 0.9)); graphG.updateMatrix();
+  for (const r of ROWS) {
+    const t0 = r.hs != null ? HS(r.hs) + 0.3 : r.rush, t1 = r.hs != null ? HS(r.hs) + 1.3 : r.rush + 0.8;
+    if (t < t0) { r.m.visible = false; continue; }
+    const fly = easeOut(span(t, t0, t1)), slot = phoneLocal(0, pxY(slotY(r)));
+    const from = r.hs != null ? hand : PHONE_POS.clone().add(new Vector3(1.6, 1.0, 0.2));
+    let pos, q, s;
+    if (fly < 1) { pos = from.clone().lerp(slot, fly); pos.y += Math.sin(Math.PI * fly) * 0.6; q = new Quaternion().slerp(PHONE_Q, fly); s = mix(0.3, PS, fly); }
+    else { pos = slot; q = PHONE_Q.clone(); s = PS; }
+    const order = ROWS.indexOf(r), lk = ease(span(t, 34.3 + order * 0.1, 35.9 + order * 0.1));
+    let op = 1;
+    if (lk > 0) { const target = gWorld(r.node); pos = pos.clone().lerp(target, lk); pos.z += Math.sin(Math.PI * lk) * 0.5; q = q.clone().slerp(new Quaternion(), lk); s = mix(s, 0.45, lk); op = 1 - ease(span(lk, 0.7, 1)); }
+    r.m.visible = op > 0.01; r.m.position.copy(pos); r.m.quaternion.copy(q); r.m.scale.setScalar(s); r.m.material.opacity = op;
+    if (redraw && r.m.visible) paintRow(r, rowState(r, t));
+  }
+
+  // the graph
+  const gOut = 1 - ease(span(t, 54.0, 55.4));
+  const warmK = ease(span(t, 44.6, 45.8)) * gOut;
+  edges.forEach((e) => { const d = ease(span(t, e.t0, e.t0 + 0.8)) * (t < 55.5 ? 1 : 0); e.m.visible = d > 0.001; e.m.geometry.setDrawRange(0, Math.floor(e.total * d / 6) * 6); });
+  EDGE_TEAL.opacity = 0.75 * gOut + 0.2 * warmK; EDGE_GOLD.opacity = 0.95 * gOut;
+  EDGE_TEAL.color.copy(TEALC).lerp(new Color('#9BEDE3'), warmK * 0.5);
+  for (const k in HUBS) { const t0 = k === 'you' ? 34.6 : (k === 'Work' || k === 'Personal') ? 35.0 : 35.5; const s = easeOut(span(t, t0, t0 + 0.5)) * gOut; HUBS[k].scale.setScalar(HUBS[k].userData.s * Math.max(0.0001, s)); HUBS[k].visible = s > 0.01; }
+  youNodeGlow.scale.setScalar(easeOut(span(t, 34.6, 35.2)) * gOut * (1.1 + 0.08 * Math.sin(T * 2)));
+  PEOPLE.forEach((r, i) => {
+    let k;
+    if (r.huda) k = easeOut(span(t, 47.4, 48.2));
+    else if (r.extra) k = easeOut(span(t, 35.9 + (i % 6) * 0.08, 36.5 + (i % 6) * 0.08));
+    else { const order = ROWS.indexOf(r); k = ease(span(t, 35.3 + order * 0.1, 35.9 + order * 0.1)); }
+    k *= gOut; let dim = 1; for (const f of FOCUS) if (f.row === r.id) dim = 1 + 0.25 * bump(t, f.t, f.t + 2.0, 0.35);
+    r.chip.visible = k > 0.01; r.chip.scale.set(CHIP_W * k * dim, CHIP_W * CH / CW * k * dim, 1);
+    if (redraw && r.chip.visible) paintChip(r, r.huda ? 1 : warmK, r.huda ? bump(t, 47.4, 50.0, 0.4) : 0);
+  });
+
+  // CRM: two make the short hop
+  crm.visible = crmSh.visible = t > 10.4 && t < 34.6;
+  const ck = easeOut(span(t, 10.4, 11.0)) * (1 - ease(span(t, 33.8, 34.6)));
+  crm.scale.setScalar(Math.max(0.0001, ck * CRM_S)); crmSh.material.opacity = 0.6 * ck;
+  if (redraw) drawCrm((t > 12.25 ? 1 : 0) + (t > 13.15 ? 1 : 0));
+  [[11.4, phoneLocal(0, pxY(slotY(ROWS[4])))], [12.3, phoneLocal(0, pxY(1330))]].forEach(([a, from], i) => {
+    const m = crmFly[i], k = span(t, a, a + 0.85); m.visible = k > 0 && k < 1;
+    if (!m.visible) return; const e = ease(k); m.position.copy(from).lerp(CRM_TOP, e); m.position.z += Math.sin(Math.PI * e) * 0.25; m.position.y += Math.sin(Math.PI * e) * 0.15; m.quaternion.copy(PHONE_Q).slerp(new Quaternion(), e); m.scale.setScalar(mix(PS, 0.18, e)); m.material.opacity = 0.92 * (1 - span(k, 0.8, 1));
+  });
+
+  // the lead agent: arrives, reads the goal, deploys its helpers, then watches over the graph
+  const lIn = easeOut(span(t, 22.2, 24.2)), lOut = ease(span(t, 53.8, 55.2));
+  const lp = LEAD_AT.clone(); lp.y += (1 - lIn) * 2.4 + Math.sin(T * 1.1) * 0.05;
+  if (t > 34) lp.lerp(GC.clone().add(new Vector3(0.5, 1.95, 0.2)), ease(span(t, 34, 36)));
+  placeBot(lead, lp, lIn * (1 - lOut), T, 0);
+  const head = new Vector3(); you.neck.getWorldPosition(head); world.worldToLocal(head);
+  const bubbleAt = head.clone().add(new Vector3(0.05, 0.62, 0));
+  const read = bump(t, 24.6, 26.2, 0.3);
+  drawVisor(lead, T, (t > 49.6 && t < 54) ? 'smile' : 'think');
+  if (read > 0) setTube(beam, new QuadraticBezierCurve3(lp.clone().add(new Vector3(-0.15, -0.1, 0.1)), lp.clone().lerp(bubbleAt, 0.5).add(new Vector3(0, 0.3, 0)), bubbleAt.clone().add(new Vector3(0.2, 0.25, 0))), ease(span(t, 24.6, 25.1)), 0.006); else beam.visible = false;
+  beam.material.opacity = read;
+  helpers.forEach((hb, i) => {
+    const k = easeOut(span(t, 25.6 + i * 0.2, 26.9 + i * 0.2)), back = ease(span(t, 33.2 + i * 0.1, 34.2 + i * 0.1));
+    const p = lp.clone().lerp(HELP_AT[i], k).lerp(lp, back); p.y += Math.sin(T * 2 + i) * 0.03;
+    placeBot(hb, p, mix(0.2, 1, k) * (k > 0 ? 1 : 0) * (1 - back * 0.8) * (back < 1 ? 1 : 0), T, i * 1.7);
+    hb.g.rotation.y += -0.5;
+    drawVisor(hb, T, 'icon');
+    pin(skillEls[i], p.clone().add(new Vector3(0, -0.26, 0)), k > 0 && back < 1 ? ease(span(t, 26.6 + i * 0.2, 27.1 + i * 0.2)) * (1 - back) : 0, -50, 0);
+  });
+  // ropes: thrown, pulled taut, hauled, let go
+  ropes.forEach(({ r, m }) => {
+    const R = ROPE(r.rope), hb = helpers[r.helper];
+    const throwK = ease(span(t, ...R.throw)), rel = ease(span(t, ...R.rel));
+    if (throwK <= 0 || rel >= 1) { m.visible = false; return; }
+    const port = hb.g.position.clone().add(new Vector3(-0.15 * hb.scale, -0.05, 0.05));
+    const end = phoneLocal(SCW / 2 - 0.3, pxY(slotY(r)), SZ + 0.05);
+    const tense = ease(span(t, ...R.tense)), pull = ease(span(t, ...R.pull));
+    const len = port.distanceTo(end), sag = len * (0.32 * (1 - tense) + 0.04 * (1 - pull)) + 0.01;
+    const mid = port.clone().lerp(end, 0.5); mid.y -= sag;
+    if (pull > 0) { const tug = Math.sin(pull * Math.PI * 4) * 0.03 * (1 - pull); mid.y += tug; }
+    const from = port.clone(), to = end.clone(); if (rel > 0) to.lerp(from, rel);
+    setTube(m, new QuadraticBezierCurve3(from, mid, to), throwK, 0.013);
+  });
+
+  // suggestion cards: from the node, with a short line
+  let fi = -1, fk = 0; FOCUS.forEach((f, i) => { const k = bump(t, f.t, f.t + 2.0, 0.45); if (k > fk) { fk = k; fi = i; } });
+  if (fi >= 0 && fk > 0.001) {
+    drawFocus(fi); const src = ROWS.find((r) => r.id === FOCUS[fi].row), node = gWorld(src.node);
+    const CARD_AT = narrow() ? GC.clone().add(new Vector3(0, -1.75, 1.2)) : GC.clone().add(new Vector3(1.6, 1.0, 0.9));
+    focusM.visible = true; focusM.position.copy(node).lerp(CARD_AT, easeOut(fk)); focusM.scale.setScalar(mix(0.25, narrow() ? 1.0 : 1, fk)); focusM.material.opacity = ease(clamp(fk * 1.5)); focusM.quaternion.set(0, 0, 0, 1);
+    const edgePt = focusM.position.clone().add(new Vector3(-FOCUS_W / 2 * focusM.scale.x + 0.05, 0, 0));
+    focusLine.material.opacity = ease(clamp(fk * 1.5)) * 0.9;
+    setTube(focusLine, new QuadraticBezierCurve3(node, node.clone().lerp(edgePt, 0.5).add(new Vector3(0, -0.12, 0)), edgePt), 1, 0.008);
+  } else { focusM.visible = false; focusLine.visible = false; }
+
+  placeCrowd(t);
+
+  // ---- overlays
+  const cap2 = [['1 week later', 10.4, 12.7], ['1 month later', 12.8, 15.5], ['3 months later', 15.6, 18.5], ['6 months later', 18.6, 22.3]];
+  const cap5 = [['Week 1', 44.5, 46.3], ['Month 1', 46.4, 48.1], ['Month 3', 48.2, 49.9], ['Month 6 — still close', 50.0, 53.8]];
+  let capTxt = '', capOp = 0, capWarm = false;
+  for (const [s, a, b] of cap2) if (t >= a && t < b) { capTxt = s; capOp = bump(t, a, b, 0.25); }
+  for (const [s, a, b] of cap5) if (t >= a && t < b) { capTxt = s; capOp = bump(t, a, b, 0.25); capWarm = true; }
+  if (capTxt && capEl.textContent !== capTxt) capEl.textContent = capTxt;
+  capEl.classList.toggle('warm', capWarm);
+  if (capWarm) pin(capEl, gWorld(NODES.you).add(new Vector3(0, narrow() ? 2.25 : 2.35, 0)), capOp, -50, -100, 'rotate(-2deg)');
+  else pin(capEl, phoneLocal(-SCW / 2 + 0.05, SCH / 2 + 0.12), capOp, 0, -100, 'rotate(-3deg)');
+  const bOp = bump(t, 18.3, 34.0, 0.4) + bump(t, 48.6, 54.2, 0.4);
+  const done = t > 49.6;
+  if (bubbleEl.dataset.k !== String(done)) { bubbleEl.innerHTML = done ? '<div class="h">Your goal</div><span class="tick">✓</span>Intro to Qamar Bank — done' : '<div class="h">Thinking…</div>Need an intro to Qamar Bank'; bubbleEl.dataset.k = String(done); }
+  bubbleEl.classList.toggle('glow', read > 0.2 || bump(t, 49.6, 51.2, 0.3) > 0.2);
+  pin(bubbleEl, bubbleAt, Math.min(1, bOp), -18, -100);
+  for (const k in hubEls) {
+    const t0 = k === 'you' ? 34.9 : (k === 'Work' || k === 'Personal') ? 35.3 : 35.8;
+    const op = ease(span(t, t0, t0 + 0.5)) * gOut;
+    const below = k === 'you' ? -0.25 : (k === 'Work' || k === 'Personal') ? 0.17 : 0.13;
+    pin(hubEls[k], gWorld(NODES[k]).add(new Vector3(0, k === 'you' ? -0.24 : below, 0.05)), op, -50, k === 'you' ? 0 : -100);
+  }
+  GROUPS.forEach((g, i) => { const a = 57.6 + i * 0.75; pin(statEls[i], new Vector3(g.at[0], 1.9, g.at[1]), ease(span(t, a, a + 0.45)) * (1 - ease(span(t, 64.6, 65.4))), -50, -100, `scale(${mix(0.85, 1, easeOut(span(t, a, a + 0.45))).toFixed(3)})`); });
+
+  renderer.render(scene, camera);
+}
+const phoneVis = (t) => t < 35.5;
+
+function size() { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+size(); addEventListener('resize', size);
+
+// ---- controls
+let T = 0, paused = false;
+const scenesEl = document.getElementById('scenes');
+const still = q.has('t') || reduced;
+NAMES.forEach((n, i) => { const b = document.createElement('button'); b.dataset.i = i; b.textContent = `${i + 1} ${n}`; b.onclick = () => { T = still ? KEY[i] : SC[i] + 0.05; if (still) { lastCopy = -2; paint(T, true); } }; scenesEl.appendChild(b); });
+const pp = document.createElement('button'); pp.className = 'pp'; pp.textContent = '❚❚'; pp.setAttribute('aria-label', 'Pause'); pp.onclick = () => { paused = !paused; pp.textContent = paused ? '▶' : '❚❚'; pp.setAttribute('aria-label', paused ? 'Play' : 'Pause'); };
+if (!still) scenesEl.appendChild(pp);
+
+await Promise.race([Promise.all(['600 34px Inter', '400 24px Inter', '700 54px Inter', '700 30px Caveat'].map((f) => document.fonts.load(f))), new Promise((r) => setTimeout(r, 2500))]);
+if (still) {
+  T = q.has('t') ? Number(q.get('t')) : KEY[q.has('scene') ? Number(q.get('scene')) - 1 : 0];
+  if (q.has('px')) ptrX = tiltX = Number(q.get('px'));
+  paint(T, true); window.__ready = true;
+} else {
+  if (q.has('scene')) T = SC[Number(q.get('scene')) - 1] + 0.05;
+  const STEP = 1 / 60; let last = performance.now(), acc = 0;
+  const loop = (now) => { const dt = Math.min(0.25, (now - last) / 1000); last = now; if (!paused) { acc += dt; while (acc >= STEP) { T += STEP; acc -= STEP; } } paint(T, false); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop); window.__ready = true;
+}
+</script>
+</body>
+</html>
